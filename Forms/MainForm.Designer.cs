@@ -1,4 +1,4 @@
-﻿namespace Byte_Harmonic.Forms;
+﻿namespace ByteHarmonic.Forms;
 
 partial class Mainform:Form
 {

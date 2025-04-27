@@ -1,6 +1,6 @@
 using MySql.Data.MySqlClient;
 
-namespace Byte_Harmonic.Forms;
+namespace ByteHarmonic.Forms;
 
 public class MainForm : Form
 {

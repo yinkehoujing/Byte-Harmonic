@@ -42,7 +42,7 @@ namespace ByteHarmonic.Models
         /// <summary>
         /// 歌曲时长。
         /// </summary>
-        public TimeSpan Duration { get; set; }
+        public int Duration { get; set; }
 
         /// <summary>
         /// 歌曲的标签列表。
@@ -59,14 +59,14 @@ namespace ByteHarmonic.Models
             Artist = string.Empty;
             Downloaded = false;
             FilePath = string.Empty;
-            Duration = TimeSpan.Zero;
+            Duration = 0;
             Tags = new List<string>();
         }
 
         /// <summary>
         /// 带参数的构造函数。
         /// </summary>
-        public Song(string title, string artist, TimeSpan duration)
+        public Song(string title, string artist, int duration)
         {
             Id = Guid.NewGuid().ToString();
             Title = title;
@@ -76,5 +76,7 @@ namespace ByteHarmonic.Models
             Duration = duration;
             Tags = new List<string>();
         }
+
+       
     }
 }
