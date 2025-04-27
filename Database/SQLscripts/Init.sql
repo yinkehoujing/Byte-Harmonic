@@ -1,0 +1,77 @@
+-- 创建数据库（如果不存在）
+CREATE DATABASE IF NOT EXISTS `Byte_Harmonic`;
+USE `Byte_Harmonic`;
+
+-- 歌曲表
+CREATE TABLE IF NOT EXISTS Songs (
+    Id VARCHAR(255) PRIMARY KEY,
+    Title TEXT,
+    Artist TEXT,
+    FilePath TEXT,
+    Downloaded BOOLEAN,
+    Duration INTEGER
+);
+
+-- 标签表
+CREATE TABLE IF NOT EXISTS Tags (
+    Id INT AUTO_INCREMENT PRIMARY KEY,
+    Name TEXT
+);
+
+-- 歌曲-标签多对多关系表
+CREATE TABLE IF NOT EXISTS SongTags (
+    SongId VARCHAR(255),
+    TagId INT,
+    PRIMARY KEY (SongId, TagId),
+    FOREIGN KEY (SongId) REFERENCES Songs(Id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (TagId) REFERENCES Tags(Id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- 歌词表
+CREATE TABLE IF NOT EXISTS Lyrics (
+    SongId VARCHAR(255) PRIMARY KEY,
+    Content TEXT,
+    FOREIGN KEY (SongId) REFERENCES Songs(Id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- 用户表
+CREATE TABLE IF NOT EXISTS Users (
+    Account VARCHAR(255) PRIMARY KEY,
+    Username VARCHAR(255) NOT NULL,
+    Password TEXT,
+    IsAdmin BOOLEAN
+);
+
+-- 用户收藏歌曲表
+CREATE TABLE IF NOT EXISTS Favorites (
+    Username VARCHAR(255),
+    SongId VARCHAR(255),
+    PRIMARY KEY (Username, SongId),
+    FOREIGN KEY (Username) REFERENCES Users(Account) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (SongId) REFERENCES Songs(Id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- 歌单表
+CREATE TABLE IF NOT EXISTS Playlists (
+    Id INT AUTO_INCREMENT PRIMARY KEY,
+    Name TEXT,
+    Owner VARCHAR(255),
+    FOREIGN KEY (Owner) REFERENCES Users(Account) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- 歌单-歌曲内容表
+CREATE TABLE IF NOT EXISTS SonglistSongs (
+    SonglistId INT,
+    SongId VARCHAR(255),
+    PRIMARY KEY (SonglistId, SongId),
+    FOREIGN KEY (SonglistId) REFERENCES Playlists(Id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (SongId) REFERENCES Songs(Id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- 搜索历史表
+CREATE TABLE IF NOT EXISTS SearchHistory (
+    Username VARCHAR(255),
+    Keyword TEXT,
+    Time DATETIME,
+    FOREIGN KEY (Username) REFERENCES Users(Account) ON DELETE CASCADE ON UPDATE CASCADE
+);
