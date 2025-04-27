@@ -1,6 +1,6 @@
-﻿namespace Byte_Harmonic;
+﻿namespace Byte_Harmonic.Forms;
 
-partial class Form1
+partial class Mainform:Form
 {
     /// <summary>
     ///  Required designer variable.
