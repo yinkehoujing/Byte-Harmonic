@@ -10,10 +10,15 @@ namespace ByteHarmonic
         [STAThread]
         public static void Main()
         {
+            AllocConsole();
+            Console.WriteLine("start debugging……");
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LoginForm());
-            //Application.Run(new TestForm());
+            Application.Run(new TestLyricsForm());
         }
+
+        // Windows API 调用：分配一个控制台窗口
+        [System.Runtime.InteropServices.DllImport("kernel32.dll")]
+        static extern bool AllocConsole();
     }
 }

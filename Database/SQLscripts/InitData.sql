@@ -1,30 +1,29 @@
-USE `Byte_Harmonic`;
+SET NAMES utf8mb4;
 
--- ²åÈë²âÊÔ¹ÜÀíÔ±ÕË»§
-INSERT IGNORE INTO Users (Account, Username, Password, IsAdmin)
-VALUES ('admin', 'admin', 'e10adc3949ba59abbe56e057f20f883e', TRUE);
--- ÕâÀïµÄÃÜÂëÊÇ"123456"µÄmd5¹şÏ££¬¿ª·¢²âÊÔ¿ÉÒÔÕâÃ´ÓÃ
+-- æ’å…¥æµ‹è¯•ç®¡ç†å‘˜è´¦æˆ·
+INSERT IGNORE INTO `Users` (`Account`, `Username`, `Password`, `IsAdmin`)
+VALUES ('admin', 'admin', 'e10adc3949ba59abbe56e057f20f883e', TRUE);  -- å¯†ç æ˜¯ "123456" çš„ MD5 å“ˆå¸Œå€¼
 
--- ²åÈë²âÊÔ¸èÇú
-INSERT IGNORE INTO Songs (Id, Title, Artist, FilePath, Downloaded, Duration)
-VALUES ('test_song_1', 'Test Song', 'Test Artist', '/music/test_song.mp3', TRUE, 210);
+-- æ’å…¥æµ‹è¯•æ­Œæ›²
+INSERT IGNORE INTO `Songs` (`Title`, `Artist`, `MusicFilePath`, `LrcFilePath`, `Downloaded`, `Duration`)
+VALUES ('æµ‹è¯•æ­Œæ›²', 'æµ‹è¯•æ­Œæ‰‹', '/music/test_song.mp3', '/lyrics/test_song.lrc', TRUE, 210);
 
--- ²åÈë²âÊÔ¸è´Ê
-INSERT IGNORE INTO Lyrics (SongId, Content)
-VALUES ('test_song_1', '[00:00.00] ²âÊÔ¸è´ÊµÚÒ»ĞĞ\n[00:15.00] ²âÊÔ¸è´ÊµÚ¶şĞĞ');
+-- æ’å…¥æµ‹è¯•æ­Œè¯
+INSERT IGNORE INTO `Lyrics` (`SongId`, `Content`)
+VALUES (1, '[00:00.00] æµ‹è¯•æ­Œè¯ç¬¬ä¸€è¡Œ\n[00:15.00] æµ‹è¯•æ­Œè¯ç¬¬äºŒè¡Œ');  -- å‡è®¾æ­ŒIDä¸º1
 
--- ²åÈë²âÊÔ±êÇ©
-INSERT IGNORE INTO Tags (Name)
-VALUES ('Á÷ĞĞ');
+-- æ’å…¥æµ‹è¯•æ ‡ç­¾
+INSERT IGNORE INTO `Tags` (`Name`)
+VALUES ('æµè¡Œ');
 
--- ½«±êÇ©¹ØÁªµ½²âÊÔ¸èÇú
-INSERT IGNORE INTO SongTags (SongId, TagId)
-VALUES ('test_song_1', 1);  -- ×¢ÒâÕâÀï¼ÙÉèÉÏÃæ²åÈëµÄ±êÇ©IDÊÇ1£¨ÒòÎªAUTO_INCREMENT´Ó1¿ªÊ¼£©
+-- å°†æ ‡ç­¾å…³è”åˆ°æµ‹è¯•æ­Œæ›²
+INSERT IGNORE INTO `SongTags` (`SongId`, `TagId`)
+VALUES (1, 1);  -- å‡è®¾æ­Œæ›² ID ä¸º 1ï¼Œæ ‡ç­¾ ID ä¸º 1
 
--- ²åÈë²âÊÔ¸èµ¥
-INSERT IGNORE INTO Playlists (Name, Owner)
-VALUES ('ÎÒµÄÊÕ²Ø', 'admin');
+-- æ’å…¥æµ‹è¯•æ­Œå•
+INSERT IGNORE INTO `Playlists` (`Name`, `Owner`)
+VALUES ('æˆ‘çš„æ”¶è—', 'admin');
 
--- ½«²âÊÔ¸èÇú¼ÓÈëµ½²âÊÔ¸èµ¥
-INSERT IGNORE INTO SonglistSongs (SonglistId, SongId)
-VALUES (1, 'test_song_1'); -- Í¬Àí£¬¼ÙÉè¸èµ¥IDÒ²ÊÇ1
+-- å°†æµ‹è¯•æ­Œæ›²åŠ å…¥åˆ°æµ‹è¯•æ­Œå•
+INSERT IGNORE INTO `SonglistSongs` (`SonglistId`, `SongId`)
+VALUES (1, 1);  -- å‡è®¾æ­Œå• ID ä¸º 1ï¼Œæ­Œæ›² ID ä¸º 1

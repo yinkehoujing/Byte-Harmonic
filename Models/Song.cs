@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace ByteHarmonic.Models
 {
@@ -14,51 +7,26 @@ namespace ByteHarmonic.Models
     /// </summary>
     public class Song
     {
-        /// <summary>
-        /// 唯一标识符。
-        /// </summary>
-        public string Id { get; set; }
-
-        /// <summary>
-        /// 歌曲标题。
-        /// </summary>
+        public int Id { get; set; }
         public string Title { get; set; }
-
-        /// <summary>
-        /// 歌手名。
-        /// </summary>
         public string Artist { get; set; }
-
-        /// <summary>
-        /// 是否已下载到本地。
-        /// </summary>
         public bool Downloaded { get; set; }
-
-        /// <summary>
-        /// 本地文件路径（如果已下载）。
-        /// </summary>
-        public string FilePath { get; set; }
-
-        /// <summary>
-        /// 歌曲时长。
-        /// </summary>
+        public string MusicFilePath { get; set; }
+        public string LrcFilePath { get; set; }
         public int Duration { get; set; }
-
-        /// <summary>
-        /// 歌曲的标签列表。
-        /// </summary>
         public List<string> Tags { get; set; }
+        public Lyrics Lyrics { get; private set; }
 
         /// <summary>
         /// 默认构造函数。
         /// </summary>
         public Song()
         {
-            Id = Guid.NewGuid().ToString();
             Title = string.Empty;
             Artist = string.Empty;
             Downloaded = false;
-            FilePath = string.Empty;
+            MusicFilePath = string.Empty;
+            LrcFilePath = string.Empty;
             Duration = 0;
             Tags = new List<string>();
         }
@@ -68,15 +36,22 @@ namespace ByteHarmonic.Models
         /// </summary>
         public Song(string title, string artist, int duration)
         {
-            Id = Guid.NewGuid().ToString();
             Title = title;
             Artist = artist;
             Downloaded = false;
-            FilePath = string.Empty;
+            MusicFilePath = string.Empty;
+            LrcFilePath = string.Empty;
             Duration = duration;
             Tags = new List<string>();
         }
 
-       
+        /// <summary>
+        /// 加载歌词文件（LRC）。
+        /// </summary>
+        public void LoadLyrics(string lrcPath)
+        {
+            Lyrics = new Lyrics();
+            Lyrics.Load(lrcPath);
+        }
     }
 }

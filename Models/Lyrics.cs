@@ -6,62 +6,124 @@ using System.Threading.Tasks;
 
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace ByteHarmonic.Models
 {
+    /// <summary>
+    /// 表示一行歌词（带时间戳）。
+    /// </summary>
     public class LyricsLine
     {
-        public TimeSpan Timestamp { get; set; }   // 这行歌词的时间戳
-        public string Text { get; set; }           // 这行歌词内容
+        public TimeSpan Time { get; set; }  // 歌词出现的时间点
+        public string Text { get; set; }    // 歌词文本
     }
 
+    /// <summary>
+    /// 解析并存储 LRC 歌词，用于实时同步查询。
+    /// </summary>
     public class Lyrics
     {
-        public List<LyricsLine> Lines { get; set; } = new List<LyricsLine>();   // 每行歌词
-        public string RawContent { get; set; }                                  // 原始LRC文本（可选，看你要不要保留）
+        // 按时间排序的歌词行列表
+        private List<LyricsLine> _lines = new List<LyricsLine>();
 
-        // 解析LRC文件，生成 Lyrics 对象
-        public static Lyrics ParseFromLRC(string lrcContent)
+        /// <summary>
+        /// 读取并解析 LRC 文件, 形成 _lines 的歌词行列表。
+        /// </summary>
+        /// <param name="filePath">LRC 文件路径。</param>
+        public void Load(string filePath)
         {
-            var lyrics = new Lyrics
-            {
-                RawContent = lrcContent
-            };
+            // 读取文件所有行（假设 UTF-8 编码，可根据需要更改）
+            var lines = File.ReadAllLines(filePath, Encoding.UTF8);
+            int offsetMs = 0;  // 时间偏移（毫秒）
+            var regex = new Regex(@"\[(\d{2}):(\d{2})\.(\d{2})\](.*)");
 
-            var lines = lrcContent.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
             foreach (var line in lines)
             {
-                // 示例：[00:12.34]Hello World
-                if (line.StartsWith("["))
+                if (string.IsNullOrWhiteSpace(line)) continue;
+                // 解析偏移标签 [offset:毫秒]
+                if (line.StartsWith("[offset:", StringComparison.OrdinalIgnoreCase))
                 {
-                    var closingBracketIndex = line.IndexOf(']');
-                    if (closingBracketIndex > 0)
+                    var val = line.Substring(8).TrimEnd(']');
+                    int.TryParse(val, out offsetMs);
+                }
+                // 忽略其他元信息标签，如 [ti:], [ar:] 等
+                else if (line.StartsWith("[ti:") || line.StartsWith("[ar:") ||
+                         line.StartsWith("[al:") || line.StartsWith("[by:"))
+                {
+                    continue;
+                }
+                else
+                {
+                    // 匹配时间戳和文本
+                    var match = regex.Match(line);
+                    if (match.Success)
                     {
-                        var timePart = line.Substring(1, closingBracketIndex - 1);
-                        var textPart = line.Substring(closingBracketIndex + 1);
+                        int min = int.Parse(match.Groups[1].Value);
+                        int sec = int.Parse(match.Groups[2].Value);
+                        int cs = int.Parse(match.Groups[3].Value); // 百分秒（1/100秒）
+                        string text = match.Groups[4].Value.Trim();
 
-                        if (TimeSpan.TryParseExact(timePart, @"mm\:ss\.ff", null, out var timestamp))
-                        {
-                            lyrics.Lines.Add(new LyricsLine
-                            {
-                                Timestamp = timestamp,
-                                Text = textPart
-                            });
-                        }
-                        else if (TimeSpan.TryParseExact(timePart, @"mm\:ss", null, out timestamp))
-                        {
-                            // 有些LRC文件是没有小数秒的
-                            lyrics.Lines.Add(new LyricsLine
-                            {
-                                Timestamp = timestamp,
-                                Text = textPart
-                            });
-                        }
+                        // 计算原始时间，格式 [MM:SS.CC]
+                        var time = new TimeSpan(0, 0, min, sec, cs * 10);
+                        // 应用 offset：正值提前，负值延后
+                        time = time - TimeSpan.FromMilliseconds(offsetMs);
+
+                        _lines.Add(new LyricsLine { Time = time, Text = text });
                     }
                 }
             }
-
-            return lyrics;
+            // 按时间排序（防止 LRC 文件中时间戳乱序）
+            _lines.Sort((a, b) => a.Time.CompareTo(b.Time));
         }
+
+        /// <summary>
+        /// 根据播放时间查找当前歌词所在的索引（返回时间 <= currentTime 的最后一行）。
+        /// </summary>
+        public int GetCurrentIndex(TimeSpan currentTime)
+        {
+            if (_lines.Count == 0) return -1;
+            int low = 0, high = _lines.Count - 1;
+            int mid;
+            int ret = -1;
+            while (low <= high)
+            {
+                mid = (low + high) / 2;
+                if (_lines[mid].Time <= currentTime)
+                {
+                    ret = mid;
+                    low = mid + 1;
+                }
+                else
+                    high = mid - 1;
+            }
+            return ret;
+        }
+
+        /// <summary>
+        /// 获取指定索引的歌词文本。
+        /// </summary>
+        public string GetLyricText(int index)
+        {
+            if (index >= 0 && index < _lines.Count)
+                return _lines[index].Text;
+            Console.WriteLine("找到的是空文本!");
+            return string.Empty;
+        }
+
+        public LyricsLine? GetCurrentLine(TimeSpan timeSpan)
+        {
+            int index = GetCurrentIndex(timeSpan);
+            if (index >= 0 && index < _lines.Count)
+                return _lines[index];
+            Console.WriteLine("index 不合法");
+            return null;
+        }
+
+
+        /// <summary>
+        /// 返回歌词总行数。
+        /// </summary>
+        public int Count => _lines.Count;
     }
 }

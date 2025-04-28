@@ -10,202 +10,197 @@ using ByteHarmonic.Models;
 
 namespace Services
 {
-    public class PlaybackService
-    {
-        private List<Song> _playlist = new List<Song>();
-        private Song? _currentSong;
-        private int _currentIndex = -1;
-        private PlaybackMode _playbackMode = PlaybackMode.Sequential;
-        private LyricsMode _lyricsMode = LyricsMode.Normal;
-        private bool _isPlaying = false;
-        private TimeSpan _currentPosition = TimeSpan.Zero;
-        private double _playbackSpeed = 1.0;  // 默认播放速度 1.0x
-
-        // 播放指定歌曲
-        public void PlaySong(Song song)
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using ByteHarmonic.Models;
+    using NAudio.Wave;
+        public class PlaybackService : IDisposable
         {
-            _currentSong = song;
-            _currentIndex = _playlist.IndexOf(song);
-            _isPlaying = true;
-            _currentPosition = TimeSpan.Zero;
+            private List<Song> _playlist = new List<Song>();
+            private Song? _currentSong;
+            private int _currentIndex = -1;
+            private PlaybackMode _playbackMode = PlaybackMode.Sequential;
+            private LyricsMode _lyricsMode = LyricsMode.Normal;
+            private double _playbackSpeed = 1.0;
+            private IWavePlayer? _outputDevice;
+            private AudioFileReader? _audioReader;
 
-            // TODO: 调用底层播放引擎播放歌曲
-            Console.WriteLine($"正在播放: {song.Title}");
-        }
+            public bool IsPlaying => _outputDevice?.PlaybackState == PlaybackState.Playing;
 
-        // 暂停播放
-        public void Pause()
-        {
-            _isPlaying = false;
-            // TODO: 调用底层暂停逻辑
-        }
-
-        // 继续播放
-        public void Resume()
-        {
-            _isPlaying = true;
-            // TODO: 调用底层继续播放逻辑
-        }
-
-        // 跳转到指定位置
-        public void SeekTo(TimeSpan position)
-        {
-            _currentPosition = position;
-            // TODO: 调用底层跳转逻辑
-        }
-
-        // 设置播放模式
-        public void SetPlaybackMode(PlaybackMode mode)
-        {
-            _playbackMode = mode;
-        }
-
-        public PlaybackMode GetPlaybackMode()
-        {
-            return _playbackMode;
-        }
-
-        // 设置播放速度
-        public void SetPlaybackSpeed(double speed)
-        {
-            if (speed <= 0)
-                throw new ArgumentException("播放速度必须大于 0");
-
-            _playbackSpeed = speed;
-
-            // TODO: 调用底层播放引擎调整速度
-            //Console.WriteLine($"设置播放速度为: {speed}x");
-        }
-
-        // 获取当前播放速度
-        public double GetPlaybackSpeed()
-        {
-            return _playbackSpeed;
-        }
-
-        // 设置播放列表
-        public void SetPlaylist(List<Song> playlist)
-        {
-            _playlist = playlist;
-            _currentIndex = -1;
-            _currentSong = null;
-        }
-
-        // 添加到播放列表
-        public List<Song> AddToPlaylist(Song song)
-        {
-            _playlist.Add(song);
-            return _playlist;
-        }
-
-        // 从播放列表移除
-        public List<Song> RemoveFromPlaylist(Song song)
-        {
-            _playlist.Remove(song);
-            return _playlist;
-        }
-
-        // 获取当前播放列表
-        public List<Song> GetCurrentPlaylist()
-        {
-            return _playlist;
-        }
-
-        // 获取指定歌曲歌词
-        public Lyrics GetLyricsForSong(Song song)
-        {
-            // 假设歌词文件是根据歌曲ID或者歌曲名来命名的
-            // 这里假设是本地读取，当然也可以从数据库取出歌词文本
-            //string lyricsPath = Path.Combine("Assets", "Lyrics", $"{song.Id}.lrc"); // 或者 $"{song.Title}.lrc"
-            string lyricsPath = null;
-            if(lyricsPath == null)
+            public void PlaySong(Song song)
             {
-                // 如果歌词路径为空，返回一个空歌词
-                return new Lyrics();
+                if(song.Lyrics == null)
+                {
+                    // 从数据库获取 LyricsPath
+                    string path = "hhh";
+                    song.LoadLyrics(path);
+                }
+                StopInternal(); // 停止当前歌曲
+                _currentSong = song;
+                _currentIndex = _playlist.IndexOf(song);
+                if (string.IsNullOrEmpty(song.MusicFilePath) || !File.Exists(song.MusicFilePath))
+                {
+                   throw new FileNotFoundException("歌曲文件未找到", song.MusicFilePath);
+                }
+
+                _audioReader = new AudioFileReader(song.MusicFilePath);
+                _outputDevice = new WaveOutEvent();
+                _outputDevice.Init(_audioReader);
+                _outputDevice.PlaybackStopped += (s, e) => { /* 可以处理播放结束，比如自动下一首 */ };
+                _outputDevice.Play();
             }
 
-            if (!File.Exists(lyricsPath))
+            public void Pause()
             {
-                // 如果歌词文件不存在，可以返回一个空歌词
-                return new Lyrics();
+                _outputDevice?.Pause();
             }
 
-            string lrcContent = File.ReadAllText(lyricsPath); // 读取 .lrc 文件内容
-            return Lyrics.ParseFromLRC(lrcContent);           // 解析成 Lyrics 对象
-        }
-
-        // 显示歌词
-        public void DisplayLyrics(Lyrics lyrics)
-        {
-            // TODO: 更新界面，滚动歌词显示
-        }
-
-        // 设置歌词显示模式
-        public void SetLyricsMode(LyricsMode mode)
-        {
-            _lyricsMode = mode;
-        }
-
-
-        // 补充：是否正在播放
-        public bool IsPlaying()
-        {
-            return _isPlaying;
-        }
-
-        // 补充：获取当前歌曲
-        public Song GetCurrentSong()
-        {
-            return _currentSong;
-        }
-
-        // 补充：获取当前播放进度
-        public TimeSpan GetCurrentPosition()
-        {
-            return _currentPosition;
-        }
-
-        public LyricsMode GetLyricsMode()
-        {
-            return _lyricsMode;
-        }
-
-        // 补充：播放下一首
-        public void PlayNext()
-        {
-            if (_playlist.Count == 0) return;
-
-            if (_playbackMode == PlaybackMode.Shuffle)
+            public void Resume()
             {
-                var rand = new Random();
-                _currentIndex = rand.Next(_playlist.Count);
-            }
-            else
-            {
-                _currentIndex = (_currentIndex + 1) % _playlist.Count;
+                _outputDevice?.Play();
             }
 
-            _currentSong = _playlist[_currentIndex];
-            PlaySong(_currentSong);
-        }
-
-        // 补充：播放上一首
-        public void PlayPrevious()
-        {
-            if (_playlist.Count == 0) return;
-
-            if (_playbackMode == PlaybackMode.Shuffle)
+            public void Stop()
             {
-                var rand = new Random();
-                _currentIndex = rand.Next(_playlist.Count);
-            }
-            else
-            {
-                _currentIndex = (_currentIndex - 1 + _playlist.Count) % _playlist.Count;
+                StopInternal();
             }
 
-            _currentSong = _playlist[_currentIndex];
-            PlaySong(_currentSong);
+            private void StopInternal()
+            {
+                if (_outputDevice != null)
+                {
+                    _outputDevice.Stop();
+                    _outputDevice.Dispose();
+                    _outputDevice = null;
+                }
+                if (_audioReader != null)
+                {
+                    _audioReader.Dispose();
+                    _audioReader = null;
+                }
+            }
+
+            public void SeekTo(TimeSpan position)
+            {
+                if (_audioReader != null)
+                {
+                    _audioReader.CurrentTime = position;
+                }
+            }
+
+            public TimeSpan GetCurrentPosition()
+            {
+                return _audioReader?.CurrentTime ?? TimeSpan.Zero;
+            }
+
+            public Song? GetCurrentSong()
+            {
+                return _currentSong;
+            }
+
+            public void SetPlaylist(List<Song> playlist)
+            {
+                _playlist = playlist;
+                _currentIndex = -1;
+                _currentSong = null;
+            }
+
+            public List<Song> AddToPlaylist(Song song)
+            {
+                _playlist.Add(song);
+                return _playlist;
+            }
+
+            public List<Song> RemoveFromPlaylist(Song song)
+            {
+                _playlist.Remove(song);
+                return _playlist;
+            }
+
+            public List<Song> GetCurrentPlaylist()
+            {
+                return _playlist;
+            }
+
+            public void SetPlaybackMode(PlaybackMode mode)
+            {
+                _playbackMode = mode;
+            }
+
+            public PlaybackMode GetPlaybackMode()
+            {
+                return _playbackMode;
+            }
+
+            public void SetLyricsMode(LyricsMode mode)
+            {
+                _lyricsMode = mode;
+            }
+
+            public LyricsMode GetLyricsMode()
+            {
+                return _lyricsMode;
+            }
+
+            public void SetPlaybackSpeed(double speed)
+            {
+                if (speed <= 0)
+                    throw new ArgumentException("播放速度必须大于 0");
+                _playbackSpeed = speed;
+                // ⚠️ 注意：NAudio不直接支持变速播放，需要额外处理（可后续扩展）
+            }
+
+            public double GetPlaybackSpeed()
+            {
+                return _playbackSpeed;
+            }
+
+            public void PlayNext()
+            {
+                if (_playlist.Count == 0) return;
+
+                if (_playbackMode == PlaybackMode.Shuffle)
+                {
+                    var rand = new Random();
+                    _currentIndex = rand.Next(_playlist.Count);
+                }
+                else
+                {
+                    _currentIndex = (_currentIndex + 1) % _playlist.Count;
+                }
+
+                PlaySong(_playlist[_currentIndex]);
+            }
+
+            public void PlayPrevious()
+            {
+                if (_playlist.Count == 0) return;
+
+                if (_playbackMode == PlaybackMode.Shuffle)
+                {
+                    var rand = new Random();
+                    _currentIndex = rand.Next(_playlist.Count);
+                }
+                else
+                {
+                    _currentIndex = (_currentIndex - 1 + _playlist.Count) % _playlist.Count;
+                }
+
+                PlaySong(_playlist[_currentIndex]);
+            }
+
+            public LyricsLine? GetCurrentLyricsLine()
+            {
+                if (_currentSong?.Lyrics == null)
+                    return null;
+
+                return _currentSong.Lyrics.GetCurrentLine(GetCurrentPosition());
+            }
+
+            public void Dispose()
+            {
+                StopInternal();
+            }
         }
-    }
 }

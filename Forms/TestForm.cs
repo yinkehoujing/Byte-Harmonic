@@ -34,16 +34,16 @@ namespace ByteHarmonic.Forms
         {
             var song = new Song
             {
-                Id = Guid.NewGuid().ToString(),
                 Title = "TestSong",
                 Artist = "Tester",
-                FilePath = @"C:\Music\TestSong.mp3",
+                MusicFilePath = @"C:\Music\TestSong.mp3",
+                LrcFilePath = @"C:\Lyrics\TestSong.lrc",
                 Downloaded = false,
                 Duration = 300
             };
 
             bool result = _songRepo.AddSong(song);
-            listBoxResults.Items.Add($"AddSong: {(result ? "通过" : "失败")}");
+            listBoxResults.Items.Add($"AddSong: {(result ? "通过" : "失败")} (新Id: {song.Id})");
         }
 
         private void TestGetSongById()
@@ -62,6 +62,10 @@ namespace ByteHarmonic.Forms
                 bool result = _songRepo.UpdateSong(song);
                 listBoxResults.Items.Add($"UpdateSong: {(result ? "通过" : "失败")}");
             }
+            else
+            {
+                listBoxResults.Items.Add("UpdateSong: 未找到歌曲，跳过测试");
+            }
         }
 
         private void TestDeleteSong()
@@ -71,6 +75,10 @@ namespace ByteHarmonic.Forms
             {
                 bool result = _songRepo.DeleteSong(song.Id);
                 listBoxResults.Items.Add($"DeleteSong: {(result ? "通过" : "失败")}");
+            }
+            else
+            {
+                listBoxResults.Items.Add("DeleteSong: 未找到歌曲，跳过测试");
             }
         }
     }
