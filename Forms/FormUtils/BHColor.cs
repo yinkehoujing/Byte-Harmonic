@@ -13,5 +13,6 @@ namespace Byte_Harmonic.Forms.FormUtils
         public static Color Grey3 = Color.FromArgb(224, 224, 224);
         public static Color Grey4 = Color.FromArgb(189, 189, 189);
         public static Color Grey5 = Color.FromArgb(117, 117, 117);
+        public static Color Blue2 = Color.FromArgb(177, 229, 242);
     }
 }

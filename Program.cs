@@ -1,5 +1,6 @@
 using System;
 using System.Windows.Forms;
+using Byte_Harmonic.Forms;
 using ByteHarmonic.Forms;
 
 namespace ByteHarmonic
@@ -11,7 +12,7 @@ namespace ByteHarmonic
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            Application.Run(new LoginForm());
             //Application.Run(new TestForm());
         }
     }
