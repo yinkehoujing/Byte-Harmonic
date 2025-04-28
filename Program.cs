@@ -14,7 +14,7 @@ namespace ByteHarmonic
             Console.WriteLine("start debugging……");
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new TestLyricsForm());
+            Application.Run(new MainForm());
         }
 
         // Windows API 调用：分配一个控制台窗口
