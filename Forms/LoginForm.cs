@@ -35,15 +35,15 @@ namespace Byte_Harmonic.Forms
 
         private void uiImageButton1_Click(object sender, EventArgs e)
         {
-            if(usernameBox.Text=="")
+            if (usernameBox.Text == "")
             {
                 uiLabel3.Text = "请填写账户名";
             }
-            else if(passwordBox.Text == "")
+            else if (passwordBox.Text == "")
             {
                 uiLabel3.Text = "请填写密码";
             }
-            else if(uiCheckBox1.Checked==false)
+            else if (uiCheckBox1.Checked == false)
             {
                 uiLabel3.Text = "请确认同意服务协议";
             }
@@ -66,7 +66,7 @@ namespace Byte_Harmonic.Forms
 
         private void uiImageButton2_Click(object sender, EventArgs e)
         {
-            if(uiImageButton2.Text == "注册")
+            if (uiImageButton2.Text == "注册")
             {
                 uiImageButton2.Text = "登录";
                 loginButton1.Text = "注册";
@@ -79,6 +79,11 @@ namespace Byte_Harmonic.Forms
         }
 
         private void uiImageButton3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void uiCheckBox1_CheckedChanged(object sender, EventArgs e)
         {
 
         }

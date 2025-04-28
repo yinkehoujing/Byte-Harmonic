@@ -173,7 +173,7 @@ namespace Byte_Harmonic.Forms
             // uiCheckBox1
             // 
             uiCheckBox1.BackColor = Color.Transparent;
-            uiCheckBox1.CheckBoxColor = Color.White;
+            uiCheckBox1.CheckBoxColor = Color.PeachPuff;
             uiCheckBox1.Font = new Font("黑体", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiCheckBox1.ForeColor = Color.White;
             uiCheckBox1.Location = new Point(87, 304);
@@ -183,6 +183,7 @@ namespace Byte_Harmonic.Forms
             uiCheckBox1.Size = new Size(185, 31);
             uiCheckBox1.TabIndex = 11;
             uiCheckBox1.Text = "已阅读并同意服务协议";
+            uiCheckBox1.CheckedChanged += uiCheckBox1_CheckedChanged;
             // 
             // ExitButton
             // 
