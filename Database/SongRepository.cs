@@ -1,36 +1,40 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using ByteHarmonic.Models;
 
 namespace ByteHarmonic.Database
 {
     public class SongRepository
     {
-        private readonly string _connectionString = "server=localhost;user=root;database=Byte_Harmonic;port=3306;password=your password";
+        private readonly string _connectionString = "server=localhost;user=root;database=Byte_Harmonic;port=3306;password=your_password";
 
         public bool AddSong(Song song)
         {
             using var connection = new MySqlConnection(_connectionString);
             connection.Open();
 
-            string sql = "INSERT INTO Songs (Id, Title, Artist, FilePath, Downloaded, Duration) VALUES (@Id, @Title, @Artist, @FilePath, @Downloaded, @Duration)";
+            string sql = "INSERT INTO Songs (Title, Artist, MusicFilePath, LrcFilePath, Downloaded, Duration) " +
+                         "VALUES (@Title, @Artist, @MusicFilePath, @LrcFilePath, @Downloaded, @Duration); SELECT LAST_INSERT_ID();";
+
             using var cmd = new MySqlCommand(sql, connection);
-            cmd.Parameters.AddWithValue("@Id", song.Id);
             cmd.Parameters.AddWithValue("@Title", song.Title);
             cmd.Parameters.AddWithValue("@Artist", song.Artist);
-            cmd.Parameters.AddWithValue("@FilePath", song.FilePath);
-            cmd.Parameters.AddWithValue("@Downloaded", song.Downloaded);
+            cmd.Parameters.AddWithValue("@MusicFilePath", song.MusicFilePath ?? string.Empty);
+            cmd.Parameters.AddWithValue("@LrcFilePath", song.LrcFilePath ?? string.Empty);
+            cmd.Parameters.AddWithValue("@Downloaded", song.Downloaded ? 1 : 0);
             cmd.Parameters.AddWithValue("@Duration", song.Duration);
 
-            return cmd.ExecuteNonQuery() > 0;
+            object result = cmd.ExecuteScalar();
+            if (result != null && int.TryParse(result.ToString(), out int newId))
+            {
+                song.Id = newId;  // ⭐ 把自增 Id 写回到对象里
+                return true;
+            }
+
+            return false;
         }
 
-        public Song GetSongById(string id)
+        public Song GetSongById(int id)
         {
             using var connection = new MySqlConnection(_connectionString);
             connection.Open();
@@ -44,10 +48,11 @@ namespace ByteHarmonic.Database
             {
                 return new Song
                 {
-                    Id = reader.GetString("Id"),
+                    Id = reader.GetInt32("Id"),
                     Title = reader.GetString("Title"),
                     Artist = reader.GetString("Artist"),
-                    FilePath = reader.GetString("FilePath"),
+                    MusicFilePath = reader.GetString("MusicFilePath"),
+                    LrcFilePath = reader.IsDBNull(reader.GetOrdinal("LrcFilePath")) ? null : reader.GetString("LrcFilePath"),
                     Downloaded = reader.GetBoolean("Downloaded"),
                     Duration = reader.GetInt32("Duration")
                 };
@@ -70,10 +75,11 @@ namespace ByteHarmonic.Database
             {
                 return new Song
                 {
-                    Id = reader.GetString("Id"),
+                    Id = reader.GetInt32("Id"),
                     Title = reader.GetString("Title"),
                     Artist = reader.GetString("Artist"),
-                    FilePath = reader.GetString("FilePath"),
+                    MusicFilePath = reader.GetString("MusicFilePath"),
+                    LrcFilePath = reader.IsDBNull(reader.GetOrdinal("LrcFilePath")) ? null : reader.GetString("LrcFilePath"),
                     Downloaded = reader.GetBoolean("Downloaded"),
                     Duration = reader.GetInt32("Duration")
                 };
@@ -87,20 +93,23 @@ namespace ByteHarmonic.Database
             using var connection = new MySqlConnection(_connectionString);
             connection.Open();
 
-            string sql = "UPDATE Songs SET Title=@Title, Artist=@Artist, FilePath=@FilePath, Downloaded=@Downloaded, Duration=@Duration WHERE Id=@Id";
+            string sql = "UPDATE Songs SET Title = @Title, Artist = @Artist, MusicFilePath = @MusicFilePath, " +
+                         "LrcFilePath = @LrcFilePath, Downloaded = @Downloaded, Duration = @Duration WHERE Id = @Id";
+
             using var cmd = new MySqlCommand(sql, connection);
 
             cmd.Parameters.AddWithValue("@Title", song.Title);
             cmd.Parameters.AddWithValue("@Artist", song.Artist);
-            cmd.Parameters.AddWithValue("@FilePath", song.FilePath);
-            cmd.Parameters.AddWithValue("@Downloaded", song.Downloaded);
+            cmd.Parameters.AddWithValue("@MusicFilePath", song.MusicFilePath ?? string.Empty);
+            cmd.Parameters.AddWithValue("@LrcFilePath", song.LrcFilePath ?? string.Empty);
+            cmd.Parameters.AddWithValue("@Downloaded", song.Downloaded ? 1 : 0);
             cmd.Parameters.AddWithValue("@Duration", song.Duration);
             cmd.Parameters.AddWithValue("@Id", song.Id);
 
             return cmd.ExecuteNonQuery() > 0;
         }
 
-        public bool DeleteSong(string id)
+        public bool DeleteSong(int id)
         {
             using var connection = new MySqlConnection(_connectionString);
             connection.Open();

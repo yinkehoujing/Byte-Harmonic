@@ -30,14 +30,21 @@ namespace Services
 
             public void PlaySong(Song song)
             {
+                if(song.Lyrics == null)
+                {
+                    // 从数据库获取 LyricsPath
+                    string path = "hhh";
+                    song.LoadLyrics(path);
+                }
                 StopInternal(); // 停止当前歌曲
                 _currentSong = song;
                 _currentIndex = _playlist.IndexOf(song);
+                if (string.IsNullOrEmpty(song.MusicFilePath) || !File.Exists(song.MusicFilePath))
+                {
+                   throw new FileNotFoundException("歌曲文件未找到", song.MusicFilePath);
+                }
 
-                if (string.IsNullOrEmpty(song.FilePath) || !File.Exists(song.FilePath))
-                    throw new FileNotFoundException("歌曲文件未找到", song.FilePath);
-
-                _audioReader = new AudioFileReader(song.FilePath);
+                _audioReader = new AudioFileReader(song.MusicFilePath);
                 _outputDevice = new WaveOutEvent();
                 _outputDevice.Init(_audioReader);
                 _outputDevice.PlaybackStopped += (s, e) => { /* 可以处理播放结束，比如自动下一首 */ };

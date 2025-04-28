@@ -28,7 +28,7 @@ namespace ByteHarmonic.Models
         private List<LyricsLine> _lines = new List<LyricsLine>();
 
         /// <summary>
-        /// 读取并解析 LRC 文件。
+        /// 读取并解析 LRC 文件, 形成 _lines 的歌词行列表。
         /// </summary>
         /// <param name="filePath">LRC 文件路径。</param>
         public void Load(string filePath)
@@ -85,18 +85,19 @@ namespace ByteHarmonic.Models
             if (_lines.Count == 0) return -1;
             int low = 0, high = _lines.Count - 1;
             int mid;
+            int ret = -1;
             while (low <= high)
             {
                 mid = (low + high) / 2;
-                if (_lines[mid].Time == currentTime)
-                    return mid;
-                else if (_lines[mid].Time < currentTime)
+                if (_lines[mid].Time <= currentTime)
+                {
+                    ret = mid;
                     low = mid + 1;
+                }
                 else
                     high = mid - 1;
             }
-            // 当没有精确匹配时，high 指向小于 currentTime 的位置
-            return Math.Max(high, 0);
+            return ret;
         }
 
         /// <summary>
@@ -106,6 +107,7 @@ namespace ByteHarmonic.Models
         {
             if (index >= 0 && index < _lines.Count)
                 return _lines[index].Text;
+            Console.WriteLine("找到的是空文本!");
             return string.Empty;
         }
 
@@ -114,6 +116,7 @@ namespace ByteHarmonic.Models
             int index = GetCurrentIndex(timeSpan);
             if (index >= 0 && index < _lines.Count)
                 return _lines[index];
+            Console.WriteLine("index 不合法");
             return null;
         }
 
