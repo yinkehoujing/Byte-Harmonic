@@ -1,9 +1,13 @@
--- ´´½¨Êý¾Ý¿â£¨Èç¹û²»´æÔÚ£©
+SET NAMES utf8mb4;
+
+-- åˆ›å»ºæ•°æ®åº“ï¼ˆå¦‚æžœä¸å­˜åœ¨ï¼‰
+DROP DATABASE IF EXISTS `Byte_Harmonic`;
+
 CREATE DATABASE IF NOT EXISTS `Byte_Harmonic` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE `Byte_Harmonic`;
 
 
--- É¾³ý¾É±í
+-- åˆ é™¤æ—§è¡¨
 DROP TABLE IF EXISTS `SonglistSongs`;
 DROP TABLE IF EXISTS `SearchHistory`;
 DROP TABLE IF EXISTS `Playlists`;
@@ -14,77 +18,77 @@ DROP TABLE IF EXISTS `Tags`;
 DROP TABLE IF EXISTS `Songs`;
 DROP TABLE IF EXISTS `Users`;
 
--- ´´½¨ Songs£¨¸èÇú±í£©
+-- åˆ›å»º Songsï¼ˆæ­Œæ›²è¡¨ï¼‰
 CREATE TABLE IF NOT EXISTS `Songs` (
-    `Id` INTEGER AUTO_INCREMENT PRIMARY KEY,  -- ¸èÇú ID£¬×ÔÔö
-    `Title` TEXT NOT NULL,  -- ¸èÇú±êÌâ
-    `Artist` TEXT NOT NULL, -- ¸èÊÖ
-    `MusicFilePath` TEXT NOT NULL, -- ÒôÀÖÎÄ¼þÂ·¾¶
-    `LrcFilePath` TEXT,  -- ¸è´ÊÎÄ¼þÂ·¾¶
-    `Downloaded` BOOLEAN,  -- ÊÇ·ñ±¾µØÏÂÔØ
-    `Duration` INTEGER  -- ¸èÇúÊ±³¤£¨Ãë£©
+    `Id` INTEGER AUTO_INCREMENT PRIMARY KEY,  -- æ­Œæ›² IDï¼Œè‡ªå¢ž
+    `Title` TEXT NOT NULL,  -- æ­Œæ›²æ ‡é¢˜
+    `Artist` TEXT NOT NULL, -- æ­Œæ‰‹
+    `MusicFilePath` TEXT NOT NULL, -- éŸ³ä¹æ–‡ä»¶è·¯å¾„
+    `LrcFilePath` TEXT,  -- æ­Œè¯æ–‡ä»¶è·¯å¾„
+    `Downloaded` BOOLEAN,  -- æ˜¯å¦æœ¬åœ°ä¸‹è½½
+    `Duration` INTEGER  -- æ­Œæ›²æ—¶é•¿ï¼ˆç§’ï¼‰
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- ´´½¨ Tags£¨±êÇ©±í£©
+-- åˆ›å»º Tagsï¼ˆæ ‡ç­¾è¡¨ï¼‰
 CREATE TABLE IF NOT EXISTS `Tags` (
-    `Id` INTEGER AUTO_INCREMENT PRIMARY KEY,  -- ±êÇ© ID£¬×ÔÔö
-    `Name` VARCHAR(255) NOT NULL  -- ±êÇ©Ãû³Æ£¬Ê¹ÓÃ VARCHAR ÏÞÖÆ³¤¶È
+    `Id` INTEGER AUTO_INCREMENT PRIMARY KEY,  -- æ ‡ç­¾ IDï¼Œè‡ªå¢ž
+    `Name` VARCHAR(255) NOT NULL  -- æ ‡ç­¾åç§°ï¼Œä½¿ç”¨ VARCHAR é™åˆ¶é•¿åº¦
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- ´´½¨ SongTags£¨¸èÇú-±êÇ©¶à¶Ô¶à¹ØÏµ±í£©
+-- åˆ›å»º SongTagsï¼ˆæ­Œæ›²-æ ‡ç­¾å¤šå¯¹å¤šå…³ç³»è¡¨ï¼‰
 CREATE TABLE IF NOT EXISTS `SongTags` (
-    `SongId` INTEGER,  -- Íâ¼ü£ºSongs.Id
-    `TagId` INTEGER,  -- Íâ¼ü£ºTags.Id
+    `SongId` INTEGER,  -- å¤–é”®ï¼šSongs.Id
+    `TagId` INTEGER,  -- å¤–é”®ï¼šTags.Id
     PRIMARY KEY (`SongId`, `TagId`),
     FOREIGN KEY (`SongId`) REFERENCES `Songs`(`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (`TagId`) REFERENCES `Tags`(`Id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- ´´½¨ Lyrics£¨¸è´Ê±í£©
+-- åˆ›å»º Lyricsï¼ˆæ­Œè¯è¡¨ï¼‰
 CREATE TABLE IF NOT EXISTS `Lyrics` (
-    `SongId` INTEGER PRIMARY KEY,  -- ¸èÇú ID£¬×ÔÔö£¬Íâ¼ü
-    `Content` TEXT,  -- ¸è´ÊÄÚÈÝ
+    `SongId` INTEGER PRIMARY KEY,  -- æ­Œæ›² IDï¼Œè‡ªå¢žï¼Œå¤–é”®
+    `Content` TEXT,  -- æ­Œè¯å†…å®¹
     FOREIGN KEY (`SongId`) REFERENCES `Songs`(`Id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- ´´½¨ Users£¨ÓÃ»§±í£©
+-- åˆ›å»º Usersï¼ˆç”¨æˆ·è¡¨ï¼‰
 CREATE TABLE IF NOT EXISTS `Users` (
-    `Account` VARCHAR(255) PRIMARY KEY,  -- ÓÃ»§ÕË»§£¨Ê¹ÓÃ VARCHAR ÏÞÖÆ³¤¶È£©
-    `Username` VARCHAR(255) NOT NULL,  -- ÓÃ»§Ãû£¨Ê¹ÓÃ VARCHAR ÏÞÖÆ³¤¶È£©
-    `Password` TEXT NOT NULL,  -- ÃÜÂë£¨¹þÏ£Öµ£©
-    `IsAdmin` BOOLEAN  -- ÊÇ·ñ¹ÜÀíÔ±
+    `Account` VARCHAR(255) PRIMARY KEY,  -- ç”¨æˆ·è´¦æˆ·ï¼ˆä½¿ç”¨ VARCHAR é™åˆ¶é•¿åº¦ï¼‰
+    `Username` VARCHAR(255) NOT NULL,  -- ç”¨æˆ·åï¼ˆä½¿ç”¨ VARCHAR é™åˆ¶é•¿åº¦ï¼‰
+    `Password` TEXT NOT NULL,  -- å¯†ç ï¼ˆå“ˆå¸Œå€¼ï¼‰
+    `IsAdmin` BOOLEAN  -- æ˜¯å¦ç®¡ç†å‘˜
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- ´´½¨ Favorites£¨ÓÃ»§ÊÕ²Ø¸èÇú±í£©
+-- åˆ›å»º Favoritesï¼ˆç”¨æˆ·æ”¶è—æ­Œæ›²è¡¨ï¼‰
 CREATE TABLE IF NOT EXISTS `Favorites` (
-    `Username` VARCHAR(255),  -- Íâ¼ü£ºUsers.Account£¬Ê¹ÓÃ VARCHAR ÏÞÖÆ³¤¶È
-    `SongId` INTEGER,  -- Íâ¼ü£ºSongs.Id
+    `Username` VARCHAR(255),  -- å¤–é”®ï¼šUsers.Accountï¼Œä½¿ç”¨ VARCHAR é™åˆ¶é•¿åº¦
+    `SongId` INTEGER,  -- å¤–é”®ï¼šSongs.Id
     PRIMARY KEY (`Username`, `SongId`),
     FOREIGN KEY (`Username`) REFERENCES `Users`(`Account`) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (`SongId`) REFERENCES `Songs`(`Id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- ´´½¨ Playlists£¨¸èµ¥±í£©
+-- åˆ›å»º Playlistsï¼ˆæ­Œå•è¡¨ï¼‰
 CREATE TABLE IF NOT EXISTS `Playlists` (
-    `Id` INTEGER AUTO_INCREMENT PRIMARY KEY,  -- ¸èµ¥ ID£¬×ÔÔö
-    `Name` VARCHAR(255) NOT NULL,  -- ¸èµ¥Ãû³Æ£¬Ê¹ÓÃ VARCHAR ÏÞÖÆ³¤¶È
-    `Owner` VARCHAR(255),  -- ËùÓÐÕßÕË»§£¬Ê¹ÓÃ VARCHAR ÏÞÖÆ³¤¶È
+    `Id` INTEGER AUTO_INCREMENT PRIMARY KEY,  -- æ­Œå• IDï¼Œè‡ªå¢ž
+    `Name` VARCHAR(255) NOT NULL,  -- æ­Œå•åç§°ï¼Œä½¿ç”¨ VARCHAR é™åˆ¶é•¿åº¦
+    `Owner` VARCHAR(255),  -- æ‰€æœ‰è€…è´¦æˆ·ï¼Œä½¿ç”¨ VARCHAR é™åˆ¶é•¿åº¦
     FOREIGN KEY (`Owner`) REFERENCES `Users`(`Account`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- ´´½¨ SonglistSongs£¨¸èµ¥-¸èÇú¶à¶Ô¶à¹ØÏµ±í£©
+-- åˆ›å»º SonglistSongsï¼ˆæ­Œå•-æ­Œæ›²å¤šå¯¹å¤šå…³ç³»è¡¨ï¼‰
 CREATE TABLE IF NOT EXISTS `SonglistSongs` (
-    `SonglistId` INTEGER,  -- Íâ¼ü£ºPlaylists.Id
-    `SongId` INTEGER,  -- Íâ¼ü£ºSongs.Id
+    `SonglistId` INTEGER,  -- å¤–é”®ï¼šPlaylists.Id
+    `SongId` INTEGER,  -- å¤–é”®ï¼šSongs.Id
     PRIMARY KEY (`SonglistId`, `SongId`),
     FOREIGN KEY (`SonglistId`) REFERENCES `Playlists`(`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (`SongId`) REFERENCES `Songs`(`Id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- ´´½¨ SearchHistory£¨ËÑË÷ÀúÊ·±í£©
+-- åˆ›å»º SearchHistoryï¼ˆæœç´¢åŽ†å²è¡¨ï¼‰
 CREATE TABLE IF NOT EXISTS `SearchHistory` (
-    `Username` VARCHAR(255),  -- Íâ¼ü£ºUsers.Account£¬Ê¹ÓÃ VARCHAR ÏÞÖÆ³¤¶È
-    `Keyword` TEXT,  -- ËÑË÷¹Ø¼ü´Ê
-    `Time` DATETIME,  -- ËÑË÷Ê±¼ä
+    `Username` VARCHAR(255),  -- å¤–é”®ï¼šUsers.Accountï¼Œä½¿ç”¨ VARCHAR é™åˆ¶é•¿åº¦
+    `Keyword` TEXT,  -- æœç´¢å…³é”®è¯
+    `Time` DATETIME,  -- æœç´¢æ—¶é—´
     FOREIGN KEY (`Username`) REFERENCES `Users`(`Account`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
