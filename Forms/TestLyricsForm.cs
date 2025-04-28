@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using ByteHarmonic.Utils;
 using ByteHarmonic.Models;
 using Services;
 
@@ -23,9 +24,10 @@ namespace ByteHarmonic.Forms
             {
                 Title = "TestSong",
                 Artist = "TestArtist",
-                MusicFilePath = @"C:\Music\TestSong.mp3"
+                MusicFilePath = FileHelper.GetAssetPath("Musics/example.mp3")
             };
-            song.LoadLyrics(@"C:\Music\TestSong.lrc");
+
+            song.LoadLyrics(FileHelper.GetAssetPath("Lyrics/example.lrc"));
 
             _playbackService.SetPlaylist(new System.Collections.Generic.List<Song> { song });
             _playbackService.PlaySong(song);
