@@ -1,8 +1,6 @@
 SET NAMES utf8mb4;
 
 -- 创建数据库（如果不存在）
-DROP DATABASE IF EXISTS `Byte_Harmonic`;
-
 CREATE DATABASE IF NOT EXISTS `Byte_Harmonic` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE `Byte_Harmonic`;
 

@@ -6,77 +6,60 @@ using System.Threading.Tasks;
 
 using System;
 using System.Collections.Generic;
+using Sunny.UI;
+using NAudio.Wave;
 
 namespace ByteHarmonic.Models
 {
-    /// <summary>
-    /// 表示一首歌曲的信息。
-    /// </summary>
-    public class Song
-    {
         /// <summary>
-        /// 唯一标识符。
+        /// 表示一首歌曲的信息。
         /// </summary>
-        public string Id { get; set; }
-
-        /// <summary>
-        /// 歌曲标题。
-        /// </summary>
-        public string Title { get; set; }
-
-        /// <summary>
-        /// 歌手名。
-        /// </summary>
-        public string Artist { get; set; }
-
-        /// <summary>
-        /// 是否已下载到本地。
-        /// </summary>
-        public bool Downloaded { get; set; }
-
-        /// <summary>
-        /// 本地文件路径（如果已下载）。
-        /// </summary>
-        public string FilePath { get; set; }
-
-        /// <summary>
-        /// 歌曲时长。
-        /// </summary>
-        public int Duration { get; set; }
-
-        /// <summary>
-        /// 歌曲的标签列表。
-        /// </summary>
-        public List<string> Tags { get; set; }
-
-        /// <summary>
-        /// 默认构造函数。
-        /// </summary>
-        public Song()
+        public class Song
         {
-            Id = Guid.NewGuid().ToString();
-            Title = string.Empty;
-            Artist = string.Empty;
-            Downloaded = false;
-            FilePath = string.Empty;
-            Duration = 0;
-            Tags = new List<string>();
-        }
+            public string Id { get; set; }
+            public string Title { get; set; }
+            public string Artist { get; set; }
+            public bool Downloaded { get; set; }
+            public string FilePath { get; set; }
+            public int Duration { get; set; }
+            public List<string> Tags { get; set; }
+            public Lyrics Lyrics { get; private set; }
 
-        /// <summary>
-        /// 带参数的构造函数。
-        /// </summary>
-        public Song(string title, string artist, int duration)
-        {
-            Id = Guid.NewGuid().ToString();
-            Title = title;
-            Artist = artist;
-            Downloaded = false;
-            FilePath = string.Empty;
-            Duration = duration;
-            Tags = new List<string>();
-        }
+            /// <summary>
+            /// 默认构造函数。
+            /// </summary>
+            public Song()
+            {
+                Id = Guid.NewGuid().ToString();
+                Title = string.Empty;
+                Artist = string.Empty;
+                Downloaded = false;
+                FilePath = string.Empty;
+                Duration = 0;
+                Tags = new List<string>();
+            }
 
-       
-    }
+            /// <summary>
+            /// 带参数的构造函数。
+            /// </summary>
+            public Song(string title, string artist, int duration)
+            {
+                Id = Guid.NewGuid().ToString();
+                Title = title;
+                Artist = artist;
+                Downloaded = false;
+                FilePath = string.Empty;
+                Duration = duration;
+                Tags = new List<string>();
+            }
+
+            /// <summary>
+            /// 加载歌词文件（LRC）。
+            /// </summary>
+            public void LoadLyrics(string lrcPath)
+            {
+                Lyrics = new Lyrics();
+                Lyrics.Load(lrcPath);
+            }
+        }
 }
