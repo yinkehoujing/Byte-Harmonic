@@ -13,6 +13,7 @@
       <PackageReference Include="MySql.Data" Version="9.3.0" />
       <PackageReference Include="NAudio" Version="2.2.1" />
       <PackageReference Include="SunnyUI" Version="3.8.3" />
+      <PackageReference Include="Transitions" Version="1.0.0" />
     </ItemGroup>
 
     <ItemGroup>
