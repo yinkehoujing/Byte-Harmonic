@@ -30,7 +30,7 @@ namespace ByteHarmonic.Forms
 
             song.LoadLyrics(FileHelper.GetAssetPath("Lyrics/example.lrc"));
 
-            _playbackService.SetPlaylist(new System.Collections.Generic.List<Song> { song });
+            _playbackService.SetPlaylist(new Playlist( new System.Collections.Generic.List<Song> { song }));
             _playbackService.PlaySong(song);
 
             StartTimer();

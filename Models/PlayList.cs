@@ -21,12 +21,19 @@ namespace ByteHarmonic.Models
         /// <summary>
         /// 当前播放的歌曲列表。
         /// </summary>
+        // 出于方便原因，使用 public 修饰
         public List<Song> PlaySongs { get; set; }
 
         public Playlist()
         {
             PlaybackMode = PlaybackMode.Sequential;
             PlaySongs = new List<Song>();
+        }
+
+        public Playlist(List<Song> playSongs, PlaybackMode playbackMode = PlaybackMode.Sequential)
+        {
+            PlaybackMode = playbackMode;
+            PlaySongs = playSongs;
         }
     }
 }
