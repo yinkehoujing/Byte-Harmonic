@@ -114,6 +114,9 @@ namespace ByteHarmonic.Forms
                 MessageBox.Show("请输入有效的时间格式（如：1:30）", "格式错误", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+        private void uiipTextBox1_ValueChanged (object sender, EventArgs e){
+
+        }
 
     }
 }
