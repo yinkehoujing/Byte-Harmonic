@@ -27,7 +27,7 @@ namespace ByteHarmonic.Database
             object result = cmd.ExecuteScalar();
             if (result != null && int.TryParse(result.ToString(), out int newId))
             {
-                song.Id = newId;  // ⭐ 把自增 Id 写回到对象里
+                song.Id = newId;  // 把自增 Id 写回到对象里
                 return true;
             }
 
