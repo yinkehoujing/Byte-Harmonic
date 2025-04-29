@@ -94,5 +94,26 @@ namespace Byte_Harmonic.Forms.FormUtils
                 DwmExtendFrameIntoClientArea(_targetForm.Handle, ref margins);
             }
         }
+
+        /// <summary>
+        /// 设置picturebox的圆角
+        /// </summary>
+        /// <param name="picBox"></param>
+        /// <param name="cornerRadius"></param>
+        public void SetPictureBoxRoundCorners(PictureBox picBox, int cornerRadius)
+        {
+            Rectangle bounds = new Rectangle(0, 0, picBox.Width, picBox.Height);
+            GraphicsPath path = new GraphicsPath();
+
+            int diameter = cornerRadius * 2;
+            path.StartFigure();
+            path.AddArc(bounds.X, bounds.Y, diameter, diameter, 180, 90); // 左上角
+            path.AddArc(bounds.Right - diameter, bounds.Y, diameter, diameter, 270, 90); // 右上角
+            path.AddArc(bounds.Right - diameter, bounds.Bottom - diameter, diameter, diameter, 0, 90); // 右下角
+            path.AddArc(bounds.X, bounds.Bottom - diameter, diameter, diameter, 90, 90); // 左下角
+            path.CloseFigure();
+
+            picBox.Region = new Region(path);
+        }
     }
 }
