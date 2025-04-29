@@ -39,8 +39,18 @@ namespace ByteHarmonic.Forms
 
             song2.LoadLyrics(FileHelper.GetAssetPath("Lyrics/example2.lrc"));
 
-            //_playbackService.SetPlaylist(new Playlist(new System.Collections.Generic.List<Song> { song, song2 }, PlaybackMode.RepeatOne));
-            _playbackService.SetPlaylist(new Playlist(new System.Collections.Generic.List<Song> { song, song2 }));
+            var song3 = new Song
+            {
+                Title = "探故知",
+                Artist = "浅影阿",
+                MusicFilePath = FileHelper.GetAssetPath("Musics/example3.mp3")
+            };
+
+            song3.LoadLyrics(FileHelper.GetAssetPath("Lyrics/example3.lrc"));
+
+            //_playbackService.SetPlaylist(new Playlist(new System.Collections.Generic.List<Song> { song, song2, song3}, PlaybackMode.RepeatOne));
+            //_playbackService.SetPlaylist(new Playlist(new System.Collections.Generic.List<Song> { song, song2, song3 }));
+            _playbackService.SetPlaylist(new Playlist(new System.Collections.Generic.List<Song> { song, song2, song3 }, PlaybackMode.Shuffle));
             _playbackService.PlayPlaylist();
 
             StartTimer();
