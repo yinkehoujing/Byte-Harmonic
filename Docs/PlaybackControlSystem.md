@@ -60,6 +60,45 @@ var line = _playbackService.GetCurrentLyricsLine();
 ```
 其中 `line.Text` 即是歌词文本。
 
+## 相关实体类
+
+`Song`:
+
+```csharp
+ public int Id { get; set; }
+ public string Title { get; set; }
+ public string Artist { get; set; }
+ public bool Downloaded { get; set; }
+ public string MusicFilePath { get; set; }
+ public string LrcFilePath { get; set; }
+ public int Duration { get; set; }
+ public List<string> Tags { get; set; }
+ public Lyrics Lyrics { get; private set; }
+
+```
+
+`Lyrics`:
+
+```c#
+public class LyricsLine
+{
+    public TimeSpan Time { get; set; }  // 歌词出现的时间点
+    public string Text { get; set; }    // 歌词文本
+}
+// 仅有这一个成员:
+private List<LyricsLine> _lines = new List<LyricsLine>();
+```
+
+## 相应数据访问层接口
+
+### SongRepository 方法列表
+
+- `bool AddSong(Song song)`
+- `Song GetSongById(int id)`
+- `Song GetSongByTitle(string title)`
+- `bool UpdateSong(Song song)`
+- `bool DeleteSong(int id)`
+
 
 
 ## 相关数据库表
