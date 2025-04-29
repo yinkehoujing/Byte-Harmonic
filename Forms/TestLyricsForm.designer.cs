@@ -96,7 +96,6 @@
 
         private void UiipTextBox1_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
         }
 
         #endregion
