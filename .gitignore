@@ -1,3 +1,4 @@
+Program.cs
 bin/
 obj/
 /packages/
@@ -370,3 +371,4 @@ MigrationBackup/
 FodyWeavers.xsd
 
 Program.cs
+Byte-Harmonic.csproj.user
