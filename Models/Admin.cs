@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ByteHarmonic.Models
 {
     /// <summary>
-    /// 管理员用户，继承自 AbstractUser。
+    /// 管理员，继承自 AbstractUser。
     /// </summary>
     public class Admin : AbstractUser
     {

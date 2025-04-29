@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using System.Collections.Generic;
+using System.Security.Principal;
 
 namespace ByteHarmonic.Models
 {
@@ -13,6 +14,7 @@ namespace ByteHarmonic.Models
     /// </summary>
     public abstract class AbstractUser
     {
+        public string Account { get; set; }
         /// <summary>
         /// 用户名。
         /// </summary>
@@ -31,10 +33,11 @@ namespace ByteHarmonic.Models
         /// <summary>
         /// 是否为管理员。
         /// </summary>
-        public bool IsAdmin { get; protected set; }
+        public bool IsAdmin { get; set; }
 
         public AbstractUser()
         {
+            Account =string .Empty;
             Username = string.Empty;
             Password = string.Empty;
             Songlists = new List<Songlist>();
