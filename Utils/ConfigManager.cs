@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ByteHarmonic.Utils
 {
+    // [[maybe unused]]
     class ConfigManager
     {
     }

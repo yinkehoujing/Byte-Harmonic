@@ -54,15 +54,6 @@ public static class TimerHelper
         }
 
         /// <summary>
-        /// 释放一个 Windows Forms Timer。
-        /// </summary>
-        /// <param name="timer">Timer对象的引用。</param>
-        public static void DisposeTimer(ref Timer? timer)
-        {
-            timer?.Dispose();
-        }
-
-        /// <summary>
         /// 停止并释放一个 Windows Forms Timer。
         /// </summary>
         /// <param name="timer">Timer对象的引用。</param>
