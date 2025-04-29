@@ -200,6 +200,7 @@ namespace Byte_Harmonic.Forms
             ExitButton.TabIndex = 12;
             ExitButton.TabStop = false;
             ExitButton.Text = null;
+            ExitButton.Click += ExitButton_Click;
             // 
             // uiImageButton1
             // 
