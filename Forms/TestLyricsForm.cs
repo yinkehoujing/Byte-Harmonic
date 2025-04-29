@@ -30,8 +30,18 @@ namespace ByteHarmonic.Forms
 
             song.LoadLyrics(FileHelper.GetAssetPath("Lyrics/example.lrc"));
 
-            _playbackService.SetPlaylist(new Playlist( new System.Collections.Generic.List<Song> { song }));
-            _playbackService.PlaySong(song);
+            var song2 = new Song
+            {
+                Title = "一笑江湖",
+                Artist = "闻人听书",
+                MusicFilePath = FileHelper.GetAssetPath("Musics/example2.mp3")
+            };
+
+            song2.LoadLyrics(FileHelper.GetAssetPath("Lyrics/example2.lrc"));
+
+            //_playbackService.SetPlaylist(new Playlist(new System.Collections.Generic.List<Song> { song, song2 }, PlaybackMode.RepeatOne));
+            _playbackService.SetPlaylist(new Playlist(new System.Collections.Generic.List<Song> { song, song2 }));
+            _playbackService.PlayPlaylist();
 
             StartTimer();
         }
@@ -98,9 +108,21 @@ namespace ByteHarmonic.Forms
                 MessageBox.Show("请输入有效的时间格式（如：1:30）", "格式错误", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-        private void uiipTextBox1_ValueChanged (object sender, EventArgs e){
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            _playbackService.PlayNext();
+        }
+
+
+        private void uiipTextBox1_ValueChanged(object sender, EventArgs e)
+        {
 
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            _playbackService.PlayPrevious();
+        }
     }
 }

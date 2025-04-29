@@ -16,11 +16,13 @@ namespace Services
         private IWavePlayer? _outputDevice;
         private AudioFileReader? _audioReader;
         private bool _isPaused = false;
+        private bool _isStopping = false;
 
         public bool IsPaused => _isPaused;
 
         public PlaybackService()
         {
+            Console.WriteLine("PlaybackService().....");
             _playlist = new Playlist();
         }
 
@@ -36,16 +38,20 @@ namespace Services
         // playlist 选择一个 song, 交给 PlaySong 去 play
         public void PlaySong(Song song)
         {
+            if (song == null) throw new ArgumentNullException(nameof(song));
+
             if (song.Lyrics == null)
             {
                 // 从数据库或路径加载歌词
-                string path = "hhh";
+                string path = "hhh"; // TODO: 替换为真实路径
                 song.LoadLyrics(path);
             }
 
             Console.WriteLine($"Playing {song.Title}, Author is {song.Artist}");
 
-            StopInternal();
+            // 先停止并清理当前播放
+            StopInternal(); // Stop 函数绑定到 pick_next 上
+
             _currentSong = song;
             _currentIndex = _playlist.PlaySongs.IndexOf(song);
             _isPaused = false;
@@ -57,16 +63,28 @@ namespace Services
 
             _audioReader = new AudioFileReader(song.MusicFilePath);
             _outputDevice = new WaveOutEvent();
+
+            // 绑定事件前，先解绑一次，确保没有重复绑定
+            _outputDevice.PlaybackStopped -= OnPlaybackStopped;
+            // 这里先绑定事件, StopInternal 再解绑事件
+            _outputDevice.PlaybackStopped += OnPlaybackStopped;
+
             _outputDevice.Init(_audioReader);
-            _outputDevice.PlaybackStopped += (sender, e) =>
-            {
-                if (!_isPaused)
-                {
-                    PlayNext();
-                }
-            };
             _outputDevice.Play();
         }
+
+        /// <summary>
+        /// 当播放结束时回调，若不是暂停，自动播放下一首
+        /// </summary>
+        private void OnPlaybackStopped(object? sender, StoppedEventArgs e)
+        {
+            // playSong 会调用 device 的 playbackStopped
+            if (!_isPaused && !_isStopping)
+            {
+                PlayNext();
+            }
+        }
+
 
         public void Pause()
         {
@@ -80,20 +98,45 @@ namespace Services
             _isPaused = false;
         }
 
+        // [[maybe used]], if used, should be changed
         public void Stop()
         {
-            StopInternal();
+            if (_outputDevice != null)
+            {
+                _outputDevice.PlaybackStopped -= OnPlaybackStopped;
+                _outputDevice.Stop();
+                _outputDevice.Dispose();
+                _outputDevice = null;
+            }
+
+            if (_audioReader != null)
+            {
+                _audioReader.Dispose();
+                _audioReader = null;
+            }
         }
 
         private void StopInternal()
         {
-            _outputDevice?.Stop();
-            _outputDevice?.Dispose();
-            _outputDevice = null;
+            _isStopping = true; // 这是主动停止
 
-            _audioReader?.Dispose();
-            _audioReader = null;
+            if (_outputDevice != null)
+            {
+                _outputDevice.PlaybackStopped -= OnPlaybackStopped;
+                _outputDevice.Stop();
+                _outputDevice.Dispose();
+                _outputDevice = null;
+            }
+
+            if (_audioReader != null)
+            {
+                _audioReader.Dispose();
+                _audioReader = null;
+            }
+
+            _isStopping = false; // 恢复标志
         }
+
 
         public void SeekTo(TimeSpan position)
         {
@@ -115,6 +158,8 @@ namespace Services
 
         public void SetPlaylist(Playlist playlist)
         {
+            Console.WriteLine("reached SetPlaylist....");
+            Console.WriteLine($"{playlist.PlaybackMode}");
             _playlist = playlist;
             _currentIndex = -1;
             _currentSong = null;
@@ -169,6 +214,8 @@ namespace Services
 
         public void PlayNext()
         {
+            Console.WriteLine("touched here!");
+            Console.WriteLine($"{_playlist.PlaybackMode}");
             if (_playlist.PlaySongs.Count == 0) return;
 
             if (_playlist.PlaybackMode == PlaybackMode.Shuffle)
@@ -176,6 +223,10 @@ namespace Services
                 var rand = new Random();
                 _currentIndex = rand.Next(_playlist.PlaySongs.Count);
             }
+            else if(_playlist.PlaybackMode == PlaybackMode.RepeatOne)
+            {
+                // 不变
+            } 
             else
             {
                 _currentIndex = (_currentIndex + 1) % _playlist.PlaySongs.Count;
@@ -192,6 +243,10 @@ namespace Services
             {
                 var rand = new Random();
                 _currentIndex = rand.Next(_playlist.PlaySongs.Count);
+            }
+            else if(_playlist.PlaybackMode == PlaybackMode.RepeatOne)
+            {
+                // 不变
             }
             else
             {

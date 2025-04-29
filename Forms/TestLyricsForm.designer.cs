@@ -9,6 +9,8 @@
 
         private System.Windows.Forms.Label lyricsLabel;
         private System.Windows.Forms.Button btnStop;
+        private Button btnNext;
+
 
         /// <summary>
         /// 清理所有正在使用的资源。
@@ -34,6 +36,8 @@
             btnStop = new Button();
             seekToBtn = new Button();
             uiipTextBox1 = new TextBox();
+            btnNext = new Button();
+            button1 = new Button();
             SuspendLayout();
             // 
             // lyricsLabel
@@ -73,16 +77,37 @@
             uiipTextBox1.Margin = new Padding(4, 5, 4, 5);
             uiipTextBox1.MinimumSize = new Size(1, 1);
             uiipTextBox1.Name = "uiipTextBox1";
-            uiipTextBox1.Padding = new Padding(1);
-            uiipTextBox1.Size = new Size(123, 37);
+            uiipTextBox1.Size = new Size(123, 30);
             uiipTextBox1.TabIndex = 3;
             uiipTextBox1.Click += UiipTextBox1_Click;
+            // 
+            // btnNext
+            // 
+            btnNext.Location = new Point(34, 200);
+            btnNext.Name = "btnNext";
+            btnNext.Size = new Size(135, 40);
+            btnNext.TabIndex = 4;
+            btnNext.Text = "下一首";
+            btnNext.UseVisualStyleBackColor = true;
+            btnNext.Click += btnNext_Click;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(268, 200);
+            button1.Name = "button1";
+            button1.Size = new Size(94, 29);
+            button1.TabIndex = 5;
+            button1.Text = "上一首";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // TestLyricsForm
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(450, 250);
+            Controls.Add(button1);
+            Controls.Add(btnNext);
             Controls.Add(uiipTextBox1);
             Controls.Add(seekToBtn);
             Controls.Add(btnStop);
@@ -98,9 +123,11 @@
         {
         }
 
+
         #endregion
 
         private Button seekToBtn;
         private TextBox uiipTextBox1;
+        private Button button1;
     }
 }
