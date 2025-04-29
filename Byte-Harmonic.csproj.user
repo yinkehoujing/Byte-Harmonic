@@ -7,6 +7,9 @@
     <Compile Update="Forms\ExploreForm.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Forms\FoldMenu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Forms\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -18,6 +21,9 @@
     </Compile>
     <Compile Update="Forms\TestSongRepoForm.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\UnfoldMenu.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Forms\WordForm.cs">
       <SubType>Form</SubType>

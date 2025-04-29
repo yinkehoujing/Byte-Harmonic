@@ -108,6 +108,11 @@ namespace Byte_Harmonic.Forms
                 main.LoadPage(new MusicForm());
             }
         }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
 }
