@@ -76,6 +76,7 @@
             uiipTextBox1.Padding = new Padding(1);
             uiipTextBox1.Size = new Size(123, 37);
             uiipTextBox1.TabIndex = 3;
+            uiipTextBox1.Click += UiipTextBox1_Click;
             // 
             // TestLyricsForm
             // 
@@ -91,6 +92,10 @@
             Load += TestLyricsForm_Load;
             ResumeLayout(false);
             PerformLayout();
+        }
+
+        private void UiipTextBox1_Click(object sender, EventArgs e)
+        {
         }
 
         #endregion

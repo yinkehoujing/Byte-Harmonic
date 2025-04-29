@@ -1,6 +1,6 @@
 ﻿namespace ByteHarmonic.Forms
 {
-    partial class TestForm
+    partial class TestSongRepoForm
     {
         private System.ComponentModel.IContainer components = null;
         private System.Windows.Forms.Button btnRunTests;

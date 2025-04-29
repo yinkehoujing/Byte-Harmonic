@@ -38,27 +38,13 @@ namespace ByteHarmonic.Forms
 
         private void StartTimer()
         {
-            if (_timer == null)
+            TimerHelper.SetupTimer(ref _timer, 100, (s, e) => UpdateLyrics());
+            TimerHelper.SetupTimer(ref _log_timer, 1000, (s, e) =>
             {
-                _timer = new System.Windows.Forms.Timer();
-                _timer.Interval = 100; // 每0.1秒更新一次
-                _timer.Tick += (s, e) => UpdateLyrics();
-            }
-
-            if (_log_timer == null)
-            {
-                _log_timer = new System.Windows.Forms.Timer();
-                _log_timer.Interval = 1000; // 每1秒更新一次
-                _log_timer.Tick += (s, e) =>
-                {
-                    var position = _playbackService.GetCurrentPosition();
-                    var lyricsLine = _playbackService.GetCurrentLyricsLine()?.Text ?? "[No Lyrics]";
-                    Console.WriteLine($"Current Time: {position}: {lyricsLine}");
-                };
-            }
-
-            _timer.Start();
-            _log_timer.Start();
+                var position = _playbackService.GetCurrentPosition();
+                var lyricsLine = _playbackService.GetCurrentLyricsLine()?.Text ?? "[No Lyrics]";
+                Console.WriteLine($"Current Time: {position}: {lyricsLine}");
+            });
         }
 
         private void UpdateLyrics()
@@ -78,10 +64,8 @@ namespace ByteHarmonic.Forms
 
         private void TestLyricsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            _timer?.Stop();
-            _timer?.Dispose();
-            _log_timer?.Stop();
-            _log_timer?.Dispose();
+            TimerHelper.StopAndDisposeTimer(ref _timer);
+            TimerHelper.DisposeTimer(ref _log_timer);
         }
 
 
@@ -89,14 +73,14 @@ namespace ByteHarmonic.Forms
         {
             if (!_playbackService.IsPaused)
             {
-                _timer?.Stop();
-                _log_timer?.Stop();
+                TimerHelper.StopTimer(ref _timer);
+                TimerHelper.StopTimer(ref _log_timer);
                 _playbackService.Pause();
             }
             else
             {
-                _timer?.Start();
-                _log_timer?.Start();
+                TimerHelper.RestartTimer(ref _timer);
+                TimerHelper.RestartTimer(ref _log_timer);
                 _playbackService.Resume();
             }
         }
@@ -113,6 +97,9 @@ namespace ByteHarmonic.Forms
             {
                 MessageBox.Show("请输入有效的时间格式（如：1:30）", "格式错误", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+        private void uiipTextBox1_ValueChanged (object sender, EventArgs e){
+
         }
 
     }
