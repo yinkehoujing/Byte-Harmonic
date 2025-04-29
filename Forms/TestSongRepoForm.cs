@@ -5,11 +5,11 @@ using ByteHarmonic.Models;
 
 namespace ByteHarmonic.Forms
 {
-    public partial class TestForm : Form
+    public partial class TestSongRepoForm : Form
     {
         private readonly SongRepository _songRepo;
 
-        public TestForm()
+        public TestSongRepoForm()
         {
             InitializeComponent();
             _songRepo = new SongRepository();
@@ -25,13 +25,14 @@ namespace ByteHarmonic.Forms
         private void RunTests()
         {
             TestAddSong();
-            TestGetSongById();
+            TestGetSongByTitle();
             TestUpdateSong();
             TestDeleteSong();
         }
 
         private void TestAddSong()
         {
+            Console.WriteLine("Test Add Song");
             var song = new Song
             {
                 Title = "TestSong",
@@ -46,10 +47,12 @@ namespace ByteHarmonic.Forms
             listBoxResults.Items.Add($"AddSong: {(result ? "通过" : "失败")} (新Id: {song.Id})");
         }
 
-        private void TestGetSongById()
+        private void TestGetSongByTitle()
         {
             var song = _songRepo.GetSongByTitle("TestSong");
             bool result = song != null;
+            Console.WriteLine("Test Get Song By Title :");
+            Console.WriteLine($"song.id: {song.Id}, song.artist:{song.Artist}");
             listBoxResults.Items.Add($"GetSongById: {(result ? "通过" : "失败")}");
         }
 
@@ -66,6 +69,8 @@ namespace ByteHarmonic.Forms
             {
                 listBoxResults.Items.Add("UpdateSong: 未找到歌曲，跳过测试");
             }
+            song = _songRepo.GetSongById(song.Id);
+            Console.WriteLine($"updated as {song.Title}");
         }
 
         private void TestDeleteSong()
