@@ -17,6 +17,7 @@ namespace Byte_Harmonic.Services
         private readonly SonglistRepository _repository;
         private readonly UserService _userService;
 
+        /*
         public SonglistService(SonglistRepository repository, UserService userService)
         {
             _repository = repository;
@@ -35,14 +36,14 @@ namespace Byte_Harmonic.Services
             try
             {
                 var audioFiles = Directory.EnumerateFiles(folderPath, "*.mp3", SearchOption.AllDirectories);
-                var existingPaths = (await _repository.GetAllSongsAsync()).Select(s => s.FilePath).ToHashSet();
+                var existingPaths = (await _repository.GetAllSongsAsync()).Select(s => s.MusicFilePath).ToHashSet();
 
                 var tasks = audioFiles.Select(async file =>
                 {
                     if (existingPaths.Contains(file)) return; // 增量跳过
 
                     using var tagFile = await Task.Run(() => TagLib.File.Create(file));
-                    var song = new Song { /* 元数据解析 */ };
+                    var song = new Song {  };  //元数据解析 
                     await _repository.AddSongAsync(song);
                 });
 
@@ -56,19 +57,26 @@ namespace Byte_Harmonic.Services
                 return false;
             }
         }
+        */
+
+        #region 歌曲管理   
+        //如果上面恢复注释之后把上面这行删掉
+
+        //获取所有歌曲
+        public Task<List<Song>> GetAllSongsAsync() => _repository.GetAllSongsAsync();
 
         //导出歌曲
-        public bool ExportSongs(string exportPath)
+        public async Task<bool> ExportSongsAsync(string exportPath)
         {
             if (!Directory.Exists(exportPath))
                 Directory.CreateDirectory(exportPath);
 
-            foreach (var song in GetAllSongs().Where(s => s.Downloaded))
+            foreach (var song in (await GetAllSongsAsync()).Where(s => s.Downloaded))
             {
                 try
                 {
-                    var destPath = Path.Combine(exportPath, Path.GetFileName(song.FilePath));
-                    File.Copy(song.FilePath, destPath, overwrite: true);
+                    var destPath = Path.Combine(exportPath, Path.GetFileName(song.MusicFilePath));
+                    System.IO.File.Copy(song.MusicFilePath, destPath, overwrite: true);
                 }
                 catch (Exception ex)
                 {
@@ -79,9 +87,7 @@ namespace Byte_Harmonic.Services
             }
             return true;
         }
-
-        //获取所有歌曲
-        public List<Song> GetAllSongs() => _repository.GetAllSongs();
+         
 
         //根据标签筛选出所有歌曲
         public List<Song> FilterSongsByTag(string tag)
@@ -115,6 +121,7 @@ namespace Byte_Harmonic.Services
 
         #region 歌单管理
         //创建歌单
+        /*
         public void CreateSonglist(string name)
         {
             var currentUser = _userService.GetCurrentUser();
@@ -127,7 +134,7 @@ namespace Byte_Harmonic.Services
         {
             try
             {
-                var json = File.ReadAllText(filePath);
+                var json = System.IO.File.ReadAllText(filePath);
                 var songlist = JsonConvert.DeserializeObject<Songlist>(json);
                 songlist.Owner = _userService.GetCurrentUser().Account;
                 _repository.CreatePlaylist(songlist);
@@ -138,14 +145,17 @@ namespace Byte_Harmonic.Services
                 return false;
             }
         }
-
+        */
         //导出歌单
         public bool ExportSonglist(Songlist songlist, string filePath)
         {
             try
             {
-                var json = JsonConvert.SerializeObject(songlist, Formatting.Indented);
-                File.WriteAllText(filePath, json);
+                var json = JsonConvert.SerializeObject(
+                    songlist,
+                    Newtonsoft.Json.Formatting.Indented  // 完整命名空间
+                );
+                System.IO.File.WriteAllText(filePath, json);
                 return true;
             }
             catch

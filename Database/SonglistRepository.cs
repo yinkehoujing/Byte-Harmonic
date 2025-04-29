@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using ByteHarmonic.Models;
 using MySql.Data.MySqlClient; // 根据实际数据库类型调整
+using Dapper;        
 
 namespace ByteHarmonic.Database
 {
@@ -34,7 +35,7 @@ namespace ByteHarmonic.Database
             using var cmd = new MySqlCommand(sql, conn);
             cmd.Parameters.AddWithValue("@title", song.Title);
             cmd.Parameters.AddWithValue("@artist", song.Artist);
-            cmd.Parameters.AddWithValue("@musicPath", song.FilePath);
+            cmd.Parameters.AddWithValue("@musicPath", song.MusicFilePath);
             cmd.Parameters.AddWithValue("@lrcPath", song.LrcFilePath);
             cmd.Parameters.AddWithValue("@downloaded", song.Downloaded);
             cmd.Parameters.AddWithValue("@duration", song.Duration);
@@ -54,7 +55,7 @@ namespace ByteHarmonic.Database
                         Id,
                         Title,
                         Artist,
-                        MusicFilePath AS FilePath,
+                        MusicFilePath,
                         LrcFilePath,
                         Downloaded,
                         Duration
@@ -233,11 +234,30 @@ namespace ByteHarmonic.Database
                     Id = reader.GetInt32("Id"),
                     Title = reader.GetString("Title"),
                     Artist = reader.GetString("Artist"),
-                    FilePath = reader.GetString("MusicFilePath"),
+                    MusicFilePath = reader.GetString("MusicFilePath"),
                     Duration = reader.GetInt32("Duration")
                 });
             }
             return songs;
+        }
+
+        //从歌单中移除歌曲
+        public bool RemoveSongFromPlaylist(int playlistId, int songId)
+        {
+            using var conn = new MySqlConnection(_connectionString);
+            conn.Open();
+
+            const string sql = @"DELETE FROM SonglistSongs 
+                        WHERE SonglistId = @playlistId 
+                        AND SongId = @songId";
+
+            int affectedRows = conn.Execute(sql, new
+            {
+                playlistId,
+                songId
+            });
+
+            return affectedRows > 0;
         }
         #endregion
     }
