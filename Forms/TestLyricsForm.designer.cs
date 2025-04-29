@@ -30,44 +30,77 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lyricsLabel = new System.Windows.Forms.Label();
-            this.btnStop = new System.Windows.Forms.Button();
-            this.SuspendLayout();
+            lyricsLabel = new Label();
+            btnStop = new Button();
+            seekToBtn = new Button();
+            uiipTextBox1 = new TextBox();
+            SuspendLayout();
             // 
             // lyricsLabel
             // 
-            this.lyricsLabel.AutoSize = true;
-            this.lyricsLabel.Font = new System.Drawing.Font("微软雅黑", 16F);
-            this.lyricsLabel.Location = new System.Drawing.Point(30, 50);
-            this.lyricsLabel.Name = "lyricsLabel";
-            this.lyricsLabel.Size = new System.Drawing.Size(100, 30);
-            this.lyricsLabel.TabIndex = 0;
-            this.lyricsLabel.Text = "歌词同步";
+            lyricsLabel.AutoSize = true;
+            lyricsLabel.Font = new Font("微软雅黑", 16F);
+            lyricsLabel.Location = new Point(34, 50);
+            lyricsLabel.Name = "lyricsLabel";
+            lyricsLabel.Size = new Size(123, 35);
+            lyricsLabel.TabIndex = 0;
+            lyricsLabel.Text = "歌词同步";
             // 
             // btnStop
             // 
-            this.btnStop.Location = new System.Drawing.Point(30, 150);
-            this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(120, 40);
-            this.btnStop.TabIndex = 1;
-            this.btnStop.Text = "停止播放";
-            this.btnStop.UseVisualStyleBackColor = true;
-            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
+            btnStop.Location = new Point(34, 150);
+            btnStop.Name = "btnStop";
+            btnStop.Size = new Size(135, 40);
+            btnStop.TabIndex = 1;
+            btnStop.Text = "播放/暂停";
+            btnStop.UseVisualStyleBackColor = true;
+            btnStop.Click += btnStop_Click;
+            // 
+            // seekToBtn
+            // 
+            seekToBtn.Location = new Point(290, 139);
+            seekToBtn.Name = "seekToBtn";
+            seekToBtn.Size = new Size(94, 29);
+            seekToBtn.TabIndex = 2;
+            seekToBtn.Text = "跳转";
+            seekToBtn.UseVisualStyleBackColor = true;
+            seekToBtn.Click += seekToBtn_Click;
+            // 
+            // uiipTextBox1
+            // 
+            uiipTextBox1.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiipTextBox1.Location = new Point(281, 67);
+            uiipTextBox1.Margin = new Padding(4, 5, 4, 5);
+            uiipTextBox1.MinimumSize = new Size(1, 1);
+            uiipTextBox1.Name = "uiipTextBox1";
+            uiipTextBox1.Padding = new Padding(1);
+            uiipTextBox1.Size = new Size(123, 37);
+            uiipTextBox1.TabIndex = 3;
+            uiipTextBox1.Click += UiipTextBox1_Click;
             // 
             // TestLyricsForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(400, 250);
-            this.Controls.Add(this.btnStop);
-            this.Controls.Add(this.lyricsLabel);
-            this.Name = "TestLyricsForm";
-            this.Text = "歌词同步测试";
-            this.Load += new System.EventHandler(this.TestLyricsForm_Load);
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new SizeF(9F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(450, 250);
+            Controls.Add(uiipTextBox1);
+            Controls.Add(seekToBtn);
+            Controls.Add(btnStop);
+            Controls.Add(lyricsLabel);
+            Name = "TestLyricsForm";
+            Text = "歌词同步测试";
+            Load += TestLyricsForm_Load;
+            ResumeLayout(false);
+            PerformLayout();
+        }
+
+        private void UiipTextBox1_Click(object sender, EventArgs e)
+        {
         }
 
         #endregion
+
+        private Button seekToBtn;
+        private TextBox uiipTextBox1;
     }
 }

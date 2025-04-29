@@ -9,6 +9,7 @@ namespace ByteHarmonic.Forms
     public partial class TestLyricsForm : Form
     {
         private System.Windows.Forms.Timer _timer;
+        private System.Windows.Forms.Timer _log_timer;
         private PlaybackService _playbackService;
 
         public TestLyricsForm()
@@ -22,8 +23,8 @@ namespace ByteHarmonic.Forms
             // 载入一首测试歌曲（假设路径和歌词已经准备好）
             var song = new Song
             {
-                Title = "TestSong",
-                Artist = "TestArtist",
+                Title = "公子向北走",
+                Artist = "花僮",
                 MusicFilePath = FileHelper.GetAssetPath("Musics/example.mp3")
             };
 
@@ -37,13 +38,13 @@ namespace ByteHarmonic.Forms
 
         private void StartTimer()
         {
-            if (_timer == null)
+            TimerHelper.SetupTimer(ref _timer, 100, (s, e) => UpdateLyrics());
+            TimerHelper.SetupTimer(ref _log_timer, 1000, (s, e) =>
             {
-                _timer = new System.Windows.Forms.Timer();
-                _timer.Interval = 100; // 每0.1秒更新一次
-                _timer.Tick += (s, e) => UpdateLyrics();
-            }
-            _timer.Start();
+                var position = _playbackService.GetCurrentPosition();
+                var lyricsLine = _playbackService.GetCurrentLyricsLine()?.Text ?? "[No Lyrics]";
+                Console.WriteLine($"Current Time: {position}: {lyricsLine}");
+            });
         }
 
         private void UpdateLyrics()
@@ -57,19 +58,49 @@ namespace ByteHarmonic.Forms
             {
                 lyricsLabel.Text = "（无歌词）";
             }
+
+
         }
 
         private void TestLyricsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            _timer?.Stop();
-            _timer?.Dispose();
+            TimerHelper.StopAndDisposeTimer(ref _timer);
+            TimerHelper.DisposeTimer(ref _log_timer);
         }
 
 
         private void btnStop_Click(object sender, EventArgs e)
         {
-            _timer?.Stop();
-            _playbackService.Pause();
+            if (!_playbackService.IsPaused)
+            {
+                TimerHelper.StopTimer(ref _timer);
+                TimerHelper.StopTimer(ref _log_timer);
+                _playbackService.Pause();
+            }
+            else
+            {
+                TimerHelper.RestartTimer(ref _timer);
+                TimerHelper.RestartTimer(ref _log_timer);
+                _playbackService.Resume();
+            }
         }
+
+        private void seekToBtn_Click(object sender, EventArgs e)
+        {
+            var input = uiipTextBox1.Text.Trim();
+            if (TimeSpan.TryParse("00:" + input, out TimeSpan position)) // 补上小时位
+            {
+                _playbackService.SeekTo(position);
+                Console.WriteLine($"跳转到 {position}");
+            }
+            else
+            {
+                MessageBox.Show("请输入有效的时间格式（如：1:30）", "格式错误", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+        private void uiipTextBox1_ValueChanged (object sender, EventArgs e){
+
+        }
+
     }
 }

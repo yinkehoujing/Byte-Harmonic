@@ -25,8 +25,8 @@ namespace Services
             private double _playbackSpeed = 1.0;
             private IWavePlayer? _outputDevice;
             private AudioFileReader? _audioReader;
-
-            public bool IsPlaying => _outputDevice?.PlaybackState == PlaybackState.Playing;
+            private bool _isPaused = false;
+            public bool IsPaused => _isPaused;
 
             public void PlaySong(Song song)
             {
@@ -36,9 +36,11 @@ namespace Services
                     string path = "hhh";
                     song.LoadLyrics(path);
                 }
+                Console.WriteLine($"playing {song.Title}, Author is {song.Artist}");
                 StopInternal(); // 停止当前歌曲
                 _currentSong = song;
                 _currentIndex = _playlist.IndexOf(song);
+                _isPaused = false;
                 if (string.IsNullOrEmpty(song.MusicFilePath) || !File.Exists(song.MusicFilePath))
                 {
                    throw new FileNotFoundException("歌曲文件未找到", song.MusicFilePath);
@@ -54,11 +56,13 @@ namespace Services
             public void Pause()
             {
                 _outputDevice?.Pause();
+                _isPaused = true;
             }
 
             public void Resume()
             {
                 _outputDevice?.Play();
+                _isPaused = false;
             }
 
             public void Stop()
@@ -148,7 +152,6 @@ namespace Services
                 if (speed <= 0)
                     throw new ArgumentException("播放速度必须大于 0");
                 _playbackSpeed = speed;
-                // ⚠️ 注意：NAudio不直接支持变速播放，需要额外处理（可后续扩展）
             }
 
             public double GetPlaybackSpeed()
