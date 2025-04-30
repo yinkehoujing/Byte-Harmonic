@@ -1,11 +1,10 @@
-using Byte_Harmonic.Forms;
 using Byte_Harmonic.Forms.FormUtils;
 using MySql.Data.MySqlClient;
 using System.Drawing.Printing;
 using System.Windows.Forms;
 using Transitions;
 
-namespace ByteHarmonic.Forms
+namespace Byte_Harmonic.Forms.MainForms
 {
     /// <summary>
     /// ÷˜“≥ÃΩÀ˜“≥
@@ -18,11 +17,11 @@ namespace ByteHarmonic.Forms
 
         public MainForm()
         {
-            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);//À´ª∫≥Âºı…Ÿ…¡À∏
+            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);//À´ª∫≥Âºı…Ÿ…¡À∏
             InitializeComponent();
             _mouseHandler = new MouseMove(this);
             _styleHandler = new FormStyle(this);
-            this.Load += MainForm_Load;
+            Load += MainForm_Load;
         }
 
         /// <summary>

@@ -21,7 +21,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="Forms\MainForm.cs">
+      <Compile Update="Forms\MainForms\MainForm.cs">
         <SubType>Form</SubType>
       </Compile>
       <Compile Update="Properties\Resources.Designer.cs">
@@ -35,6 +35,7 @@
       <Folder Include="Assets\Lyrics\" />
       <Folder Include="Assets\Musics\" />
       <Folder Include="Database\SQLscripts\" />
+      <Folder Include="Forms\Controls\BaseControls\" />
     </ItemGroup>
 
     <ItemGroup>

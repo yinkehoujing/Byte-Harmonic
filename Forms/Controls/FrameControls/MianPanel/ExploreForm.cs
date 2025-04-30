@@ -1,16 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Byte_Harmonic.Forms.FormUtils;
-using Sunny.UI;
-using System.Drawing.Printing;
-using ByteHarmonic.Forms;
+﻿using Byte_Harmonic.Forms.FormUtils;
+using Byte_Harmonic.Forms.MainForms;
 
 namespace Byte_Harmonic.Forms
 {
@@ -48,7 +37,7 @@ namespace Byte_Harmonic.Forms
         private void uiImageButton1_Click_1(object sender, EventArgs e)
         {
             // 获取主窗体引用
-            MainForm main = this.FindForm() as MainForm;
+            Byte_Harmonic.Forms.MainForms.MainForm main = this.FindForm() as MainForm;
             if (main != null)
             {
                 main.Close();
@@ -58,7 +47,7 @@ namespace Byte_Harmonic.Forms
         private void MinButton_Click(object sender, EventArgs e)
         {
             // 获取主窗体引用
-            MainForm main = this.FindForm() as MainForm;
+            Byte_Harmonic.Forms.MainForms.MainForm main = this.FindForm() as MainForm;
             if (main != null)
             {
                 main.WindowState = FormWindowState.Minimized;

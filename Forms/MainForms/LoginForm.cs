@@ -17,7 +17,9 @@ namespace Byte_Harmonic.Forms
         private readonly FormStyle _styleHandler;//用于更改窗口样式
         public LoginForm()
         {
-            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);//双缓冲减少闪烁
+            this.DoubleBuffered = true;
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer |
+                         ControlStyles.AllPaintingInWmPaint, true);
             InitializeComponent();
             _mouseHandler = new MouseMove(this);
             _styleHandler = new FormStyle(this);
