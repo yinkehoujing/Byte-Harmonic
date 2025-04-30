@@ -12,7 +12,6 @@ using TagLib;         // 需要安装TagLib# NuGet包
 
 namespace Byte_Harmonic.Services
 {
-    /*
     public class SonglistService
     {
         private readonly SonglistRepository _repository;
@@ -202,5 +201,4 @@ namespace Byte_Harmonic.Services
         }
         #endregion
     }
-    */
 }
