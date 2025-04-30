@@ -12,12 +12,11 @@ using TagLib;         // 需要安装TagLib# NuGet包
 
 namespace Byte_Harmonic.Services
 {
+    /*
     public class SonglistService
     {
         private readonly SonglistRepository _repository;
         private readonly UserService _userService;
-
-        /*
         public SonglistService(SonglistRepository repository, UserService userService)
         {
             _repository = repository;
@@ -57,10 +56,7 @@ namespace Byte_Harmonic.Services
                 return false;
             }
         }
-        */
 
-        #region 歌曲管理   
-        //如果上面恢复注释之后把上面这行删掉
 
         //获取所有歌曲
         public Task<List<Song>> GetAllSongsAsync() => _repository.GetAllSongsAsync();
@@ -121,7 +117,6 @@ namespace Byte_Harmonic.Services
 
         #region 歌单管理
         //创建歌单
-        /*
         public void CreateSonglist(string name)
         {
             var currentUser = _userService.GetCurrentUser();
@@ -145,7 +140,6 @@ namespace Byte_Harmonic.Services
                 return false;
             }
         }
-        */
         //导出歌单
         public bool ExportSonglist(Songlist songlist, string filePath)
         {
@@ -208,4 +202,5 @@ namespace Byte_Harmonic.Services
         }
         #endregion
     }
+    */
 }
