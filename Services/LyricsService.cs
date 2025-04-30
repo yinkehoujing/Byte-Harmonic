@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ByteHarmonic.Services
+namespace Byte_Harmonic.Services
 {
     class LyricsService
     {

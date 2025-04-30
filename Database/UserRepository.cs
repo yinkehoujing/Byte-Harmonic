@@ -1,10 +1,10 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
-using ByteHarmonic.Models;
-using ByteHarmonic.Utils;
+using Byte_Harmonic.Models;
+using Byte_Harmonic.Utils;
 using MySql.Data.MySqlClient;
-namespace ByteHarmonic.Database
+namespace Byte_Harmonic.Database
 {
     public class UserRepository
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ByteHarmonic.Models
+namespace Byte_Harmonic.Models
 {
     /// <summary>
     /// 播放模式。

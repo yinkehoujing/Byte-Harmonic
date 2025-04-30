@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ByteHarmonic.Models
+namespace Byte_Harmonic.Models
 {
     /// <summary>
     /// 表示一首歌曲的信息。

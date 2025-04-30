@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
-using ByteHarmonic.Database;
-using ByteHarmonic.Models;
+using Byte_Harmonic.Database;
+using Byte_Harmonic.Models;
 
-namespace ByteHarmonic.Forms
+namespace Byte_Harmonic.Forms
 {
     public partial class TestUserRepoForm : Form
     {

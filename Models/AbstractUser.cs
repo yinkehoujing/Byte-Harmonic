@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Security.Principal;
 
-namespace ByteHarmonic.Models
+namespace Byte_Harmonic.Models
 {
     /// <summary>
     /// 抽象的用户类。

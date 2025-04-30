@@ -4,7 +4,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Konscious.Security.Cryptography;
 
-namespace ByteHarmonic.Utils;
+namespace Byte_Harmonic.Utils;
 
 /// <summary>
 /// 使用 Argon2id 算法实现的密码哈希器（基于 Konscious.Security.Cryptography 库）

@@ -1,8 +1,8 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
-using ByteHarmonic.Models;
+using Byte_Harmonic.Models;
 
-namespace ByteHarmonic.Database
+namespace Byte_Harmonic.Database
 {
     public class SongRepository
     {

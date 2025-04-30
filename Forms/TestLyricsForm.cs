@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Windows.Forms;
-using ByteHarmonic.Utils;
-using ByteHarmonic.Models;
+using Byte_Harmonic.Utils;
+using Byte_Harmonic.Models;
 using Services;
 
-namespace ByteHarmonic.Forms
+namespace Byte_Harmonic.Forms
 {
     public partial class TestLyricsForm : Form
     {

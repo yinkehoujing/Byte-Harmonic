@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using ByteHarmonic.Models;
+using Byte_Harmonic.Models;
 using MySql.Data.MySqlClient; // 根据实际数据库类型调整
 using Dapper;
 
-namespace ByteHarmonic.Database
+namespace Byte_Harmonic.Database
 {
     /// <summary>
     /// 曲库数据仓库 - 处理歌曲、标签、歌单的数据库操作

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using System.Collections.Generic;
 
-namespace ByteHarmonic.Models
+namespace Byte_Harmonic.Models
 {
     /// <summary>
     /// 表示一个播放列表。

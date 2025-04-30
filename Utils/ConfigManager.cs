@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ByteHarmonic.Utils
+namespace Byte_Harmonic.Utils
 {
     // [[maybe unused]]
     class ConfigManager

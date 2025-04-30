@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using ByteHarmonic.Models;
+using Byte_Harmonic.Models;
 using NAudio.Wave;
 
 namespace Services

@@ -4,8 +4,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Xml;
-using ByteHarmonic.Database;
-using ByteHarmonic.Models;
+using Byte_Harmonic.Database;
+using Byte_Harmonic.Models;
 using Newtonsoft.Json; // 需要安装NuGet包
 using TagLib;         // 需要安装TagLib# NuGet包
 
