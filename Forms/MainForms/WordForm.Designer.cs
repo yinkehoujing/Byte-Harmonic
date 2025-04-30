@@ -1,4 +1,6 @@
-﻿namespace Byte_Harmonic.Forms
+﻿using Byte_Harmonic.Forms.FormUtils;
+
+namespace Byte_Harmonic.Forms
 {
     partial class WordForm
     {
@@ -32,14 +34,24 @@
             uiImageButton1 = new Sunny.UI.UIImageButton();
             ExitButton = new Sunny.UI.UIImageButton();
             uiImageButton2 = new Sunny.UI.UIImageButton();
+            uiImageButton8 = new Sunny.UI.UIImageButton();
+            uiImageButton7 = new Sunny.UI.UIImageButton();
+            uiImageButton6 = new Sunny.UI.UIImageButton();
+            uiImageButton5 = new Sunny.UI.UIImageButton();
+            uiImageButton3 = new Sunny.UI.UIImageButton();
             ((System.ComponentModel.ISupportInitialize)uiImageButton1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)ExitButton).BeginInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)uiImageButton8).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)uiImageButton7).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)uiImageButton6).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)uiImageButton5).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)uiImageButton3).BeginInit();
             SuspendLayout();
             // 
             // uiImageButton1
             // 
-            uiImageButton1.BackColor = Color.Transparent;
+            uiImageButton1.BackColor = MPColor.Grey1;
             uiImageButton1.BackgroundImageLayout = ImageLayout.Stretch;
             uiImageButton1.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiImageButton1.Image = (Image)resources.GetObject("uiImageButton1.Image");
@@ -52,10 +64,11 @@
             uiImageButton1.TabIndex = 15;
             uiImageButton1.TabStop = false;
             uiImageButton1.Text = null;
+            uiImageButton1.Click += uiImageButton1_Click;
             // 
             // ExitButton
             // 
-            ExitButton.BackColor = Color.Transparent;
+            ExitButton.BackColor = MPColor.Grey1;
             ExitButton.BackgroundImageLayout = ImageLayout.Stretch;
             ExitButton.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             ExitButton.Image = (Image)resources.GetObject("ExitButton.Image");
@@ -68,10 +81,11 @@
             ExitButton.TabIndex = 14;
             ExitButton.TabStop = false;
             ExitButton.Text = null;
+            ExitButton.Click += ExitButton_Click;
             // 
             // uiImageButton2
             // 
-            uiImageButton2.BackColor = Color.Transparent;
+            uiImageButton2.BackColor = MPColor.Grey1;
             uiImageButton2.BackgroundImageLayout = ImageLayout.Stretch;
             uiImageButton2.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiImageButton2.Image = (Image)resources.GetObject("uiImageButton2.Image");
@@ -86,11 +100,102 @@
             uiImageButton2.Text = null;
             uiImageButton2.Click += uiImageButton2_Click;
             // 
+            // uiImageButton8
+            // 
+            uiImageButton8.Anchor = AnchorStyles.None;
+            uiImageButton8.BackColor = MPColor.Grey1;
+            uiImageButton8.Cursor = Cursors.Hand;
+            uiImageButton8.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiImageButton8.Image = (Image)resources.GetObject("uiImageButton8.Image");
+            uiImageButton8.ImageHover = (Image)resources.GetObject("uiImageButton8.ImageHover");
+            uiImageButton8.Location = new Point(157, 4);
+            uiImageButton8.Name = "uiImageButton8";
+            uiImageButton8.Size = new Size(19, 19);
+            uiImageButton8.SizeMode = PictureBoxSizeMode.StretchImage;
+            uiImageButton8.TabIndex = 26;
+            uiImageButton8.TabStop = false;
+            uiImageButton8.Text = null;
+            uiImageButton8.ZoomScaleDisabled = true;
+            // 
+            // uiImageButton7
+            // 
+            uiImageButton7.Anchor = AnchorStyles.None;
+            uiImageButton7.BackColor = MPColor.Grey1;
+            uiImageButton7.Cursor = Cursors.Hand;
+            uiImageButton7.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiImageButton7.Image = (Image)resources.GetObject("uiImageButton7.Image");
+            uiImageButton7.ImageHover = (Image)resources.GetObject("uiImageButton7.ImageHover");
+            uiImageButton7.Location = new Point(121, 4);
+            uiImageButton7.Name = "uiImageButton7";
+            uiImageButton7.Size = new Size(19, 19);
+            uiImageButton7.SizeMode = PictureBoxSizeMode.StretchImage;
+            uiImageButton7.TabIndex = 25;
+            uiImageButton7.TabStop = false;
+            uiImageButton7.Text = null;
+            uiImageButton7.ZoomScaleDisabled = true;
+            // 
+            // uiImageButton6
+            // 
+            uiImageButton6.Anchor = AnchorStyles.None;
+            uiImageButton6.BackColor = MPColor.Grey1;
+            uiImageButton6.Cursor = Cursors.Hand;
+            uiImageButton6.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiImageButton6.Image = (Image)resources.GetObject("uiImageButton6.Image");
+            uiImageButton6.ImageHover = (Image)resources.GetObject("uiImageButton6.ImageHover");
+            uiImageButton6.Location = new Point(45, 4);
+            uiImageButton6.Name = "uiImageButton6";
+            uiImageButton6.Size = new Size(19, 19);
+            uiImageButton6.SizeMode = PictureBoxSizeMode.StretchImage;
+            uiImageButton6.TabIndex = 24;
+            uiImageButton6.TabStop = false;
+            uiImageButton6.Text = null;
+            uiImageButton6.ZoomScaleDisabled = true;
+            // 
+            // uiImageButton5
+            // 
+            uiImageButton5.Anchor = AnchorStyles.None;
+            uiImageButton5.BackColor = MPColor.Grey1;
+            uiImageButton5.Cursor = Cursors.Hand;
+            uiImageButton5.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiImageButton5.Image = (Image)resources.GetObject("uiImageButton5.Image");
+            uiImageButton5.ImageHover = (Image)resources.GetObject("uiImageButton5.ImageHover");
+            uiImageButton5.Location = new Point(82, 4);
+            uiImageButton5.Name = "uiImageButton5";
+            uiImageButton5.Size = new Size(19, 19);
+            uiImageButton5.SizeMode = PictureBoxSizeMode.StretchImage;
+            uiImageButton5.TabIndex = 23;
+            uiImageButton5.TabStop = false;
+            uiImageButton5.Text = null;
+            uiImageButton5.ZoomScaleDisabled = true;
+            // 
+            // uiImageButton3
+            // 
+            uiImageButton3.Anchor = AnchorStyles.None;
+            uiImageButton3.BackColor = MPColor.Grey1;
+            uiImageButton3.Cursor = Cursors.Hand;
+            uiImageButton3.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiImageButton3.Image = (Image)resources.GetObject("uiImageButton3.Image");
+            uiImageButton3.ImageHover = (Image)resources.GetObject("uiImageButton3.ImageHover");
+            uiImageButton3.Location = new Point(625, -558);
+            uiImageButton3.Name = "uiImageButton3";
+            uiImageButton3.Size = new Size(24, 24);
+            uiImageButton3.SizeMode = PictureBoxSizeMode.StretchImage;
+            uiImageButton3.TabIndex = 22;
+            uiImageButton3.TabStop = false;
+            uiImageButton3.Text = null;
+            uiImageButton3.ZoomScaleDisabled = true;
+            // 
             // WordForm
             // 
+            BackColor = MPColor.Grey1;
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(720, 100);
+            Controls.Add(uiImageButton8);
+            Controls.Add(uiImageButton7);
+            Controls.Add(uiImageButton6);
+            Controls.Add(uiImageButton5);
+            Controls.Add(uiImageButton3);
             Controls.Add(uiImageButton2);
             Controls.Add(uiImageButton1);
             Controls.Add(ExitButton);
@@ -102,6 +207,11 @@
             ((System.ComponentModel.ISupportInitialize)uiImageButton1).EndInit();
             ((System.ComponentModel.ISupportInitialize)ExitButton).EndInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)uiImageButton8).EndInit();
+            ((System.ComponentModel.ISupportInitialize)uiImageButton7).EndInit();
+            ((System.ComponentModel.ISupportInitialize)uiImageButton6).EndInit();
+            ((System.ComponentModel.ISupportInitialize)uiImageButton5).EndInit();
+            ((System.ComponentModel.ISupportInitialize)uiImageButton3).EndInit();
             ResumeLayout(false);
         }
 
@@ -110,5 +220,10 @@
         private Sunny.UI.UIImageButton uiImageButton1;
         private Sunny.UI.UIImageButton ExitButton;
         private Sunny.UI.UIImageButton uiImageButton2;
+        private Sunny.UI.UIImageButton uiImageButton8;
+        private Sunny.UI.UIImageButton uiImageButton7;
+        private Sunny.UI.UIImageButton uiImageButton6;
+        private Sunny.UI.UIImageButton uiImageButton5;
+        private Sunny.UI.UIImageButton uiImageButton3;
     }
 }

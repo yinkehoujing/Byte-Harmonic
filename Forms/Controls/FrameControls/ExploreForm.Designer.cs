@@ -112,6 +112,7 @@ namespace Byte_Harmonic.Forms
             Back.TabStop = false;
             Back.Text = null;
             Back.ZoomScaleDisabled = true;
+            Back.Click += Back_Click_1;
             // 
             // pictureBox2
             // 
@@ -193,6 +194,7 @@ namespace Byte_Harmonic.Forms
             // 
             // panel2
             // 
+            panel2.BackColor = Color.White;
             panel2.Location = new Point(209, 65);
             panel2.Name = "panel2";
             panel2.Size = new Size(824, 512);
@@ -392,6 +394,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton12.TabStop = false;
             uiImageButton12.Text = null;
             uiImageButton12.ZoomScaleDisabled = true;
+            uiImageButton12.Click += uiImageButton12_Click;
             // 
             // uiImageButton13
             // 
@@ -466,6 +469,7 @@ namespace Byte_Harmonic.Forms
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(250, 250, 250);
             Controls.Add(uiImageButton16);
             Controls.Add(uiImageButton15);
             Controls.Add(uiImageButton14);
