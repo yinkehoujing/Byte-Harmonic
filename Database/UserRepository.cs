@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using Byte_Harmonic.Models;
 using Byte_Harmonic.Utils;
-using MySql.Data.MySqlClient;
+
 
 
 #region 同步操作

@@ -90,7 +90,7 @@ namespace Byte_Harmonic.Services
         }
 
         /// <summary>
-        /// 修改当前用户的用户名。
+        /// 修改用户名
         /// </summary>
         public async Task UpdateUsernameAsync(string newUsername)
         {
