@@ -102,6 +102,34 @@ namespace Byte_Harmonic.Forms
         {
 
         }
+
+        private void uiImageButton14_Click(object sender, EventArgs e)
+        {
+            // 获取主窗体引用
+            MainForm main = this.FindForm() as MainForm;
+            if (main != null)
+            {
+                main.LoadPage(new MusicForm());
+            }
+        }
+
+        private void uiImageButton1_Click_2(object sender, EventArgs e)
+        {
+            MainForm main = this.FindForm() as MainForm;
+            if (main != null)
+            {
+                main.Close();
+            }
+        }
+
+        private void uiImageButton3_Click(object sender, EventArgs e)
+        {
+            MainForm main = this.FindForm() as MainForm;
+            if (main != null)
+            {
+                main.WindowState = FormWindowState.Minimized;
+            }
+        }
     }
 
 }

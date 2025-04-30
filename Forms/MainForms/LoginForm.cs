@@ -94,5 +94,10 @@ namespace Byte_Harmonic.Forms
         {
             this.Close();
         }
+
+        private void uiImageButton1_Click_1(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
     }
 }

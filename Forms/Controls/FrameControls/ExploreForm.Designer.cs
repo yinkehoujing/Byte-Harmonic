@@ -94,6 +94,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton1.TabStop = false;
             uiImageButton1.Text = null;
             uiImageButton1.ZoomScaleDisabled = true;
+            uiImageButton1.Click += uiImageButton1_Click_2;
             // 
             // Back
             // 
@@ -137,6 +138,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton3.TabStop = false;
             uiImageButton3.Text = null;
             uiImageButton3.ZoomScaleDisabled = true;
+            uiImageButton3.Click += uiImageButton3_Click;
             // 
             // uiImageButton2
             // 
@@ -202,7 +204,7 @@ namespace Byte_Harmonic.Forms
             uiTrackBar1.FillColor = Color.White;
             uiTrackBar1.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiTrackBar1.ForeColor = Color.FromArgb(166, 215, 231);
-            uiTrackBar1.Location = new Point(467, 670);
+            uiTrackBar1.Location = new Point(467, 660);
             uiTrackBar1.MinimumSize = new Size(1, 1);
             uiTrackBar1.Name = "uiTrackBar1";
             uiTrackBar1.Radius = 0;
@@ -216,7 +218,7 @@ namespace Byte_Harmonic.Forms
             uiLabel1.BackColor = Color.White;
             uiLabel1.Font = new Font("黑体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiLabel1.ForeColor = Color.FromArgb(158, 158, 158);
-            uiLabel1.Location = new Point(807, 670);
+            uiLabel1.Location = new Point(807, 660);
             uiLabel1.Name = "uiLabel1";
             uiLabel1.Size = new Size(45, 15);
             uiLabel1.TabIndex = 14;
@@ -227,7 +229,7 @@ namespace Byte_Harmonic.Forms
             uiLabel2.BackColor = Color.White;
             uiLabel2.Font = new Font("黑体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiLabel2.ForeColor = Color.FromArgb(158, 158, 158);
-            uiLabel2.Location = new Point(416, 670);
+            uiLabel2.Location = new Point(416, 660);
             uiLabel2.Name = "uiLabel2";
             uiLabel2.Size = new Size(45, 15);
             uiLabel2.TabIndex = 15;
@@ -424,6 +426,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton14.TabStop = false;
             uiImageButton14.Text = null;
             uiImageButton14.ZoomScaleDisabled = true;
+            uiImageButton14.Click += uiImageButton14_Click;
             // 
             // uiImageButton15
             // 
