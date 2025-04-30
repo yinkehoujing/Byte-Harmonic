@@ -38,7 +38,7 @@ namespace Byte_Harmonic.Services
         }
 
         /// <summary>
-        /// 注销当前用户。
+        /// 删除用户。
         /// </summary>
         public void Logout()
         {
