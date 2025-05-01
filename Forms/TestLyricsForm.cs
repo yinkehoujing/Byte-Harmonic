@@ -133,5 +133,20 @@ namespace Byte_Harmonic.Forms
         {
             _playbackService.PlayPrevious();
         }
+
+
+        private void trackBarPlaybackSpeed_Scroll(object sender, EventArgs e)
+        {
+            double speed = 0.5 + trackBarPlaybackSpeed.Value * 0.1;
+            try
+            {
+                _playbackService.SetPlaybackSpeed(speed);
+                labelPlaybackSpeed.Text = $"x{speed:F2}";
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
     }
 }

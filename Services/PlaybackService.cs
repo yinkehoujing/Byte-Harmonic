@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using Byte_Harmonic.Models;
 using NAudio.Wave;
+using VarispeedDemo.SoundTouch;
+using NAudio.Wave.SampleProviders;
+
 
 namespace Services
 {
@@ -17,6 +20,8 @@ namespace Services
         private AudioFileReader? _audioReader;
         private bool _isPaused = false;
         private bool _isStopping = false;
+        private VarispeedSampleProvider? _speedControl;
+
 
         public bool IsPaused => _isPaused;
 
@@ -42,9 +47,7 @@ namespace Services
 
             if (song.Lyrics == null)
             {
-                // 从数据库或路径加载歌词
-                string path = "hhh"; // TODO: 替换为真实路径
-                song.LoadLyrics(path);
+                throw new InvalidOperationException("歌词未加载");
             }
 
             Console.WriteLine($"Playing {song.Title}, Author is {song.Artist}");
@@ -62,14 +65,16 @@ namespace Services
             }
 
             _audioReader = new AudioFileReader(song.MusicFilePath);
+
+            // 设置变速模式：true 为 Tempo（节奏不变，仅速度），false 为 Speed（连节奏一起变）
+            bool useTempo = true;
+            _speedControl = new VarispeedSampleProvider(_audioReader, 100, new SoundTouchProfile(useTempo, false));
+            _speedControl.PlaybackRate = (float)_playbackSpeed;
+
             _outputDevice = new WaveOutEvent();
-
-            // 绑定事件前，先解绑一次，确保没有重复绑定
             _outputDevice.PlaybackStopped -= OnPlaybackStopped;
-            // 这里先绑定事件, StopInternal 再解绑事件
             _outputDevice.PlaybackStopped += OnPlaybackStopped;
-
-            _outputDevice.Init(_audioReader);
+            _outputDevice.Init(_speedControl);
             _outputDevice.Play();
         }
 
@@ -143,8 +148,10 @@ namespace Services
             if (_audioReader != null)
             {
                 _audioReader.CurrentTime = position;
+                _speedControl?.Reposition(); // 通知 SoundTouch 重建缓冲
             }
         }
+
 
         public TimeSpan GetCurrentPosition()
         {
@@ -205,7 +212,12 @@ namespace Services
             if (speed <= 0)
                 throw new ArgumentException("播放速度必须大于 0");
             _playbackSpeed = speed;
+            if (_speedControl != null)
+            {
+                _speedControl.PlaybackRate = (float)speed;
+            }
         }
+
 
         public double GetPlaybackSpeed()
         {
@@ -267,6 +279,10 @@ namespace Services
         public void Dispose()
         {
             StopInternal();
+
+            _speedControl?.Dispose();
+            _speedControl = null;
+
         }
     }
 }
