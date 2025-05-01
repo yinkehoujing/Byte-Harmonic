@@ -11,7 +11,7 @@ namespace Byte_Harmonic.Forms
         }
         private readonly FormStyle _styleHandler;//用于更改窗口样式
         private int cornerRadius = 18;//通用设置圆角
-
+        private Form secondForm;//用于歌词页
 
         private void MainForm_Load(object sender, EventArgs e)//窗口加载
         {
@@ -100,6 +100,54 @@ namespace Byte_Harmonic.Forms
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void uiImageButton14_Click(object sender, EventArgs e)
+        {
+            // 获取主窗体引用
+            MainForm main = this.FindForm() as MainForm;
+            if (main != null)
+            {
+                main.LoadPage(new MusicForm());
+            }
+        }
+
+        private void uiImageButton1_Click_2(object sender, EventArgs e)
+        {
+            MainForm main = this.FindForm() as MainForm;
+            if (main != null)
+            {
+                main.Close();
+            }
+        }
+
+        private void uiImageButton3_Click(object sender, EventArgs e)
+        {
+            MainForm main = this.FindForm() as MainForm;
+            if (main != null)
+            {
+                main.WindowState = FormWindowState.Minimized;
+            }
+        }
+
+        private void uiImageButton12_Click(object sender, EventArgs e)
+        {
+            if (secondForm != null && !secondForm.IsDisposed)
+            {
+                secondForm.Close();
+                secondForm = null;
+            }
+            else
+            {
+                secondForm = new Byte_Harmonic.Forms.WordForm();
+                secondForm.Show();
+            }
+        }
+
+        private void Back_Click_1(object sender, EventArgs e)
+        {
+            //Back.Image = Properties.Resources.slideup1;
 
         }
     }

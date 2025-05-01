@@ -25,7 +25,17 @@ namespace Byte_Harmonic.Forms
 
         private void uiImageButton2_Click(object sender, EventArgs e)
         {
-            this.TopMost = true;
+            this.TopMost = !this.TopMost;
+        }
+
+        private void ExitButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void uiImageButton1_Click(object sender, EventArgs e)
+        {
+            this.WindowState= FormWindowState.Minimized;
         }
     }
 }

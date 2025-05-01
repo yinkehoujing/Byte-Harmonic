@@ -30,6 +30,7 @@
       <PackageReference Include="SunnyUI" Version="3.8.3" />
       <PackageReference Include="TagLibSharp" Version="2.3.0" />
       <PackageReference Include="Transitions" Version="1.0.0" />
+      <PackageReference Include="System.Drawing.Common" Version="8.0.0" />
     </ItemGroup>
 
     <ItemGroup>
