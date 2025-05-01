@@ -22,6 +22,7 @@ namespace Services
         private bool _isPaused = false;
         private bool _isStopping = false;
         private VarispeedSampleProvider? _speedControl;
+        public event Action<Song> PlaybackStopped;
 
 
         public bool IsPaused => _isPaused;
@@ -90,7 +91,12 @@ namespace Services
             // playSong 会调用 device 的 playbackStopped
             if (!_isPaused && !_isStopping)
             {
+
                 PlayNext();
+
+                var currentSong = _currentSong;
+
+                PlaybackStopped?.Invoke(currentSong); // invoke Song 对象给 UI
             }
         }
 

@@ -37,11 +37,21 @@ namespace Byte_Harmonic.Forms
                 Console.WriteLine($"用户拖动到：{seekPosition}");
             };
 
+            _playbackService.PlaybackStopped += (currentSong) =>
+            {
+                RunOnUiThread(() =>
+                {
+                    uiLabel3.Text = $"{currentSong.Title}——{currentSong.Artist}";
+                    UpdateTrackBarMaximum(); // 播放下一首后更新 UI
+                });
+            };
+
             var songlist = _songRepository.GetAllSongs();
 
             _playbackService.SetPlaylist(new Playlist(songlist, PlaybackMode.Sequential));
             _playbackService.PlayPlaylist();
             UpdateTrackBarMaximum();
+            UpdateSongInfo();
             StartTimer();
 
         }
@@ -147,12 +157,6 @@ namespace Byte_Harmonic.Forms
 
         }
 
-        private void TestLyricsForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            TimerHelper.StopAndDisposeTimer(ref _timer);
-            TimerHelper.StopAndDisposeTimer(ref _log_timer);
-        }
-
         private void UpdateTrackBarMaximum()
         {
             var duration = _playbackService.GetCurrentSong()?.Duration ?? 0;
@@ -165,6 +169,17 @@ namespace Byte_Harmonic.Forms
             uiLabel2.Text = TimeSpan.Zero.ToString(@"mm\:ss"); // 输出：00:00
 
         }
+
+        private void UpdateSongInfo()
+        {
+            var song= _playbackService.GetCurrentSong();
+            string songName = song.Title;
+            string artistName = song.Artist;
+            uiLabel3.Text = $"{songName}——{artistName}";
+
+        }
+
+
 
         private void uiImageButton5_Click(object sender, EventArgs e)
         {
@@ -188,17 +203,28 @@ namespace Byte_Harmonic.Forms
         {
             _playbackService.PlayPrevious();
             UpdateTrackBarMaximum();
+            UpdateSongInfo();
         }
 
         private void uiImageButton7_Click(object sender, EventArgs e)
         {
             _playbackService.PlayNext();
             UpdateTrackBarMaximum();
+            UpdateSongInfo();
         }
 
         private void uiLabel1_Click(object sender, EventArgs e)
         {
 
         }
+
+        private void RunOnUiThread(Action action)
+        {
+            if (InvokeRequired)
+                Invoke(action);
+            else
+                action();
+        }
+
     }
 }
