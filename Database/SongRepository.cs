@@ -89,7 +89,7 @@ namespace Byte_Harmonic.Database
         }
 
 
-        public List<Song> GetAllSongs(int maximum)
+        public List<Song> GetAllSongs(int maximum = 10)
         {
             var songs = new List<Song>();
 

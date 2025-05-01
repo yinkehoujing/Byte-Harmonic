@@ -41,12 +41,19 @@ namespace Byte_Harmonic.Forms
             Console.WriteLine("WordForm is loading");
             // 请先执行 Init.sql 和 InitData.sql (更新后)!!!
             var song = _songRepository.GetSongByTitle("公子向北走");
+            if(song == null)
+            {
+                throw new Exception("歌曲不存在，请先执行 Init.sql 和 InitData.sql (更新后)!!!");
+            }
             var song2 = _songRepository.GetSongByTitle("一笑江湖");
             var song3 = _songRepository.GetSongById(3);
 
-            _playbackService.SetPlaylist(new Playlist(new System.Collections.Generic.List<Song> { song, song2, song3 }));
+            var songlist = _songRepository.GetAllSongs(5);
+
+            //_playbackService.SetPlaylist(new Playlist(new System.Collections.Generic.List<Song> { song, song2, song3 }));
             //_playbackService.SetPlaylist(new Playlist(new System.Collections.Generic.List<Song> { song, song2, song3 }, PlaybackMode.Shuffle));
             //_playbackService.SetPlaylist(new Playlist(new System.Collections.Generic.List<Song> { song, song2, song3}, PlaybackMode.RepeatOne));
+            _playbackService.SetPlaylist(new Playlist(songlist, PlaybackMode.Sequential));
             _playbackService.PlayPlaylist();
 
             StartTimer();
