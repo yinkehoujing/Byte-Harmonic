@@ -5,6 +5,7 @@ using Byte_Harmonic.Models;
 using NAudio.Wave;
 using VarispeedDemo.SoundTouch;
 using NAudio.Wave.SampleProviders;
+using Byte_Harmonic.Database;
 
 
 namespace Services
@@ -83,6 +84,9 @@ namespace Services
         /// </summary>
         private void OnPlaybackStopped(object? sender, StoppedEventArgs e)
         {
+
+            Console.WriteLine($"PlaybackStopped: paused={_isPaused}, stopping={_isStopping}, error={e?.Exception?.Message}");
+
             // playSong 会调用 device 的 playbackStopped
             if (!_isPaused && !_isStopping)
             {
@@ -103,7 +107,7 @@ namespace Services
             _isPaused = false;
         }
 
-        // [[maybe used]], if used, should be changed
+        // [[maybe unused]]
         public void Stop()
         {
             if (_outputDevice != null)

@@ -6,9 +6,9 @@
 - **暂停**：用户可在任意时间暂停当前播放音乐。
 - **跳转（进度控制）**：通过拖动进度条或点击进度条区域实现跳播。
 - **播放模式**：支持顺序播放、随机播放、单曲循环三种模式。
-- **倍速播放**：支持选择播放速度（如 1.0x、1.25x、1.5x、2.0x）。 --> 可能废弃
+- **倍速播放**：支持选择播放速度（如 1.0x、1.25x、1.5x、2.0x）。
 - **显示歌词**：歌词与当前播放歌曲同步显示，逐行滚动并高亮当前句。
-- **歌词模式切换**： --> 可能废弃
+- **歌词模式切换**：
   - 普通模式（显示界面+歌词）
   - 纯净模式（仅显示歌词）
 
@@ -98,6 +98,7 @@ private List<LyricsLine> _lines = new List<LyricsLine>();
 - `Song GetSongByTitle(string title)`
 - `bool UpdateSong(Song song)`
 - `bool DeleteSong(int id)`
+- 仍需补充，如 `GetAllSongs()` 等方法。
 
 
 
@@ -127,7 +128,7 @@ private List<LyricsLine> _lines = new List<LyricsLine>();
 - `Id` 为自增主键，确保每首歌曲的唯一性。
 - 歌词可选（`LrcFilePath` 可为 null），以支持纯音乐或未获取歌词的情况。
 - `Downloaded` 字段可用于区分在线歌曲和本地缓存。
-- `Duration` 使用整数存储秒数，便于播放时处理
+- `Duration` 使用整数存储秒数，便于播放时处理。实际上未使用
 
 ## PlaybackService 相关 API 介绍
 

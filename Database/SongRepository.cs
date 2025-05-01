@@ -46,16 +46,16 @@ namespace Byte_Harmonic.Database
             using var reader = cmd.ExecuteReader();
             if (reader.Read())
             {
-                return new Song
-                {
-                    Id = reader.GetInt32("Id"),
-                    Title = reader.GetString("Title"),
-                    Artist = reader.GetString("Artist"),
-                    MusicFilePath = reader.GetString("MusicFilePath"),
-                    LrcFilePath = reader.IsDBNull(reader.GetOrdinal("LrcFilePath")) ? null : reader.GetString("LrcFilePath"),
-                    Downloaded = reader.GetBoolean("Downloaded"),
-                    Duration = reader.GetInt32("Duration")
-                };
+                return new Song(
+                    id: reader.GetInt32("Id"),
+                    title: reader.GetString("Title"),
+                    artist: reader.GetString("Artist"),
+                    downloaded: reader.GetBoolean("Downloaded"),
+                    musicFilePath: reader.GetString("MusicFilePath"),
+                    lrcFilePath: reader.IsDBNull(reader.GetOrdinal("LrcFilePath")) ? string.Empty : reader.GetString("LrcFilePath"),
+                    duration: reader.GetInt32("Duration"),
+                    tags: new List<string>() // TODO: 从 tag 表中获取
+                );
             }
 
             return null;
@@ -73,20 +73,53 @@ namespace Byte_Harmonic.Database
             using var reader = cmd.ExecuteReader();
             if (reader.Read())
             {
-                return new Song
-                {
-                    Id = reader.GetInt32("Id"),
-                    Title = reader.GetString("Title"),
-                    Artist = reader.GetString("Artist"),
-                    MusicFilePath = reader.GetString("MusicFilePath"),
-                    LrcFilePath = reader.IsDBNull(reader.GetOrdinal("LrcFilePath")) ? null : reader.GetString("LrcFilePath"),
-                    Downloaded = reader.GetBoolean("Downloaded"),
-                    Duration = reader.GetInt32("Duration")
-                };
+                return new Song(
+                    id: reader.GetInt32("Id"),
+                    title: reader.GetString("Title"),
+                    artist: reader.GetString("Artist"),
+                    downloaded: reader.GetBoolean("Downloaded"),
+                    musicFilePath: reader.GetString("MusicFilePath"),
+                    lrcFilePath: reader.IsDBNull(reader.GetOrdinal("LrcFilePath")) ? string.Empty : reader.GetString("LrcFilePath"),
+                    duration: reader.GetInt32("Duration"),
+                    tags: new List<string>() // 同上
+                );
             }
 
             return null;
         }
+
+
+        public List<Song> GetAllSongs(int maximum)
+        {
+            var songs = new List<Song>();
+
+            using var connection = new MySqlConnection(_connectionString);
+            connection.Open();
+
+            string sql = "SELECT * FROM Songs LIMIT @Max";
+            using var cmd = new MySqlCommand(sql, connection);
+            cmd.Parameters.AddWithValue("@Max", maximum);
+
+            using var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                var song = new Song(
+                    id: reader.GetInt32("Id"),
+                    title: reader.GetString("Title"),
+                    artist: reader.GetString("Artist"),
+                    downloaded: reader.GetBoolean("Downloaded"),
+                    musicFilePath: reader.GetString("MusicFilePath"),
+                    lrcFilePath: reader.IsDBNull(reader.GetOrdinal("LrcFilePath")) ? string.Empty : reader.GetString("LrcFilePath"),
+                    duration: reader.GetInt32("Duration"),
+                    tags: new List<string>() // 因数据库未存储 Tags 字段
+                );
+
+                songs.Add(song);
+            }
+
+            return songs;
+        }
+
 
         public bool UpdateSong(Song song)
         {
