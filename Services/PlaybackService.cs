@@ -22,7 +22,11 @@ namespace Services
         private bool _isPaused = false;
         private bool _isStopping = false;
         private VarispeedSampleProvider? _speedControl;
-        public event Action<Song> PlaybackStopped;
+
+        //public event Action<Song> PlaybackStopped; // 更新 songName, aritist, duration 
+        public event Action<Song> CurrentSongChanged; // the same as PlaybackStopped
+        public event Action<bool> PlaybackPaused; // 更新图标
+        public event Action<TimeSpan> PositionChanged; // 更新 label2, 进度条
 
 
         public bool IsPaused => _isPaused;
@@ -96,21 +100,22 @@ namespace Services
 
                 var currentSong = _currentSong;
 
-                PlaybackStopped?.Invoke(currentSong); // invoke Song 对象给 UI
+                CurrentSongChanged?.Invoke(currentSong); // OnPlaySttoped 由 device 触发，此时主动触发委托(UI层已注册事件）
             }
         }
-
 
         public void Pause()
         {
             _outputDevice?.Pause();
             _isPaused = true;
+            PlaybackPaused?.Invoke(true);
         }
 
         public void Resume()
         {
             _outputDevice?.Play();
             _isPaused = false;
+            PlaybackPaused?.Invoke(false);
         }
 
         // [[maybe unused]]
@@ -160,6 +165,7 @@ namespace Services
                 _audioReader.CurrentTime = position;
                 _speedControl?.Reposition(); // 通知 SoundTouch 重建缓冲
             }
+            PositionChanged?.Invoke(position);
         }
 
 
@@ -255,6 +261,7 @@ namespace Services
             }
 
             PlaySong(_playlist.PlaySongs[_currentIndex]);
+            CurrentSongChanged?.Invoke(GetCurrentSong()); // 通知所有订阅者 UI
         }
 
         public void PlayPrevious()
@@ -276,6 +283,8 @@ namespace Services
             }
 
             PlaySong(_playlist.PlaySongs[_currentIndex]);
+            CurrentSongChanged?.Invoke(GetCurrentSong()); // 通知所有订阅者 UI
+
         }
 
         public LyricsLine? GetCurrentLyricsLine()

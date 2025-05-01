@@ -37,15 +37,10 @@ namespace Byte_Harmonic.Forms
                 Console.WriteLine($"用户拖动到：{seekPosition}");
             };
 
-            _playbackService.PlaybackStopped += (currentSong) =>
-            {
-                RunOnUiThread(() =>
-                {
-                    uiLabel3.Text = $"{currentSong.Title}——{currentSong.Artist}";
-                    UpdateTrackBarMaximum(); // 播放下一首后更新 UI
-                });
-            };
-
+            // UI 层 订阅 PlaybackStopped 事件，接收到这个事件后，UI 层的回调函数会被执行,负责更新 UI 元素 
+            _playbackService.CurrentSongChanged += OnCurrentSongChanged;
+            _playbackService.PlaybackPaused += OnPlaybackPaused;
+            _playbackService.PositionChanged += UpdatePositionUI;
             var songlist = _songRepository.GetAllSongs();
 
             _playbackService.SetPlaylist(new Playlist(songlist, PlaybackMode.Sequential));
@@ -56,6 +51,33 @@ namespace Byte_Harmonic.Forms
 
         }
 
+        private void UpdatePositionUI(TimeSpan position)
+        {
+            if (!_isDragging) // 防止拖动冲突
+            {
+                RunOnUiThread(() => {
+                    uiTrackBar1.Value = (int)position.TotalSeconds;
+                    uiLabel2.Text = position.ToString(@"mm\:ss");
+                });
+            }
+        }
+
+        private void OnCurrentSongChanged(Song currentSong)
+        {
+            RunOnUiThread(() =>
+            {
+                uiLabel3.Text = $"{currentSong.Title}——{currentSong.Artist}";
+                UpdateTrackBarMaximum(); // 播放下一首后更新 UI
+            });
+        }
+
+        private void OnPlaybackPaused(bool isPaused)
+        {
+            RunOnUiThread(() =>
+            {
+                //btnPlayPause.Image = isPaused ? ResumeIcon : PauseIcon;
+            });
+        }
         private void uiLabel3_Click(object sender, EventArgs e)
         {
 
@@ -79,8 +101,30 @@ namespace Byte_Harmonic.Forms
             }
             else
             {
-                secondForm = new Byte_Harmonic.Forms.WordForm();
+                secondForm = new WordForm();
+
+                // 订阅操作请求事件
+                var wordForm = (WordForm)secondForm;
+                wordForm.PlayNextRequested += () => _playbackService.PlayNext();
+                wordForm.PlayPreviousRequested += () => _playbackService.PlayPrevious();
+                wordForm.PlayPauseRequested += TogglePlayPause;
+                wordForm.SeekRequested += pos => _playbackService.SeekTo(pos);
+
                 secondForm.Show();
+            }
+        }
+
+        private void TogglePlayPause()
+        {
+            if (_playbackService.IsPaused)
+            {
+                _playbackService.Resume();
+                TimerHelper.RestartTimer(ref _timer);
+            }
+            else
+            {
+                _playbackService.Pause();
+                TimerHelper.StopTimer(ref _timer);
             }
         }
 
