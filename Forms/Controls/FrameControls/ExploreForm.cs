@@ -1,5 +1,7 @@
 ﻿using Byte_Harmonic.Forms.FormUtils;
 using Byte_Harmonic.Forms.MainForms;
+using Byte_Harmonic.Properties;
+using System.Resources;
 
 namespace Byte_Harmonic.Forms
 {
@@ -8,11 +10,22 @@ namespace Byte_Harmonic.Forms
         public ExploreForm()
         {
             InitializeComponent();
+            InitializeSearchBox();
         }
         private readonly FormStyle _styleHandler;//用于更改窗口样式
         private int cornerRadius = 18;//通用设置圆角
         private Form secondForm;//用于歌词页
+        private AdvancedSearchBox searchBox;
 
+        private void InitializeSearchBox()
+        {
+            searchBox = new AdvancedSearchBox();
+            searchBox.Location = new Point(500, 29);
+            searchBox.Width = 400;
+            this.Controls.Add(searchBox);
+
+            // 绑定事件等
+        }
         private void MainForm_Load(object sender, EventArgs e)//窗口加载
         {
             _styleHandler.SetPictureBoxRoundCorners(pictureBox2, cornerRadius);//绘制圆角
@@ -149,7 +162,8 @@ namespace Byte_Harmonic.Forms
         private bool isFirstForm = true; // 跟踪当前窗体形态
         private void Back_Click_1(object sender, EventArgs e)
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExploreForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExploreForm));//获取该控件资源
+            ResourceManager resourceManager = new ResourceManager("Byte_Harmonic.Properties.Resources", typeof(Resources).Assembly);//获取全局资源
 
             if (isFirstForm)
             {
@@ -197,9 +211,9 @@ namespace Byte_Harmonic.Forms
                 uiImageButton12.Location = new Point(896, 628);
                 uiImageButton13.Location = new Point(952, 628);
                 uiImageButton14.Location = new Point(1005, 628);
-
                 // 调整返回按钮
-                Back.Location = new Point(26, 655);
+                Back.Image=((Image)(resourceManager.GetObject("icons8-slide-up-52")));
+                Back.ImageHover = ((Image)(resourceManager.GetObject("icons8-slide-up-52 (1)")));
                 if (uiImageButton15 != null && this.Controls.Contains(uiImageButton15))
                 {
                     this.Controls.Remove(uiImageButton15);
@@ -262,7 +276,8 @@ namespace Byte_Harmonic.Forms
                 uiImageButton14.Location = new Point(1003, 629);
 
                 // 恢复返回按钮
-                Back.Location = new Point(24, 656);
+                Back.Image = ((Image)(resourceManager.GetObject("icons8-slide-up-52 (3)")));
+                Back.ImageHover = ((Image)(resourceManager.GetObject("icons8-slide-up-52 (2)")));
                 if (uiImageButton15 == null)
                 {
                     uiImageButton15 = new Sunny.UI.UIImageButton();

@@ -103,10 +103,9 @@ namespace Byte_Harmonic.Forms
             Back.BackColor = Color.Transparent;
             Back.Cursor = Cursors.Hand;
             Back.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            Back.Image = (Image)resources.GetObject("Back.Image");
-            Back.ImageHover = (Image)resources.GetObject("Back.ImageHover");
-            Back.Location = new Point(31, 772);
-            Back.Margin = new Padding(4, 4, 4, 4);
+            Back.Image = Properties.Resources.icons8_slide_up_52__3_;
+            Back.ImageHover = Properties.Resources.icons8_slide_up_52__2_;
+            Back.Location = new Point(24, 656);
             Back.Name = "Back";
             Back.Size = new Size(42, 39);
             Back.SizeMode = PictureBoxSizeMode.StretchImage;
