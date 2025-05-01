@@ -145,7 +145,7 @@ namespace Byte_Harmonic.Forms
             }
         }
 
-        
+
         private bool isFirstForm = true; // 跟踪当前窗体形态
         private void Back_Click_1(object sender, EventArgs e)
         {
@@ -307,7 +307,12 @@ namespace Byte_Harmonic.Forms
             }
 
             isFirstForm = !isFirstForm; // 切换状态
-        
+
+        }
+
+        private void uiTrackBar1_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 
