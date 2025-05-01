@@ -64,6 +64,7 @@ namespace Byte_Harmonic.Forms
         private void TestLyricsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             TimerHelper.StopAndDisposeTimer(ref _timer);
+            TimerHelper.StopAndDisposeTimer(ref _log_timer);
         }
 
 
