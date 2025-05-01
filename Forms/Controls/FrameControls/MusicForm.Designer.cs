@@ -47,6 +47,7 @@ namespace Byte_Harmonic.Forms
             uiTrackBar1 = new Sunny.UI.UITrackBar();
             uiImageButton3 = new Sunny.UI.UIImageButton();
             uiImageButton1 = new Sunny.UI.UIImageButton();
+            lyricsLabel = new Sunny.UI.UILabel();
             ((System.ComponentModel.ISupportInitialize)uiImageButton14).BeginInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton13).BeginInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton12).BeginInit();
@@ -339,11 +340,22 @@ namespace Byte_Harmonic.Forms
             uiImageButton1.ZoomScaleDisabled = true;
             uiImageButton1.Click += uiImageButton1_Click;
             // 
+            // lyricsLabel
+            // 
+            lyricsLabel.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            lyricsLabel.ForeColor = Color.FromArgb(48, 48, 48);
+            lyricsLabel.Location = new Point(812, 437);
+            lyricsLabel.Name = "lyricsLabel";
+            lyricsLabel.Size = new Size(285, 66);
+            lyricsLabel.TabIndex = 44;
+            lyricsLabel.Text = "测试歌词";
+            // 
             // MusicForm
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
+            Controls.Add(lyricsLabel);
             Controls.Add(uiImageButton3);
             Controls.Add(uiImageButton1);
             Controls.Add(uiImageButton14);
@@ -397,5 +409,6 @@ namespace Byte_Harmonic.Forms
         private Sunny.UI.UITrackBar uiTrackBar1;
         private Sunny.UI.UIImageButton uiImageButton3;
         private Sunny.UI.UIImageButton uiImageButton1;
+        private Sunny.UI.UILabel lyricsLabel;
     }
 }

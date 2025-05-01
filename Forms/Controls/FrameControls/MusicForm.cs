@@ -101,7 +101,7 @@ namespace Byte_Harmonic.Forms
             }
             else
             {
-                secondForm = new WordForm();
+                secondForm = new WordForm(this); // 仅仅为了高效访问歌词行
 
                 // 订阅操作请求事件
                 var wordForm = (WordForm)secondForm;
@@ -157,12 +157,26 @@ namespace Byte_Harmonic.Forms
         private PlaybackService _playbackService;
         private SongRepository _songRepository;
         private bool _isDragging = false; // 是否正在拖动进度条
+        public event Action<string, TimeSpan> LyricsUpdated; // 参数：歌词文本、当前时间位置
 
         private void StartTimer()
         {
             TimerHelper.SetupTimer(ref _timer, 500, (s, e) =>
             {
-                UpdateLyrics();
+                var line = _playbackService.GetCurrentLyricsLine();
+                if (line != null)
+                {
+                    lyricsLabel.Text = line.Text;
+                }
+                else
+                {
+                    lyricsLabel.Text = "（无歌词）";
+                }
+
+                // 通知 WordForm 更新歌词
+                var position = _playbackService.GetCurrentPosition();
+
+                LyricsUpdated?.Invoke(line?.Text ?? "（无歌词）", position);
                 UpdatePlaybackProgress();
             });
 
@@ -186,20 +200,20 @@ namespace Byte_Harmonic.Forms
             uiLabel2.Text = current.ToString(@"mm\:ss"); 
         }
 
-        private void UpdateLyrics()
-        {
-            var line = _playbackService.GetCurrentLyricsLine();
-            if (line != null)
-            {
-                //lyricsLabel.Text = line.Text;
-            }
-            else
-            {
-                //lyricsLabel.Text = "（无歌词）";
-            }
+        //private void UpdateLyrics()
+        //{
+        //    var line = _playbackService.GetCurrentLyricsLine();
+        //    if (line != null)
+        //    {
+        //        lyricsLabel.Text = line.Text;
+        //    }
+        //    else
+        //    {
+        //        lyricsLabel.Text = "（无歌词）";
+        //    }
 
 
-        }
+        //}
 
         private void UpdateTrackBarMaximum()
         {

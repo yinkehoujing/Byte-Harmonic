@@ -24,7 +24,9 @@ namespace Byte_Harmonic.Forms
         public event Action PlayNextRequested;
         public event Action PlayPreviousRequested;
         public event Action PlayPauseRequested;
-        public event Action<TimeSpan> SeekRequested;
+        public event Action<TimeSpan> SeekRequested; // 以上用于 MusicForm 和 Service 交互
+
+        private readonly PlaybackService _playbackService;
 
         public WordForm()
         {
@@ -32,7 +34,38 @@ namespace Byte_Harmonic.Forms
             InitializeComponent();
             _mouseHandler = new MouseMove(this);
             _styleHandler = new FormStyle(this);
+        }
 
+        public WordForm(MusicForm musicForm)
+        {
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);//双缓冲减少闪烁
+            InitializeComponent();
+            _mouseHandler = new MouseMove(this);
+            _styleHandler = new FormStyle(this);
+
+            // 订阅歌词更新事件
+            musicForm.LyricsUpdated += OnLyricsUpdated;
+
+            // 窗体关闭时取消订阅
+            this.FormClosed += (s, e) =>
+                musicForm.LyricsUpdated -= OnLyricsUpdated;
+        }
+
+        private void OnLyricsUpdated(string lyrics, TimeSpan position)
+        {
+            if (IsDisposed) return;
+
+            RunOnUiThread(() =>
+            {
+                lyricsLabel.Text = lyrics;
+                //HighlightCurrentLine(position); // 高亮当前行
+            });
+        }
+
+        private void RunOnUiThread(Action action)
+        {
+            if (InvokeRequired) Invoke(action);
+            else action();
         }
 
         private void WordForm_Load(object sender, EventArgs e)
