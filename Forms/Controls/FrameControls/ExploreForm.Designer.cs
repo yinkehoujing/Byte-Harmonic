@@ -20,6 +20,7 @@ namespace Byte_Harmonic.Forms
                 components.Dispose();
             }
             base.Dispose(disposing);
+            Console.WriteLine("ExploreForm disposed!");
         }
 
         #region 组件设计器生成的代码

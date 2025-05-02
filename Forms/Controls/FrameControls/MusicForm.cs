@@ -147,8 +147,10 @@ namespace Byte_Harmonic.Forms
             MainForm main = this.FindForm() as MainForm;
             if (main != null)
             {
-                main.LoadPage(new ExploreForm());
+                // 使用已经绑定好委托的 _exploreForm 去 LoadPage
+                main.LoadPage(_exploreForm);
             }
+
         }
 
         private void uiImageButton12_Click(object sender, EventArgs e)

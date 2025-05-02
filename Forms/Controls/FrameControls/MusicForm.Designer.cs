@@ -20,7 +20,10 @@ namespace Byte_Harmonic.Forms
                 components.Dispose();
             }
             base.Dispose(disposing);
+
+            Console.WriteLine("MusicForm disposed");
             _instance = null; // 确保释放后可重新创建
+
         }
 
         #region 组件设计器生成的代码
