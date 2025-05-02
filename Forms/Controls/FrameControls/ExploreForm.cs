@@ -3,6 +3,9 @@ using Byte_Harmonic.Forms.FormUtils;
 using Byte_Harmonic.Forms.MainForms;
 using Byte_Harmonic.Models;
 using Byte_Harmonic.Properties;
+using Byte_Harmonic.Services;
+using Google.Protobuf.WellKnownTypes;
+using NAudio.Gui;
 using Org.BouncyCastle.Utilities;
 using Services;
 using System.Resources;
@@ -16,7 +19,7 @@ namespace Byte_Harmonic.Forms
             InitializeComponent();
             InitializeSearchBox();
 
-
+            _musicForm = MusicForm.Instance(this); 
             _songRepository = new SongRepository();
 
             var songlist = _songRepository.GetAllSongs();
@@ -31,7 +34,67 @@ namespace Byte_Harmonic.Forms
             uiLabel4.Text = songlist[0].Artist;
             TimeSpan ts = TimeSpan.FromSeconds(songlist[0].Duration);
             uiLabel1.Text = ts.ToString(@"mm\:ss");
+            uiTrackBar1.Maximum = songlist[0].Duration;
+            uiTrackBar1.Value = 0;
+
+            uiTrackBar1.MouseDown += (s, e2) => { _isDragging = true; };
+            uiTrackBar1.MouseUp += (s, e2) =>
+            {
+                _isDragging = false;
+                TimeSpan seekPosition = TimeSpan.FromSeconds(uiTrackBar1.Value);
+
+                SeekRequested?.Invoke(seekPosition);
+
+                Console.WriteLine($"Explore Form——用户拖动到：{seekPosition}");
+                uiLabel2.Text = seekPosition.ToString(@"mm\:ss");
+            };
+
+            // 注册事件函数
+            _musicForm.LyricsUpdated += OnLyricsUpdated; // 更新进度条
+            _musicForm.updateSongUI += OnUpdateSongUI; // 更新歌手、曲名、歌曲时长
+            //this.Closed += (s, e) =>
+            //    musicForm.LyricsUpdated -= OnLyricsUpdated;
         }
+
+        private void OnUpdateSongUI(Song song)
+        {
+            if (IsDisposed) return;
+
+            RunOnUiThread(() =>
+            {
+                uiLabel3.Text = song.Title;
+                uiLabel4.Text = song.Artist;
+                uiTrackBar1.Maximum = song.Duration;
+                uiTrackBar1.Value = 0;
+                TimeSpan ts = TimeSpan.FromSeconds(song.Duration);
+
+                // 格式化为 mm:ss 并显示到 UI
+                uiLabel1.Text = ts.ToString(@"mm\:ss");
+                uiLabel2.Text = TimeSpan.Zero.ToString(@"mm\:ss"); // 输出：00:00
+                //HighlightCurrentLine(position); // 高亮当前行
+            });
+        }
+
+        private void OnLyricsUpdated(string lyrics, TimeSpan position)
+        {
+            if (IsDisposed) return;
+
+            RunOnUiThread(() =>
+            {
+                uiLabel2.Text = position.ToString(@"mm\:ss");
+                uiTrackBar1.Value = Math.Min((int)position.TotalSeconds, uiTrackBar1.Maximum);
+                //HighlightCurrentLine(position); // 高亮当前行
+            });
+        }
+
+        private void RunOnUiThread(Action action)
+        {
+            if (InvokeRequired)
+                Invoke(action);
+            else
+                action();
+        }
+
         private readonly FormStyle _styleHandler;//用于更改窗口样式
         private int cornerRadius = 18;//通用设置圆角
         private Form secondForm;//用于歌词页
@@ -370,8 +433,12 @@ namespace Byte_Harmonic.Forms
         public event Action PlayPreviousRequested;
         public event Action PlayPauseRequested;
         public event Action<TimeSpan> SeekRequested; // 以上用于 MusicForm交互
+
+        // 用于响应 MusicForm 的事件
+        private MusicForm _musicForm;
         // 默认加载的歌单
         private Songlist _songlist;
+        private bool _isDragging;
 
         // 载入的页面
 

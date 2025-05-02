@@ -234,21 +234,21 @@ namespace Byte_Harmonic.Forms
             uiLabel1.Location = new Point(1038, 776);
             uiLabel1.Margin = new Padding(4, 0, 4, 0);
             uiLabel1.Name = "uiLabel1";
-            uiLabel1.Size = new Size(58, 18);
+            uiLabel1.Size = new Size(66, 18);
             uiLabel1.TabIndex = 14;
-            uiLabel1.Text = "0:00";
+            uiLabel1.Text = "00:00";
             // 
             // uiLabel2
             // 
             uiLabel2.BackColor = Color.White;
             uiLabel2.Font = new Font("黑体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiLabel2.ForeColor = Color.FromArgb(158, 158, 158);
-            uiLabel2.Location = new Point(535, 776);
+            uiLabel2.Location = new Point(518, 776);
             uiLabel2.Margin = new Padding(4, 0, 4, 0);
             uiLabel2.Name = "uiLabel2";
-            uiLabel2.Size = new Size(58, 18);
+            uiLabel2.Size = new Size(75, 18);
             uiLabel2.TabIndex = 15;
-            uiLabel2.Text = "0:00";
+            uiLabel2.Text = "00:00";
             // 
             // uiLabel3
             // 

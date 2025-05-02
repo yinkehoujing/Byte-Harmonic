@@ -55,10 +55,26 @@ namespace Byte_Harmonic.Forms
             _playbackService.PositionChanged += UpdatePositionUI;
 
             _exploreForm.PlaylistSet += OnPlaylistSet;
-            _exploreForm.PlayNextRequested += () => _playbackService.PlayNext();
-            _exploreForm.PlayPreviousRequested += () => _playbackService.PlayPrevious();
+            _exploreForm.PlayNextRequested += () =>
+            {
+                _playbackService.PlayNext();
+                var current = _playbackService.GetCurrentSong();
+                if(current != null)
+                {
+                    throw new ArgumentNullException("Song is null");
+                }
+                updateSongUI?.Invoke(current);
+            };
+
+            _exploreForm.PlayPreviousRequested += () =>
+            {
+                _playbackService.PlayPrevious();
+                var current = _playbackService.GetCurrentSong();
+                updateSongUI?.Invoke(current);
+            };
             _exploreForm.PlayPauseRequested += TogglePlayPause;
             _exploreForm.SeekRequested += pos => _playbackService.SeekTo(pos);
+
             _exploreForm.LoadInitialSongs();
             //_exploreForm.PlaySongRequested += OnPlaySongRequested;
 
@@ -209,6 +225,7 @@ namespace Byte_Harmonic.Forms
         private SongRepository _songRepository;
         private bool _isDragging = false; // 是否正在拖动进度条
         public event Action<string, TimeSpan> LyricsUpdated; // 参数：歌词文本、当前时间位置
+        public event Action<Song> updateSongUI;
 
         private void StartTimer()
         {
