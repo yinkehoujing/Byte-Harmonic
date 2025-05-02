@@ -59,9 +59,10 @@ namespace Byte_Harmonic.Forms
             {
                 _playbackService.PlayNext();
                 var current = _playbackService.GetCurrentSong();
-                if(current != null)
+                if(current == null)
                 {
-                    throw new ArgumentNullException("Song is null");
+                    Console.WriteLine("current song is null!");
+                    current = _playbackService.GetPlaylist().PlaySongs[0];
                 }
                 updateSongUI?.Invoke(current);
             };
@@ -163,8 +164,26 @@ namespace Byte_Harmonic.Forms
 
                 // 订阅操作请求事件
                 var wordForm = (WordForm)secondForm;
-                wordForm.PlayNextRequested += () => _playbackService.PlayNext();
-                wordForm.PlayPreviousRequested += () => _playbackService.PlayPrevious();
+
+                // 也通知 ExploreForm 的 UI
+                wordForm.PlayNextRequested += () =>
+                {
+                    _playbackService.PlayNext();
+                    var current = _playbackService.GetCurrentSong();
+                    if (current != null)
+                    {
+                        throw new ArgumentNullException("Song is null");
+                    }
+                    updateSongUI?.Invoke(current);
+                };
+
+                wordForm.PlayPreviousRequested += () =>
+                {
+                    _playbackService.PlayPrevious();
+                    var current = _playbackService.GetCurrentSong();
+                    updateSongUI?.Invoke(current);
+                };
+
                 wordForm.PlayPauseRequested += TogglePlayPause;
                 wordForm.SeekRequested += pos => _playbackService.SeekTo(pos);
 

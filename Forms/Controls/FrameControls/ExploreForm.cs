@@ -228,7 +228,7 @@ namespace Byte_Harmonic.Forms
             }
         }
 
-        private void uiImageButton12_Click(object sender, EventArgs e)
+       private void uiImageButton12_Click(object sender, EventArgs e)
         {
             if (secondForm != null && !secondForm.IsDisposed)
             {
@@ -237,7 +237,25 @@ namespace Byte_Harmonic.Forms
             }
             else
             {
-                secondForm = new Byte_Harmonic.Forms.WordForm();
+                secondForm = new WordForm(MusicForm.Instance(this)); 
+
+                // 订阅操作请求事件
+                var wordForm = (WordForm)secondForm;
+
+                // 也通知 ExploreForm 的 UI
+                wordForm.PlayNextRequested += () =>
+                {
+                    PlayPreviousRequested?.Invoke();
+
+                };
+
+                wordForm.PlayPreviousRequested += () =>
+                {
+                    PlayPreviousRequested?.Invoke();
+                };
+
+                wordForm.PlayPauseRequested += () => PlayPauseRequested?.Invoke(); // 先假设总是从队首开始播放;
+
                 secondForm.Show();
             }
         }
