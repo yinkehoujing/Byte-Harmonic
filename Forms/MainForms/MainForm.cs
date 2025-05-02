@@ -44,8 +44,6 @@ namespace Byte_Harmonic.Forms.MainForms
 
             var exploreForm = new ExploreForm();
             LoadPage(exploreForm); // ÏÔÊ¾Ëü
-
-            var musicForm = MusicForm.Instance(exploreForm);
         }
 
         //UI

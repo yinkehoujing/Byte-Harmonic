@@ -19,7 +19,7 @@ namespace Byte_Harmonic.Forms
             InitializeComponent();
             InitializeSearchBox();
 
-            _musicForm = MusicForm.Instance(this); 
+            _musicForm = MusicForm.Instance(this);
             _songRepository = new SongRepository();
 
             var songlist = _songRepository.GetAllSongs();
@@ -228,7 +228,7 @@ namespace Byte_Harmonic.Forms
             }
         }
 
-       private void uiImageButton12_Click(object sender, EventArgs e)
+        private void uiImageButton12_Click(object sender, EventArgs e)
         {
             if (secondForm != null && !secondForm.IsDisposed)
             {
@@ -237,7 +237,7 @@ namespace Byte_Harmonic.Forms
             }
             else
             {
-                secondForm = new WordForm(MusicForm.Instance(this)); 
+                secondForm = new WordForm(MusicForm.Instance(this));
 
                 // 订阅操作请求事件
                 var wordForm = (WordForm)secondForm;
@@ -493,6 +493,11 @@ namespace Byte_Harmonic.Forms
         private void uiImageButton7_Click(object sender, EventArgs e)
         {
             PlayNextRequested?.Invoke();
+        }
+
+        private void uiImageButton4_Click(object sender, EventArgs e)
+        {
+
         }
     }
 

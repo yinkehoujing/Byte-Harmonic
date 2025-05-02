@@ -181,6 +181,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton4.TabStop = false;
             uiImageButton4.Text = null;
             uiImageButton4.ZoomScaleDisabled = true;
+            uiImageButton4.Click += uiImageButton4_Click;
             // 
             // pictureBox1
             // 
