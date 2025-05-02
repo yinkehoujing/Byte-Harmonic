@@ -87,7 +87,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton1.Image = (Image)resources.GetObject("uiImageButton1.Image");
             uiImageButton1.ImageHover = (Image)resources.GetObject("uiImageButton1.ImageHover");
             uiImageButton1.Location = new Point(1290, 34);
-            uiImageButton1.Margin = new Padding(4, 4, 4, 4);
+            uiImageButton1.Margin = new Padding(4);
             uiImageButton1.Name = "uiImageButton1";
             uiImageButton1.Size = new Size(31, 28);
             uiImageButton1.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -119,7 +119,7 @@ namespace Byte_Harmonic.Forms
             // 
             pictureBox2.BackColor = Color.White;
             pictureBox2.Location = new Point(244, 12);
-            pictureBox2.Margin = new Padding(4, 4, 4, 4);
+            pictureBox2.Margin = new Padding(4);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(1106, 682);
             pictureBox2.TabIndex = 4;
@@ -134,7 +134,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton3.Image = (Image)resources.GetObject("uiImageButton3.Image");
             uiImageButton3.ImageHover = (Image)resources.GetObject("uiImageButton3.ImageHover");
             uiImageButton3.Location = new Point(1229, 34);
-            uiImageButton3.Margin = new Padding(4, 4, 4, 4);
+            uiImageButton3.Margin = new Padding(4);
             uiImageButton3.Name = "uiImageButton3";
             uiImageButton3.Size = new Size(31, 28);
             uiImageButton3.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -153,7 +153,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton2.Image = (Image)resources.GetObject("uiImageButton2.Image");
             uiImageButton2.ImageHover = (Image)resources.GetObject("uiImageButton2.ImageHover");
             uiImageButton2.Location = new Point(269, 34);
-            uiImageButton2.Margin = new Padding(4, 4, 4, 4);
+            uiImageButton2.Margin = new Padding(4);
             uiImageButton2.Name = "uiImageButton2";
             uiImageButton2.Size = new Size(39, 35);
             uiImageButton2.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -171,7 +171,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton4.Image = (Image)resources.GetObject("uiImageButton4.Image");
             uiImageButton4.ImageHover = (Image)resources.GetObject("uiImageButton4.ImageHover");
             uiImageButton4.Location = new Point(315, 34);
-            uiImageButton4.Margin = new Padding(4, 4, 4, 4);
+            uiImageButton4.Margin = new Padding(4);
             uiImageButton4.Name = "uiImageButton4";
             uiImageButton4.Size = new Size(39, 35);
             uiImageButton4.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -184,7 +184,7 @@ namespace Byte_Harmonic.Forms
             // 
             pictureBox1.BackColor = Color.White;
             pictureBox1.Location = new Point(244, 698);
-            pictureBox1.Margin = new Padding(4, 4, 4, 4);
+            pictureBox1.Margin = new Padding(4);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(1106, 118);
             pictureBox1.TabIndex = 10;
@@ -194,7 +194,7 @@ namespace Byte_Harmonic.Forms
             // panel1
             // 
             panel1.Location = new Point(8, 12);
-            panel1.Margin = new Padding(4, 4, 4, 4);
+            panel1.Margin = new Padding(4);
             panel1.Name = "panel1";
             panel1.Size = new Size(217, 738);
             panel1.TabIndex = 11;
@@ -203,7 +203,7 @@ namespace Byte_Harmonic.Forms
             // 
             panel2.BackColor = Color.White;
             panel2.Location = new Point(269, 76);
-            panel2.Margin = new Padding(4, 4, 4, 4);
+            panel2.Margin = new Padding(4);
             panel2.Name = "panel2";
             panel2.Size = new Size(1059, 602);
             panel2.TabIndex = 12;
@@ -215,7 +215,7 @@ namespace Byte_Harmonic.Forms
             uiTrackBar1.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiTrackBar1.ForeColor = Color.FromArgb(166, 215, 231);
             uiTrackBar1.Location = new Point(600, 776);
-            uiTrackBar1.Margin = new Padding(4, 4, 4, 4);
+            uiTrackBar1.Margin = new Padding(4);
             uiTrackBar1.MinimumSize = new Size(1, 1);
             uiTrackBar1.Name = "uiTrackBar1";
             uiTrackBar1.Radius = 0;
@@ -282,7 +282,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton5.Image = (Image)resources.GetObject("uiImageButton5.Image");
             uiImageButton5.ImageHover = (Image)resources.GetObject("uiImageButton5.ImageHover");
             uiImageButton5.Location = new Point(797, 714);
-            uiImageButton5.Margin = new Padding(4, 4, 4, 4);
+            uiImageButton5.Margin = new Padding(4);
             uiImageButton5.Name = "uiImageButton5";
             uiImageButton5.Size = new Size(39, 35);
             uiImageButton5.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -300,7 +300,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton6.Image = (Image)resources.GetObject("uiImageButton6.Image");
             uiImageButton6.ImageHover = (Image)resources.GetObject("uiImageButton6.ImageHover");
             uiImageButton6.Location = new Point(735, 714);
-            uiImageButton6.Margin = new Padding(4, 4, 4, 4);
+            uiImageButton6.Margin = new Padding(4);
             uiImageButton6.Name = "uiImageButton6";
             uiImageButton6.Size = new Size(39, 35);
             uiImageButton6.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -318,7 +318,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton7.Image = (Image)resources.GetObject("uiImageButton7.Image");
             uiImageButton7.ImageHover = (Image)resources.GetObject("uiImageButton7.ImageHover");
             uiImageButton7.Location = new Point(861, 714);
-            uiImageButton7.Margin = new Padding(4, 4, 4, 4);
+            uiImageButton7.Margin = new Padding(4);
             uiImageButton7.Name = "uiImageButton7";
             uiImageButton7.Size = new Size(39, 35);
             uiImageButton7.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -336,7 +336,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton8.Image = (Image)resources.GetObject("uiImageButton8.Image");
             uiImageButton8.ImageHover = (Image)resources.GetObject("uiImageButton8.ImageHover");
             uiImageButton8.Location = new Point(535, 721);
-            uiImageButton8.Margin = new Padding(4, 4, 4, 4);
+            uiImageButton8.Margin = new Padding(4);
             uiImageButton8.Name = "uiImageButton8";
             uiImageButton8.Size = new Size(32, 29);
             uiImageButton8.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -354,7 +354,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton9.Image = (Image)resources.GetObject("uiImageButton9.Image");
             uiImageButton9.ImageHover = (Image)resources.GetObject("uiImageButton9.ImageHover");
             uiImageButton9.Location = new Point(600, 721);
-            uiImageButton9.Margin = new Padding(4, 4, 4, 4);
+            uiImageButton9.Margin = new Padding(4);
             uiImageButton9.Name = "uiImageButton9";
             uiImageButton9.Size = new Size(31, 28);
             uiImageButton9.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -372,7 +372,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton10.Image = (Image)resources.GetObject("uiImageButton10.Image");
             uiImageButton10.ImageHover = (Image)resources.GetObject("uiImageButton10.ImageHover");
             uiImageButton10.Location = new Point(1048, 714);
-            uiImageButton10.Margin = new Padding(4, 4, 4, 4);
+            uiImageButton10.Margin = new Padding(4);
             uiImageButton10.Name = "uiImageButton10";
             uiImageButton10.Size = new Size(39, 35);
             uiImageButton10.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -390,7 +390,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton11.Image = (Image)resources.GetObject("uiImageButton11.Image");
             uiImageButton11.ImageHover = (Image)resources.GetObject("uiImageButton11.ImageHover");
             uiImageButton11.Location = new Point(984, 714);
-            uiImageButton11.Margin = new Padding(4, 4, 4, 4);
+            uiImageButton11.Margin = new Padding(4);
             uiImageButton11.Name = "uiImageButton11";
             uiImageButton11.Size = new Size(39, 35);
             uiImageButton11.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -408,7 +408,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton12.Image = (Image)resources.GetObject("uiImageButton12.Image");
             uiImageButton12.ImageHover = (Image)resources.GetObject("uiImageButton12.ImageHover");
             uiImageButton12.Location = new Point(1149, 740);
-            uiImageButton12.Margin = new Padding(4, 4, 4, 4);
+            uiImageButton12.Margin = new Padding(4);
             uiImageButton12.Name = "uiImageButton12";
             uiImageButton12.Size = new Size(39, 35);
             uiImageButton12.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -427,7 +427,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton13.Image = (Image)resources.GetObject("uiImageButton13.Image");
             uiImageButton13.ImageHover = (Image)resources.GetObject("uiImageButton13.ImageHover");
             uiImageButton13.Location = new Point(1221, 740);
-            uiImageButton13.Margin = new Padding(4, 4, 4, 4);
+            uiImageButton13.Margin = new Padding(4);
             uiImageButton13.Name = "uiImageButton13";
             uiImageButton13.Size = new Size(39, 35);
             uiImageButton13.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -435,6 +435,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton13.TabStop = false;
             uiImageButton13.Text = null;
             uiImageButton13.ZoomScaleDisabled = true;
+            uiImageButton13.Click += uiImageButton13_Click;
             // 
             // uiImageButton14
             // 
@@ -445,7 +446,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton14.Image = (Image)resources.GetObject("uiImageButton14.Image");
             uiImageButton14.ImageHover = (Image)resources.GetObject("uiImageButton14.ImageHover");
             uiImageButton14.Location = new Point(1290, 740);
-            uiImageButton14.Margin = new Padding(4, 4, 4, 4);
+            uiImageButton14.Margin = new Padding(4);
             uiImageButton14.Name = "uiImageButton14";
             uiImageButton14.Size = new Size(39, 35);
             uiImageButton14.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -464,7 +465,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton15.Image = (Image)resources.GetObject("uiImageButton15.Image");
             uiImageButton15.ImageHover = (Image)resources.GetObject("uiImageButton15.ImageHover");
             uiImageButton15.Location = new Point(96, 769);
-            uiImageButton15.Margin = new Padding(4, 4, 4, 4);
+            uiImageButton15.Margin = new Padding(4);
             uiImageButton15.Name = "uiImageButton15";
             uiImageButton15.Size = new Size(45, 41);
             uiImageButton15.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -482,7 +483,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton16.Image = (Image)resources.GetObject("uiImageButton16.Image");
             uiImageButton16.ImageHover = (Image)resources.GetObject("uiImageButton16.ImageHover");
             uiImageButton16.Location = new Point(161, 772);
-            uiImageButton16.Margin = new Padding(4, 4, 4, 4);
+            uiImageButton16.Margin = new Padding(4);
             uiImageButton16.Name = "uiImageButton16";
             uiImageButton16.Size = new Size(42, 39);
             uiImageButton16.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -522,7 +523,7 @@ namespace Byte_Harmonic.Forms
             Controls.Add(uiImageButton1);
             Controls.Add(Back);
             Controls.Add(pictureBox2);
-            Margin = new Padding(4, 4, 4, 4);
+            Margin = new Padding(4);
             Name = "ExploreForm";
             Size = new Size(1363, 824);
             ((System.ComponentModel.ISupportInitialize)uiImageButton1).EndInit();

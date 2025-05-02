@@ -38,8 +38,11 @@ namespace Byte_Harmonic.Forms.MainForms
         private void MainForm_Load(object sender, EventArgs e)//窗口加载
         {
             // Test MusicForm
-            LoadPage(page: new MusicForm());
-            //LoadPage(page: new ExploreForm());//自动载入探索页
+            //LoadPage(page: new MusicForm());
+
+            LoadPage(page: new ExploreForm());//自动载入探索页
+
+
         }
 
         //UI

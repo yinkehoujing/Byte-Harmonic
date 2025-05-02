@@ -18,16 +18,28 @@ namespace Byte_Harmonic.Forms
     public partial class MusicForm : UserControl
     {
         private Form secondForm;
+
+        private static MusicForm? _instance;
+
+        public static MusicForm Instance
+        {
+            get
+            {
+                if (_instance == null || _instance.IsDisposed)
+                    _instance = new MusicForm();
+                return _instance;
+            }
+        }
+
         public MusicForm()
         {
             InitializeComponent();
 
             _playbackService = new PlaybackService();
+            _timer = new System.Windows.Forms.Timer();
+            _log_timer = new System.Windows.Forms.Timer();
             _songRepository = new SongRepository();
-        }
 
-        private void MusicForm_Load(object sender, EventArgs e)
-        {
             uiTrackBar1.MouseDown += (s, e2) => { _isDragging = true; };
             uiTrackBar1.MouseUp += (s, e2) =>
             {
@@ -41,8 +53,12 @@ namespace Byte_Harmonic.Forms
             _playbackService.CurrentSongChanged += OnCurrentSongChanged;
             _playbackService.PlaybackPaused += OnPlaybackPaused;
             _playbackService.PositionChanged += UpdatePositionUI;
-            var songlist = _songRepository.GetAllSongs();
+        }
 
+        private void MusicForm_Load(object sender, EventArgs e)
+        {
+
+            var songlist = _songRepository.GetAllSongs();
             _playbackService.SetPlaylist(new Playlist(songlist, PlaybackMode.Sequential));
             _playbackService.PlayPlaylist();
             UpdateTrackBarMaximum();

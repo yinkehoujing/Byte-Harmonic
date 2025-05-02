@@ -122,7 +122,8 @@ namespace Byte_Harmonic.Forms
             MainForm main = this.FindForm() as MainForm;
             if (main != null)
             {
-                main.LoadPage(new MusicForm());
+                main.LoadPage(MusicForm.Instance); // 使用单例            }
+
             }
         }
 
@@ -212,7 +213,7 @@ namespace Byte_Harmonic.Forms
                 uiImageButton13.Location = new Point(952, 628);
                 uiImageButton14.Location = new Point(1005, 628);
                 // 调整返回按钮
-                Back.Image=((Image)(resourceManager.GetObject("icons8-slide-up-52")));
+                Back.Image = ((Image)(resourceManager.GetObject("icons8-slide-up-52")));
                 Back.ImageHover = ((Image)(resourceManager.GetObject("icons8-slide-up-52 (1)")));
                 if (uiImageButton15 != null && this.Controls.Contains(uiImageButton15))
                 {
@@ -326,6 +327,11 @@ namespace Byte_Harmonic.Forms
         }
 
         private void uiTrackBar1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void uiImageButton13_Click(object sender, EventArgs e)
         {
 
         }
