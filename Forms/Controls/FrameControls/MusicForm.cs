@@ -168,11 +168,14 @@ namespace Byte_Harmonic.Forms
             {
                 _playbackService.Resume();
                 TimerHelper.RestartTimer(ref _timer);
+                TimerHelper.RestartTimer(ref _log_timer);
             }
             else
             {
                 _playbackService.Pause();
                 TimerHelper.StopTimer(ref _timer);
+                TimerHelper.StopTimer(ref _log_timer);
+
             }
         }
 

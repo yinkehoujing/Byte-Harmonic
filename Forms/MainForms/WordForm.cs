@@ -26,8 +26,6 @@ namespace Byte_Harmonic.Forms
         public event Action PlayPauseRequested;
         public event Action<TimeSpan> SeekRequested; // 以上用于 MusicForm 和 Service 交互
 
-        private readonly PlaybackService _playbackService;
-
         public WordForm()
         {
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);//双缓冲减少闪烁

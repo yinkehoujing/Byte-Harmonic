@@ -117,7 +117,7 @@ namespace Byte_Harmonic.Forms
             MainForm main = this.FindForm() as MainForm;
             if (main != null)
             {
-                main.LoadPage(new MusicForm(_exploreForm));
+                main.LoadPage(new MusicForm(this));
             }
         }
 
@@ -127,7 +127,7 @@ namespace Byte_Harmonic.Forms
             MainForm main = this.FindForm() as MainForm;
             if (main != null)
             {
-                main.LoadPage(new MusicForm(_exploreForm)); // 是否是 MusicForm? 如果是，应该改为单例
+                main.LoadPage(new MusicForm(this)); // 是否是 MusicForm? 如果是，应该改为单例
             }
         }
 
@@ -142,7 +142,7 @@ namespace Byte_Harmonic.Forms
             MainForm main = this.FindForm() as MainForm;
             if (main != null)
             {
-                main.LoadPage(MusicForm.Instance(_exploreForm)); // 使用单例            }
+                main.LoadPage(MusicForm.Instance(this)); // 使用单例            }
 
             }
         }
@@ -374,7 +374,6 @@ namespace Byte_Harmonic.Forms
         private Songlist _songlist;
 
         // 载入的页面
-        private ExploreForm _exploreForm;
 
         // 应该是从 SonglistRepo 里获取，这里做测试使用
         private SongRepository _songRepository;
