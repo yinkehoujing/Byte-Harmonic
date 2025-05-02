@@ -19,22 +19,22 @@ namespace Byte_Harmonic.Forms
     {
         private Form secondForm;
 
+        private ExploreForm _exploreForm;
+
         private static MusicForm? _instance;
 
-        public static MusicForm Instance
+        public static MusicForm Instance(ExploreForm exploreForm)
         {
-            get
-            {
-                if (_instance == null || _instance.IsDisposed)
-                    _instance = new MusicForm();
-                return _instance;
-            }
+            if (_instance == null || _instance.IsDisposed)
+                _instance = new MusicForm(exploreForm);
+            return _instance;
         }
 
-        public MusicForm()
+        public MusicForm(ExploreForm exploreForm)
         {
             InitializeComponent();
 
+            _exploreForm = exploreForm;
             _playbackService = new PlaybackService();
             _timer = new System.Windows.Forms.Timer();
             _log_timer = new System.Windows.Forms.Timer();
@@ -53,17 +53,43 @@ namespace Byte_Harmonic.Forms
             _playbackService.CurrentSongChanged += OnCurrentSongChanged;
             _playbackService.PlaybackPaused += OnPlaybackPaused;
             _playbackService.PositionChanged += UpdatePositionUI;
+
+            _exploreForm.PlaylistSet += OnPlaylistSet;
+            _exploreForm.PlayNextRequested += () => _playbackService.PlayNext();
+            _exploreForm.PlayPreviousRequested += () => _playbackService.PlayPrevious();
+            _exploreForm.PlayPauseRequested += TogglePlayPause;
+            _exploreForm.SeekRequested += pos => _playbackService.SeekTo(pos);
+            _exploreForm.LoadInitialSongs();
+            //_exploreForm.PlaySongRequested += OnPlaySongRequested;
+
+        }
+
+        //private void OnPlaySongRequested(int start_index)
+        //{
+        //    Console.WriteLine("Response to PlaySong");
+        //    _playbackService.PlayPlaylist(start_index);
+        //    StartTimer();
+        //}
+
+        private void OnPlaylistSet(List<Song> songs)
+        {
+            Console.WriteLine("Response to PlaylistSet");
+            _playbackService.SetPlaylist(new Playlist(songs, PlaybackMode.Sequential));
+            //_playbackService.PlayPlaylist();
+            UpdateTrackBarMaximum();
+            UpdateSongInfo(); // 还没有开始播放
+            //StartTimer();
         }
 
         private void MusicForm_Load(object sender, EventArgs e)
         {
 
-            var songlist = _songRepository.GetAllSongs();
-            _playbackService.SetPlaylist(new Playlist(songlist, PlaybackMode.Sequential));
-            _playbackService.PlayPlaylist();
-            UpdateTrackBarMaximum();
-            UpdateSongInfo();
-            StartTimer();
+            //var songlist = _songRepository.GetAllSongs();
+            //_playbackService.SetPlaylist(new Playlist(songlist, PlaybackMode.Sequential));
+            //_playbackService.PlayPlaylist();
+            //UpdateTrackBarMaximum();
+            //UpdateSongInfo();
+            //StartTimer();
 
         }
 
@@ -132,7 +158,13 @@ namespace Byte_Harmonic.Forms
 
         private void TogglePlayPause()
         {
-            if (_playbackService.IsPaused)
+            Console.WriteLine("begin to Toggle PlayPause");
+            if(_playbackService.GetCurrentSong() == null)
+            {
+                _playbackService.PlayPlaylist(0); // 假设从队首播放
+                StartTimer(); // 没有对应地暂停 log_timer
+            }
+            else if (_playbackService.IsPaused)
             {
                 _playbackService.Resume();
                 TimerHelper.RestartTimer(ref _timer);
@@ -246,7 +278,14 @@ namespace Byte_Harmonic.Forms
 
         private void UpdateSongInfo()
         {
+
             var song= _playbackService.GetCurrentSong();
+            if(song == null)
+            {
+                // 还没有开始播放
+                // 假设默认播放第一首
+                song = _playbackService.GetPlaylist().PlaySongs[0];
+            }
             string songName = song.Title;
             string artistName = song.Artist;
             uiLabel3.Text = $"{songName}——{artistName}";

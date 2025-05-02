@@ -1,6 +1,10 @@
-﻿using Byte_Harmonic.Forms.FormUtils;
+﻿using Byte_Harmonic.Database;
+using Byte_Harmonic.Forms.FormUtils;
 using Byte_Harmonic.Forms.MainForms;
+using Byte_Harmonic.Models;
 using Byte_Harmonic.Properties;
+using Org.BouncyCastle.Utilities;
+using Services;
 using System.Resources;
 
 namespace Byte_Harmonic.Forms
@@ -11,6 +15,22 @@ namespace Byte_Harmonic.Forms
         {
             InitializeComponent();
             InitializeSearchBox();
+
+
+            _songRepository = new SongRepository();
+
+            var songlist = _songRepository.GetAllSongs();
+
+            if (songlist.Count <= 0)
+            {
+                throw new ArgumentException("songlist 为空!!!");
+            }
+
+            // UI 更新显示
+            uiLabel3.Text = songlist[0].Title;
+            uiLabel4.Text = songlist[0].Artist;
+            TimeSpan ts = TimeSpan.FromSeconds(songlist[0].Duration);
+            uiLabel1.Text = ts.ToString(@"mm\:ss");
         }
         private readonly FormStyle _styleHandler;//用于更改窗口样式
         private int cornerRadius = 18;//通用设置圆角
@@ -97,7 +117,7 @@ namespace Byte_Harmonic.Forms
             MainForm main = this.FindForm() as MainForm;
             if (main != null)
             {
-                main.LoadPage(new MusicForm());
+                main.LoadPage(new MusicForm(_exploreForm));
             }
         }
 
@@ -107,7 +127,7 @@ namespace Byte_Harmonic.Forms
             MainForm main = this.FindForm() as MainForm;
             if (main != null)
             {
-                main.LoadPage(new MusicForm());
+                main.LoadPage(new MusicForm(_exploreForm)); // 是否是 MusicForm? 如果是，应该改为单例
             }
         }
 
@@ -122,7 +142,7 @@ namespace Byte_Harmonic.Forms
             MainForm main = this.FindForm() as MainForm;
             if (main != null)
             {
-                main.LoadPage(MusicForm.Instance); // 使用单例            }
+                main.LoadPage(MusicForm.Instance(_exploreForm)); // 使用单例            }
 
             }
         }
@@ -334,6 +354,61 @@ namespace Byte_Harmonic.Forms
         private void uiImageButton13_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void uiImageButton2_Click_2(object sender, EventArgs e)
+        {
+
+        }
+
+        // 事件定义, 通知 MusicForm 执行实际逻辑
+        //public event Action<int>? PlaySongRequested;
+        public event Action<List<Song>>? PlaylistSet;
+
+        public event Action<double>? PlaybackSpeedChanged;
+        public event Action PlayNextRequested;
+        public event Action PlayPreviousRequested;
+        public event Action PlayPauseRequested;
+        public event Action<TimeSpan> SeekRequested; // 以上用于 MusicForm交互
+        // 默认加载的歌单
+        private Songlist _songlist;
+
+        // 载入的页面
+        private ExploreForm _exploreForm;
+
+        // 应该是从 SonglistRepo 里获取，这里做测试使用
+        private SongRepository _songRepository;
+
+        private void uiImageButton5_Click_1(object sender, EventArgs e)
+        {
+            Console.WriteLine("Invoke PlayPause");
+            PlayPauseRequested?.Invoke(); // 先假设总是从队首开始播放
+        }
+
+
+        public void LoadInitialSongs()
+        {
+            _songRepository = new SongRepository();
+
+            var songlist = _songRepository.GetAllSongs();
+
+            if (songlist.Count <= 0)
+            {
+                throw new ArgumentException("songlist 为空!!!");
+            }
+
+            Console.WriteLine("invoke playlistSet");
+            PlaylistSet?.Invoke(songlist);
+        }
+
+        private void uiImageButton6_Click(object sender, EventArgs e)
+        {
+            PlayPreviousRequested?.Invoke();
+        }
+
+        private void uiImageButton7_Click(object sender, EventArgs e)
+        {
+            PlayNextRequested?.Invoke();
         }
     }
 

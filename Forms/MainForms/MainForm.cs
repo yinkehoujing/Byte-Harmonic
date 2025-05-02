@@ -40,9 +40,12 @@ namespace Byte_Harmonic.Forms.MainForms
             // Test MusicForm
             //LoadPage(page: new MusicForm());
 
-            LoadPage(page: new ExploreForm());//自动载入探索页
+            //LoadPage(page: new ExploreForm());//自动载入探索页
 
+            var exploreForm = new ExploreForm();
+            LoadPage(exploreForm); // 显示它
 
+            var musicForm = MusicForm.Instance(exploreForm);
         }
 
         //UI
