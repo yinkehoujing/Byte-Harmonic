@@ -22,7 +22,6 @@ namespace Byte_Harmonic.Forms
             base.Dispose(disposing);
 
             Console.WriteLine("MusicForm disposed");
-            _instance = null; // 确保释放后可重新创建
 
         }
 

@@ -1,6 +1,8 @@
 ﻿using Byte_Harmonic.Forms.FormUtils;
 using Byte_Harmonic.Models;
+using Byte_Harmonic.Properties;
 using System;
+using System.Resources;
 using System.Windows.Forms;
 
 namespace Byte_Harmonic.Forms
@@ -19,10 +21,28 @@ namespace Byte_Harmonic.Forms
 
             // 订阅 AppContext 的歌词更新事件
             AppContext.LyricsUpdated += OnLyricsUpdated;
+            AppContext.ShowPlayingBtn += OnShowPlayingBtn;
 
-            //// 注销事件避免内存泄漏
-            //this.FormClosed += (s, e) =>
-            //    AppContext.LyricsUpdated -= OnLyricsUpdated;
+            AppContext.TriggerShowPlayingBtn(!AppContext._playbackService.IsPaused);
+
+        }
+
+        private void OnShowPlayingBtn(bool isPaused)
+        {
+            ResourceManager resourceManager = new ResourceManager("Byte_Harmonic.Properties.Resources", typeof(Resources).Assembly);//获取全局资源
+
+            if (isPaused)
+            {
+                uiImageButton5.Image = ((Image)(resourceManager.GetObject("icons8-pause-96")));
+                uiImageButton5.ImageHover = ((Image)(resourceManager.GetObject("icons8-pause-96 (1)")));
+            }
+            else
+            {
+                // 暂停了显示下面图标
+                uiImageButton5.Image = ((Image)(resourceManager.GetObject("icons8-play-96")));
+                uiImageButton5.ImageHover = ((Image)(resourceManager.GetObject("icons8-play-96 (1)")));
+
+            }
         }
 
         private void OnLyricsUpdated(string lyrics, TimeSpan position)

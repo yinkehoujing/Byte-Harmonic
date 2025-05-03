@@ -19,15 +19,16 @@ namespace Byte_Harmonic.Forms
         public static PlaybackService _playbackService = new PlaybackService();
         public static SongRepository _songRepository = new SongRepository();
 
-        public static event Action<Song> updateSongUI;
-        public static event Action<string, TimeSpan> LyricsUpdated; // 参数：歌词文本、当前时间位置
-
 
         // 只更新 UI 的事件
+        public static event Action<Song> updateSongUI; // 更新歌曲显示信息, 歌名、作者
+        public static event Action<string, TimeSpan> LyricsUpdated; // 参数：歌词文本、当前时间位置
+        public static event Action<TimeSpan> PositionChanged; // 更新 label2, 进度条
+        public static event Action<bool> ShowPlayingBtn; // 更新 label2, 进度条
+
         public static event Action<double>? PlaybackSpeedChanged;
         public static event Action<TimeSpan> SeekRequested;
-        public static event Action<List<Song>> PlaylistSetRequested;
-        public static event Action<TimeSpan> PositionChanged; // 更新 label2, 进度条
+        public static event Action<List<Song>> PlaylistSetRequested; // 响应，设置初始的 Playlist
 
         public static void TriggerPositionChanged(TimeSpan ts)
         {
@@ -39,6 +40,12 @@ namespace Byte_Harmonic.Forms
         {
             Console.WriteLine("TriggerupdateSongUI");
             updateSongUI?.Invoke(song);
+        }
+
+        public static void TriggerShowPlayingBtn(bool showPlaying)
+        {
+            Console.WriteLine("TriggerShowPlayingBtn");
+            ShowPlayingBtn?.Invoke(showPlaying);
         }
 
 
@@ -78,17 +85,17 @@ namespace Byte_Harmonic.Forms
 
         public static void Initialize()
         {
-            // 注册 PlaybackSpeedChanged 事件处理函数
-            PlaybackSpeedChanged += OnPlaybackSpeedChanged;
-
+            // 用于调试
             // 注册 SeekRequested 事件处理函数
             SeekRequested += OnSeekRequested;
+            // 注册 LyricsUpdated 事件处理函数
+            LyricsUpdated += OnLyricsUpdated;
 
+            // 注册 PlaybackSpeedChanged 事件处理函数（未完成）
+            PlaybackSpeedChanged += OnPlaybackSpeedChanged;
             // 注册 PlaylistSetRequested 事件处理函数
             PlaylistSetRequested += OnPlaylistSetRequested;
 
-            // 注册 LyricsUpdated 事件处理函数
-            LyricsUpdated += OnLyricsUpdated;
         }
 
         // 事件处理函数
@@ -155,18 +162,22 @@ namespace Byte_Harmonic.Forms
             {
                 AppContext._playbackService.PlayPlaylist(0); // 假设从队首播放
                 StartTimer(); // 没有对应地暂停 log_timer
+                TriggerShowPlayingBtn(true);
             }
             else if (AppContext._playbackService.IsPaused)
             {
                 AppContext._playbackService.Resume();
                 TimerHelper.RestartTimer(ref AppContext._timer);
                 TimerHelper.RestartTimer(ref AppContext._log_timer);
+                TriggerShowPlayingBtn(true);
             }
             else
             {
                 AppContext._playbackService.Pause();
                 TimerHelper.StopTimer(ref AppContext._timer);
                 TimerHelper.StopTimer(ref AppContext._log_timer);
+                TriggerShowPlayingBtn(false);
+
 
             }
         }
