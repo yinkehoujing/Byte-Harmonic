@@ -39,7 +39,6 @@ namespace Byte_Harmonic.Forms
             uiImageButton2 = new Sunny.UI.UIImageButton();
             uiImageButton4 = new Sunny.UI.UIImageButton();
             pictureBox1 = new PictureBox();
-            panel1 = new Panel();
             panel2 = new Panel();
             uiTrackBar1 = new Sunny.UI.UITrackBar();
             uiLabel1 = new Sunny.UI.UILabel();
@@ -58,6 +57,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton14 = new Sunny.UI.UIImageButton();
             uiImageButton15 = new Sunny.UI.UIImageButton();
             uiImageButton16 = new Sunny.UI.UIImageButton();
+            panel1 = new Panel();
             ((System.ComponentModel.ISupportInitialize)uiImageButton1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)Back).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -187,13 +187,6 @@ namespace Byte_Harmonic.Forms
             pictureBox1.TabIndex = 10;
             pictureBox1.TabStop = false;
             pictureBox1.Click += pictureBox1_Click;
-            // 
-            // panel1
-            // 
-            panel1.Location = new Point(6, 10);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(169, 627);
-            panel1.TabIndex = 11;
             // 
             // panel2
             // 
@@ -473,6 +466,13 @@ namespace Byte_Harmonic.Forms
             uiImageButton16.Text = null;
             uiImageButton16.ZoomScaleDisabled = true;
             // 
+            // panel1
+            // 
+            panel1.Location = new Point(6, 315);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(169, 322);
+            panel1.TabIndex = 11;
+            // 
             // ExploreForm
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -536,7 +536,6 @@ namespace Byte_Harmonic.Forms
         private Sunny.UI.UIImageButton uiImageButton2;
         private Sunny.UI.UIImageButton uiImageButton4;
         private PictureBox pictureBox1;
-        private Panel panel1;
         private Panel panel2;
         private Sunny.UI.UITrackBar uiTrackBar1;
         private Sunny.UI.UILabel uiLabel1;
@@ -555,5 +554,6 @@ namespace Byte_Harmonic.Forms
         private Sunny.UI.UIImageButton uiImageButton14;
         private Sunny.UI.UIImageButton uiImageButton15;
         private Sunny.UI.UIImageButton uiImageButton16;
+        private Panel panel1;
     }
 }
