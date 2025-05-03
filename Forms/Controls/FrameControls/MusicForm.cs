@@ -19,80 +19,64 @@ namespace Byte_Harmonic.Forms
     {
         private Form secondForm;
 
-        private ExploreForm _exploreForm;
-
         private static MusicForm? _instance;
 
-        public static MusicForm Instance(ExploreForm exploreForm)
+        public static MusicForm Instance()
         {
             if (_instance == null || _instance.IsDisposed)
-                _instance = new MusicForm(exploreForm);
+                _instance = new MusicForm();
             return _instance;
         }
 
-        public MusicForm(ExploreForm exploreForm)
+        public MusicForm()
         {
             InitializeComponent();
 
-            _exploreForm = exploreForm;
-            _playbackService = new PlaybackService();
-            _timer = new System.Windows.Forms.Timer();
-            _log_timer = new System.Windows.Forms.Timer();
-            _songRepository = new SongRepository();
+            // UI 层 订阅 PlaybackStopped 事件，接收到这个事件后，UI 层的回调函数会被执行,负责更新 UI 元素 
+            AppContext.updateSongUI += OnCurrentSongChanged;
+            //AppContext.PlaybackPaused += OnPlaybackPaused;
+            AppContext.PositionChanged += UpdatePositionUI;
 
             uiTrackBar1.MouseDown += (s, e2) => { _isDragging = true; };
             uiTrackBar1.MouseUp += (s, e2) =>
             {
                 _isDragging = false;
                 TimeSpan seekPosition = TimeSpan.FromSeconds(uiTrackBar1.Value);
-                _playbackService.SeekTo(seekPosition);
+                AppContext._playbackService.SeekTo(seekPosition);
                 Console.WriteLine($"用户拖动到：{seekPosition}");
+                AppContext.TriggerPositionChanged(seekPosition);
+                //AppContext.TriggerSeekRequested(seekPosition); // 用于更新 UI
             };
 
-            // UI 层 订阅 PlaybackStopped 事件，接收到这个事件后，UI 层的回调函数会被执行,负责更新 UI 元素 
-            _playbackService.CurrentSongChanged += OnCurrentSongChanged;
-            _playbackService.PlaybackPaused += OnPlaybackPaused;
-            _playbackService.PositionChanged += UpdatePositionUI;
 
-            _exploreForm.PlaylistSet += OnPlaylistSet;
-            _exploreForm.PlayNextRequested += () =>
-            {
-                _playbackService.PlayNext();
-                var current = _playbackService.GetCurrentSong();
-                if(current == null)
-                {
-                    Console.WriteLine("current song is null!");
-                    current = _playbackService.GetPlaylist().PlaySongs[0];
-                }
-                updateSongUI?.Invoke(current);
-            };
+            AppContext.PlaylistSetRequested += OnPlaylistSet;
+           
+           AppContext.SeekRequested += pos => AppContext._playbackService.SeekTo(pos);
 
-            _exploreForm.PlayPreviousRequested += () =>
-            {
-                _playbackService.PlayPrevious();
-                var current = _playbackService.GetCurrentSong();
-                updateSongUI?.Invoke(current);
-            };
-            _exploreForm.PlayPauseRequested += TogglePlayPause;
-            _exploreForm.SeekRequested += pos => _playbackService.SeekTo(pos);
-
-            _exploreForm.LoadInitialSongs();
+            LoadInitialSongs(); // 注册完了之后就 trigger
             //_exploreForm.PlaySongRequested += OnPlaySongRequested;
 
         }
 
-        //private void OnPlaySongRequested(int start_index)
-        //{
-        //    Console.WriteLine("Response to PlaySong");
-        //    _playbackService.PlayPlaylist(start_index);
-        //    StartTimer();
-        //}
+        public void LoadInitialSongs()
+        {
+
+            var songlist = AppContext._songRepository.GetAllSongs();
+
+            if (songlist.Count <= 0)
+            {
+                throw new ArgumentException("songlist 为空!!!");
+            }
+
+            Console.WriteLine("invoke playlistSet");
+            //AppContext.TriggerPlaylistSetRequested(songlist);
+        }
 
         private void OnPlaylistSet(List<Song> songs)
         {
             Console.WriteLine("Response to PlaylistSet");
-            _playbackService.SetPlaylist(new Playlist(songs, PlaybackMode.Sequential));
-            //_playbackService.PlayPlaylist();
+            AppContext._playbackService.SetPlaylist(new Playlist(songs, PlaybackMode.Sequential));
+            //AppContext._playbackService.PlayPlaylist();
             UpdateTrackBarMaximum();
             UpdateSongInfo(); // 还没有开始播放
             //StartTimer();
@@ -100,14 +84,7 @@ namespace Byte_Harmonic.Forms
 
         private void MusicForm_Load(object sender, EventArgs e)
         {
-
-            //var songlist = _songRepository.GetAllSongs();
-            //_playbackService.SetPlaylist(new Playlist(songlist, PlaybackMode.Sequential));
-            //_playbackService.PlayPlaylist();
-            //UpdateTrackBarMaximum();
-            //UpdateSongInfo();
-            //StartTimer();
-
+                   
         }
 
         private void UpdatePositionUI(TimeSpan position)
@@ -148,7 +125,7 @@ namespace Byte_Harmonic.Forms
             if (main != null)
             {
                 // 使用已经绑定好委托的 _exploreForm 去 LoadPage
-                main.LoadPage(_exploreForm);
+                main.LoadPage(new ExploreForm());
             }
 
         }
@@ -162,59 +139,34 @@ namespace Byte_Harmonic.Forms
             }
             else
             {
-                secondForm = new WordForm(this); // 仅仅为了高效访问歌词行
-
-                // 订阅操作请求事件
-                var wordForm = (WordForm)secondForm;
-
-                // 也通知 ExploreForm 的 UI
-                wordForm.PlayNextRequested += () =>
-                {
-                    _playbackService.PlayNext();
-                    var current = _playbackService.GetCurrentSong();
-                    if (current != null)
-                    {
-                        throw new ArgumentNullException("Song is null");
-                    }
-                    updateSongUI?.Invoke(current);
-                };
-
-                wordForm.PlayPreviousRequested += () =>
-                {
-                    _playbackService.PlayPrevious();
-                    var current = _playbackService.GetCurrentSong();
-                    updateSongUI?.Invoke(current);
-                };
-
-                wordForm.PlayPauseRequested += TogglePlayPause;
-                wordForm.SeekRequested += pos => _playbackService.SeekTo(pos);
-
+                secondForm = new WordForm();
                 secondForm.Show();
             }
         }
 
-        private void TogglePlayPause()
-        {
-            Console.WriteLine("begin to Toggle PlayPause");
-            if(_playbackService.GetCurrentSong() == null)
-            {
-                _playbackService.PlayPlaylist(0); // 假设从队首播放
-                StartTimer(); // 没有对应地暂停 log_timer
-            }
-            else if (_playbackService.IsPaused)
-            {
-                _playbackService.Resume();
-                TimerHelper.RestartTimer(ref _timer);
-                TimerHelper.RestartTimer(ref _log_timer);
-            }
-            else
-            {
-                _playbackService.Pause();
-                TimerHelper.StopTimer(ref _timer);
-                TimerHelper.StopTimer(ref _log_timer);
 
-            }
-        }
+        //private void TogglePlayPause()
+        //{
+        //    Console.WriteLine("begin to Toggle PlayPause");
+        //    if(AppContext._playbackService.GetCurrentSong() == null)
+        //    {
+        //        AppContext._playbackService.PlayPlaylist(0); // 假设从队首播放
+        //        StartTimer(); // 没有对应地暂停 log_timer
+        //    }
+        //    else if (AppContext._playbackService.IsPaused)
+        //    {
+        //        AppContext._playbackService.Resume();
+        //        TimerHelper.RestartTimer(ref AppContext._timer);
+        //        TimerHelper.RestartTimer(ref AppContext._log_timer);
+        //    }
+        //    else
+        //    {
+        //        AppContext._playbackService.Pause();
+        //        TimerHelper.StopTimer(ref AppContext._timer);
+        //        TimerHelper.StopTimer(ref AppContext._log_timer);
+
+        //    }
+        //}
 
         private void uiImageButton1_Click(object sender, EventArgs e)
         {
@@ -240,19 +192,13 @@ namespace Byte_Harmonic.Forms
         }
 
 
-        private System.Windows.Forms.Timer _timer;
-        private System.Windows.Forms.Timer _log_timer;
-        private PlaybackService _playbackService;
-        private SongRepository _songRepository;
         private bool _isDragging = false; // 是否正在拖动进度条
-        public event Action<string, TimeSpan> LyricsUpdated; // 参数：歌词文本、当前时间位置
-        public event Action<Song> updateSongUI;
 
         private void StartTimer()
         {
-            TimerHelper.SetupTimer(ref _timer, 500, (s, e) =>
+            TimerHelper.SetupTimer(ref AppContext._timer, 500, (s, e) =>
             {
-                var line = _playbackService.GetCurrentLyricsLine();
+                var line = AppContext._playbackService.GetCurrentLyricsLine();
                 if (line != null)
                 {
                     lyricsLabel.Text = line.Text;
@@ -263,16 +209,16 @@ namespace Byte_Harmonic.Forms
                 }
 
                 // 通知 WordForm 更新歌词
-                var position = _playbackService.GetCurrentPosition();
+                var position = AppContext._playbackService.GetCurrentPosition();
 
-                LyricsUpdated?.Invoke(line?.Text ?? "（无歌词）", position);
+                AppContext.TriggerLyricsUpdated(line?.Text ?? "（无歌词）", position);
                 UpdatePlaybackProgress();
             });
 
-            TimerHelper.SetupTimer(ref _log_timer, 1000, (s, e) =>
+            TimerHelper.SetupTimer(ref AppContext._log_timer, 1000, (s, e) =>
             {
-                var position = _playbackService.GetCurrentPosition();
-                var lyricsLine = _playbackService.GetCurrentLyricsLine()?.Text ?? "[No Lyrics]";
+                var position = AppContext._playbackService.GetCurrentPosition();
+                var lyricsLine = AppContext._playbackService.GetCurrentLyricsLine()?.Text ?? "[No Lyrics]";
                 Console.WriteLine($"Current Time: {position}: {lyricsLine}");
             });
         }
@@ -281,32 +227,17 @@ namespace Byte_Harmonic.Forms
         {
             if (_isDragging) return; // 正在拖动时不更新
 
-            var current = _playbackService.GetCurrentPosition();
-            var duration = _playbackService.GetCurrentSong()?.Duration ?? 0;
+            var current = AppContext._playbackService.GetCurrentPosition();
+            var duration = AppContext._playbackService.GetCurrentSong()?.Duration ?? 0;
 
             uiTrackBar1.Maximum = duration;
             uiTrackBar1.Value = Math.Min((int)current.TotalSeconds, uiTrackBar1.Maximum);
             uiLabel2.Text = current.ToString(@"mm\:ss"); 
         }
 
-        //private void UpdateLyrics()
-        //{
-        //    var line = _playbackService.GetCurrentLyricsLine();
-        //    if (line != null)
-        //    {
-        //        lyricsLabel.Text = line.Text;
-        //    }
-        //    else
-        //    {
-        //        lyricsLabel.Text = "（无歌词）";
-        //    }
-
-
-        //}
-
         private void UpdateTrackBarMaximum()
         {
-            var duration = _playbackService.GetCurrentSong()?.Duration ?? 0;
+            var duration = AppContext._playbackService.GetCurrentSong()?.Duration ?? 0;
             uiTrackBar1.Maximum = duration;
             uiTrackBar1.Value = 0;
             TimeSpan ts = TimeSpan.FromSeconds(duration);
@@ -320,12 +251,12 @@ namespace Byte_Harmonic.Forms
         private void UpdateSongInfo()
         {
 
-            var song= _playbackService.GetCurrentSong();
+            var song= AppContext._playbackService.GetCurrentSong();
             if(song == null)
             {
                 // 还没有开始播放
                 // 假设默认播放第一首
-                song = _playbackService.GetPlaylist().PlaySongs[0];
+                song = AppContext._playbackService.GetPlaylist().PlaySongs[0];
             }
             string songName = song.Title;
             string artistName = song.Artist;
@@ -338,31 +269,36 @@ namespace Byte_Harmonic.Forms
         private void uiImageButton5_Click(object sender, EventArgs e)
         {
             // TODO: 切换图标
-            if (!_playbackService.IsPaused)
-            {
-                TimerHelper.StopTimer(ref _timer);
-                TimerHelper.StopTimer(ref _log_timer);
-                _playbackService.Pause();
-            }
-            else
-            {
-                TimerHelper.RestartTimer(ref _timer);
-                TimerHelper.RestartTimer(ref _log_timer);
-                _playbackService.Resume();
-            }
-
+           AppContext.TogglePlayPause(); 
         }
 
         private void uiImageButton6_Click(object sender, EventArgs e)
         {
-            _playbackService.PlayPrevious();
+            AppContext._playbackService.PlayPrevious();
+            var current = AppContext._playbackService.GetCurrentSong();
+            if (current == null)
+            {
+                Console.WriteLine("current song is null!");
+                current = AppContext._playbackService.GetPlaylist().PlaySongs[0];
+            }
+            AppContext.TriggerupdateSongUI(current);
             UpdateTrackBarMaximum();
             UpdateSongInfo();
         }
 
         private void uiImageButton7_Click(object sender, EventArgs e)
         {
-            _playbackService.PlayNext();
+            AppContext._playbackService.PlayNext();
+
+            var current = AppContext._playbackService.GetCurrentSong();
+            if (current == null)
+            {
+                Console.WriteLine("current song is null!");
+                current = AppContext._playbackService.GetPlaylist().PlaySongs[0];
+            }
+            AppContext.TriggerupdateSongUI(current);
+
+            //updateSongUI?.Invoke(current);
             UpdateTrackBarMaximum();
             UpdateSongInfo();
         }

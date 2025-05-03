@@ -1,52 +1,28 @@
-﻿using Byte_Harmonic.Database;
-using Byte_Harmonic.Forms.FormUtils;
+﻿using Byte_Harmonic.Forms.FormUtils;
 using Byte_Harmonic.Models;
-using Byte_Harmonic.Utils;
-using Services;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Byte_Harmonic.Forms
 {
     public partial class WordForm : Form
     {
-        private readonly MouseMove _mouseHandler;//用于鼠标控制窗口
-        private readonly FormStyle _styleHandler;//用于更改窗口样式
-
-        public event Action PlayNextRequested;
-        public event Action PlayPreviousRequested;
-        public event Action PlayPauseRequested;
-        public event Action<TimeSpan> SeekRequested; // 以上用于 MusicForm 和 Service 交互
+        private readonly MouseMove _mouseHandler;
+        private readonly FormStyle _styleHandler;
 
         public WordForm()
         {
-            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);//双缓冲减少闪烁
-            InitializeComponent();
-            _mouseHandler = new MouseMove(this);
-            _styleHandler = new FormStyle(this);
-        }
-
-        public WordForm(MusicForm musicForm)
-        {
-            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);//双缓冲减少闪烁
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             InitializeComponent();
             _mouseHandler = new MouseMove(this);
             _styleHandler = new FormStyle(this);
 
-            // 订阅歌词更新事件
-            musicForm.LyricsUpdated += OnLyricsUpdated;
+            // 订阅 AppContext 的歌词更新事件
+            AppContext.LyricsUpdated += OnLyricsUpdated;
 
-            // 窗体关闭时取消订阅
-            this.FormClosed += (s, e) =>
-                musicForm.LyricsUpdated -= OnLyricsUpdated;
+            //// 注销事件避免内存泄漏
+            //this.FormClosed += (s, e) =>
+            //    AppContext.LyricsUpdated -= OnLyricsUpdated;
         }
 
         private void OnLyricsUpdated(string lyrics, TimeSpan position)
@@ -56,7 +32,7 @@ namespace Byte_Harmonic.Forms
             RunOnUiThread(() =>
             {
                 lyricsLabel.Text = lyrics;
-                //HighlightCurrentLine(position); // 高亮当前行
+                //HighlightCurrentLine(position); // 预留高亮处理
             });
         }
 
@@ -68,11 +44,8 @@ namespace Byte_Harmonic.Forms
 
         private void WordForm_Load(object sender, EventArgs e)
         {
-           
+            // 可选：加载时的逻辑
         }
-
-       
-       
 
         private void uiImageButton2_Click(object sender, EventArgs e)
         {
@@ -91,26 +64,38 @@ namespace Byte_Harmonic.Forms
 
         private void uiImageButton5_Click(object sender, EventArgs e)
         {
-            // TODO: 切换图标
-            PlayPauseRequested?.Invoke();
+            AppContext.TogglePlayPause();
         }
-        private void WordForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-
-        }
-
-
-
 
         private void uiImageButton6_Click(object sender, EventArgs e)
         {
-            PlayPreviousRequested?.Invoke();
+            AppContext._playbackService.PlayPrevious();
+
+            var current = AppContext._playbackService.GetCurrentSong();
+            if (current == null)
+            {
+                Console.WriteLine("current song is null!");
+                current = AppContext._playbackService.GetPlaylist().PlaySongs[0];
+            }
+            AppContext.TriggerupdateSongUI(current);
         }
 
         private void uiImageButton7_Click(object sender, EventArgs e)
         {
-            PlayNextRequested?.Invoke();
+            AppContext._playbackService.PlayNext();
 
+            var current = AppContext._playbackService.GetCurrentSong();
+            if (current == null)
+            {
+                Console.WriteLine("current song is null!");
+                current = AppContext._playbackService.GetPlaylist().PlaySongs[0];
+            }
+            AppContext.TriggerupdateSongUI(current);
+        }
+
+        private void WordForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // 清理逻辑已在 FormClosed 中处理，无需重复
         }
     }
 }

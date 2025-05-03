@@ -6,6 +6,7 @@ using NAudio.Wave;
 using VarispeedDemo.SoundTouch;
 using NAudio.Wave.SampleProviders;
 using Byte_Harmonic.Database;
+using Byte_Harmonic.Forms;
 
 
 namespace Services
@@ -43,6 +44,7 @@ namespace Services
                 return;
 
             _currentIndex = start_index;
+            _currentSong = _playlist.PlaySongs[_currentIndex];
             PlaySong(_playlist.PlaySongs[_currentIndex]);
         }
 
@@ -100,7 +102,9 @@ namespace Services
 
                 var currentSong = _currentSong;
 
+                // [[ maybe unused]]
                 CurrentSongChanged?.Invoke(currentSong); // OnPlaySttoped 由 device 触发，此时主动触发委托(UI层已注册事件）
+                Byte_Harmonic.Forms.AppContext.TriggerupdateSongUI(currentSong);
             }
         }
 
@@ -303,5 +307,7 @@ namespace Services
             _speedControl = null;
 
         }
+
+
     }
 }
