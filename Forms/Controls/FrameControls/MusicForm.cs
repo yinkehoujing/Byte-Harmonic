@@ -36,6 +36,20 @@ namespace Byte_Harmonic.Forms
             AppContext.updateSongUI += OnCurrentSongChanged;
             //AppContext.PlaybackPaused += OnPlaybackPaused;
             AppContext.PositionChanged += UpdatePositionUI;
+            AppContext.LyricsUpdated += OnLyricsUpdated;
+
+            var song = AppContext._playbackService.GetCurrentSong();
+            // 恢复之前的界面
+            if(song != null)
+            {
+                Console.WriteLine("恢复之前的页面显示——MusicForm");
+                var text = AppContext._playbackService.GetCurrentLyricsLine()?.Text ?? "（无歌词）";
+                var position = AppContext._playbackService.GetCurrentPosition();
+                AppContext.TriggerupdateSongUI(song);
+
+                AppContext.TriggerLyricsUpdated(text, position);
+                //AppContext.TriggerPositionChanged(position);
+            }
 
             uiTrackBar1.MouseDown += (s, e2) => { _isDragging = true; };
             uiTrackBar1.MouseUp += (s, e2) =>
@@ -58,6 +72,18 @@ namespace Byte_Harmonic.Forms
 
         }
 
+        private void OnLyricsUpdated(string lyrics, TimeSpan position)
+        {
+            if (IsDisposed) return;
+
+            RunOnUiThread(() =>
+            {
+                lyricsLabel.Text = lyrics;
+                uiLabel2.Text = position.ToString(@"mm\:ss");
+                uiTrackBar1.Value = Math.Min((int)position.TotalSeconds, uiTrackBar1.Maximum);
+                //HighlightCurrentLine(position); // 预留高亮处理
+            });
+        }
         public void LoadInitialSongs()
         {
 
@@ -92,8 +118,8 @@ namespace Byte_Harmonic.Forms
             if (!_isDragging) // 防止拖动冲突
             {
                 RunOnUiThread(() => {
-                    uiTrackBar1.Value = (int)position.TotalSeconds;
                     uiLabel2.Text = position.ToString(@"mm\:ss");
+                    uiTrackBar1.Value = Math.Min((int)position.TotalSeconds, uiTrackBar1.Maximum);
                 });
             }
         }
@@ -143,30 +169,6 @@ namespace Byte_Harmonic.Forms
                 secondForm.Show();
             }
         }
-
-
-        //private void TogglePlayPause()
-        //{
-        //    Console.WriteLine("begin to Toggle PlayPause");
-        //    if(AppContext._playbackService.GetCurrentSong() == null)
-        //    {
-        //        AppContext._playbackService.PlayPlaylist(0); // 假设从队首播放
-        //        StartTimer(); // 没有对应地暂停 log_timer
-        //    }
-        //    else if (AppContext._playbackService.IsPaused)
-        //    {
-        //        AppContext._playbackService.Resume();
-        //        TimerHelper.RestartTimer(ref AppContext._timer);
-        //        TimerHelper.RestartTimer(ref AppContext._log_timer);
-        //    }
-        //    else
-        //    {
-        //        AppContext._playbackService.Pause();
-        //        TimerHelper.StopTimer(ref AppContext._timer);
-        //        TimerHelper.StopTimer(ref AppContext._log_timer);
-
-        //    }
-        //}
 
         private void uiImageButton1_Click(object sender, EventArgs e)
         {
@@ -237,6 +239,7 @@ namespace Byte_Harmonic.Forms
 
         private void UpdateTrackBarMaximum()
         {
+            Console.WriteLine("UpdateTrackBarMaximum in MusicForm");
             var duration = AppContext._playbackService.GetCurrentSong()?.Duration ?? 0;
             uiTrackBar1.Maximum = duration;
             uiTrackBar1.Value = 0;

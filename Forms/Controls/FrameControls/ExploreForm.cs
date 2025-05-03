@@ -19,6 +19,11 @@ namespace Byte_Harmonic.Forms
             InitializeComponent();
             InitializeSearchBox();
 
+
+            // 使用 AppContext 注册事件
+            AppContext.LyricsUpdated += OnLyricsUpdated;
+            AppContext.updateSongUI += OnUpdateSongUI;
+
             var songlist = AppContext._songRepository.GetAllSongs();
 
             if (songlist.Count <= 0)
@@ -26,15 +31,32 @@ namespace Byte_Harmonic.Forms
                 throw new ArgumentException("songlist 为空!!!");
             }
 
-            AppContext.TriggerPlaylistSetRequested(songlist);
 
-            // UI 初始化
-            uiLabel3.Text = songlist[0].Title;
-            uiLabel4.Text = songlist[0].Artist;
-            TimeSpan ts = TimeSpan.FromSeconds(songlist[0].Duration);
-            uiLabel1.Text = ts.ToString(@"mm\:ss");
-            uiTrackBar1.Maximum = songlist[0].Duration;
-            uiTrackBar1.Value = 0;
+
+            var song = AppContext._playbackService.GetCurrentSong();
+            if (song == null)
+            {
+                AppContext.TriggerPlaylistSetRequested(songlist);
+
+                // UI 初始化
+                uiLabel3.Text = songlist[0].Title;
+                uiLabel4.Text = songlist[0].Artist;
+                TimeSpan ts = TimeSpan.FromSeconds(songlist[0].Duration);
+                uiLabel1.Text = ts.ToString(@"mm\:ss");
+                uiTrackBar1.Maximum = songlist[0].Duration;
+                uiTrackBar1.Value = 0;
+
+            }
+            else
+            {
+                Console.WriteLine("恢复之前的页面显示——ExploreForm");
+                var text = AppContext._playbackService.GetCurrentLyricsLine()?.Text ?? "（无歌词）";
+                var position = AppContext._playbackService.GetCurrentPosition();
+                AppContext.TriggerupdateSongUI(song);
+
+                AppContext.TriggerLyricsUpdated(text, position);
+            }
+
 
             uiTrackBar1.MouseDown += (s, e2) => { _isDragging = true; };
             uiTrackBar1.MouseUp += (s, e2) =>
@@ -47,10 +69,6 @@ namespace Byte_Harmonic.Forms
                 Console.WriteLine($"Explore Form——用户拖动到：{seekPosition}");
                 uiLabel2.Text = seekPosition.ToString(@"mm\:ss");
             };
-
-            // 使用 AppContext 注册事件
-            AppContext.LyricsUpdated += OnLyricsUpdated;
-            AppContext.updateSongUI += OnUpdateSongUI;
         }
 
 

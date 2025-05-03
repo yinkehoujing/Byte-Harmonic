@@ -64,7 +64,7 @@ namespace Byte_Harmonic.Forms
         }
         public static void TriggerLyricsUpdated(string text, TimeSpan position)
         {
-            Console.WriteLine("触发 TriggerLyricsUpdated 事件");
+            //Console.WriteLine("触发 TriggerLyricsUpdated 事件");
             LyricsUpdated?.Invoke(text, position);
         }
 
@@ -141,7 +141,7 @@ namespace Byte_Harmonic.Forms
 
         public static void OnLyricsUpdated(string text, TimeSpan position)
         {
-            Console.WriteLine($"Lyrics updated: {text} at position {position}");
+            //Console.WriteLine($"Lyrics updated: {text} at position {position}");
         }
 
 
