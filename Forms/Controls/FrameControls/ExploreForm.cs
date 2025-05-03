@@ -205,7 +205,7 @@ namespace Byte_Harmonic.Forms
             MainForm main = this.FindForm() as MainForm;
             if (main != null)
             {
-                main.LoadPage(MusicForm.Instance(this)); // 使用单例            }
+                main.LoadPage(MusicForm.Instance(this)); // 使用单例            
 
             }
         }

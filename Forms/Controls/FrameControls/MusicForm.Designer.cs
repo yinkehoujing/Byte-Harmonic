@@ -342,8 +342,7 @@ namespace Byte_Harmonic.Forms
             // 
             // MusicForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 17F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.White;
             Controls.Add(lyricsLabel);
             Controls.Add(uiImageButton3);

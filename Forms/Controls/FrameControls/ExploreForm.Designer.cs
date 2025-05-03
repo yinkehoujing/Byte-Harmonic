@@ -476,8 +476,7 @@ namespace Byte_Harmonic.Forms
             // 
             // ExploreForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 17F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.FromArgb(250, 250, 250);
             Controls.Add(uiImageButton16);
             Controls.Add(uiImageButton15);
