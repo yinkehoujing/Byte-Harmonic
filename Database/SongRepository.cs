@@ -1,16 +1,39 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using Byte_Harmonic.Models;
+using System.Text;
+using Byte_Harmonic.Utils;
 
 namespace Byte_Harmonic.Database
 {
     public class SongRepository
     {
-        private readonly string _connectionString = "server=localhost;user=root;database=Byte_Harmonic;port=3306;password=gan2023302";
+        private readonly string _connectionString = "server=localhost;user=root;database=Byte_Harmonic;port=3306;password=";
+        private static string connectionString = "";
+
+
+        public SongRepository()
+        {
+            if (!File.Exists(FileHelper.GetProjectRootPath("passwd.txt")))
+            {
+                Console.WriteLine("未找到本地根目录下 passwd.txt, 使用默认的连接字符串");
+                connectionString = _connectionString;
+            }
+            else
+            {
+                connectionString = "server=localhost;user=root;database=Byte_Harmonic;port=3306;password=";
+                var firstNonEmptyLine = File.ReadLines(FileHelper.GetProjectRootPath("passwd.txt"))
+                                            .Select(line => line.Trim())
+                                            .FirstOrDefault(line => !string.IsNullOrEmpty(line));
+
+                connectionString += firstNonEmptyLine;
+            }
+        }
 
         public bool AddSong(Song song)
         {
-            using var connection = new MySqlConnection(_connectionString);
+
+           using var connection = new MySqlConnection(connectionString);
             connection.Open();
 
             string sql = "INSERT INTO Songs (Title, Artist, MusicFilePath, LrcFilePath, Downloaded, Duration) " +
@@ -36,7 +59,7 @@ namespace Byte_Harmonic.Database
 
         public Song GetSongById(int id)
         {
-            using var connection = new MySqlConnection(_connectionString);
+            using var connection = new MySqlConnection(connectionString);
             connection.Open();
 
             string sql = "SELECT * FROM Songs WHERE Id = @Id";
@@ -63,7 +86,7 @@ namespace Byte_Harmonic.Database
 
         public Song GetSongByTitle(string title)
         {
-            using var connection = new MySqlConnection(_connectionString);
+            using var connection = new MySqlConnection(connectionString);
             connection.Open();
 
             string sql = "SELECT * FROM Songs WHERE Title = @Title";
@@ -93,7 +116,7 @@ namespace Byte_Harmonic.Database
         {
             var songs = new List<Song>();
 
-            using var connection = new MySqlConnection(_connectionString);
+            using var connection = new MySqlConnection(connectionString);
             connection.Open();
 
             string sql = "SELECT * FROM Songs LIMIT @Max";
@@ -123,7 +146,7 @@ namespace Byte_Harmonic.Database
 
         public bool UpdateSong(Song song)
         {
-            using var connection = new MySqlConnection(_connectionString);
+            using var connection = new MySqlConnection(connectionString);
             connection.Open();
 
             string sql = "UPDATE Songs SET Title = @Title, Artist = @Artist, MusicFilePath = @MusicFilePath, " +
@@ -144,7 +167,7 @@ namespace Byte_Harmonic.Database
 
         public bool DeleteSong(int id)
         {
-            using var connection = new MySqlConnection(_connectionString);
+            using var connection = new MySqlConnection(connectionString);
             connection.Open();
 
             string sql = "DELETE FROM Songs WHERE Id = @Id";

@@ -23,5 +23,9 @@ namespace Byte_Harmonic.Utils
         {
             return Path.Combine(SqlScriptRoot, relativePath);
         }
+        public static string GetProjectRootPath(string relativePath)
+        {
+            return Path.Combine(ProjectRoot, relativePath);
+        }
     }
 }
