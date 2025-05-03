@@ -5,8 +5,10 @@ using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
+using Byte_Harmonic.Properties;
 
 namespace Byte_Harmonic.Forms
 {
@@ -147,6 +149,7 @@ namespace Byte_Harmonic.Forms
 
         public static void TogglePlayPause()
         {
+
             Console.WriteLine("begin to Toggle PlayPause");
             if (AppContext._playbackService.GetCurrentSong() == null)
             {

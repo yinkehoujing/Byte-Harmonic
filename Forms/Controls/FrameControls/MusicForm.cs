@@ -275,6 +275,7 @@ namespace Byte_Harmonic.Forms
         {
             ResourceManager resourceManager = new ResourceManager("Byte_Harmonic.Properties.Resources", typeof(Resources).Assembly);//获取全局资源
 
+
             //if (!_playbackService.IsPaused)
             //{
             //    TimerHelper.StopTimer(ref _timer);
@@ -293,9 +294,34 @@ namespace Byte_Harmonic.Forms
             //    uiImageButton5.ImageHover = ((Image)(resourceManager.GetObject("icons8-play-96 (1)")));
             //}
 
-            // Image 切换逻辑应该移入这里
-            AppContext.TogglePlayPause();
 
+            if (AppContext._playbackService.GetCurrentSong() == null)
+            {
+                AppContext._playbackService.PlayPlaylist(0); // 假设从队首播放
+                StartTimer(); // 没有对应地暂停 log_timer
+                uiImageButton5.Image = ((Image)(resourceManager.GetObject("icons8-pause-96")));
+                uiImageButton5.ImageHover = ((Image)(resourceManager.GetObject("icons8-pause-96 (1)")));
+
+            }
+            else if (AppContext._playbackService.IsPaused)
+            {
+                AppContext._playbackService.Resume();
+                TimerHelper.RestartTimer(ref AppContext._timer);
+                TimerHelper.RestartTimer(ref AppContext._log_timer);
+                uiImageButton5.Image = ((Image)(resourceManager.GetObject("icons8-pause-96")));
+                uiImageButton5.ImageHover = ((Image)(resourceManager.GetObject("icons8-pause-96 (1)")));
+
+            }
+            else
+            {
+                AppContext._playbackService.Pause();
+                TimerHelper.StopTimer(ref AppContext._timer);
+                TimerHelper.StopTimer(ref AppContext._log_timer);
+                uiImageButton5.Image = ((Image)(resourceManager.GetObject("icons8-play-96")));
+                uiImageButton5.ImageHover = ((Image)(resourceManager.GetObject("icons8-play-96 (1)")));
+
+
+            }
 
         }
 
