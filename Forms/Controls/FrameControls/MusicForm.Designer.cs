@@ -229,8 +229,8 @@ namespace Byte_Harmonic.Forms
             uiImageButton5.BackColor = Color.White;
             uiImageButton5.Cursor = Cursors.Hand;
             uiImageButton5.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiImageButton5.Image = (Image)resources.GetObject("uiImageButton5.Image");
-            uiImageButton5.ImageHover = (Image)resources.GetObject("uiImageButton5.ImageHover");
+            uiImageButton5.Image = Properties.Resources.icons8_play_96__1_;
+            uiImageButton5.ImageHover = Properties.Resources.icons8_play_96;
             uiImageButton5.Location = new Point(508, 612);
             uiImageButton5.Name = "uiImageButton5";
             uiImageButton5.Size = new Size(30, 30);
