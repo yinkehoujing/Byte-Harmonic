@@ -22,6 +22,8 @@ namespace Byte_Harmonic.Forms.MainForms
             _mouseHandler = new MouseMove(this);
             _styleHandler = new FormStyle(this);
             Load += MainForm_Load;
+
+            AppContext.Initialize();
         }
 
         /// <summary>

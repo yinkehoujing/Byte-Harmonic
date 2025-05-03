@@ -19,42 +19,58 @@ namespace Byte_Harmonic.Forms
             InitializeComponent();
             InitializeSearchBox();
 
-            _musicForm = MusicForm.Instance(this);
-            _songRepository = new SongRepository();
 
-            var songlist = _songRepository.GetAllSongs();
+            // 使用 AppContext 注册事件
+            AppContext.LyricsUpdated += OnLyricsUpdated;
+            AppContext.updateSongUI += OnUpdateSongUI;
+
+            var songlist = AppContext._songRepository.GetAllSongs();
 
             if (songlist.Count <= 0)
             {
                 throw new ArgumentException("songlist 为空!!!");
             }
 
-            // UI 更新显示
-            uiLabel3.Text = songlist[0].Title;
-            uiLabel4.Text = songlist[0].Artist;
-            TimeSpan ts = TimeSpan.FromSeconds(songlist[0].Duration);
-            uiLabel1.Text = ts.ToString(@"mm\:ss");
-            uiTrackBar1.Maximum = songlist[0].Duration;
-            uiTrackBar1.Value = 0;
+
+
+            var song = AppContext._playbackService.GetCurrentSong();
+            if (song == null)
+            {
+                AppContext.TriggerPlaylistSetRequested(songlist);
+
+                // UI 初始化
+                uiLabel3.Text = songlist[0].Title;
+                uiLabel4.Text = songlist[0].Artist;
+                TimeSpan ts = TimeSpan.FromSeconds(songlist[0].Duration);
+                uiLabel1.Text = ts.ToString(@"mm\:ss");
+                uiTrackBar1.Maximum = songlist[0].Duration;
+                uiTrackBar1.Value = 0;
+
+            }
+            else
+            {
+                Console.WriteLine("恢复之前的页面显示——ExploreForm");
+                var text = AppContext._playbackService.GetCurrentLyricsLine()?.Text ?? "（无歌词）";
+                var position = AppContext._playbackService.GetCurrentPosition();
+                AppContext.TriggerupdateSongUI(song);
+
+                AppContext.TriggerLyricsUpdated(text, position);
+            }
+
 
             uiTrackBar1.MouseDown += (s, e2) => { _isDragging = true; };
             uiTrackBar1.MouseUp += (s, e2) =>
             {
                 _isDragging = false;
                 TimeSpan seekPosition = TimeSpan.FromSeconds(uiTrackBar1.Value);
+                AppContext._playbackService.SeekTo(seekPosition);
 
-                SeekRequested?.Invoke(seekPosition);
-
+                AppContext.TriggerPositionChanged(seekPosition);
                 Console.WriteLine($"Explore Form——用户拖动到：{seekPosition}");
                 uiLabel2.Text = seekPosition.ToString(@"mm\:ss");
             };
-
-            // 注册事件函数
-            _musicForm.LyricsUpdated += OnLyricsUpdated; // 更新进度条
-            _musicForm.updateSongUI += OnUpdateSongUI; // 更新歌手、曲名、歌曲时长
-            //this.Closed += (s, e) =>
-            //    musicForm.LyricsUpdated -= OnLyricsUpdated;
         }
+
 
         private void OnUpdateSongUI(Song song)
         {
@@ -180,7 +196,7 @@ namespace Byte_Harmonic.Forms
             MainForm main = this.FindForm() as MainForm;
             if (main != null)
             {
-                main.LoadPage(new MusicForm(this));
+                main.LoadPage(new MusicForm());
             }
         }
 
@@ -190,7 +206,7 @@ namespace Byte_Harmonic.Forms
             MainForm main = this.FindForm() as MainForm;
             if (main != null)
             {
-                main.LoadPage(new MusicForm(this)); // 是否是 MusicForm? 如果是，应该改为单例
+                main.LoadPage(new MusicForm()); 
             }
         }
 
@@ -205,7 +221,7 @@ namespace Byte_Harmonic.Forms
             MainForm main = this.FindForm() as MainForm;
             if (main != null)
             {
-                main.LoadPage(MusicForm.Instance(this)); // 使用单例            }
+                main.LoadPage(new MusicForm());
 
             }
         }
@@ -237,28 +253,11 @@ namespace Byte_Harmonic.Forms
             }
             else
             {
-                secondForm = new WordForm(MusicForm.Instance(this));
-
-                // 订阅操作请求事件
-                var wordForm = (WordForm)secondForm;
-
-                // 也通知 ExploreForm 的 UI
-                wordForm.PlayNextRequested += () =>
-                {
-                    PlayPreviousRequested?.Invoke();
-
-                };
-
-                wordForm.PlayPreviousRequested += () =>
-                {
-                    PlayPreviousRequested?.Invoke();
-                };
-
-                wordForm.PlayPauseRequested += () => PlayPauseRequested?.Invoke(); // 先假设总是从队首开始播放;
-
+                secondForm = new WordForm();
                 secondForm.Show();
             }
         }
+
 
 
         private bool isFirstForm = true; // 跟踪当前窗体形态
@@ -461,39 +460,41 @@ namespace Byte_Harmonic.Forms
         // 载入的页面
 
         // 应该是从 SonglistRepo 里获取，这里做测试使用
-        private SongRepository _songRepository;
+
 
         private void uiImageButton5_Click_1(object sender, EventArgs e)
         {
             Console.WriteLine("Invoke PlayPause");
-            PlayPauseRequested?.Invoke(); // 先假设总是从队首开始播放
-        }
-
-
-        public void LoadInitialSongs()
-        {
-            _songRepository = new SongRepository();
-
-            var songlist = _songRepository.GetAllSongs();
-
-            if (songlist.Count <= 0)
-            {
-                throw new ArgumentException("songlist 为空!!!");
-            }
-
-            Console.WriteLine("invoke playlistSet");
-            PlaylistSet?.Invoke(songlist);
+            //AppContext.TriggerPlayPauseRequested();
+            AppContext.TogglePlayPause();
         }
 
         private void uiImageButton6_Click(object sender, EventArgs e)
         {
-            PlayPreviousRequested?.Invoke();
+            //AppContext.TriggerPlayPreviousRequested();
+            AppContext._playbackService.PlayPrevious();
+            var current = AppContext._playbackService.GetCurrentSong();
+            if (current == null)
+            {
+                Console.WriteLine("current song is null!");
+                current = AppContext._playbackService.GetPlaylist().PlaySongs[0];
+            }
+            AppContext.TriggerupdateSongUI(current);
         }
 
         private void uiImageButton7_Click(object sender, EventArgs e)
         {
-            PlayNextRequested?.Invoke();
+            AppContext._playbackService.PlayNext();
+            var current = AppContext._playbackService.GetCurrentSong();
+            if (current == null)
+            {
+                Console.WriteLine("current song is null!");
+                current = AppContext._playbackService.GetPlaylist().PlaySongs[0];
+            }
+            AppContext.TriggerupdateSongUI(current);
+
         }
+
 
         private void uiImageButton4_Click(object sender, EventArgs e)
         {
