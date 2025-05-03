@@ -1,10 +1,17 @@
-# Playback UI Design
+# Playback UI Design（旧版本）
+
+最新版本的 UI Design 是所有界面共享上下文资源 `AssetsContext` 类。
+实现了界面之间的解耦合，所有界面的加载只需要获取一份 `AssetsContext` 的副本即可恢复到与实际播放同步的状态。
+所有事件也都写入这个静态类里面，提供事件的 `invoke` 接口。
+
+以下内容尚未更新。
 
 ## MainForm
 
 - `MainForm` 自动载入 `ExploreForm`。
 - `LoadPage` 会清空之前的页面
 - `MainForm` 是一个空框架, 通过 `LoadPage` 来切换显示
+- 有一个全局
 
 ## ExploreForm
 
