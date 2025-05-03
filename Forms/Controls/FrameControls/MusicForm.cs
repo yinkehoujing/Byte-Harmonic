@@ -12,6 +12,8 @@ using Byte_Harmonic.Database;
 using Services;
 using Byte_Harmonic.Utils;
 using Byte_Harmonic.Models;
+using Byte_Harmonic.Properties;
+using System.Resources;
 
 namespace Byte_Harmonic.Forms
 {
@@ -271,8 +273,30 @@ namespace Byte_Harmonic.Forms
 
         private void uiImageButton5_Click(object sender, EventArgs e)
         {
-            // TODO: 切换图标
-           AppContext.TogglePlayPause(); 
+            ResourceManager resourceManager = new ResourceManager("Byte_Harmonic.Properties.Resources", typeof(Resources).Assembly);//获取全局资源
+
+            //if (!_playbackService.IsPaused)
+            //{
+            //    TimerHelper.StopTimer(ref _timer);
+            //    TimerHelper.StopTimer(ref _log_timer);
+            //    _playbackService.Pause();
+            //    uiImageButton5.Image = ((Image)(resourceManager.GetObject("icons8-pause-96")));
+            //    uiImageButton5.ImageHover = ((Image)(resourceManager.GetObject("icons8-pause-96 (1)")));
+
+            //}
+            //else
+            //{
+            //    TimerHelper.RestartTimer(ref _timer);
+            //    TimerHelper.RestartTimer(ref _log_timer);
+            //    _playbackService.Resume();
+            //    uiImageButton5.Image = ((Image)(resourceManager.GetObject("icons8-play-96")));
+            //    uiImageButton5.ImageHover = ((Image)(resourceManager.GetObject("icons8-play-96 (1)")));
+            //}
+
+            // Image 切换逻辑应该移入这里
+            AppContext.TogglePlayPause();
+
+
         }
 
         private void uiImageButton6_Click(object sender, EventArgs e)

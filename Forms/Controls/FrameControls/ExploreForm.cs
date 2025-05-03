@@ -130,12 +130,6 @@ namespace Byte_Harmonic.Forms
             _styleHandler.SetPictureBoxRoundCorners(pictureBox2, cornerRadius);//绘制圆角
         }
 
-        private void uiImageButton2_Click(object sender, EventArgs e)//最小化按钮
-        {
-
-        }
-
-
         private void uiImageButton5_Click(object sender, EventArgs e)
         {
 
@@ -436,10 +430,6 @@ namespace Byte_Harmonic.Forms
 
         }
 
-        private void uiImageButton2_Click_2(object sender, EventArgs e)
-        {
-
-        }
 
         // 事件定义, 通知 MusicForm 执行实际逻辑
         //public event Action<int>? PlaySongRequested;
