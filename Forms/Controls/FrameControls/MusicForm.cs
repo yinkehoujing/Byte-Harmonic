@@ -21,15 +21,6 @@ namespace Byte_Harmonic.Forms
     {
         private Form secondForm;
 
-        private static MusicForm? _instance;
-
-        public static MusicForm Instance()
-        {
-            if (_instance == null || _instance.IsDisposed)
-                _instance = new MusicForm();
-            return _instance;
-        }
-
         public MusicForm()
         {
             InitializeComponent();
@@ -39,6 +30,7 @@ namespace Byte_Harmonic.Forms
             //AppContext.PlaybackPaused += OnPlaybackPaused;
             AppContext.PositionChanged += UpdatePositionUI;
             AppContext.LyricsUpdated += OnLyricsUpdated;
+            AppContext.ShowPlayingBtn += OnShowPlayingBtn;
 
             var song = AppContext._playbackService.GetCurrentSong();
             // 恢复之前的界面
@@ -47,10 +39,10 @@ namespace Byte_Harmonic.Forms
                 Console.WriteLine("恢复之前的页面显示——MusicForm");
                 var text = AppContext._playbackService.GetCurrentLyricsLine()?.Text ?? "（无歌词）";
                 var position = AppContext._playbackService.GetCurrentPosition();
-                AppContext.TriggerupdateSongUI(song);
+                AppContext.TriggerupdateSongUI(song); // 这里的响应函数也包含了更新进度条
 
                 AppContext.TriggerLyricsUpdated(text, position);
-                //AppContext.TriggerPositionChanged(position);
+                AppContext.TriggerShowPlayingBtn(!AppContext._playbackService.IsPaused);
             }
 
             uiTrackBar1.MouseDown += (s, e2) => { _isDragging = true; };
@@ -72,6 +64,24 @@ namespace Byte_Harmonic.Forms
             LoadInitialSongs(); // 注册完了之后就 trigger
             //_exploreForm.PlaySongRequested += OnPlaySongRequested;
 
+        }
+
+        private void OnShowPlayingBtn(bool isPaused)
+        {
+            ResourceManager resourceManager = new ResourceManager("Byte_Harmonic.Properties.Resources", typeof(Resources).Assembly);//获取全局资源
+
+            if (isPaused)
+            {
+                uiImageButton5.Image = ((Image)(resourceManager.GetObject("icons8-pause-96")));
+                uiImageButton5.ImageHover = ((Image)(resourceManager.GetObject("icons8-pause-96 (1)")));
+            }
+            else
+            {
+                // 暂停了显示下面图标
+                uiImageButton5.Image = ((Image)(resourceManager.GetObject("icons8-play-96")));
+                uiImageButton5.ImageHover = ((Image)(resourceManager.GetObject("icons8-play-96 (1)")));
+
+            }
         }
 
         private void OnLyricsUpdated(string lyrics, TimeSpan position)
@@ -198,47 +208,6 @@ namespace Byte_Harmonic.Forms
 
         private bool _isDragging = false; // 是否正在拖动进度条
 
-        private void StartTimer()
-        {
-            TimerHelper.SetupTimer(ref AppContext._timer, 500, (s, e) =>
-            {
-                var line = AppContext._playbackService.GetCurrentLyricsLine();
-                if (line != null)
-                {
-                    lyricsLabel.Text = line.Text;
-                }
-                else
-                {
-                    lyricsLabel.Text = "（无歌词）";
-                }
-
-                // 通知 WordForm 更新歌词
-                var position = AppContext._playbackService.GetCurrentPosition();
-
-                AppContext.TriggerLyricsUpdated(line?.Text ?? "（无歌词）", position);
-                UpdatePlaybackProgress();
-            });
-
-            TimerHelper.SetupTimer(ref AppContext._log_timer, 1000, (s, e) =>
-            {
-                var position = AppContext._playbackService.GetCurrentPosition();
-                var lyricsLine = AppContext._playbackService.GetCurrentLyricsLine()?.Text ?? "[No Lyrics]";
-                Console.WriteLine($"Current Time: {position}: {lyricsLine}");
-            });
-        }
-
-        private void UpdatePlaybackProgress()
-        {
-            if (_isDragging) return; // 正在拖动时不更新
-
-            var current = AppContext._playbackService.GetCurrentPosition();
-            var duration = AppContext._playbackService.GetCurrentSong()?.Duration ?? 0;
-
-            uiTrackBar1.Maximum = duration;
-            uiTrackBar1.Value = Math.Min((int)current.TotalSeconds, uiTrackBar1.Maximum);
-            uiLabel2.Text = current.ToString(@"mm\:ss"); 
-        }
-
         private void UpdateTrackBarMaximum()
         {
             Console.WriteLine("UpdateTrackBarMaximum in MusicForm");
@@ -273,56 +242,7 @@ namespace Byte_Harmonic.Forms
 
         private void uiImageButton5_Click(object sender, EventArgs e)
         {
-            ResourceManager resourceManager = new ResourceManager("Byte_Harmonic.Properties.Resources", typeof(Resources).Assembly);//获取全局资源
-
-
-            //if (!_playbackService.IsPaused)
-            //{
-            //    TimerHelper.StopTimer(ref _timer);
-            //    TimerHelper.StopTimer(ref _log_timer);
-            //    _playbackService.Pause();
-            //    uiImageButton5.Image = ((Image)(resourceManager.GetObject("icons8-pause-96")));
-            //    uiImageButton5.ImageHover = ((Image)(resourceManager.GetObject("icons8-pause-96 (1)")));
-
-            //}
-            //else
-            //{
-            //    TimerHelper.RestartTimer(ref _timer);
-            //    TimerHelper.RestartTimer(ref _log_timer);
-            //    _playbackService.Resume();
-            //    uiImageButton5.Image = ((Image)(resourceManager.GetObject("icons8-play-96")));
-            //    uiImageButton5.ImageHover = ((Image)(resourceManager.GetObject("icons8-play-96 (1)")));
-            //}
-
-
-            if (AppContext._playbackService.GetCurrentSong() == null)
-            {
-                AppContext._playbackService.PlayPlaylist(0); // 假设从队首播放
-                StartTimer(); // 没有对应地暂停 log_timer
-                uiImageButton5.Image = ((Image)(resourceManager.GetObject("icons8-pause-96")));
-                uiImageButton5.ImageHover = ((Image)(resourceManager.GetObject("icons8-pause-96 (1)")));
-
-            }
-            else if (AppContext._playbackService.IsPaused)
-            {
-                AppContext._playbackService.Resume();
-                TimerHelper.RestartTimer(ref AppContext._timer);
-                TimerHelper.RestartTimer(ref AppContext._log_timer);
-                uiImageButton5.Image = ((Image)(resourceManager.GetObject("icons8-pause-96")));
-                uiImageButton5.ImageHover = ((Image)(resourceManager.GetObject("icons8-pause-96 (1)")));
-
-            }
-            else
-            {
-                AppContext._playbackService.Pause();
-                TimerHelper.StopTimer(ref AppContext._timer);
-                TimerHelper.StopTimer(ref AppContext._log_timer);
-                uiImageButton5.Image = ((Image)(resourceManager.GetObject("icons8-play-96")));
-                uiImageButton5.ImageHover = ((Image)(resourceManager.GetObject("icons8-play-96 (1)")));
-
-
-            }
-
+           AppContext.TogglePlayPause(); // 内部触发事件 
         }
 
         private void uiImageButton6_Click(object sender, EventArgs e)

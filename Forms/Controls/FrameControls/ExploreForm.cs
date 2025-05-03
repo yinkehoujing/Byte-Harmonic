@@ -23,6 +23,7 @@ namespace Byte_Harmonic.Forms
             // 使用 AppContext 注册事件
             AppContext.LyricsUpdated += OnLyricsUpdated;
             AppContext.updateSongUI += OnUpdateSongUI;
+            AppContext.ShowPlayingBtn += OnShowPlayingBtn;
 
             var songlist = AppContext._songRepository.GetAllSongs();
 
@@ -53,8 +54,8 @@ namespace Byte_Harmonic.Forms
                 var text = AppContext._playbackService.GetCurrentLyricsLine()?.Text ?? "（无歌词）";
                 var position = AppContext._playbackService.GetCurrentPosition();
                 AppContext.TriggerupdateSongUI(song);
-
                 AppContext.TriggerLyricsUpdated(text, position);
+                AppContext.TriggerShowPlayingBtn(!AppContext._playbackService.IsPaused);
             }
 
 
@@ -69,6 +70,25 @@ namespace Byte_Harmonic.Forms
                 Console.WriteLine($"Explore Form——用户拖动到：{seekPosition}");
                 uiLabel2.Text = seekPosition.ToString(@"mm\:ss");
             };
+        }
+
+
+        private void OnShowPlayingBtn(bool isPaused)
+        {
+            ResourceManager resourceManager = new ResourceManager("Byte_Harmonic.Properties.Resources", typeof(Resources).Assembly);//获取全局资源
+
+            if (isPaused)
+            {
+                uiImageButton5.Image = ((Image)(resourceManager.GetObject("icons8-pause-96")));
+                uiImageButton5.ImageHover = ((Image)(resourceManager.GetObject("icons8-pause-96 (1)")));
+            }
+            else
+            {
+                // 暂停了显示下面图标
+                uiImageButton5.Image = ((Image)(resourceManager.GetObject("icons8-play-96")));
+                uiImageButton5.ImageHover = ((Image)(resourceManager.GetObject("icons8-play-96 (1)")));
+
+            }
         }
 
 
