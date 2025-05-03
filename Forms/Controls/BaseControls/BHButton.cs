@@ -33,5 +33,10 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
         {
 
         }
+
+        private void uiButton1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

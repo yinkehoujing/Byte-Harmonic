@@ -42,33 +42,37 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             uiButton1.Font = new Font("黑体", 17F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiButton1.ForeColor = Color.Black;
             uiButton1.Location = new Point(0, 0);
+            uiButton1.Margin = new Padding(4, 4, 4, 4);
             uiButton1.MinimumSize = new Size(1, 1);
             uiButton1.Name = "uiButton1";
+            uiButton1.RectColor = Color.FromArgb(250, 250, 250);
             uiButton1.RectSides = ToolStripStatusLabelBorderSides.None;
-            uiButton1.Size = new Size(170, 54);
+            uiButton1.Size = new Size(219, 64);
             uiButton1.TabIndex = 0;
             uiButton1.Text = "      text";
             uiButton1.TextAlign = ContentAlignment.MiddleLeft;
             uiButton1.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiButton1.RectColor = MPColor.Grey1;
+            uiButton1.Click += uiButton1_Click;
             // 
             // pictureBox1
             // 
-            pictureBox1.Location = new Point(15, 5);
+            pictureBox1.Location = new Point(19, 6);
+            pictureBox1.Margin = new Padding(4, 4, 4, 4);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(44, 44);
+            pictureBox1.Size = new Size(57, 52);
             pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;
             pictureBox1.Click += pictureBox1_Click;
             // 
             // BHButton
             // 
-            AutoScaleDimensions = new SizeF(7F, 17F);
+            AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(pictureBox1);
             Controls.Add(uiButton1);
+            Margin = new Padding(4, 4, 4, 4);
             Name = "BHButton";
-            Size = new Size(170, 54);
+            Size = new Size(219, 64);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
