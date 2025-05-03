@@ -14,6 +14,7 @@ using Byte_Harmonic.Utils;
 using Byte_Harmonic.Models;
 using Byte_Harmonic.Properties;
 using System.Resources;
+using Sunny.UI;
 
 namespace Byte_Harmonic.Forms
 {
@@ -34,7 +35,7 @@ namespace Byte_Harmonic.Forms
 
             var song = AppContext._playbackService.GetCurrentSong();
             // 恢复之前的界面
-            if(song != null)
+            if (song != null)
             {
                 Console.WriteLine("恢复之前的页面显示——MusicForm");
                 var text = AppContext._playbackService.GetCurrentLyricsLine()?.Text ?? "（无歌词）";
@@ -56,14 +57,32 @@ namespace Byte_Harmonic.Forms
                 //AppContext.TriggerSeekRequested(seekPosition); // 用于更新 UI
             };
 
+            playbackModeMenu.Items.Add("顺序播放", null, (s, e) =>
+            {
+                AppContext._playbackService.SetPlaybackMode(PlaybackMode.Sequential);
+            });
+
+            playbackModeMenu.Items.Add("单曲循环", null, (s, e) =>
+            {
+                Console.WriteLine("set to 单曲循环");
+                AppContext._playbackService.SetPlaybackMode(PlaybackMode.RepeatOne);
+            });
+
+            playbackModeMenu.Items.Add("列表循环", null, (s, e) =>
+            {
+                AppContext._playbackService.SetPlaybackMode(PlaybackMode.Sequential);
+            });
+
+            playbackModeMenu.Items.Add("随机播放", null, (s, e) =>
+            {
+                AppContext._playbackService.SetPlaybackMode(PlaybackMode.Shuffle);
+            });
+
+
 
             AppContext.PlaylistSetRequested += OnPlaylistSet;
-           
-           AppContext.SeekRequested += pos => AppContext._playbackService.SeekTo(pos);
 
             LoadInitialSongs(); // 注册完了之后就 trigger
-            //_exploreForm.PlaySongRequested += OnPlaySongRequested;
-
         }
 
         private void OnShowPlayingBtn(bool isPaused)
@@ -122,14 +141,15 @@ namespace Byte_Harmonic.Forms
 
         private void MusicForm_Load(object sender, EventArgs e)
         {
-                   
+
         }
 
         private void UpdatePositionUI(TimeSpan position)
         {
             if (!_isDragging) // 防止拖动冲突
             {
-                RunOnUiThread(() => {
+                RunOnUiThread(() =>
+                {
                     uiLabel2.Text = position.ToString(@"mm\:ss");
                     uiTrackBar1.Value = Math.Min((int)position.TotalSeconds, uiTrackBar1.Maximum);
                 });
@@ -217,7 +237,7 @@ namespace Byte_Harmonic.Forms
             TimeSpan ts = TimeSpan.FromSeconds(duration);
 
             // 格式化为 mm:ss 并显示到 UI
-            uiLabel1.Text = ts.ToString(@"mm\:ss");  
+            uiLabel1.Text = ts.ToString(@"mm\:ss");
             uiLabel2.Text = TimeSpan.Zero.ToString(@"mm\:ss"); // 输出：00:00
 
         }
@@ -225,8 +245,8 @@ namespace Byte_Harmonic.Forms
         private void UpdateSongInfo()
         {
 
-            var song= AppContext._playbackService.GetCurrentSong();
-            if(song == null)
+            var song = AppContext._playbackService.GetCurrentSong();
+            if (song == null)
             {
                 // 还没有开始播放
                 // 假设默认播放第一首
@@ -242,7 +262,7 @@ namespace Byte_Harmonic.Forms
 
         private void uiImageButton5_Click(object sender, EventArgs e)
         {
-           AppContext.TogglePlayPause(); // 内部触发事件 
+            AppContext.TogglePlayPause(); // 内部触发事件 
         }
 
         private void uiImageButton6_Click(object sender, EventArgs e)
@@ -289,5 +309,9 @@ namespace Byte_Harmonic.Forms
                 action();
         }
 
+        private void uiImageButton9_Click(object sender, EventArgs e)
+        {
+            playbackModeMenu.Show(uiImageButton9, new Point(0, uiImageButton9.Height));
+        }
     }
 }

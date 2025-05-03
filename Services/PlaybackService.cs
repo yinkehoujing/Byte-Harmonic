@@ -299,6 +299,23 @@ namespace Services
             return _currentSong.Lyrics.GetCurrentLine(GetCurrentPosition());
         }
 
+        public void SetVolume(float volume)
+        {
+            if (volume < 0.0f || volume > 1f)
+                throw new ArgumentOutOfRangeException(nameof(volume), "音量必须在 0.0 到 1.0 之间");
+
+
+            if (_audioReader != null)
+            {
+                _audioReader.Volume = volume;
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(_audioReader));
+            }
+        }
+
+
         public void Dispose()
         {
             StopInternal();

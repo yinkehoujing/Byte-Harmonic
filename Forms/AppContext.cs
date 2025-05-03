@@ -26,9 +26,13 @@ namespace Byte_Harmonic.Forms
         public static event Action<TimeSpan> PositionChanged; // 更新 label2, 进度条
         public static event Action<bool> ShowPlayingBtn; // 更新 label2, 进度条
 
+        // 实际响应，修改 PlaybackService 对象
         public static event Action<double>? PlaybackSpeedChanged;
-        public static event Action<TimeSpan> SeekRequested;
         public static event Action<List<Song>> PlaylistSetRequested; // 响应，设置初始的 Playlist
+        public static event Action<PlaybackMode>? PlaybackModeChanged;
+        public static event Action<double>? PlaybackVoiceChanged;
+
+
 
         public static void TriggerPositionChanged(TimeSpan ts)
         {
@@ -65,12 +69,6 @@ namespace Byte_Harmonic.Forms
         }
 
 
-        // 触发 SeekRequested 事件
-        public static void TriggerSeekRequested(TimeSpan position)
-        {
-            Console.WriteLine("触发 SeekRequested 事件");
-            SeekRequested?.Invoke(position);
-        }
         public static void TriggerLyricsUpdated(string text, TimeSpan position)
         {
             //Console.WriteLine("触发 TriggerLyricsUpdated 事件");
@@ -86,34 +84,36 @@ namespace Byte_Harmonic.Forms
         public static void Initialize()
         {
             // 用于调试
-            // 注册 SeekRequested 事件处理函数
-            SeekRequested += OnSeekRequested;
             // 注册 LyricsUpdated 事件处理函数
             LyricsUpdated += OnLyricsUpdated;
 
-            // 注册 PlaybackSpeedChanged 事件处理函数（未完成）
+            // 注册 PlaybackSpeedChanged 事件处理函数
             PlaybackSpeedChanged += OnPlaybackSpeedChanged;
             // 注册 PlaylistSetRequested 事件处理函数
             PlaylistSetRequested += OnPlaylistSetRequested;
 
+            PlaybackModeChanged += OnPlaybackModeChanged;
+
+            PlaybackVoiceChanged += OnPlaybackVoiceChanged;
+
+        }
+
+        private static void OnPlaybackVoiceChanged(double voice)
+        {
+            _playbackService.SetVolume((float)voice);
+        }
+
+        private static void OnPlaybackModeChanged(PlaybackMode mode)
+        {
+            _playbackService.SetPlaybackMode(mode);
         }
 
         // 事件处理函数
         public static void OnPlaybackSpeedChanged(double speed)
         {
             Console.WriteLine($"Playback speed changed to {speed}");
+            _playbackService.SetPlaybackSpeed(speed);
         }
-
-        public static void OnPlayNextRequested()
-        {
-            Console.WriteLine("Play next requested");
-        }
-
-        public static void OnPlayPreviousRequested()
-        {
-            Console.WriteLine("Play previous requested");
-        }
-
 
         public static void StartTimer()
         {
@@ -121,7 +121,7 @@ namespace Byte_Harmonic.Forms
             {
                 if (AppContext._playbackService.GetCurrentSong() == null)
                 {
-                    Console.WriteLine("it's normal to touch here...But why?");
+                    throw new ArgumentNullException(nameof(AppContext._playbackService));
                 }
                 var lyricsLine = AppContext._playbackService.GetCurrentLyricsLine()?.Text ?? "[No Lyrics]";
                 var position = AppContext._playbackService.GetCurrentPosition();

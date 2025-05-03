@@ -1,4 +1,5 @@
 ﻿using Byte_Harmonic.Forms.FormUtils;
+using Byte_Harmonic.Models;
 
 namespace Byte_Harmonic.Forms
 {
@@ -51,6 +52,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton3 = new Sunny.UI.UIImageButton();
             uiImageButton1 = new Sunny.UI.UIImageButton();
             lyricsLabel = new Sunny.UI.UILabel();
+            playbackModeMenu = new Sunny.UI.UIContextMenuStrip();
             ((System.ComponentModel.ISupportInitialize)uiImageButton14).BeginInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton13).BeginInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton12).BeginInit();
@@ -168,6 +170,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton9.TabStop = false;
             uiImageButton9.Text = null;
             uiImageButton9.ZoomScaleDisabled = true;
+            uiImageButton9.Click += uiImageButton9_Click;
             // 
             // uiImageButton8
             // 
@@ -339,6 +342,14 @@ namespace Byte_Harmonic.Forms
             lyricsLabel.TabIndex = 44;
             lyricsLabel.Text = "测试歌词";
             // 
+            // playbackModeMenu
+            // 
+            playbackModeMenu.BackColor = Color.FromArgb(243, 249, 255);
+            playbackModeMenu.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            playbackModeMenu.ImageScalingSize = new Size(20, 20);
+            playbackModeMenu.Name = "uiContextMenuStrip1";
+            playbackModeMenu.Size = new Size(61, 4);
+            // 
             // MusicForm
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -397,5 +408,7 @@ namespace Byte_Harmonic.Forms
         private Sunny.UI.UIImageButton uiImageButton3;
         private Sunny.UI.UIImageButton uiImageButton1;
         private Sunny.UI.UILabel lyricsLabel;
+        private Sunny.UI.UIContextMenuStrip playbackModeMenu;
     }
+
 }
