@@ -1,4 +1,5 @@
 ﻿using Byte_Harmonic.Database;
+using Byte_Harmonic.Forms.Controls.BaseControls;
 using Byte_Harmonic.Forms.FormUtils;
 using Byte_Harmonic.Forms.MainForms;
 using Byte_Harmonic.Models;
@@ -18,7 +19,6 @@ namespace Byte_Harmonic.Forms
         {
             InitializeComponent();
             InitializeSearchBox();
-
 
             // 使用 AppContext 注册事件
             AppContext.LyricsUpdated += OnLyricsUpdated;
@@ -145,6 +145,9 @@ namespace Byte_Harmonic.Forms
 
             // 绑定事件等
         }
+
+        
+
         private void MainForm_Load(object sender, EventArgs e)//窗口加载
         {
             _styleHandler.SetPictureBoxRoundCorners(pictureBox2, cornerRadius);//绘制圆角
@@ -220,7 +223,7 @@ namespace Byte_Harmonic.Forms
             MainForm main = this.FindForm() as MainForm;
             if (main != null)
             {
-                main.LoadPage(new MusicForm()); 
+                main.LoadPage(new MusicForm());
             }
         }
 
@@ -510,6 +513,14 @@ namespace Byte_Harmonic.Forms
         {
 
         }
+
+        private void ExploreForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+
+
     }
 
 }
