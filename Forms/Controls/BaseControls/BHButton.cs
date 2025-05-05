@@ -17,7 +17,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
     {
         private string _image = "icons8-加载圆";
         private string _nextImage = "icons8-加载圆";
-        private string _realText = "     加载中";
+        private string _realText = "      加载中";
         private ResourceManager resourceManager;
 
         public BHButton()
@@ -34,7 +34,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             InitializeComponent();
             _image = im;
             _nextImage = nIm;
-            _realText = "     " + tx;
+            _realText = "      " + tx;
 
             resourceManager = new ResourceManager("Byte_Harmonic.Properties.Resources", typeof(Resources).Assembly);//获取全局资源
             uiButton1.Text = _realText;
@@ -45,21 +45,14 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
         private void BHButton_Enter(object sender, EventArgs e)
         {
             pictureBox1.Image = ((Image)(resourceManager.GetObject(_nextImage)));
+            pictureBox1.BackColor= MPColor.Grey2;
             uiButton1.FillColor = MPColor.Grey2;
         }
         private void BHButton_Leave(object sender, EventArgs e)
         {
             pictureBox1.Image = ((Image)(resourceManager.GetObject(_image)));
             uiButton1.FillColor = MPColor.Grey1;
+            pictureBox1.BackColor = MPColor.Grey1;
         }
-        //example
-        //private BHButton button1;
-        //private void InitializeBHButton()
-        //{
-        //    button1 = new BHButton("icons8-倒带-96", "icons8-中等音量-96", "t");
-        //    button1.Click += Back_Click_1;
-        //    button1.Location = new Point(1, 1);
-        //    this.Controls.Add(button1);
-        //}
     }
 }

@@ -505,6 +505,7 @@ namespace Byte_Harmonic.Forms
             Controls.Add(panel1);
             Name = "ExploreForm";
             Size = new Size(1060, 700);
+            Load += ExploreForm_Load_1;
             ((System.ComponentModel.ISupportInitialize)uiImageButton1).EndInit();
             ((System.ComponentModel.ISupportInitialize)Back).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();

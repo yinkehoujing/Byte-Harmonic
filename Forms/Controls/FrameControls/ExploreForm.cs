@@ -19,7 +19,7 @@ namespace Byte_Harmonic.Forms
         {
             InitializeComponent();
             InitializeSearchBox();
-
+            InitializeBHButton();//初始化菜单三个按钮
             // 使用 AppContext 注册事件
             AppContext.LyricsUpdated += OnLyricsUpdated;
             AppContext.updateSongUI += OnUpdateSongUI;
@@ -146,7 +146,7 @@ namespace Byte_Harmonic.Forms
             // 绑定事件等
         }
 
-        
+
 
         private void MainForm_Load(object sender, EventArgs e)//窗口加载
         {
@@ -519,8 +519,37 @@ namespace Byte_Harmonic.Forms
 
         }
 
+        private void ExploreForm_Load_1(object sender, EventArgs e)
+        {
 
+        }
 
+        /// <summary>
+        /// 菜单栏三个按钮
+        /// </summary>
+        private BHButton MenuButton1;
+        private BHButton MenuButton2; 
+        private BHButton MenuButton3;
+
+        private void InitializeBHButton()
+        {
+            MenuButton1 = new BHButton("icons8-christmas-star-100 (2)", "icons8-christmas-star-100 (3)", "收藏");
+            MenuButton2 = new BHButton("icons8-scroll-down-96", "icons8-scroll-down-96 (1)", "下载");
+            MenuButton3 = new BHButton("icons8-list-96", "icons8-list-96 (1)", "播放队列");
+
+            //TODO
+            //MenuButton1.Click += MenuButton1_Click;
+            //MenuButton2.Click += MenuButton2_Click;
+            //MenuButton3.Click += MenuButton3_Click;
+
+            MenuButton1.Location = new Point(6, 91);
+            MenuButton2.Location = new Point(6, 148);
+            MenuButton3.Location = new Point(6, 205);
+
+            this.Controls.Add(MenuButton1);
+            this.Controls.Add(MenuButton2);
+            this.Controls.Add(MenuButton3);
+        }
     }
 
 }

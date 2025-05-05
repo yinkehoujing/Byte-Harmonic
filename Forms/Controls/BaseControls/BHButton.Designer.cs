@@ -39,7 +39,8 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             // 
             uiButton1.FillColor = Color.FromArgb(250, 250, 250);
             uiButton1.FillHoverColor = Color.FromArgb(238, 238, 238);
-            uiButton1.Font = new Font("黑体", 17F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiButton1.FillPressColor = Color.FromArgb(238, 238, 238);
+            uiButton1.Font = new Font("黑体", 15F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiButton1.ForeColor = Color.Black;
             uiButton1.ForeHoverColor = Color.Black;
             uiButton1.Location = new Point(0, 0);
