@@ -145,9 +145,6 @@
   <data name="icons8-view-more-96" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\images\icon\icons8-view-more-96.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8-词-96 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\images\icon\icons8-词-96 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="icons8-slide-up-52 (2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\images\icon\icons8-slide-up-52 (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -288,9 +285,6 @@
   </data>
   <data name="icons8-minus-96" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\images\icon\icons8-minus-96.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icons8-词-96" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\images\icon\icons8-词-96.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8-快进-96" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\images\icon\icons8-快进-96.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

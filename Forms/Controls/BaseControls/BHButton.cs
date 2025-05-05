@@ -19,7 +19,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
         private string _nextImage = "icons8-加载圆";
         private string _realText = "      加载中";
         private ResourceManager resourceManager;
-
+        
         public BHButton()
         {
             InitializeComponent();
@@ -48,6 +48,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             pictureBox1.BackColor= MPColor.Grey2;
             uiButton1.FillColor = MPColor.Grey2;
         }
+
         private void BHButton_Leave(object sender, EventArgs e)
         {
             pictureBox1.Image = ((Image)(resourceManager.GetObject(_image)));

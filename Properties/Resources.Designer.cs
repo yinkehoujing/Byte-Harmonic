@@ -873,26 +873,6 @@ namespace Byte_Harmonic.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap icons8_词_96 {
-            get {
-                object obj = ResourceManager.GetObject("icons8-词-96", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap icons8_词_96__1_ {
-            get {
-                object obj = ResourceManager.GetObject("icons8-词-96 (1)", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
         internal static System.Drawing.Bitmap icons8_随机_96 {
             get {
                 object obj = ResourceManager.GetObject("icons8-随机-96", resourceCulture);

@@ -275,21 +275,18 @@ namespace Byte_Harmonic.Forms
             if (isFirstForm)
             {
                 // 切换到第二个窗体形态
-                // 调整pictureBox2
-                pictureBox2.Location = new Point(79, 9);
-                pictureBox2.Size = new Size(973, 580);
 
-                // 调整panel1
-                panel1.Location = new Point(8, 9);
-                panel1.Size = new Size(65, 627);
+                // 调整pictureBox2
+                pictureBox2.Location = new Point(72, 9);
+                pictureBox2.Size = new Size(965, 580);
 
                 // 调整panel2
-                panel2.Location = new Point(97, 64);
-                panel2.Size = new Size(938, 512);
+                panel2.Location = new Point(95, 64);
+                panel2.Size = new Size(940, 512);
 
                 // 调整pictureBox1
-                pictureBox1.Location = new Point(79, 592);
-                pictureBox1.Size = new Size(973, 100);
+                pictureBox1.Location = new Point(72, 592);
+                pictureBox1.Size = new Size(965, 100);
 
                 // 调整按钮位置
                 uiImageButton1.Location = new Point(1005, 28);
@@ -298,26 +295,24 @@ namespace Byte_Harmonic.Forms
                 uiImageButton4.Location = new Point(133, 28);
 
                 // 调整标签位置
-                uiLabel1.Location = new Point(809, 659);
-                uiLabel2.Location = new Point(304, 659);
+                uiLabel1.Location = new Point(800, 659);
+                uiLabel2.Location = new Point(295, 659);
                 uiLabel3.Location = new Point(97, 612);
                 uiLabel4.Location = new Point(97, 652);
 
                 // 调整进度条
-                uiTrackBar1.Location = new Point(355, 659);
+                uiTrackBar1.Location = new Point(346, 659);
                 uiTrackBar1.Size = new Size(448, 15);
 
                 // 调整底部按钮
-                uiImageButton5.Location = new Point(561, 606);
-                uiImageButton6.Location = new Point(509, 606);
-                uiImageButton7.Location = new Point(616, 605);
-                uiImageButton8.Location = new Point(304, 612);
-                uiImageButton9.Location = new Point(379, 613);
-                uiImageButton10.Location = new Point(817, 606);
-                uiImageButton11.Location = new Point(736, 607);
-                uiImageButton12.Location = new Point(896, 628);
-                uiImageButton13.Location = new Point(952, 628);
-                uiImageButton14.Location = new Point(1005, 628);
+                uiImageButton5.Location = new Point(552, 606);
+                uiImageButton6.Location = new Point(500, 606);
+                uiImageButton7.Location = new Point(607, 605);
+                uiImageButton8.Location = new Point(295, 612);
+                uiImageButton9.Location = new Point(370, 613);
+                uiImageButton10.Location = new Point(808, 606);
+                uiImageButton11.Location = new Point(727, 607);
+
                 // 调整返回按钮
                 Back.Image = ((Image)(resourceManager.GetObject("icons8-slide-up-52")));
                 Back.ImageHover = ((Image)(resourceManager.GetObject("icons8-slide-up-52 (1)")));
@@ -334,6 +329,8 @@ namespace Byte_Harmonic.Forms
                     uiImageButton16.Dispose();
                     uiImageButton16 = null;
                 }
+
+
             }
             else
             {
@@ -341,10 +338,6 @@ namespace Byte_Harmonic.Forms
                 // 恢复pictureBox2
                 pictureBox2.Location = new Point(190, 10);
                 pictureBox2.Size = new Size(860, 580);
-
-                // 恢复panel1
-                panel1.Location = new Point(6, 10);
-                panel1.Size = new Size(169, 627);
 
                 // 恢复panel2
                 panel2.Location = new Point(209, 65);
@@ -361,26 +354,23 @@ namespace Byte_Harmonic.Forms
                 uiImageButton4.Location = new Point(245, 29);
 
                 // 恢复标签位置
-                uiLabel1.Location = new Point(807, 660);
-                uiLabel2.Location = new Point(416, 660);
+                uiLabel1.Location = new Point(798, 660);
+                uiLabel2.Location = new Point(407, 660);
                 uiLabel3.Location = new Point(209, 613);
                 uiLabel4.Location = new Point(209, 646);
 
                 // 恢复进度条
-                uiTrackBar1.Location = new Point(467, 660);
+                uiTrackBar1.Location = new Point(458, 660);
                 uiTrackBar1.Size = new Size(334, 15);
 
                 // 恢复底部按钮
-                uiImageButton5.Location = new Point(620, 607);
-                uiImageButton6.Location = new Point(572, 607);
-                uiImageButton7.Location = new Point(670, 607);
-                uiImageButton8.Location = new Point(416, 613);
-                uiImageButton9.Location = new Point(467, 613);
-                uiImageButton10.Location = new Point(815, 607);
-                uiImageButton11.Location = new Point(765, 607);
-                uiImageButton12.Location = new Point(894, 629);
-                uiImageButton13.Location = new Point(950, 629);
-                uiImageButton14.Location = new Point(1003, 629);
+                uiImageButton5.Location = new Point(611, 607);
+                uiImageButton6.Location = new Point(563, 607);
+                uiImageButton7.Location = new Point(661, 607);
+                uiImageButton8.Location = new Point(407, 613);
+                uiImageButton9.Location = new Point(458, 613);
+                uiImageButton10.Location = new Point(806, 607);
+                uiImageButton11.Location = new Point(756, 607);
 
                 // 恢复返回按钮
                 Back.Image = ((Image)(resourceManager.GetObject("icons8-slide-up-52 (3)")));
@@ -427,7 +417,6 @@ namespace Byte_Harmonic.Forms
                     this.Controls.Add(uiImageButton16);
                 }
             }
-
             isFirstForm = !isFirstForm; // 切换状态
 
         }
@@ -513,9 +502,9 @@ namespace Byte_Harmonic.Forms
 
         }
 
-        /// <summary>
-        /// 菜单栏三个按钮
-        /// </summary>
+        //
+        //UI:菜单栏三个按钮
+        //
         private BHButton MenuButton1;
         private BHButton MenuButton2;
         private BHButton MenuButton3;
@@ -541,12 +530,10 @@ namespace Byte_Harmonic.Forms
 
         }
 
-        /// <summary>
-        /// 音量控制
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private VolumeControl volumeControl=null;
+        //
+        // UI:音量控制
+        //
+        private VolumeControl volumeControl = null;
         private void uiImageButton11_Click(object sender, EventArgs e)
         {
             if (volumeControl == null)
@@ -566,10 +553,29 @@ namespace Byte_Harmonic.Forms
 
         }
 
-        private void uiImageButton16_Click(object sender, EventArgs e)
+        //
+        //UI:倍速控制
+        //
+        private SpeedControl speedControl = null;
+        private void uiImageButton17_Click(object sender, EventArgs e)
         {
+            if (speedControl == null)
+            {
+                speedControl = new SpeedControl(uiImageButton17.Location);
+                this.Controls.Add(speedControl);
+                speedControl.BringToFront();
+            }
+            else
+            {
+                using (speedControl) // 自动释放
+                {
+                    this.Controls.Remove(speedControl);
+                }
+                speedControl = null;
+            }
 
         }
+
     }
 
 }

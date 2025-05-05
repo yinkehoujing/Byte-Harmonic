@@ -58,6 +58,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton15 = new Sunny.UI.UIImageButton();
             uiImageButton16 = new Sunny.UI.UIImageButton();
             panel1 = new Panel();
+            uiImageButton17 = new Sunny.UI.UIImageButton();
             ((System.ComponentModel.ISupportInitialize)uiImageButton1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)Back).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -77,6 +78,7 @@ namespace Byte_Harmonic.Forms
             ((System.ComponentModel.ISupportInitialize)uiImageButton14).BeginInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton15).BeginInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton16).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)uiImageButton17).BeginInit();
             SuspendLayout();
             // 
             // uiImageButton1
@@ -202,7 +204,7 @@ namespace Byte_Harmonic.Forms
             uiTrackBar1.FillColor = Color.White;
             uiTrackBar1.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiTrackBar1.ForeColor = Color.FromArgb(166, 215, 231);
-            uiTrackBar1.Location = new Point(467, 660);
+            uiTrackBar1.Location = new Point(458, 660);
             uiTrackBar1.MinimumSize = new Size(1, 1);
             uiTrackBar1.Name = "uiTrackBar1";
             uiTrackBar1.Radius = 0;
@@ -217,7 +219,7 @@ namespace Byte_Harmonic.Forms
             uiLabel1.BackColor = Color.White;
             uiLabel1.Font = new Font("黑体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiLabel1.ForeColor = Color.FromArgb(158, 158, 158);
-            uiLabel1.Location = new Point(807, 660);
+            uiLabel1.Location = new Point(798, 660);
             uiLabel1.Name = "uiLabel1";
             uiLabel1.Size = new Size(51, 15);
             uiLabel1.TabIndex = 14;
@@ -228,7 +230,7 @@ namespace Byte_Harmonic.Forms
             uiLabel2.BackColor = Color.White;
             uiLabel2.Font = new Font("黑体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiLabel2.ForeColor = Color.FromArgb(158, 158, 158);
-            uiLabel2.Location = new Point(403, 660);
+            uiLabel2.Location = new Point(394, 660);
             uiLabel2.Name = "uiLabel2";
             uiLabel2.Size = new Size(58, 15);
             uiLabel2.TabIndex = 15;
@@ -264,7 +266,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton5.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiImageButton5.Image = (Image)resources.GetObject("uiImageButton5.Image");
             uiImageButton5.ImageHover = (Image)resources.GetObject("uiImageButton5.ImageHover");
-            uiImageButton5.Location = new Point(620, 607);
+            uiImageButton5.Location = new Point(611, 607);
             uiImageButton5.Name = "uiImageButton5";
             uiImageButton5.Size = new Size(30, 30);
             uiImageButton5.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -282,7 +284,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton6.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiImageButton6.Image = (Image)resources.GetObject("uiImageButton6.Image");
             uiImageButton6.ImageHover = (Image)resources.GetObject("uiImageButton6.ImageHover");
-            uiImageButton6.Location = new Point(572, 607);
+            uiImageButton6.Location = new Point(563, 607);
             uiImageButton6.Name = "uiImageButton6";
             uiImageButton6.Size = new Size(30, 30);
             uiImageButton6.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -300,7 +302,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton7.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiImageButton7.Image = (Image)resources.GetObject("uiImageButton7.Image");
             uiImageButton7.ImageHover = (Image)resources.GetObject("uiImageButton7.ImageHover");
-            uiImageButton7.Location = new Point(670, 607);
+            uiImageButton7.Location = new Point(661, 607);
             uiImageButton7.Name = "uiImageButton7";
             uiImageButton7.Size = new Size(30, 30);
             uiImageButton7.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -318,7 +320,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton8.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiImageButton8.Image = (Image)resources.GetObject("uiImageButton8.Image");
             uiImageButton8.ImageHover = (Image)resources.GetObject("uiImageButton8.ImageHover");
-            uiImageButton8.Location = new Point(416, 613);
+            uiImageButton8.Location = new Point(407, 613);
             uiImageButton8.Name = "uiImageButton8";
             uiImageButton8.Size = new Size(25, 25);
             uiImageButton8.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -335,7 +337,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton9.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiImageButton9.Image = (Image)resources.GetObject("uiImageButton9.Image");
             uiImageButton9.ImageHover = (Image)resources.GetObject("uiImageButton9.ImageHover");
-            uiImageButton9.Location = new Point(467, 613);
+            uiImageButton9.Location = new Point(458, 613);
             uiImageButton9.Name = "uiImageButton9";
             uiImageButton9.Size = new Size(24, 24);
             uiImageButton9.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -352,7 +354,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton10.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiImageButton10.Image = (Image)resources.GetObject("uiImageButton10.Image");
             uiImageButton10.ImageHover = (Image)resources.GetObject("uiImageButton10.ImageHover");
-            uiImageButton10.Location = new Point(815, 607);
+            uiImageButton10.Location = new Point(806, 607);
             uiImageButton10.Name = "uiImageButton10";
             uiImageButton10.Size = new Size(30, 30);
             uiImageButton10.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -369,7 +371,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton11.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiImageButton11.Image = (Image)resources.GetObject("uiImageButton11.Image");
             uiImageButton11.ImageHover = (Image)resources.GetObject("uiImageButton11.ImageHover");
-            uiImageButton11.Location = new Point(765, 607);
+            uiImageButton11.Location = new Point(756, 607);
             uiImageButton11.Name = "uiImageButton11";
             uiImageButton11.Size = new Size(30, 30);
             uiImageButton11.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -387,7 +389,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton12.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiImageButton12.Image = (Image)resources.GetObject("uiImageButton12.Image");
             uiImageButton12.ImageHover = (Image)resources.GetObject("uiImageButton12.ImageHover");
-            uiImageButton12.Location = new Point(894, 629);
+            uiImageButton12.Location = new Point(918, 629);
             uiImageButton12.Name = "uiImageButton12";
             uiImageButton12.Size = new Size(30, 30);
             uiImageButton12.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -405,7 +407,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton13.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiImageButton13.Image = (Image)resources.GetObject("uiImageButton13.Image");
             uiImageButton13.ImageHover = (Image)resources.GetObject("uiImageButton13.ImageHover");
-            uiImageButton13.Location = new Point(950, 629);
+            uiImageButton13.Location = new Point(960, 629);
             uiImageButton13.Name = "uiImageButton13";
             uiImageButton13.Size = new Size(30, 30);
             uiImageButton13.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -466,7 +468,6 @@ namespace Byte_Harmonic.Forms
             uiImageButton16.TabStop = false;
             uiImageButton16.Text = null;
             uiImageButton16.ZoomScaleDisabled = true;
-            uiImageButton16.Click += uiImageButton16_Click;
             // 
             // panel1
             // 
@@ -475,10 +476,29 @@ namespace Byte_Harmonic.Forms
             panel1.Size = new Size(169, 322);
             panel1.TabIndex = 11;
             // 
+            // uiImageButton17
+            // 
+            uiImageButton17.Anchor = AnchorStyles.None;
+            uiImageButton17.BackColor = Color.White;
+            uiImageButton17.Cursor = Cursors.Hand;
+            uiImageButton17.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiImageButton17.Image = (Image)resources.GetObject("uiImageButton17.Image");
+            uiImageButton17.ImageHover = (Image)resources.GetObject("uiImageButton17.ImageHover");
+            uiImageButton17.Location = new Point(876, 629);
+            uiImageButton17.Name = "uiImageButton17";
+            uiImageButton17.Size = new Size(30, 30);
+            uiImageButton17.SizeMode = PictureBoxSizeMode.StretchImage;
+            uiImageButton17.TabIndex = 30;
+            uiImageButton17.TabStop = false;
+            uiImageButton17.Text = null;
+            uiImageButton17.ZoomScaleDisabled = true;
+            uiImageButton17.Click += uiImageButton17_Click;
+            // 
             // ExploreForm
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.FromArgb(250, 250, 250);
+            Controls.Add(uiImageButton17);
             Controls.Add(uiImageButton16);
             Controls.Add(uiImageButton15);
             Controls.Add(uiImageButton14);
@@ -527,6 +547,7 @@ namespace Byte_Harmonic.Forms
             ((System.ComponentModel.ISupportInitialize)uiImageButton14).EndInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton15).EndInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton16).EndInit();
+            ((System.ComponentModel.ISupportInitialize)uiImageButton17).EndInit();
             ResumeLayout(false);
         }
 
@@ -558,5 +579,6 @@ namespace Byte_Harmonic.Forms
         private Sunny.UI.UIImageButton uiImageButton15;
         private Sunny.UI.UIImageButton uiImageButton16;
         private Panel panel1;
+        private Sunny.UI.UIImageButton uiImageButton17;
     }
 }
