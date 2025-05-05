@@ -576,6 +576,27 @@ namespace Byte_Harmonic.Forms
 
         }
 
+        //
+        //UI:播放顺序控制
+        //
+        private PlayOrderControl playOrderControl = null;
+        private void uiImageButton9_Click(object sender, EventArgs e)
+        {
+            if (playOrderControl == null)
+            {
+                playOrderControl = new PlayOrderControl(uiImageButton9.Location);
+                this.Controls.Add(playOrderControl);
+                playOrderControl.BringToFront();
+            }
+            else
+            {
+                using (playOrderControl) // 自动释放
+                {
+                    this.Controls.Remove(playOrderControl);
+                }
+                playOrderControl = null;
+            }
+        }
     }
 
 }

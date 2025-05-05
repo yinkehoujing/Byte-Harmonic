@@ -40,9 +40,10 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             uiButton1.FillColor = Color.FromArgb(250, 250, 250);
             uiButton1.FillHoverColor = Color.FromArgb(238, 238, 238);
             uiButton1.FillPressColor = Color.FromArgb(238, 238, 238);
-            uiButton1.Font = new Font("黑体", 15F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiButton1.Font = new Font("黑体", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiButton1.ForeColor = Color.Black;
             uiButton1.ForeHoverColor = Color.Black;
+            uiButton1.ForePressColor = Color.Black;
             uiButton1.Location = new Point(0, 0);
             uiButton1.MinimumSize = new Size(1, 1);
             uiButton1.Name = "uiButton1";
@@ -66,7 +67,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             pictureBox1.Cursor = Cursors.Hand;
             pictureBox1.Location = new Point(15, 9);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(35, 35);
+            pictureBox1.Size = new Size(33, 33);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;

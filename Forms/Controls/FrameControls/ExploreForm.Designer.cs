@@ -345,6 +345,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton9.TabStop = false;
             uiImageButton9.Text = null;
             uiImageButton9.ZoomScaleDisabled = true;
+            uiImageButton9.Click += uiImageButton9_Click;
             // 
             // uiImageButton10
             // 
