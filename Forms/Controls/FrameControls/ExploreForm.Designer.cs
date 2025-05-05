@@ -377,6 +377,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton11.TabStop = false;
             uiImageButton11.Text = null;
             uiImageButton11.ZoomScaleDisabled = true;
+            uiImageButton11.Click += uiImageButton11_Click;
             // 
             // uiImageButton12
             // 
@@ -465,6 +466,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton16.TabStop = false;
             uiImageButton16.Text = null;
             uiImageButton16.ZoomScaleDisabled = true;
+            uiImageButton16.Click += uiImageButton16_Click;
             // 
             // panel1
             // 
@@ -495,7 +497,6 @@ namespace Byte_Harmonic.Forms
             Controls.Add(uiLabel1);
             Controls.Add(uiTrackBar1);
             Controls.Add(panel2);
-            Controls.Add(pictureBox1);
             Controls.Add(uiImageButton4);
             Controls.Add(uiImageButton2);
             Controls.Add(uiImageButton3);
@@ -503,6 +504,7 @@ namespace Byte_Harmonic.Forms
             Controls.Add(Back);
             Controls.Add(pictureBox2);
             Controls.Add(panel1);
+            Controls.Add(pictureBox1);
             Name = "ExploreForm";
             Size = new Size(1060, 700);
             Load += ExploreForm_Load_1;

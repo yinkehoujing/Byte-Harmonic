@@ -6,6 +6,7 @@ using Byte_Harmonic.Models;
 using Byte_Harmonic.Properties;
 using Byte_Harmonic.Services;
 using Google.Protobuf.WellKnownTypes;
+using MaterialSkin.Controls;
 using NAudio.Gui;
 using Org.BouncyCastle.Utilities;
 using Services;
@@ -18,8 +19,8 @@ namespace Byte_Harmonic.Forms
         public ExploreForm()
         {
             InitializeComponent();
-            InitializeSearchBox();
             InitializeBHButton();//初始化菜单三个按钮
+
             // 使用 AppContext 注册事件
             AppContext.LyricsUpdated += OnLyricsUpdated;
             AppContext.updateSongUI += OnUpdateSongUI;
@@ -134,18 +135,6 @@ namespace Byte_Harmonic.Forms
         private readonly FormStyle _styleHandler;//用于更改窗口样式
         private int cornerRadius = 18;//通用设置圆角
         private Form secondForm;//用于歌词页
-        private AdvancedSearchBox searchBox;
-
-        private void InitializeSearchBox()
-        {
-            searchBox = new AdvancedSearchBox();
-            searchBox.Location = new Point(500, 29);
-            searchBox.Width = 400;
-            this.Controls.Add(searchBox);
-
-            // 绑定事件等
-        }
-
 
 
         private void MainForm_Load(object sender, EventArgs e)//窗口加载
@@ -528,7 +517,7 @@ namespace Byte_Harmonic.Forms
         /// 菜单栏三个按钮
         /// </summary>
         private BHButton MenuButton1;
-        private BHButton MenuButton2; 
+        private BHButton MenuButton2;
         private BHButton MenuButton3;
 
         private void InitializeBHButton()
@@ -549,6 +538,37 @@ namespace Byte_Harmonic.Forms
             this.Controls.Add(MenuButton1);
             this.Controls.Add(MenuButton2);
             this.Controls.Add(MenuButton3);
+
+        }
+
+        /// <summary>
+        /// 音量控制
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private VolumeControl volumeControl=null;
+        private void uiImageButton11_Click(object sender, EventArgs e)
+        {
+            if (volumeControl == null)
+            {
+                volumeControl = new VolumeControl(uiImageButton11.Location);
+                this.Controls.Add(volumeControl);
+                volumeControl.BringToFront();
+            }
+            else
+            {
+                using (volumeControl) // 自动释放
+                {
+                    this.Controls.Remove(volumeControl);
+                }
+                volumeControl = null;
+            }
+
+        }
+
+        private void uiImageButton16_Click(object sender, EventArgs e)
+        {
+
         }
     }
 
