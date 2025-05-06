@@ -120,20 +120,43 @@ namespace Byte_Harmonic.Database
 
 
         #region 收藏歌曲功能
-        //收藏歌曲
+
+        // 检查歌曲是否已被收藏
+        public async Task<bool> IsSongFavoriteAsync(string username, int songId)
+        {
+            using var connection = new MySqlConnection(_connectionString);
+            await connection.OpenAsync();
+
+            const string sql = "SELECT COUNT(*) FROM Favorites WHERE Username = @Username AND SongId = @SongId";
+            using var cmd = new MySqlCommand(sql, connection);
+            cmd.Parameters.AddWithValue("@Username", username);
+            cmd.Parameters.AddWithValue("@SongId", songId);
+
+            var count = (long)await cmd.ExecuteScalarAsync();
+            return count > 0;
+        }
+
+        // 收藏歌曲
         public async Task<bool> AddFavoriteSongAsync(string username, int songId)
         {
             using var connection = new MySqlConnection(_connectionString);
             await connection.OpenAsync();
 
-            const string sql = "INSERT IGNORE INTO Favorites (Username, SongId) VALUES (@Username, @SongId)";
+            // 先检查是否已收藏
+            if (await IsSongFavoriteAsync(username, songId))
+            {
+                return false;
+            }
+
+            const string sql = "INSERT INTO Favorites (Username, SongId) VALUES (@Username, @SongId)";
             using var cmd = new MySqlCommand(sql, connection);
             cmd.Parameters.AddWithValue("@Username", username);
             cmd.Parameters.AddWithValue("@SongId", songId);
 
             return await cmd.ExecuteNonQueryAsync() > 0;
         }
-        //取消收藏
+
+        // 取消收藏
         public async Task<bool> RemoveFavoriteSongAsync(string username, int songId)
         {
             using var connection = new MySqlConnection(_connectionString);
@@ -146,7 +169,8 @@ namespace Byte_Harmonic.Database
 
             return await cmd.ExecuteNonQueryAsync() > 0;
         }
-        //返回已收藏
+
+        // 获取用户收藏的所有歌曲
         public async Task<List<Song>> GetFavoriteSongsAsync(string username)
         {
             var songs = new List<Song>();
@@ -154,11 +178,11 @@ namespace Byte_Harmonic.Database
             await connection.OpenAsync();
 
             const string sql = @"
-                SELECT s.Id, s.Title, s.Artist, s.MusicFilePath, s.LrcFilePath, s.Downloaded, s.Duration
-                FROM Favorites f
-                JOIN Songs s ON f.SongId = s.Id
-                WHERE f.Username = @Username
-                ORDER BY s.Title";
+        SELECT s.Id, s.Title, s.Artist, s.MusicFilePath, s.LrcFilePath, s.Downloaded, s.Duration
+        FROM Favorites f
+        JOIN Songs s ON f.SongId = s.Id
+        WHERE f.Username = @Username
+        ORDER BY s.Title";
 
             using var cmd = new MySqlCommand(sql, connection);
             cmd.Parameters.AddWithValue("@Username", username);
@@ -177,9 +201,67 @@ namespace Byte_Harmonic.Database
                     Duration = reader.GetInt32(reader.GetOrdinal("Duration"))
                 });
             }
-    
+
             return songs;
         }
+
+        // 获取用户收藏歌曲的数量
+        public async Task<int> GetFavoriteSongsCountAsync(string username)
+        {
+            using var connection = new MySqlConnection(_connectionString);
+            await connection.OpenAsync();
+
+            const string sql = "SELECT COUNT(*) FROM Favorites WHERE Username = @Username";
+            using var cmd = new MySqlCommand(sql, connection);
+            cmd.Parameters.AddWithValue("@Username", username);
+
+            return Convert.ToInt32(await cmd.ExecuteScalarAsync());
+        }
+
+        // 批量添加收藏歌曲
+        public async Task<bool> AddFavoriteSongsAsync(string username, IEnumerable<int> songIds)
+        {
+            using var connection = new MySqlConnection(_connectionString);
+            await connection.OpenAsync();
+            using var transaction = await connection.BeginTransactionAsync();
+
+            try
+            {
+                foreach (var songId in songIds)
+                {
+                    if (!await IsSongFavoriteAsync(username, songId))
+                    {
+                        const string sql = "INSERT INTO Favorites (Username, SongId) VALUES (@Username, @SongId)";
+                        using var cmd = new MySqlCommand(sql, connection, transaction);
+                        cmd.Parameters.AddWithValue("@Username", username);
+                        cmd.Parameters.AddWithValue("@SongId", songId);
+                        await cmd.ExecuteNonQueryAsync();
+                    }
+                }
+
+                await transaction.CommitAsync();
+                return true;
+            }
+            catch
+            {
+                await transaction.RollbackAsync();
+                return false;
+            }
+        }
+
+        // 清空用户的所有收藏
+        public async Task<bool> ClearAllFavoritesAsync(string username)
+        {
+            using var connection = new MySqlConnection(_connectionString);
+            await connection.OpenAsync();
+
+            const string sql = "DELETE FROM Favorites WHERE Username = @Username";
+            using var cmd = new MySqlCommand(sql, connection);
+            cmd.Parameters.AddWithValue("@Username", username);
+
+            return await cmd.ExecuteNonQueryAsync() > 0;
+        }
+
         #endregion
 
         #region 搜索历史功能
