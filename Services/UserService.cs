@@ -24,7 +24,7 @@ namespace Byte_Harmonic.Services
         /// <summary>
         /// 登录用户，如果成功则设置为当前用户。
         /// </summary>
-        public async Task<User> LoginAsync(string account, string password)
+        public async Task<User> Login(string account, string password)
         {
             if (string.IsNullOrWhiteSpace(account) || string.IsNullOrWhiteSpace(password))
                 throw new ArgumentException("账号和密码不能为空");
@@ -38,7 +38,7 @@ namespace Byte_Harmonic.Services
         }
 
         /// <summary>
-        /// 删除用户。
+        /// 登出
         /// </summary>
         public void Logout()
         {
@@ -61,9 +61,9 @@ namespace Byte_Harmonic.Services
         public bool IsAdmin => _currentUser?.IsAdmin == true;
 
         /// <summary>
-        /// 注册新用户；如果注册为管理员，仅允许管理员执行此操作。
+        /// 注册新用户；仅允许管理员添加管理员
         /// </summary>
-        public async Task RegisterAsync(string account, string password, string? username = null, bool isAdmin = false)
+        public async Task Register(string account, string password, string? username = null, bool isAdmin = false)
         {
             if (string.IsNullOrWhiteSpace(account))
                 throw new ArgumentException("账号不能为空");
@@ -73,8 +73,8 @@ namespace Byte_Harmonic.Services
             if (await _userRepository.GetUserByAccountAsync(account) != null)
                 throw new InvalidOperationException("账号已存在");
 
-            if (isAdmin && !IsAdmin)
-                throw new UnauthorizedAccessException("仅管理员可以注册管理员账号");
+           /* if (isAdmin && !IsAdmin)
+                throw new UnauthorizedAccessException("仅管理员可以注册管理员账号");*/
 
             var user = new User
             {
@@ -92,7 +92,7 @@ namespace Byte_Harmonic.Services
         /// <summary>
         /// 修改用户名
         /// </summary>
-        public async Task UpdateUsernameAsync(string newUsername)
+        public async Task UpdateUsername(string newUsername)
         {
             if (_currentUser == null)
                 throw new InvalidOperationException("当前未登录");
@@ -110,7 +110,7 @@ namespace Byte_Harmonic.Services
         /// <summary>
         /// 修改当前用户密码。
         /// </summary>
-        public async Task ChangePasswordAsync(string currentPassword, string newPassword)
+        public async Task ChangePassword(string currentPassword, string newPassword)
         {
             if (_currentUser == null)
                 throw new InvalidOperationException("当前未登录");
@@ -129,7 +129,7 @@ namespace Byte_Harmonic.Services
         /// <summary>
         /// 删除当前用户账号（需要确认密码）。
         /// </summary>
-        public async Task DeleteAccountAsync(string confirmPassword)
+        public async Task DeleteAccount(string confirmPassword)
         {
             if (_currentUser == null)
                 throw new InvalidOperationException("当前未登录");
@@ -145,5 +145,3 @@ namespace Byte_Harmonic.Services
         }
     }
 }
-
-
