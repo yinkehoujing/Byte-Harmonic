@@ -582,7 +582,7 @@ namespace Byte_Harmonic.Forms
         {
             if (speedControl == null)
             {
-                speedControl = new SpeedControl(uiImageButton17.Location);
+                speedControl = new SpeedControl(uiImageButton17.Location, AppContext._playbackService.GetPlaybackSpeed());
                 this.Controls.Add(speedControl);
                 speedControl.BringToFront();
             }
