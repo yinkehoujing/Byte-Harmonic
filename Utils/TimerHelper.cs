@@ -21,6 +21,7 @@ public static class TimerHelper
     {
         if (timer == null)
         {
+            Console.WriteLine("shouldn't be null, or it's not single one");
             timer = new Timer();
         }
 

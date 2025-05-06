@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using Byte_Harmonic.Models;
 using NAudio.Wave;
+using VarispeedDemo.SoundTouch;
+using NAudio.Wave.SampleProviders;
+using Byte_Harmonic.Database;
+using Byte_Harmonic.Forms;
+
 
 namespace Services
 {
@@ -17,6 +22,13 @@ namespace Services
         private AudioFileReader? _audioReader;
         private bool _isPaused = false;
         private bool _isStopping = false;
+        private VarispeedSampleProvider? _speedControl;
+
+        //public event Action<Song> PlaybackStopped; // 更新 songName, aritist, duration 
+        public event Action<Song> CurrentSongChanged; // the same as PlaybackStopped
+        public event Action<bool> PlaybackPaused; // 更新图标
+        public event Action<TimeSpan> PositionChanged; // 更新 label2, 进度条
+
 
         public bool IsPaused => _isPaused;
 
@@ -32,6 +44,7 @@ namespace Services
                 return;
 
             _currentIndex = start_index;
+            _currentSong = _playlist.PlaySongs[_currentIndex];
             PlaySong(_playlist.PlaySongs[_currentIndex]);
         }
 
@@ -42,9 +55,7 @@ namespace Services
 
             if (song.Lyrics == null)
             {
-                // 从数据库或路径加载歌词
-                string path = "hhh"; // TODO: 替换为真实路径
-                song.LoadLyrics(path);
+                throw new InvalidOperationException("歌词未加载");
             }
 
             Console.WriteLine($"Playing {song.Title}, Author is {song.Artist}");
@@ -62,14 +73,16 @@ namespace Services
             }
 
             _audioReader = new AudioFileReader(song.MusicFilePath);
+
+            // 设置变速模式：true 为 Tempo（节奏不变，仅速度），false 为 Speed（连节奏一起变）
+            bool useTempo = true;
+            _speedControl = new VarispeedSampleProvider(_audioReader, 100, new SoundTouchProfile(useTempo, false));
+            _speedControl.PlaybackRate = (float)_playbackSpeed;
+
             _outputDevice = new WaveOutEvent();
-
-            // 绑定事件前，先解绑一次，确保没有重复绑定
             _outputDevice.PlaybackStopped -= OnPlaybackStopped;
-            // 这里先绑定事件, StopInternal 再解绑事件
             _outputDevice.PlaybackStopped += OnPlaybackStopped;
-
-            _outputDevice.Init(_audioReader);
+            _outputDevice.Init(_speedControl);
             _outputDevice.Play();
         }
 
@@ -78,27 +91,38 @@ namespace Services
         /// </summary>
         private void OnPlaybackStopped(object? sender, StoppedEventArgs e)
         {
+
+            Console.WriteLine($"PlaybackStopped: paused={_isPaused}, stopping={_isStopping}, error={e?.Exception?.Message}");
+
             // playSong 会调用 device 的 playbackStopped
             if (!_isPaused && !_isStopping)
             {
+
                 PlayNext();
+
+                var currentSong = _currentSong;
+
+                // [[ maybe unused]]
+                CurrentSongChanged?.Invoke(currentSong); // OnPlaySttoped 由 device 触发，此时主动触发委托(UI层已注册事件）
+                Byte_Harmonic.Forms.AppContext.TriggerupdateSongUI(currentSong);
             }
         }
-
 
         public void Pause()
         {
             _outputDevice?.Pause();
             _isPaused = true;
+            PlaybackPaused?.Invoke(true);
         }
 
         public void Resume()
         {
             _outputDevice?.Play();
             _isPaused = false;
+            PlaybackPaused?.Invoke(false);
         }
 
-        // [[maybe used]], if used, should be changed
+        // [[maybe unused]]
         public void Stop()
         {
             if (_outputDevice != null)
@@ -143,8 +167,11 @@ namespace Services
             if (_audioReader != null)
             {
                 _audioReader.CurrentTime = position;
+                _speedControl?.Reposition(); // 通知 SoundTouch 重建缓冲
             }
+            PositionChanged?.Invoke(position);
         }
+
 
         public TimeSpan GetCurrentPosition()
         {
@@ -182,6 +209,7 @@ namespace Services
 
         public void SetPlaybackMode(PlaybackMode mode)
         {
+            Console.WriteLine($"Playback mode {mode} now");
             _playlist.PlaybackMode = mode;
         }
 
@@ -205,7 +233,12 @@ namespace Services
             if (speed <= 0)
                 throw new ArgumentException("播放速度必须大于 0");
             _playbackSpeed = speed;
+            if (_speedControl != null)
+            {
+                _speedControl.PlaybackRate = (float)speed;
+            }
         }
+
 
         public double GetPlaybackSpeed()
         {
@@ -233,6 +266,7 @@ namespace Services
             }
 
             PlaySong(_playlist.PlaySongs[_currentIndex]);
+            CurrentSongChanged?.Invoke(GetCurrentSong()); // 通知所有订阅者 UI
         }
 
         public void PlayPrevious()
@@ -254,6 +288,8 @@ namespace Services
             }
 
             PlaySong(_playlist.PlaySongs[_currentIndex]);
+            CurrentSongChanged?.Invoke(GetCurrentSong()); // 通知所有订阅者 UI
+
         }
 
         public LyricsLine? GetCurrentLyricsLine()
@@ -264,9 +300,76 @@ namespace Services
             return _currentSong.Lyrics.GetCurrentLine(GetCurrentPosition());
         }
 
+        public int GetCurrentIndex(TimeSpan ts)
+        {
+            if(_currentSong == null)
+            {
+                throw new ArgumentNullException(nameof(_currentSong));
+            }
+            return _currentSong.Lyrics.GetCurrentIndex(GetCurrentPosition());
+        }
+
+        public string GetLyricsTextByIndex(int index)
+        {
+            if (_currentSong == null)
+            {
+                throw new ArgumentNullException(nameof(_currentSong));
+            }
+
+            return _currentSong.Lyrics.GetLyricText(index);
+        }
+
+        public int GetCurrentLyricsCount()
+        {
+            if (_currentSong == null)
+            {
+                throw new ArgumentNullException(nameof(_currentSong));
+            }
+            return _currentSong.Lyrics.Count;
+
+        }
+
+        public void SetVolume(float volume)
+        {
+            Console.WriteLine($"set volume {volume}");
+            if (volume < 0.0f || volume > 1f)
+                throw new ArgumentOutOfRangeException(nameof(volume), "音量必须在 0.0 到 1.0 之间");
+
+
+            if (_audioReader != null)
+            {
+                _audioReader.Volume = volume;
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(_audioReader));
+            }
+        }
+
+        public float GetVolume()
+        {
+            if(_audioReader == null)
+            {
+                Console.WriteLine("not playing yet");
+                return 1f;
+            }
+            if(_audioReader.Volume == 0f)
+            {
+                Console.WriteLine("0f ???"); return 0f;
+            }
+            return _audioReader.Volume;
+        }
+
+
         public void Dispose()
         {
             StopInternal();
+
+            _speedControl?.Dispose();
+            _speedControl = null;
+
         }
+
+
     }
 }

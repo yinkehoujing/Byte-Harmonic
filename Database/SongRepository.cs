@@ -1,16 +1,43 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using Byte_Harmonic.Models;
+using System.Text;
+using Byte_Harmonic.Utils;
 
 namespace Byte_Harmonic.Database
 {
     public class SongRepository
     {
-        private readonly string _connectionString = "server=localhost;user=root;database=Byte_Harmonic;port=3306;password=Sunflower";
+        private readonly string _connectionString = "server=localhost;user=root;database=Byte_Harmonic;port=3306;password=";
+<<<<<<< HEAD
         
+=======
+        private static string connectionString = "";
+
+
+        public SongRepository()
+        {
+            if (!File.Exists(FileHelper.GetProjectRootPath("passwd.txt")))
+            {
+                Console.WriteLine("未找到本地根目录下 passwd.txt, 使用默认的连接字符串");
+                connectionString = _connectionString;
+            }
+            else
+            {
+                connectionString = "server=localhost;user=root;database=Byte_Harmonic;port=3306;password=";
+                var firstNonEmptyLine = File.ReadLines(FileHelper.GetProjectRootPath("passwd.txt"))
+                                            .Select(line => line.Trim())
+                                            .FirstOrDefault(line => !string.IsNullOrEmpty(line));
+
+                connectionString += firstNonEmptyLine;
+            }
+        }
+
+>>>>>>> 99bdac372d564695ff9997f5906cb7e0ac3acd6c
         public bool AddSong(Song song)
         {
-            using var connection = new MySqlConnection(_connectionString);
+
+           using var connection = new MySqlConnection(connectionString);
             connection.Open();
 
             string sql = "INSERT INTO Songs (Title, Artist, MusicFilePath, LrcFilePath, Downloaded, Duration) " +
@@ -36,7 +63,7 @@ namespace Byte_Harmonic.Database
 
         public Song GetSongById(int id)
         {
-            using var connection = new MySqlConnection(_connectionString);
+            using var connection = new MySqlConnection(connectionString);
             connection.Open();
 
             string sql = "SELECT * FROM Songs WHERE Id = @Id";
@@ -46,16 +73,16 @@ namespace Byte_Harmonic.Database
             using var reader = cmd.ExecuteReader();
             if (reader.Read())
             {
-                return new Song
-                {
-                    Id = reader.GetInt32("Id"),
-                    Title = reader.GetString("Title"),
-                    Artist = reader.GetString("Artist"),
-                    MusicFilePath = reader.GetString("MusicFilePath"),
-                    LrcFilePath = reader.IsDBNull(reader.GetOrdinal("LrcFilePath")) ? null : reader.GetString("LrcFilePath"),
-                    Downloaded = reader.GetBoolean("Downloaded"),
-                    Duration = reader.GetInt32("Duration")
-                };
+                return new Song(
+                    id: reader.GetInt32("Id"),
+                    title: reader.GetString("Title"),
+                    artist: reader.GetString("Artist"),
+                    downloaded: reader.GetBoolean("Downloaded"),
+                    musicFilePath: reader.GetString("MusicFilePath"),
+                    lrcFilePath: reader.IsDBNull(reader.GetOrdinal("LrcFilePath")) ? string.Empty : reader.GetString("LrcFilePath"),
+                    duration: reader.GetInt32("Duration"),
+                    tags: new List<string>() // TODO: 从 tag 表中获取
+                );
             }
 
             return null;
@@ -63,7 +90,7 @@ namespace Byte_Harmonic.Database
 
         public Song GetSongByTitle(string title)
         {
-            using var connection = new MySqlConnection(_connectionString);
+            using var connection = new MySqlConnection(connectionString);
             connection.Open();
 
             string sql = "SELECT * FROM Songs WHERE Title = @Title";
@@ -73,24 +100,57 @@ namespace Byte_Harmonic.Database
             using var reader = cmd.ExecuteReader();
             if (reader.Read())
             {
-                return new Song
-                {
-                    Id = reader.GetInt32("Id"),
-                    Title = reader.GetString("Title"),
-                    Artist = reader.GetString("Artist"),
-                    MusicFilePath = reader.GetString("MusicFilePath"),
-                    LrcFilePath = reader.IsDBNull(reader.GetOrdinal("LrcFilePath")) ? null : reader.GetString("LrcFilePath"),
-                    Downloaded = reader.GetBoolean("Downloaded"),
-                    Duration = reader.GetInt32("Duration")
-                };
+                return new Song(
+                    id: reader.GetInt32("Id"),
+                    title: reader.GetString("Title"),
+                    artist: reader.GetString("Artist"),
+                    downloaded: reader.GetBoolean("Downloaded"),
+                    musicFilePath: reader.GetString("MusicFilePath"),
+                    lrcFilePath: reader.IsDBNull(reader.GetOrdinal("LrcFilePath")) ? string.Empty : reader.GetString("LrcFilePath"),
+                    duration: reader.GetInt32("Duration"),
+                    tags: new List<string>() // 同上
+                );
             }
 
             return null;
         }
 
+
+        public List<Song> GetAllSongs(int maximum = 10)
+        {
+            var songs = new List<Song>();
+
+            using var connection = new MySqlConnection(connectionString);
+            connection.Open();
+
+            string sql = "SELECT * FROM Songs LIMIT @Max";
+            using var cmd = new MySqlCommand(sql, connection);
+            cmd.Parameters.AddWithValue("@Max", maximum);
+
+            using var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                var song = new Song(
+                    id: reader.GetInt32("Id"),
+                    title: reader.GetString("Title"),
+                    artist: reader.GetString("Artist"),
+                    downloaded: reader.GetBoolean("Downloaded"),
+                    musicFilePath: reader.GetString("MusicFilePath"),
+                    lrcFilePath: reader.IsDBNull(reader.GetOrdinal("LrcFilePath")) ? string.Empty : reader.GetString("LrcFilePath"),
+                    duration: reader.GetInt32("Duration"),
+                    tags: new List<string>() // 因数据库未存储 Tags 字段
+                );
+
+                songs.Add(song);
+            }
+
+            return songs;
+        }
+
+
         public bool UpdateSong(Song song)
         {
-            using var connection = new MySqlConnection(_connectionString);
+            using var connection = new MySqlConnection(connectionString);
             connection.Open();
 
             string sql = "UPDATE Songs SET Title = @Title, Artist = @Artist, MusicFilePath = @MusicFilePath, " +
@@ -111,7 +171,7 @@ namespace Byte_Harmonic.Database
 
         public bool DeleteSong(int id)
         {
-            using var connection = new MySqlConnection(_connectionString);
+            using var connection = new MySqlConnection(connectionString);
             connection.Open();
 
             string sql = "DELETE FROM Songs WHERE Id = @Id";

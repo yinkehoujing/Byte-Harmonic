@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using Byte_Harmonic.Utils;
 using Byte_Harmonic.Models;
 using Services;
+using Byte_Harmonic.Database;
 
 namespace Byte_Harmonic.Forms
 {
@@ -11,46 +12,24 @@ namespace Byte_Harmonic.Forms
         private System.Windows.Forms.Timer _timer;
         private System.Windows.Forms.Timer _log_timer;
         private PlaybackService _playbackService;
+        private SongRepository _songRepository;
 
         public TestLyricsForm()
         {
             InitializeComponent();
             _playbackService = new PlaybackService();
+            _songRepository = new SongRepository();
         }
 
         private void TestLyricsForm_Load(object sender, EventArgs e)
         {
-            // 载入一首测试歌曲（假设路径和歌词已经准备好）
-            var song = new Song
-            {
-                Title = "公子向北走",
-                Artist = "花僮",
-                MusicFilePath = FileHelper.GetAssetPath("Musics/example.mp3")
-            };
+            var song = _songRepository.GetSongByTitle("公子向北走");
+            var song2 = _songRepository.GetSongByTitle("一笑江湖");
+            var song3 = _songRepository.GetSongById(3);
 
-            song.LoadLyrics(FileHelper.GetAssetPath("Lyrics/example.lrc"));
-
-            var song2 = new Song
-            {
-                Title = "一笑江湖",
-                Artist = "闻人听书",
-                MusicFilePath = FileHelper.GetAssetPath("Musics/example2.mp3")
-            };
-
-            song2.LoadLyrics(FileHelper.GetAssetPath("Lyrics/example2.lrc"));
-
-            var song3 = new Song
-            {
-                Title = "探故知",
-                Artist = "浅影阿",
-                MusicFilePath = FileHelper.GetAssetPath("Musics/example3.mp3")
-            };
-
-            song3.LoadLyrics(FileHelper.GetAssetPath("Lyrics/example3.lrc"));
-
+            _playbackService.SetPlaylist(new Playlist(new System.Collections.Generic.List<Song> { song, song2, song3 }));
+            //_playbackService.SetPlaylist(new Playlist(new System.Collections.Generic.List<Song> { song, song2, song3 }, PlaybackMode.Shuffle));
             //_playbackService.SetPlaylist(new Playlist(new System.Collections.Generic.List<Song> { song, song2, song3}, PlaybackMode.RepeatOne));
-            //_playbackService.SetPlaylist(new Playlist(new System.Collections.Generic.List<Song> { song, song2, song3 }));
-            _playbackService.SetPlaylist(new Playlist(new System.Collections.Generic.List<Song> { song, song2, song3 }, PlaybackMode.Shuffle));
             _playbackService.PlayPlaylist();
 
             StartTimer();
@@ -85,6 +64,7 @@ namespace Byte_Harmonic.Forms
         private void TestLyricsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             TimerHelper.StopAndDisposeTimer(ref _timer);
+            TimerHelper.StopAndDisposeTimer(ref _log_timer);
         }
 
 
@@ -132,6 +112,21 @@ namespace Byte_Harmonic.Forms
         private void button1_Click(object sender, EventArgs e)
         {
             _playbackService.PlayPrevious();
+        }
+
+
+        private void trackBarPlaybackSpeed_Scroll(object sender, EventArgs e)
+        {
+            double speed = 0.5 + trackBarPlaybackSpeed.Value * 0.1;
+            try
+            {
+                _playbackService.SetPlaybackSpeed(speed);
+                labelPlaybackSpeed.Text = $"x{speed:F2}";
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }

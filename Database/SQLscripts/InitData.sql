@@ -1,29 +1,14 @@
 SET NAMES utf8mb4;
 
--- 插入测试管理员账户
-INSERT IGNORE INTO `Users` (`Account`, `Username`, `Password`, `IsAdmin`)
-VALUES ('admin', 'admin', 'e10adc3949ba59abbe56e057f20f883e', TRUE);  -- 密码是 "123456" 的 MD5 哈希值
-
--- 插入测试歌曲
-INSERT IGNORE INTO `Songs` (`Title`, `Artist`, `MusicFilePath`, `LrcFilePath`, `Downloaded`, `Duration`)
-VALUES ('测试歌曲', '测试歌手', '/music/test_song.mp3', '/lyrics/test_song.lrc', TRUE, 210);
-
--- 插入测试歌词
-INSERT IGNORE INTO `Lyrics` (`SongId`, `Content`)
-VALUES (1, '[00:00.00] 测试歌词第一行\n[00:15.00] 测试歌词第二行');  -- 假设歌ID为1
-
--- 插入测试标签
-INSERT IGNORE INTO `Tags` (`Name`)
-VALUES ('流行');
-
--- 将标签关联到测试歌曲
-INSERT IGNORE INTO `SongTags` (`SongId`, `TagId`)
-VALUES (1, 1);  -- 假设歌曲 ID 为 1，标签 ID 为 1
-
--- 插入测试歌单
-INSERT IGNORE INTO `Playlists` (`Name`, `Owner`)
-VALUES ('我的收藏', 'admin');
-
--- 将测试歌曲加入到测试歌单
-INSERT IGNORE INTO `SonglistSongs` (`SonglistId`, `SongId`)
-VALUES (1, 1);  -- 假设歌单 ID 为 1，歌曲 ID 为 1
+-- 插入歌曲
+INSERT INTO Songs (Title, Artist, MusicFilePath, LrcFilePath, Downloaded, Duration)
+VALUES 
+('天外来物', '薛之谦','Musics/tianwailaiwu.mp3','Lyrics/tianwailaiwu.lrc',1, 240+17),
+('传奇', '王菲','Musics/chuanqi_wangfei.mp3','Lyrics/chuanqi_wangfei.lrc',1, 240+56),
+('海阔天空', 'Beyond','Musics/haikuotiankong.mp3','Lyrics/haikuotiankong.lrc',1, 300+7),
+('最炫民族风', '凤凰传奇','Musics/zuixuanminzufeng.mp3','Lyrics/zuixuanminzufeng.lrc',1, 240+44),
+('公子向北走', '花僮', 'Musics/example.mp3', 'Lyrics/example.lrc', 1, 244),
+('一笑江湖', '闻人听书', 'Musics/example2.mp3', 'Lyrics/example2.lrc', 1, 120+46),
+('探故知', '浅影阿', 'Musics/example3.mp3', 'Lyrics/example3.lrc', 1, 180+4),
+('如愿', '王菲','Musics/ruyuan_wangfei.mp3','Lyrics/ruyuan_wangfei.lrc',1, 240+25),
+('传奇', '李健','Musics/chuanqi_lijian.mp3','Lyrics/chuanqi_lijian.lrc',1, 240+54);

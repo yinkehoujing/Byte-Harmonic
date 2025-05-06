@@ -38,6 +38,9 @@
             uiipTextBox1 = new TextBox();
             btnNext = new Button();
             button1 = new Button();
+            trackBarPlaybackSpeed = new TrackBar();
+            labelPlaybackSpeed = new Label();
+            ((System.ComponentModel.ISupportInitialize)trackBarPlaybackSpeed).BeginInit();
             SuspendLayout();
             // 
             // lyricsLabel
@@ -101,11 +104,32 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
+            // trackBarPlaybackSpeed
+            // 
+            trackBarPlaybackSpeed.Location = new Point(90, 88);
+            trackBarPlaybackSpeed.Maximum = 20;
+            trackBarPlaybackSpeed.Name = "trackBarPlaybackSpeed";
+            trackBarPlaybackSpeed.Size = new Size(173, 56);
+            trackBarPlaybackSpeed.TabIndex = 6;
+            trackBarPlaybackSpeed.Value = 10;
+            trackBarPlaybackSpeed.Scroll += new System.EventHandler(this.trackBarPlaybackSpeed_Scroll);
+            // 
+            // labelPlaybackSpeed
+            // 
+            labelPlaybackSpeed.AutoSize = true;
+            labelPlaybackSpeed.Location = new Point(181, 71);
+            labelPlaybackSpeed.Name = "labelPlaybackSpeed";
+            labelPlaybackSpeed.Size = new Size(48, 20);
+            labelPlaybackSpeed.TabIndex = 7;
+            labelPlaybackSpeed.Text = "x1.00";
+            // 
             // TestLyricsForm
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(450, 250);
+            Controls.Add(labelPlaybackSpeed);
+            Controls.Add(trackBarPlaybackSpeed);
             Controls.Add(button1);
             Controls.Add(btnNext);
             Controls.Add(uiipTextBox1);
@@ -115,6 +139,7 @@
             Name = "TestLyricsForm";
             Text = "歌词同步测试";
             Load += TestLyricsForm_Load;
+            ((System.ComponentModel.ISupportInitialize)trackBarPlaybackSpeed).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -129,5 +154,7 @@
         private Button seekToBtn;
         private TextBox uiipTextBox1;
         private Button button1;
+        private TrackBar trackBarPlaybackSpeed;
+        private Label labelPlaybackSpeed;
     }
 }
