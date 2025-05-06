@@ -324,10 +324,11 @@ namespace Byte_Harmonic.Forms
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = Properties.Resources.big_logo;
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
             pictureBox1.Location = new Point(91, 122);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(256, 256);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 45;
             pictureBox1.TabStop = false;
             // 
