@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Byte_Harmonic.Models;
 
 namespace Byte_Harmonic.Forms.Controls.BaseControls
 {
@@ -33,6 +34,30 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             bHButton2.Location = new Point(0, 51);
             bHButton3.Location = new Point(0, 102);
             bHButton4.Location = new Point(0, 153);
+
+            bHButton1.Click += (s, e) =>
+            {
+                AppContext._playbackService.SetPlaybackMode(PlaybackMode.Sequential);
+            };
+
+            bHButton2.Click += (s, e) =>
+            {
+                AppContext._playbackService.SetPlaybackMode(PlaybackMode.RepeatOne);
+            };
+
+
+            bHButton3.Click += (s, e) =>
+            {
+                AppContext._playbackService.SetPlaybackMode(PlaybackMode.Sequential);
+            };
+
+
+            bHButton4.Click += (s, e) =>
+            {
+                AppContext._playbackService.SetPlaybackMode(PlaybackMode.Shuffle);
+            };
+
+
 
             this.Controls.Add(bHButton1);
             this.Controls.Add(bHButton2);
