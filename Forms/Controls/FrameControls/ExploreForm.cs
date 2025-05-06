@@ -265,7 +265,9 @@ namespace Byte_Harmonic.Forms
         }
 
 
-
+        //
+        //折叠菜单栏
+        //
         private bool isFirstForm = true; // 跟踪当前窗体形态
         private void Back_Click_1(object sender, EventArgs e)
         {
@@ -426,10 +428,7 @@ namespace Byte_Harmonic.Forms
 
         }
 
-        private void uiImageButton13_Click(object sender, EventArgs e)
-        {
-
-        }
+        
 
 
         // 事件定义, 通知 MusicForm 执行实际逻辑
@@ -595,6 +594,28 @@ namespace Byte_Harmonic.Forms
                     this.Controls.Remove(playOrderControl);
                 }
                 playOrderControl = null;
+            }
+        }
+
+        //
+        //UI:更多
+        //
+        private MoreControl moreControl = null;
+        private void uiImageButton13_Click(object sender, EventArgs e)
+        {
+            if (moreControl == null)
+            {
+                moreControl = new MoreControl(uiImageButton13.Location);
+                this.Controls.Add(moreControl);
+                moreControl.BringToFront();
+            }
+            else
+            {
+                using (moreControl) // 自动释放
+                {
+                    this.Controls.Remove(moreControl);
+                }
+                moreControl = null;
             }
         }
     }
