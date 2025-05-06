@@ -63,6 +63,16 @@ namespace Byte_Harmonic.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap big_logo {
+            get {
+                object obj = ResourceManager.GetObject("big-logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_christmas_star_100 {
             get {
                 object obj = ResourceManager.GetObject("icons8-christmas-star-100", resourceCulture);
@@ -186,6 +196,26 @@ namespace Byte_Harmonic.Properties {
         internal static System.Drawing.Bitmap icons8_go_back_96_3_ {
             get {
                 object obj = ResourceManager.GetObject("icons8-go-back-96(3)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_headphones_100 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-headphones-100", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_headphones_100__1_ {
+            get {
+                object obj = ResourceManager.GetObject("icons8-headphones-100 (1)", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

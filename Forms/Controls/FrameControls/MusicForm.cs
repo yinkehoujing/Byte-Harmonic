@@ -15,6 +15,7 @@ using Byte_Harmonic.Models;
 using Byte_Harmonic.Properties;
 using System.Resources;
 using Sunny.UI;
+using Byte_Harmonic.Forms.Controls.BaseControls;
 
 namespace Byte_Harmonic.Forms
 {
@@ -57,29 +58,6 @@ namespace Byte_Harmonic.Forms
                 //AppContext.TriggerSeekRequested(seekPosition); // 用于更新 UI
             };
 
-            playbackModeMenu.Items.Add("顺序播放", null, (s, e) =>
-            {
-                AppContext._playbackService.SetPlaybackMode(PlaybackMode.Sequential);
-            });
-
-            playbackModeMenu.Items.Add("单曲循环", null, (s, e) =>
-            {
-                Console.WriteLine("set to 单曲循环");
-                AppContext._playbackService.SetPlaybackMode(PlaybackMode.RepeatOne);
-            });
-
-            playbackModeMenu.Items.Add("列表循环", null, (s, e) =>
-            {
-                AppContext._playbackService.SetPlaybackMode(PlaybackMode.Sequential);
-            });
-
-            playbackModeMenu.Items.Add("随机播放", null, (s, e) =>
-            {
-                AppContext._playbackService.SetPlaybackMode(PlaybackMode.Shuffle);
-            });
-
-
-
             AppContext.PlaylistSetRequested += OnPlaylistSet;
 
             LoadInitialSongs(); // 注册完了之后就 trigger
@@ -103,15 +81,56 @@ namespace Byte_Harmonic.Forms
             }
         }
 
-        private void OnLyricsUpdated(string lyrics, TimeSpan position)
+       private void OnLyricsUpdated(string lyrics, TimeSpan position)
         {
             if (IsDisposed) return;
 
             RunOnUiThread(() =>
             {
-                lyricsLabel.Text = lyrics;
+
                 uiLabel2.Text = position.ToString(@"mm\:ss");
                 uiTrackBar1.Value = Math.Min((int)position.TotalSeconds, uiTrackBar1.Maximum);
+
+                if (lyricsLabel.Text == lyrics)
+                {
+                    return;
+                }
+
+                int currentIndex = (AppContext._playbackService.GetCurrentIndex(position));
+
+                string prepre = "";
+                string prev = "";
+
+                if(currentIndex > 0)
+                {
+                    prev = AppContext._playbackService.GetLyricsTextByIndex(currentIndex - 1);
+
+                    if(currentIndex > 1)
+                    {
+                        prepre = AppContext._playbackService.GetLyricsTextByIndex(currentIndex - 2);
+                    }
+                }
+                string nxtnxt = "", nxt = "";
+                int n = AppContext._playbackService.GetCurrentLyricsCount();
+                if(currentIndex < n - 1)
+                {
+                    nxt = AppContext._playbackService.GetLyricsTextByIndex(currentIndex + 1);
+
+                    if(currentIndex < n - 2)
+                    {
+                        nxtnxt = AppContext._playbackService.GetLyricsTextByIndex(currentIndex + 2);
+                    }
+                }
+
+                uiLabel4.Text = prepre;
+                uiLabel5.Text = prev;
+                uiLabel6.Text = lyrics;
+                uiLabel6.ForeColor = Color.Red;
+                uiLabel7.Text = nxt;
+                uiLabel8.Text = nxtnxt;
+
+
+                
                 //HighlightCurrentLine(position); // 预留高亮处理
             });
         }
@@ -309,9 +328,51 @@ namespace Byte_Harmonic.Forms
                 action();
         }
 
+        //
+        //UI:播放顺序控制
+        //
+        private PlayOrderControl playOrderControl = null;
         private void uiImageButton9_Click(object sender, EventArgs e)
         {
-            playbackModeMenu.Show(uiImageButton9, new Point(0, uiImageButton9.Height));
+            if (playOrderControl == null)
+            {
+                playOrderControl = new PlayOrderControl(uiImageButton9.Location);
+                this.Controls.Add(playOrderControl);
+                playOrderControl.BringToFront();
+            }
+            else
+            {
+                using (playOrderControl) // 自动释放
+                {
+                    this.Controls.Remove(playOrderControl);
+                }
+                playOrderControl = null;
+            }
+        }
+
+
+        //
+        // UI:音量控制
+        //
+        private VolumeControl volumeControl = null;
+        private void uiImageButton11_Click(object sender, EventArgs e)
+        {
+            if (volumeControl == null)
+            {
+                volumeControl = new VolumeControl(uiImageButton11.Location, (int)((AppContext._playbackService.GetVolume()) * 100));
+                this.Controls.Add(volumeControl);
+                volumeControl.BringToFront();
+            }
+            else
+            {
+                using (volumeControl) // 自动释放
+                {
+                    this.Controls.Remove(volumeControl);
+                }
+                volumeControl = null;
+            }
+
         }
     }
+    
 }

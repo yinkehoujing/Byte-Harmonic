@@ -25,12 +25,12 @@ namespace Byte_Harmonic.Forms
         public static event Action<string, TimeSpan> LyricsUpdated; // 参数：歌词文本、当前时间位置
         public static event Action<TimeSpan> PositionChanged; // 更新 label2, 进度条
         public static event Action<bool> ShowPlayingBtn; // 更新 label2, 进度条
+        public static event Action<float> VolumeChanged; // 0 - 1 之间
 
         // 实际响应，修改 PlaybackService 对象
         public static event Action<double>? PlaybackSpeedChanged;
         public static event Action<List<Song>> PlaylistSetRequested; // 响应，设置初始的 Playlist
         public static event Action<PlaybackMode>? PlaybackModeChanged;
-        public static event Action<double>? PlaybackVoiceChanged;
 
 
 
@@ -38,6 +38,12 @@ namespace Byte_Harmonic.Forms
         {
             Console.WriteLine("TriggerPositionChanged");
             PositionChanged?.Invoke(ts);
+        }
+
+        public static void TriggerVolumeChanged(float volumeValue)
+        {
+            Console.WriteLine("TriggerVolumeChanged");
+            VolumeChanged?.Invoke(volumeValue);
         }
 
         public static void TriggerupdateSongUI(Song song)
@@ -94,13 +100,7 @@ namespace Byte_Harmonic.Forms
 
             PlaybackModeChanged += OnPlaybackModeChanged;
 
-            PlaybackVoiceChanged += OnPlaybackVoiceChanged;
 
-        }
-
-        private static void OnPlaybackVoiceChanged(double voice)
-        {
-            _playbackService.SetVolume((float)voice);
         }
 
         private static void OnPlaybackModeChanged(PlaybackMode mode)
@@ -180,6 +180,11 @@ namespace Byte_Harmonic.Forms
 
 
             }
+        }
+
+        internal static void TriggerVolumeChanged(object getVolume)
+        {
+            throw new NotImplementedException();
         }
     }
 }

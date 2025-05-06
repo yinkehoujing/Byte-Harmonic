@@ -300,8 +300,38 @@ namespace Services
             return _currentSong.Lyrics.GetCurrentLine(GetCurrentPosition());
         }
 
+        public int GetCurrentIndex(TimeSpan ts)
+        {
+            if(_currentSong == null)
+            {
+                throw new ArgumentNullException(nameof(_currentSong));
+            }
+            return _currentSong.Lyrics.GetCurrentIndex(GetCurrentPosition());
+        }
+
+        public string GetLyricsTextByIndex(int index)
+        {
+            if (_currentSong == null)
+            {
+                throw new ArgumentNullException(nameof(_currentSong));
+            }
+
+            return _currentSong.Lyrics.GetLyricText(index);
+        }
+
+        public int GetCurrentLyricsCount()
+        {
+            if (_currentSong == null)
+            {
+                throw new ArgumentNullException(nameof(_currentSong));
+            }
+            return _currentSong.Lyrics.Count;
+
+        }
+
         public void SetVolume(float volume)
         {
+            Console.WriteLine($"set volume {volume}");
             if (volume < 0.0f || volume > 1f)
                 throw new ArgumentOutOfRangeException(nameof(volume), "音量必须在 0.0 到 1.0 之间");
 
@@ -314,6 +344,20 @@ namespace Services
             {
                 throw new ArgumentNullException(nameof(_audioReader));
             }
+        }
+
+        public float GetVolume()
+        {
+            if(_audioReader == null)
+            {
+                Console.WriteLine("not playing yet");
+                return 1f;
+            }
+            if(_audioReader.Volume == 0f)
+            {
+                Console.WriteLine("0f ???"); return 0f;
+            }
+            return _audioReader.Volume;
         }
 
 

@@ -38,6 +38,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             bHButton1.Click += (s, e) =>
             {
                 AppContext._playbackService.SetPlaybackMode(PlaybackMode.Sequential);
+                // 通知 UI 更改
             };
 
             bHButton2.Click += (s, e) =>

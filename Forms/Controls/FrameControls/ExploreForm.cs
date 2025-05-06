@@ -25,7 +25,6 @@ namespace Byte_Harmonic.Forms
             AppContext.LyricsUpdated += OnLyricsUpdated;
             AppContext.updateSongUI += OnUpdateSongUI;
             AppContext.ShowPlayingBtn += OnShowPlayingBtn;
-
             var songlist = AppContext._songRepository.GetAllSongs();
 
             if (songlist.Count <= 0)
@@ -91,7 +90,6 @@ namespace Byte_Harmonic.Forms
 
             }
         }
-
 
         private void OnUpdateSongUI(Song song)
         {
@@ -537,7 +535,8 @@ namespace Byte_Harmonic.Forms
         {
             if (volumeControl == null)
             {
-                volumeControl = new VolumeControl(uiImageButton11.Location);
+                //Console.WriteLine($"clicked, {AppContext._playbackService.GetVolume()}");
+                volumeControl = new VolumeControl(uiImageButton11.Location, (int)((AppContext._playbackService.GetVolume()) * 100));
                 this.Controls.Add(volumeControl);
                 volumeControl.BringToFront();
             }
