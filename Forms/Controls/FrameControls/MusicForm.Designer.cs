@@ -51,7 +51,6 @@ namespace Byte_Harmonic.Forms
             uiTrackBar1 = new Sunny.UI.UITrackBar();
             uiImageButton3 = new Sunny.UI.UIImageButton();
             uiImageButton1 = new Sunny.UI.UIImageButton();
-            lyricsLabel = new Sunny.UI.UILabel();
             pictureBox1 = new PictureBox();
             uiLabel4 = new Sunny.UI.UILabel();
             uiLabel5 = new Sunny.UI.UILabel();
@@ -255,12 +254,13 @@ namespace Byte_Harmonic.Forms
             uiLabel3.BackColor = Color.White;
             uiLabel3.Font = new Font("黑体", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiLabel3.ForeColor = Color.Black;
-            uiLabel3.Location = new Point(29, 618);
-            uiLabel3.MaximumSize = new Size(174, 24);
+            uiLabel3.Location = new Point(70, 465);
+            uiLabel3.MaximumSize = new Size(300, 24);
             uiLabel3.Name = "uiLabel3";
-            uiLabel3.Size = new Size(174, 24);
+            uiLabel3.Size = new Size(300, 24);
             uiLabel3.TabIndex = 31;
-            uiLabel3.Text = "歌名——歌手";
+            uiLabel3.Text = "长长的歌名——长歌手";
+            uiLabel3.TextAlign = ContentAlignment.BottomCenter;
             uiLabel3.Click += uiLabel3_Click;
             // 
             // uiLabel2
@@ -338,17 +338,6 @@ namespace Byte_Harmonic.Forms
             uiImageButton1.ZoomScaleDisabled = true;
             uiImageButton1.Click += uiImageButton1_Click;
             // 
-            // lyricsLabel
-            // 
-            lyricsLabel.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            lyricsLabel.ForeColor = Color.FromArgb(48, 48, 48);
-            lyricsLabel.Location = new Point(172, 474);
-            lyricsLabel.Margin = new Padding(2, 0, 2, 0);
-            lyricsLabel.Name = "lyricsLabel";
-            lyricsLabel.Size = new Size(222, 56);
-            lyricsLabel.TabIndex = 44;
-            lyricsLabel.Text = "测试歌词";
-            // 
             // pictureBox1
             // 
             pictureBox1.Image = Properties.Resources.big_logo;
@@ -418,7 +407,6 @@ namespace Byte_Harmonic.Forms
             Controls.Add(uiLabel5);
             Controls.Add(uiLabel4);
             Controls.Add(pictureBox1);
-            Controls.Add(lyricsLabel);
             Controls.Add(uiImageButton3);
             Controls.Add(uiImageButton1);
             Controls.Add(uiImageButton14);
@@ -472,7 +460,6 @@ namespace Byte_Harmonic.Forms
         private Sunny.UI.UITrackBar uiTrackBar1;
         private Sunny.UI.UIImageButton uiImageButton3;
         private Sunny.UI.UIImageButton uiImageButton1;
-        private Sunny.UI.UILabel lyricsLabel;
         private PictureBox pictureBox1;
         private Sunny.UI.UILabel uiLabel4;
         private Sunny.UI.UILabel uiLabel5;

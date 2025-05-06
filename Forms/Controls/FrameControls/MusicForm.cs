@@ -91,7 +91,7 @@ namespace Byte_Harmonic.Forms
                 uiLabel2.Text = position.ToString(@"mm\:ss");
                 uiTrackBar1.Value = Math.Min((int)position.TotalSeconds, uiTrackBar1.Maximum);
 
-                if (lyricsLabel.Text == lyrics)
+                if (uiLabel6.Text == lyrics)
                 {
                     return;
                 }
@@ -282,6 +282,7 @@ namespace Byte_Harmonic.Forms
         private void uiImageButton5_Click(object sender, EventArgs e)
         {
             AppContext.TogglePlayPause(); // 内部触发事件 
+            AppContext.TriggerupdateSongUI(AppContext._playbackService.GetCurrentSong());
         }
 
         private void uiImageButton6_Click(object sender, EventArgs e)
