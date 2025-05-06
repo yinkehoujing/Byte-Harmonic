@@ -230,6 +230,7 @@ namespace Services
 
         public void SetPlaybackSpeed(double speed)
         {
+            Console.WriteLine($"set playbackSpeed to {speed}.x");
             if (speed <= 0)
                 throw new ArgumentException("播放速度必须大于 0");
             _playbackSpeed = speed;

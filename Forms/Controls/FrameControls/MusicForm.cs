@@ -16,6 +16,7 @@ using Byte_Harmonic.Properties;
 using System.Resources;
 using Sunny.UI;
 using Byte_Harmonic.Forms.Controls.BaseControls;
+using Byte_Harmonic.Forms.FormUtils;
 
 namespace Byte_Harmonic.Forms
 {
@@ -26,7 +27,12 @@ namespace Byte_Harmonic.Forms
         public MusicForm()
         {
             InitializeComponent();
-
+            uiLabel3.EnableAutoScroll(
+                scrollSpeed: 1,
+                scrollInterval: 50,
+                pauseDuration: 3000,
+                startDelay: 1500
+            );
             // UI 层 订阅 PlaybackStopped 事件，接收到这个事件后，UI 层的回调函数会被执行,负责更新 UI 元素 
             AppContext.updateSongUI += OnCurrentSongChanged;
             //AppContext.PlaybackPaused += OnPlaybackPaused;
@@ -81,7 +87,7 @@ namespace Byte_Harmonic.Forms
             }
         }
 
-       private void OnLyricsUpdated(string lyrics, TimeSpan position)
+        private void OnLyricsUpdated(string lyrics, TimeSpan position)
         {
             if (IsDisposed) return;
 
@@ -101,22 +107,22 @@ namespace Byte_Harmonic.Forms
                 string prepre = "";
                 string prev = "";
 
-                if(currentIndex > 0)
+                if (currentIndex > 0)
                 {
                     prev = AppContext._playbackService.GetLyricsTextByIndex(currentIndex - 1);
 
-                    if(currentIndex > 1)
+                    if (currentIndex > 1)
                     {
                         prepre = AppContext._playbackService.GetLyricsTextByIndex(currentIndex - 2);
                     }
                 }
                 string nxtnxt = "", nxt = "";
                 int n = AppContext._playbackService.GetCurrentLyricsCount();
-                if(currentIndex < n - 1)
+                if (currentIndex < n - 1)
                 {
                     nxt = AppContext._playbackService.GetLyricsTextByIndex(currentIndex + 1);
 
-                    if(currentIndex < n - 2)
+                    if (currentIndex < n - 2)
                     {
                         nxtnxt = AppContext._playbackService.GetLyricsTextByIndex(currentIndex + 2);
                     }
@@ -125,12 +131,11 @@ namespace Byte_Harmonic.Forms
                 uiLabel4.Text = prepre;
                 uiLabel5.Text = prev;
                 uiLabel6.Text = lyrics;
-                uiLabel6.ForeColor = Color.Red;
                 uiLabel7.Text = nxt;
                 uiLabel8.Text = nxtnxt;
 
 
-                
+
                 //HighlightCurrentLine(position); // 预留高亮处理
             });
         }
@@ -184,6 +189,27 @@ namespace Byte_Harmonic.Forms
             });
         }
 
+        private void UpdatePositionUI(TimeSpan position)
+        {
+            if (!_isDragging) // 防止拖动冲突
+            {
+                RunOnUiThread(() =>
+                {
+                    uiLabel2.Text = position.ToString(@"mm\:ss");
+                    uiTrackBar1.Value = Math.Min((int)position.TotalSeconds, uiTrackBar1.Maximum);
+                });
+            }
+        }
+
+        private void OnCurrentSongChanged(Song currentSong)
+        {
+            RunOnUiThread(() =>
+            {
+                uiLabel3.Text = $"{currentSong.Title}——{currentSong.Artist}";
+                UpdateTrackBarMaximum(); // 播放下一首后更新 UI
+            });
+        }
+
         private void OnPlaybackPaused(bool isPaused)
         {
             RunOnUiThread(() =>
@@ -205,20 +231,6 @@ namespace Byte_Harmonic.Forms
                 main.LoadPage(new ExploreForm());
             }
 
-        }
-
-        private void uiImageButton12_Click(object sender, EventArgs e)
-        {
-            if (secondForm != null && !secondForm.IsDisposed)
-            {
-                secondForm.Close();
-                secondForm = null;
-            }
-            else
-            {
-                secondForm = new WordForm();
-                secondForm.Show();
-            }
         }
 
         private void uiImageButton1_Click(object sender, EventArgs e)
@@ -374,6 +386,20 @@ namespace Byte_Harmonic.Forms
             }
 
         }
+
+        private void uiImageButton2_Click(object sender, EventArgs e)
+        {
+            if (secondForm != null && !secondForm.IsDisposed)
+            {
+                secondForm.Close();
+                secondForm = null;
+            }
+            else
+            {
+                secondForm = new WordForm();
+                secondForm.Show();
+            }
+        }
     }
-    
+
 }

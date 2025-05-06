@@ -51,7 +51,9 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             uiTrackBar1.Size = new Size(40, 120);
             uiTrackBar1.TabIndex = 1;
             uiTrackBar1.Text = "uiTrackBar1";
-            uiTrackBar1.Value = 35;
+            uiTrackBar1.Value = 25; 
+            uiTrackBar1.Maximum = 100;
+            uiTrackBar1.Minimum = 0;
             // 
             // label1
             // 

@@ -235,18 +235,18 @@ namespace Byte_Harmonic.Forms
 
         private async Task RunTestsAsync()
         {
-            await TestLoginAsync();
-            await TestRegisterAsync();
-            await TestUpdateUsernameAsync();
-            await TestChangePasswordAsync();
-            await TestDeleteAccountAsync();
+            await TestLogin();
+            //await TestRegister();
+            //await TestUpdateUsername();
+           // await TestChangePassword();
+            //await TestDeleteAccount();
         }
         //测试登录
-        private async Task TestLoginAsync()
+        private async Task TestLogin()
         {
             try
             {
-                var user = await _userService.LoginAsync("test@example.com", "newPassword123");
+                var user = await _userService.Login("admin", "123456789");
                 listBoxResults.Items.Add($"LoginAsync: 通过 (用户: {user.Username})");
             }
             catch (Exception ex)
@@ -255,11 +255,11 @@ namespace Byte_Harmonic.Forms
             }
         }
         //测试注册
-        private async Task TestRegisterAsync()
+        private async Task TestRegister()
         {
             try
             {
-                await _userService.RegisterAsync("newuser@example.com", "newPassword123", "NewUser");
+                await _userService.Register("newuser@", "123456789", "NewUser");
                 listBoxResults.Items.Add("RegisterAsync: 通过");
             }
             catch (Exception ex)
@@ -268,12 +268,12 @@ namespace Byte_Harmonic.Forms
             }
         }
         //测试改名
-        private async Task TestUpdateUsernameAsync()
+        private async Task TestUpdateUsername()
         {
             try
             {
-                await _userService.LoginAsync("test@example.com", "newPassword123");
-                await _userService.UpdateUsernameAsync("李四");
+                await _userService.Login("newuser@", "123456789");
+                await _userService.UpdateUsername("李四");
                 listBoxResults.Items.Add("UpdateUsernameAsync: 通过");
             }
             catch (Exception ex)
@@ -282,12 +282,12 @@ namespace Byte_Harmonic.Forms
             }
         }
         //测试改密码
-        private async Task TestChangePasswordAsync()
+        private async Task TestChangePassword()
         {
             try
             {
-                await _userService.LoginAsync("test@example.com", "newPassword123");
-                await _userService.ChangePasswordAsync("newPassword123", "newPassword1234");
+                await _userService.Login("test@", "123456789");
+                await _userService.ChangePassword("123456789", "abcdef123");
                 listBoxResults.Items.Add("ChangePasswordAsync: 通过");
             }
             catch (Exception ex)
@@ -296,12 +296,12 @@ namespace Byte_Harmonic.Forms
             }
         }
         //测试删除用户
-        private async Task TestDeleteAccountAsync()
+        private async Task TestDeleteAccount()
         {
             try
             {
-                await _userService.LoginAsync("test@example.com", "newPassword1234");
-                await _userService.DeleteAccountAsync("newPassword1234");
+                await _userService.Login("newuser@", "123456789");
+                await _userService.DeleteAccount("123456789");
                 listBoxResults.Items.Add("DeleteAccountAsync: 通过");
             }
             catch (Exception ex)

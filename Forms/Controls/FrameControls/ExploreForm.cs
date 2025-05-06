@@ -23,6 +23,7 @@ namespace Byte_Harmonic.Forms
             InitializeComponent();
             InitializeMenu();//初始化菜单三个按钮
             InitializeSongsList();//初始化菜单三个按钮
+            LoadMusicExplorerControl(); // 装入初始探索页面
 
             // 使用 AppContext 注册事件
             AppContext.LyricsUpdated += OnLyricsUpdated;
@@ -303,7 +304,7 @@ namespace Byte_Harmonic.Forms
 
                 // 调整标签位置
                 uiLabel1.Location = new Point(800, 659);
-                uiLabel2.Location = new Point(295, 659);
+                uiLabel2.Location = new Point(290, 659);
                 uiLabel3.Location = new Point(97, 612);
                 uiLabel4.Location = new Point(97, 652);
 
@@ -371,7 +372,7 @@ namespace Byte_Harmonic.Forms
 
                 // 恢复标签位置
                 uiLabel1.Location = new Point(798, 660);
-                uiLabel2.Location = new Point(407, 660);
+                uiLabel2.Location = new Point(400, 660);
                 uiLabel3.Location = new Point(209, 613);
                 uiLabel4.Location = new Point(209, 646);
 
@@ -582,7 +583,7 @@ namespace Byte_Harmonic.Forms
         {
             if (speedControl == null)
             {
-                speedControl = new SpeedControl(uiImageButton17.Location);
+                speedControl = new SpeedControl(uiImageButton17.Location, AppContext._playbackService.GetPlaybackSpeed());
                 this.Controls.Add(speedControl);
                 speedControl.BringToFront();
             }
@@ -660,5 +661,14 @@ namespace Byte_Harmonic.Forms
                 flowLayoutPanel1.Controls.Add(control);
             }
         }   
+        //
+        // 装入 MusicExplorerControl
+        //
+        private void LoadMusicExplorerControl()
+        {
+            Control control = new MusicExplorerControl();
+            panel2.Controls.Add(control);
+        }
+
     }
 }

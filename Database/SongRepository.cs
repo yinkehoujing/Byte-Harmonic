@@ -9,9 +9,6 @@ namespace Byte_Harmonic.Database
     public class SongRepository
     {
         private readonly string _connectionString = "server=localhost;user=root;database=Byte_Harmonic;port=3306;password=";
-<<<<<<< HEAD
-        
-=======
         private static string connectionString = "";
 
 
@@ -33,7 +30,6 @@ namespace Byte_Harmonic.Database
             }
         }
 
->>>>>>> 99bdac372d564695ff9997f5906cb7e0ac3acd6c
         public bool AddSong(Song song)
         {
 

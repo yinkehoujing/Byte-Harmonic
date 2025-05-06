@@ -19,6 +19,7 @@ namespace Byte_Harmonic.Forms.MainForms
         {
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);//À´ª∫≥Âºı…Ÿ…¡À∏
             InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterScreen;
             _mouseHandler = new MouseMove(this);
             _styleHandler = new FormStyle(this);
             Load += MainForm_Load;
