@@ -235,8 +235,8 @@ namespace Byte_Harmonic.Forms
 
         private async Task RunTestsAsync()
         {
-            //await TestLogin();
-            await TestRegister();
+            await TestLogin();
+            //await TestRegister();
             //await TestUpdateUsername();
            // await TestChangePassword();
             //await TestDeleteAccount();
@@ -246,7 +246,7 @@ namespace Byte_Harmonic.Forms
         {
             try
             {
-                var user = await _userService.Login("test@", "123456789");
+                var user = await _userService.Login("admin", "123456789");
                 listBoxResults.Items.Add($"LoginAsync: 通过 (用户: {user.Username})");
             }
             catch (Exception ex)
