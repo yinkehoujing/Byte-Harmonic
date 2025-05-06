@@ -59,7 +59,18 @@ namespace Byte_Harmonic.Properties {
                 resourceCulture = value;
             }
         }
-        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap _20180317200156_qpcds
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("20180317200156_qpcds", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>

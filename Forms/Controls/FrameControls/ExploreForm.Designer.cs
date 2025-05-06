@@ -57,8 +57,11 @@ namespace Byte_Harmonic.Forms
             uiImageButton14 = new Sunny.UI.UIImageButton();
             uiImageButton15 = new Sunny.UI.UIImageButton();
             uiImageButton16 = new Sunny.UI.UIImageButton();
-            panel1 = new Panel();
             uiImageButton17 = new Sunny.UI.UIImageButton();
+            uiImageButton18 = new Sunny.UI.UIImageButton();
+            uiLabel5 = new Sunny.UI.UILabel();
+            flowLayoutPanel1 = new FlowLayoutPanel();
+            mySqlDataAdapter1 = new MySql.Data.MySqlClient.MySqlDataAdapter();
             ((System.ComponentModel.ISupportInitialize)uiImageButton1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)Back).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -79,6 +82,7 @@ namespace Byte_Harmonic.Forms
             ((System.ComponentModel.ISupportInitialize)uiImageButton15).BeginInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton16).BeginInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton17).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)uiImageButton18).BeginInit();
             SuspendLayout();
             // 
             // uiImageButton1
@@ -151,7 +155,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton2.BackColor = Color.White;
             uiImageButton2.Cursor = Cursors.Hand;
             uiImageButton2.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiImageButton2.Image = (Image)resources.GetObject("uiImageButton2.Image");
+            uiImageButton2.Image = Properties.Resources.icons8_less_than_100;
             uiImageButton2.ImageHover = (Image)resources.GetObject("uiImageButton2.ImageHover");
             uiImageButton2.Location = new Point(209, 29);
             uiImageButton2.Name = "uiImageButton2";
@@ -183,9 +187,9 @@ namespace Byte_Harmonic.Forms
             // pictureBox1
             // 
             pictureBox1.BackColor = Color.White;
-            pictureBox1.Location = new Point(190, 593);
+            pictureBox1.Location = new Point(190, 596);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(860, 100);
+            pictureBox1.Size = new Size(860, 97);
             pictureBox1.TabIndex = 10;
             pictureBox1.TabStop = false;
             pictureBox1.Click += pictureBox1_Click;
@@ -470,13 +474,6 @@ namespace Byte_Harmonic.Forms
             uiImageButton16.Text = null;
             uiImageButton16.ZoomScaleDisabled = true;
             // 
-            // panel1
-            // 
-            panel1.Location = new Point(6, 315);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(169, 322);
-            panel1.TabIndex = 11;
-            // 
             // uiImageButton17
             // 
             uiImageButton17.Anchor = AnchorStyles.None;
@@ -495,10 +492,55 @@ namespace Byte_Harmonic.Forms
             uiImageButton17.ZoomScaleDisabled = true;
             uiImageButton17.Click += uiImageButton17_Click;
             // 
+            // uiImageButton18
+            // 
+            uiImageButton18.Anchor = AnchorStyles.None;
+            uiImageButton18.BackColor = Color.Transparent;
+            uiImageButton18.Cursor = Cursors.Hand;
+            uiImageButton18.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiImageButton18.Image = (Image)resources.GetObject("uiImageButton18.Image");
+            uiImageButton18.ImageHover = (Image)resources.GetObject("uiImageButton18.ImageHover");
+            uiImageButton18.Location = new Point(134, 273);
+            uiImageButton18.Name = "uiImageButton18";
+            uiImageButton18.Size = new Size(25, 25);
+            uiImageButton18.SizeMode = PictureBoxSizeMode.StretchImage;
+            uiImageButton18.TabIndex = 31;
+            uiImageButton18.TabStop = false;
+            uiImageButton18.Text = null;
+            uiImageButton18.ZoomScaleDisabled = true;
+            // 
+            // uiLabel5
+            // 
+            uiLabel5.Font = new Font("黑体", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiLabel5.ForeColor = Color.FromArgb(48, 48, 48);
+            uiLabel5.Location = new Point(46, 276);
+            uiLabel5.Name = "uiLabel5";
+            uiLabel5.Size = new Size(91, 23);
+            uiLabel5.TabIndex = 32;
+            uiLabel5.Text = "我的歌单";
+            // 
+            // flowLayoutPanel1
+            // 
+            flowLayoutPanel1.AutoScroll = true;
+            flowLayoutPanel1.Location = new Point(3, 316);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new Size(179, 322);
+            flowLayoutPanel1.TabIndex = 34;
+            // 
+            // mySqlDataAdapter1
+            // 
+            mySqlDataAdapter1.DeleteCommand = null;
+            mySqlDataAdapter1.InsertCommand = null;
+            mySqlDataAdapter1.SelectCommand = null;
+            mySqlDataAdapter1.UpdateCommand = null;
+            // 
             // ExploreForm
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.FromArgb(250, 250, 250);
+            Controls.Add(flowLayoutPanel1);
+            Controls.Add(uiLabel5);
+            Controls.Add(uiImageButton18);
             Controls.Add(uiImageButton17);
             Controls.Add(uiImageButton16);
             Controls.Add(uiImageButton15);
@@ -524,7 +566,6 @@ namespace Byte_Harmonic.Forms
             Controls.Add(uiImageButton1);
             Controls.Add(Back);
             Controls.Add(pictureBox2);
-            Controls.Add(panel1);
             Controls.Add(pictureBox1);
             Name = "ExploreForm";
             Size = new Size(1060, 700);
@@ -549,6 +590,7 @@ namespace Byte_Harmonic.Forms
             ((System.ComponentModel.ISupportInitialize)uiImageButton15).EndInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton16).EndInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton17).EndInit();
+            ((System.ComponentModel.ISupportInitialize)uiImageButton18).EndInit();
             ResumeLayout(false);
         }
 
@@ -579,7 +621,10 @@ namespace Byte_Harmonic.Forms
         private Sunny.UI.UIImageButton uiImageButton14;
         private Sunny.UI.UIImageButton uiImageButton15;
         private Sunny.UI.UIImageButton uiImageButton16;
-        private Panel panel1;
         private Sunny.UI.UIImageButton uiImageButton17;
+        private Sunny.UI.UIImageButton uiImageButton18;
+        private Sunny.UI.UILabel uiLabel5;
+        private FlowLayoutPanel flowLayoutPanel1;
+        private MySql.Data.MySqlClient.MySqlDataAdapter mySqlDataAdapter1;
     }
 }
