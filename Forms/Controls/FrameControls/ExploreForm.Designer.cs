@@ -61,6 +61,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton18 = new Sunny.UI.UIImageButton();
             uiLabel5 = new Sunny.UI.UILabel();
             flowLayoutPanel1 = new FlowLayoutPanel();
+            mySqlDataAdapter1 = new MySql.Data.MySqlClient.MySqlDataAdapter();
             ((System.ComponentModel.ISupportInitialize)uiImageButton1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)Back).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -521,10 +522,17 @@ namespace Byte_Harmonic.Forms
             // flowLayoutPanel1
             // 
             flowLayoutPanel1.AutoScroll = true;
-            flowLayoutPanel1.Location = new Point(6, 316);
+            flowLayoutPanel1.Location = new Point(3, 316);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new Size(179, 322);
             flowLayoutPanel1.TabIndex = 34;
+            // 
+            // mySqlDataAdapter1
+            // 
+            mySqlDataAdapter1.DeleteCommand = null;
+            mySqlDataAdapter1.InsertCommand = null;
+            mySqlDataAdapter1.SelectCommand = null;
+            mySqlDataAdapter1.UpdateCommand = null;
             // 
             // ExploreForm
             // 
@@ -617,5 +625,6 @@ namespace Byte_Harmonic.Forms
         private Sunny.UI.UIImageButton uiImageButton18;
         private Sunny.UI.UILabel uiLabel5;
         private FlowLayoutPanel flowLayoutPanel1;
+        private MySql.Data.MySqlClient.MySqlDataAdapter mySqlDataAdapter1;
     }
 }

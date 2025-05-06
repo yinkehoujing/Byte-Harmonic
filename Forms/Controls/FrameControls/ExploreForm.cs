@@ -341,7 +341,7 @@ namespace Byte_Harmonic.Forms
 
                 //调整添加歌单按钮
                 uiImageButton18.Size = new Size(33, 33);
-                uiImageButton18.Location = new Point(22, 276);
+                uiImageButton18.Location = new Point(22, 270);
 
                 //调整歌单label
                 uiLabel5.Visible = false;
@@ -656,7 +656,7 @@ namespace Byte_Harmonic.Forms
                 // 创建控件
                 Control control = new BHButton("20180317200156_qpcds", "20180317200156_qpcds", item);
                 control.Tag = item; // 将数据对象存储在Tag中
-
+                control.Width = 155;
                 // 添加到父容器
                 flowLayoutPanel1.Controls.Add(control);
             }
