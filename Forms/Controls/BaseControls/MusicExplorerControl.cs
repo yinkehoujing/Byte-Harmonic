@@ -79,14 +79,27 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
                 Name = "songPanel",
                 Dock = DockStyle.Fill,
                 AutoScroll = true,
-                WrapContents = true,
+                WrapContents = false,
                 Padding = new Padding(10),
                 FlowDirection = FlowDirection.TopDown
             };
 
+            var songItem = new SongItemControl();
+            songItem.SongTitle = "晴天";
+            songItem.Artist = "周杰伦";
+            songItem.PlayClicked += (s, e) => MessageBox.Show("播放");
+            songItem.FavoriteClicked += (s, e) => MessageBox.Show("收藏");
+            songItem.DownloadClicked += (s, e) => MessageBox.Show("下载");
+
+            songPanel.BackColor = Color.LightBlue;
+            songItem.BackColor = Color.LightYellow;
+
+            songPanel.Controls.Add(songItem);
+
+
             // 添加控件
-            this.Controls.Add(songPanel);
             this.Controls.Add(bottomHeader);
+            this.Controls.Add(songPanel);
             this.Controls.Add(playlistPanel);
             this.Controls.Add(topHeader);
             this.Controls.Add(greetingPanel);
