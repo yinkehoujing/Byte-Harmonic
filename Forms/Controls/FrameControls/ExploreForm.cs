@@ -23,6 +23,7 @@ namespace Byte_Harmonic.Forms
             InitializeComponent();
             InitializeMenu();//初始化菜单三个按钮
             InitializeSongsList();//初始化菜单三个按钮
+            LoadMusicExplorerControl(); // 装入初始探索页面
 
             // 使用 AppContext 注册事件
             AppContext.LyricsUpdated += OnLyricsUpdated;
@@ -660,5 +661,14 @@ namespace Byte_Harmonic.Forms
                 flowLayoutPanel1.Controls.Add(control);
             }
         }   
+        //
+        // 装入 MusicExplorerControl
+        //
+        private void LoadMusicExplorerControl()
+        {
+            Control control = new MusicExplorerControl();
+            panel2.Controls.Add(control);
+        }
+
     }
 }
