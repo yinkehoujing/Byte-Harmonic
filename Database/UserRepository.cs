@@ -12,7 +12,7 @@ namespace Byte_Harmonic.Database
     public class UserRepository
     {
         private readonly string _connectionString =
-            "server=localhost;user=root;database=Byte_Harmonic;port=3306;password=";
+            "server=localhost;user=root;database=Byte_Harmonic;port=3306;password=595129854";
         #region 用户系统
         // 添加用户（返回是否成功）
         public async Task<bool> AddUserAsync(User user)
@@ -186,19 +186,54 @@ namespace Byte_Harmonic.Database
         //添加搜索记录
         public async Task<bool> AddSearchHistoryAsync(string username, string keyword)
         {
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(keyword))
+            {
+                return false;
+            }
+
+            keyword = keyword.Trim();
+
             using var connection = new MySqlConnection(_connectionString);
             await connection.OpenAsync();
 
-            const string sql = @"
-                INSERT INTO SearchHistory (Username, Keyword, Time)
-                VALUES (@Username, @Keyword, UTC_TIMESTAMP())
-                ON DUPLICATE KEY UPDATE Time = UTC_TIMESTAMP()";
+            // 首先检查是否已存在相同的搜索记录
+            const string checkSql = @"
+        SELECT COUNT(*) FROM SearchHistory 
+        WHERE Username = @Username AND Keyword = @Keyword";
 
-            using var cmd = new MySqlCommand(sql, connection);
-            cmd.Parameters.AddWithValue("@Username", username);
-            cmd.Parameters.AddWithValue("@Keyword", keyword.Trim());
+            using var checkCmd = new MySqlCommand(checkSql, connection);
+            checkCmd.Parameters.AddWithValue("@Username", username);
+            checkCmd.Parameters.AddWithValue("@Keyword", keyword);
 
-            return await cmd.ExecuteNonQueryAsync() > 0;
+            var exists = (long)await checkCmd.ExecuteScalarAsync() > 0;
+
+            // 如果已存在，则只更新时间
+            if (exists)
+            {
+                const string updateSql = @"
+            UPDATE SearchHistory 
+            SET Time = UTC_TIMESTAMP()
+            WHERE Username = @Username AND Keyword = @Keyword";
+
+                using var updateCmd = new MySqlCommand(updateSql, connection);
+                updateCmd.Parameters.AddWithValue("@Username", username);
+                updateCmd.Parameters.AddWithValue("@Keyword", keyword);
+
+                return await updateCmd.ExecuteNonQueryAsync() > 0;
+            }
+            // 如果不存在，则插入新记录
+            else
+            {
+                const string insertSql = @"
+            INSERT INTO SearchHistory (Username, Keyword, Time)
+            VALUES (@Username, @Keyword, UTC_TIMESTAMP())";
+
+                using var insertCmd = new MySqlCommand(insertSql, connection);
+                insertCmd.Parameters.AddWithValue("@Username", username);
+                insertCmd.Parameters.AddWithValue("@Keyword", keyword);
+
+                return await insertCmd.ExecuteNonQueryAsync() > 0;
+            }
         }
         //返回搜索记录
         public async Task<List<string>> GetSearchHistoryAsync(string username, int limit = 10)
