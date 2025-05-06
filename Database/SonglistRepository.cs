@@ -259,6 +259,38 @@ namespace Byte_Harmonic.Database
 
             return affectedRows > 0;
         }
+
+        //获取所有歌单（异步操作）
+        public async Task<List<Songlist>> GetAllPlaylistsAsync()
+        {
+            using var conn = new MySqlConnection(_connectionString);
+            await conn.OpenAsync();
+
+            // 步骤1：获取所有歌单基础信息
+            const string baseSql = @"SELECT 
+                          Id,
+                          Name,
+                          Owner,
+                          IsPublic
+                          FROM Playlists";
+
+            var playlists = (await conn.QueryAsync<Songlist>(baseSql)).ToList();
+
+            // 步骤2：为每个歌单填充歌曲列表
+            const string songsSql = @"SELECT s.* 
+                            FROM Songs s
+                            JOIN SonglistSongs ss ON s.Id = ss.SongId
+                            WHERE ss.SonglistId = @playlistId";
+
+            foreach (var playlist in playlists)
+            {
+                var songs = await conn.QueryAsync<Song>(songsSql, new { playlistId = playlist.Id });
+                playlist.Songs = songs.ToList();
+            }
+
+            return playlists;
+        }
+
         #endregion
     }
 }

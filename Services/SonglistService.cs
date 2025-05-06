@@ -12,6 +12,7 @@ using TagLib;         // 需要安装TagLib# NuGet包
 
 namespace Byte_Harmonic.Services
 {
+    //User无抽象类，只有isAdmin
     public class SonglistService
     {
         private readonly SonglistRepository _repository;
@@ -191,6 +192,7 @@ namespace Byte_Harmonic.Services
             return _repository.GetSongsInPlaylist(songlist.Id);
         }
 
+        /*
         //分享歌单链接
         public string GetShareLink(Songlist songlist)
         {
@@ -199,6 +201,10 @@ namespace Byte_Harmonic.Services
                 songlist.GenerateShareLink();
             return songlist.ShareLink;
         }
+        */
+
+        //获取所有歌单（异步操作）
+        public Task<List<Songlist>> GetAllPlaylistsAsync() => _repository.GetAllPlaylistsAsync();
         #endregion
     }
 }

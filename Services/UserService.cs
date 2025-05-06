@@ -31,7 +31,7 @@ namespace Byte_Harmonic.Services
 
             var user = await _userRepository.GetUserByAccountAsync(account);
             if (user == null || !await _userRepository.VerifyPasswordAsync(account, password))
-                throw new UnauthorizedAccessException("账号或密码错误");
+                //throw new UnauthorizedAccessException("账号或密码错误");
 
             _currentUser = user;
             return user;
