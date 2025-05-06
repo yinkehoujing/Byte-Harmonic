@@ -37,7 +37,6 @@ namespace Byte_Harmonic.Forms
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MusicForm));
             uiImageButton14 = new Sunny.UI.UIImageButton();
             uiImageButton13 = new Sunny.UI.UIImageButton();
-            uiImageButton12 = new Sunny.UI.UIImageButton();
             uiImageButton11 = new Sunny.UI.UIImageButton();
             uiImageButton10 = new Sunny.UI.UIImageButton();
             uiImageButton9 = new Sunny.UI.UIImageButton();
@@ -57,9 +56,10 @@ namespace Byte_Harmonic.Forms
             uiLabel6 = new Sunny.UI.UILabel();
             uiLabel7 = new Sunny.UI.UILabel();
             uiLabel8 = new Sunny.UI.UILabel();
+            uiImageButton17 = new Sunny.UI.UIImageButton();
+            uiImageButton2 = new Sunny.UI.UIImageButton();
             ((System.ComponentModel.ISupportInitialize)uiImageButton14).BeginInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton13).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)uiImageButton12).BeginInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton11).BeginInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton10).BeginInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton9).BeginInit();
@@ -70,6 +70,8 @@ namespace Byte_Harmonic.Forms
             ((System.ComponentModel.ISupportInitialize)uiImageButton3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)uiImageButton17).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)uiImageButton2).BeginInit();
             SuspendLayout();
             // 
             // uiImageButton14
@@ -98,7 +100,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton13.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiImageButton13.Image = (Image)resources.GetObject("uiImageButton13.Image");
             uiImageButton13.ImageHover = (Image)resources.GetObject("uiImageButton13.ImageHover");
-            uiImageButton13.Location = new Point(933, 634);
+            uiImageButton13.Location = new Point(942, 634);
             uiImageButton13.Name = "uiImageButton13";
             uiImageButton13.Size = new Size(30, 30);
             uiImageButton13.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -106,24 +108,6 @@ namespace Byte_Harmonic.Forms
             uiImageButton13.TabStop = false;
             uiImageButton13.Text = null;
             uiImageButton13.ZoomScaleDisabled = true;
-            // 
-            // uiImageButton12
-            // 
-            uiImageButton12.Anchor = AnchorStyles.None;
-            uiImageButton12.BackColor = Color.White;
-            uiImageButton12.Cursor = Cursors.Hand;
-            uiImageButton12.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiImageButton12.Image = (Image)resources.GetObject("uiImageButton12.Image");
-            uiImageButton12.ImageHover = (Image)resources.GetObject("uiImageButton12.ImageHover");
-            uiImageButton12.Location = new Point(863, 634);
-            uiImageButton12.Name = "uiImageButton12";
-            uiImageButton12.Size = new Size(30, 30);
-            uiImageButton12.SizeMode = PictureBoxSizeMode.StretchImage;
-            uiImageButton12.TabIndex = 39;
-            uiImageButton12.TabStop = false;
-            uiImageButton12.Text = null;
-            uiImageButton12.ZoomScaleDisabled = true;
-            uiImageButton12.Click += uiImageButton12_Click;
             // 
             // uiImageButton11
             // 
@@ -259,7 +243,7 @@ namespace Byte_Harmonic.Forms
             uiLabel3.Name = "uiLabel3";
             uiLabel3.Size = new Size(300, 24);
             uiLabel3.TabIndex = 31;
-            uiLabel3.Text = "长长的歌名——长歌手";
+            uiLabel3.Text = "长长的歌名1111111111111111——长歌手";
             uiLabel3.TextAlign = ContentAlignment.BottomCenter;
             uiLabel3.Click += uiLabel3_Click;
             // 
@@ -350,7 +334,7 @@ namespace Byte_Harmonic.Forms
             // uiLabel4
             // 
             uiLabel4.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiLabel4.ForeColor = MPColor.Grey4;
+            uiLabel4.ForeColor = Color.FromArgb(189, 189, 189);
             uiLabel4.Location = new Point(539, 100);
             uiLabel4.Name = "uiLabel4";
             uiLabel4.Size = new Size(334, 58);
@@ -360,7 +344,7 @@ namespace Byte_Harmonic.Forms
             // uiLabel5
             // 
             uiLabel5.Font = new Font("宋体", 13F);
-            uiLabel5.ForeColor = MPColor.Grey4;
+            uiLabel5.ForeColor = Color.FromArgb(189, 189, 189);
             uiLabel5.Location = new Point(539, 178);
             uiLabel5.Name = "uiLabel5";
             uiLabel5.Size = new Size(334, 58);
@@ -380,7 +364,7 @@ namespace Byte_Harmonic.Forms
             // uiLabel7
             // 
             uiLabel7.Font = new Font("宋体", 13F);
-            uiLabel7.ForeColor = MPColor.Grey4;
+            uiLabel7.ForeColor = Color.FromArgb(189, 189, 189);
             uiLabel7.Location = new Point(539, 378);
             uiLabel7.Name = "uiLabel7";
             uiLabel7.Size = new Size(334, 58);
@@ -390,17 +374,54 @@ namespace Byte_Harmonic.Forms
             // uiLabel8
             // 
             uiLabel8.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiLabel8.ForeColor = MPColor.Grey4;
+            uiLabel8.ForeColor = Color.FromArgb(189, 189, 189);
             uiLabel8.Location = new Point(539, 451);
             uiLabel8.Name = "uiLabel8";
             uiLabel8.Size = new Size(334, 58);
             uiLabel8.TabIndex = 50;
             uiLabel8.Text = "uiLabel8";
             // 
+            // uiImageButton17
+            // 
+            uiImageButton17.Anchor = AnchorStyles.None;
+            uiImageButton17.BackColor = Color.White;
+            uiImageButton17.Cursor = Cursors.Hand;
+            uiImageButton17.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiImageButton17.Image = (Image)resources.GetObject("uiImageButton17.Image");
+            uiImageButton17.ImageHover = (Image)resources.GetObject("uiImageButton17.ImageHover");
+            uiImageButton17.Location = new Point(36, 634);
+            uiImageButton17.Name = "uiImageButton17";
+            uiImageButton17.Size = new Size(30, 30);
+            uiImageButton17.SizeMode = PictureBoxSizeMode.StretchImage;
+            uiImageButton17.TabIndex = 51;
+            uiImageButton17.TabStop = false;
+            uiImageButton17.Text = null;
+            uiImageButton17.ZoomScaleDisabled = true;
+            // 
+            // uiImageButton2
+            // 
+            uiImageButton2.Anchor = AnchorStyles.None;
+            uiImageButton2.BackColor = Color.White;
+            uiImageButton2.Cursor = Cursors.Hand;
+            uiImageButton2.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiImageButton2.Image = (Image)resources.GetObject("uiImageButton2.Image");
+            uiImageButton2.ImageHover = (Image)resources.GetObject("uiImageButton2.ImageHover");
+            uiImageButton2.Location = new Point(91, 634);
+            uiImageButton2.Name = "uiImageButton2";
+            uiImageButton2.Size = new Size(30, 30);
+            uiImageButton2.SizeMode = PictureBoxSizeMode.StretchImage;
+            uiImageButton2.TabIndex = 52;
+            uiImageButton2.TabStop = false;
+            uiImageButton2.Text = null;
+            uiImageButton2.ZoomScaleDisabled = true;
+            uiImageButton2.Click += uiImageButton2_Click;
+            // 
             // MusicForm
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.White;
+            Controls.Add(uiImageButton2);
+            Controls.Add(uiImageButton17);
             Controls.Add(uiLabel8);
             Controls.Add(uiLabel7);
             Controls.Add(uiLabel6);
@@ -411,7 +432,6 @@ namespace Byte_Harmonic.Forms
             Controls.Add(uiImageButton1);
             Controls.Add(uiImageButton14);
             Controls.Add(uiImageButton13);
-            Controls.Add(uiImageButton12);
             Controls.Add(uiImageButton11);
             Controls.Add(uiImageButton10);
             Controls.Add(uiImageButton9);
@@ -428,7 +448,6 @@ namespace Byte_Harmonic.Forms
             Load += MusicForm_Load;
             ((System.ComponentModel.ISupportInitialize)uiImageButton14).EndInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton13).EndInit();
-            ((System.ComponentModel.ISupportInitialize)uiImageButton12).EndInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton11).EndInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton10).EndInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton9).EndInit();
@@ -439,6 +458,8 @@ namespace Byte_Harmonic.Forms
             ((System.ComponentModel.ISupportInitialize)uiImageButton3).EndInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)uiImageButton17).EndInit();
+            ((System.ComponentModel.ISupportInitialize)uiImageButton2).EndInit();
             ResumeLayout(false);
         }
 
@@ -446,7 +467,6 @@ namespace Byte_Harmonic.Forms
 
         private Sunny.UI.UIImageButton uiImageButton14;
         private Sunny.UI.UIImageButton uiImageButton13;
-        private Sunny.UI.UIImageButton uiImageButton12;
         private Sunny.UI.UIImageButton uiImageButton11;
         private Sunny.UI.UIImageButton uiImageButton10;
         private Sunny.UI.UIImageButton uiImageButton9;
@@ -466,6 +486,8 @@ namespace Byte_Harmonic.Forms
         private Sunny.UI.UILabel uiLabel6;
         private Sunny.UI.UILabel uiLabel7;
         private Sunny.UI.UILabel uiLabel8;
+        private Sunny.UI.UIImageButton uiImageButton17;
+        private Sunny.UI.UIImageButton uiImageButton2;
         // not used
     }
 
