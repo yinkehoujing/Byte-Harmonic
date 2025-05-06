@@ -17,10 +17,12 @@ namespace Byte_Harmonic.Forms
         private readonly FormStyle _styleHandler;//用于更改窗口样式
         public LoginForm()
         {
+            
             this.DoubleBuffered = true;
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer |
                          ControlStyles.AllPaintingInWmPaint, true);
             InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterScreen;
             _mouseHandler = new MouseMove(this);
             _styleHandler = new FormStyle(this);
         }

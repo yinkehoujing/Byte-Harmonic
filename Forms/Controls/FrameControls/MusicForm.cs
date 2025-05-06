@@ -16,6 +16,7 @@ using Byte_Harmonic.Properties;
 using System.Resources;
 using Sunny.UI;
 using Byte_Harmonic.Forms.Controls.BaseControls;
+using Byte_Harmonic.Forms.FormUtils;
 
 namespace Byte_Harmonic.Forms
 {
@@ -26,6 +27,7 @@ namespace Byte_Harmonic.Forms
         public MusicForm()
         {
             InitializeComponent();
+            uiLabel3.EnableAutoScroll();
 
             // UI 层 订阅 PlaybackStopped 事件，接收到这个事件后，UI 层的回调函数会被执行,负责更新 UI 元素 
             AppContext.updateSongUI += OnCurrentSongChanged;
@@ -71,17 +73,19 @@ namespace Byte_Harmonic.Forms
             {
                 uiImageButton5.Image = ((Image)(resourceManager.GetObject("icons8-pause-96")));
                 uiImageButton5.ImageHover = ((Image)(resourceManager.GetObject("icons8-pause-96 (1)")));
+                pictureBox1.Image = ((Image)(resourceManager.GetObject("ezgif-6754076f369bb2")));
+                
             }
             else
             {
                 // 暂停了显示下面图标
                 uiImageButton5.Image = ((Image)(resourceManager.GetObject("icons8-play-96")));
                 uiImageButton5.ImageHover = ((Image)(resourceManager.GetObject("icons8-play-96 (1)")));
-
+                pictureBox1.Image = ((Image)(resourceManager.GetObject("icons8-headphones-100 (1)")));
             }
         }
 
-       private void OnLyricsUpdated(string lyrics, TimeSpan position)
+        private void OnLyricsUpdated(string lyrics, TimeSpan position)
         {
             if (IsDisposed) return;
 
@@ -101,22 +105,22 @@ namespace Byte_Harmonic.Forms
                 string prepre = "";
                 string prev = "";
 
-                if(currentIndex > 0)
+                if (currentIndex > 0)
                 {
                     prev = AppContext._playbackService.GetLyricsTextByIndex(currentIndex - 1);
 
-                    if(currentIndex > 1)
+                    if (currentIndex > 1)
                     {
                         prepre = AppContext._playbackService.GetLyricsTextByIndex(currentIndex - 2);
                     }
                 }
                 string nxtnxt = "", nxt = "";
                 int n = AppContext._playbackService.GetCurrentLyricsCount();
-                if(currentIndex < n - 1)
+                if (currentIndex < n - 1)
                 {
                     nxt = AppContext._playbackService.GetLyricsTextByIndex(currentIndex + 1);
 
-                    if(currentIndex < n - 2)
+                    if (currentIndex < n - 2)
                     {
                         nxtnxt = AppContext._playbackService.GetLyricsTextByIndex(currentIndex + 2);
                     }
@@ -129,7 +133,7 @@ namespace Byte_Harmonic.Forms
                 uiLabel8.Text = nxtnxt;
 
 
-                
+
                 //HighlightCurrentLine(position); // 预留高亮处理
             });
         }
@@ -204,20 +208,6 @@ namespace Byte_Harmonic.Forms
                 main.LoadPage(new ExploreForm());
             }
 
-        }
-
-        private void uiImageButton12_Click(object sender, EventArgs e)
-        {
-            if (secondForm != null && !secondForm.IsDisposed)
-            {
-                secondForm.Close();
-                secondForm = null;
-            }
-            else
-            {
-                secondForm = new WordForm();
-                secondForm.Show();
-            }
         }
 
         private void uiImageButton1_Click(object sender, EventArgs e)
@@ -373,6 +363,20 @@ namespace Byte_Harmonic.Forms
             }
 
         }
+
+        private void uiImageButton2_Click(object sender, EventArgs e)
+        {
+            if (secondForm != null && !secondForm.IsDisposed)
+            {
+                secondForm.Close();
+                secondForm = null;
+            }
+            else
+            {
+                secondForm = new WordForm();
+                secondForm.Show();
+            }
+        }
     }
-    
+
 }

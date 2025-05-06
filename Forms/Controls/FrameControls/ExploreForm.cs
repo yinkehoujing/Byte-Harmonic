@@ -304,7 +304,7 @@ namespace Byte_Harmonic.Forms
 
                 // 调整标签位置
                 uiLabel1.Location = new Point(800, 659);
-                uiLabel2.Location = new Point(295, 659);
+                uiLabel2.Location = new Point(290, 659);
                 uiLabel3.Location = new Point(97, 612);
                 uiLabel4.Location = new Point(97, 652);
 
@@ -372,7 +372,7 @@ namespace Byte_Harmonic.Forms
 
                 // 恢复标签位置
                 uiLabel1.Location = new Point(798, 660);
-                uiLabel2.Location = new Point(407, 660);
+                uiLabel2.Location = new Point(400, 660);
                 uiLabel3.Location = new Point(209, 613);
                 uiLabel4.Location = new Point(209, 646);
 
