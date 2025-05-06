@@ -26,6 +26,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             resourceManager = new ResourceManager("Byte_Harmonic.Properties.Resources", typeof(Resources).Assembly);//获取全局资源
             uiButton1.Text = _realText;
             pictureBox1.Image = ((Image)(resourceManager.GetObject(_image)));
+            uiButton1.Click += uiButton1_Click;
 
         }
 
@@ -39,6 +40,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             resourceManager = new ResourceManager("Byte_Harmonic.Properties.Resources", typeof(Resources).Assembly);//获取全局资源
             uiButton1.Text = _realText;
             pictureBox1.Image = ((Image)(resourceManager.GetObject(_image)));
+            uiButton1.Click += uiButton1_Click;
 
         }
 
@@ -54,6 +56,11 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             pictureBox1.Image = ((Image)(resourceManager.GetObject(_image)));
             uiButton1.FillColor = MPColor.Grey1;
             pictureBox1.BackColor = MPColor.Grey1;
+        }
+
+        private void uiButton1_Click(object sender, EventArgs e)
+        {
+            this.OnClick(e); // 触发 BHButton 的 Click 事件
         }
     }
 }

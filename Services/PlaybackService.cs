@@ -209,6 +209,7 @@ namespace Services
 
         public void SetPlaybackMode(PlaybackMode mode)
         {
+            Console.WriteLine($"Playback mode {mode} now");
             _playlist.PlaybackMode = mode;
         }
 
