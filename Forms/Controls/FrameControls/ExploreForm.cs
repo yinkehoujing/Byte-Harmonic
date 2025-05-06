@@ -10,7 +10,9 @@ using MaterialSkin.Controls;
 using NAudio.Gui;
 using Org.BouncyCastle.Utilities;
 using Services;
+using Sunny.UI;
 using System.Resources;
+using System.Windows.Forms;
 
 namespace Byte_Harmonic.Forms
 {
@@ -19,7 +21,8 @@ namespace Byte_Harmonic.Forms
         public ExploreForm()
         {
             InitializeComponent();
-            InitializeBHButton();//初始化菜单三个按钮
+            InitializeMenu();//初始化菜单三个按钮
+            InitializeSongsList();//初始化菜单三个按钮
 
             // 使用 AppContext 注册事件
             AppContext.LyricsUpdated += OnLyricsUpdated;
@@ -280,15 +283,19 @@ namespace Byte_Harmonic.Forms
 
                 // 调整pictureBox2
                 pictureBox2.Location = new Point(72, 9);
-                pictureBox2.Size = new Size(965, 580);
+                pictureBox2.Size = new Size(978, 580);
 
                 // 调整panel2
                 panel2.Location = new Point(95, 64);
                 panel2.Size = new Size(940, 512);
 
+                //调整uiFlowLayoutPanel1
+                flowLayoutPanel1.SendToBack();
+                flowLayoutPanel1.Width = 70;
+
                 // 调整pictureBox1
                 pictureBox1.Location = new Point(72, 592);
-                pictureBox1.Size = new Size(965, 100);
+                pictureBox1.Size = new Size(978, 100);
 
                 // 调整按钮位置
                 uiImageButton1.Location = new Point(1005, 28);
@@ -303,7 +310,7 @@ namespace Byte_Harmonic.Forms
                 uiLabel4.Location = new Point(97, 652);
 
                 // 调整进度条
-                uiTrackBar1.Location = new Point(346, 659);
+                uiTrackBar1.Location = new Point(348, 659);
                 uiTrackBar1.Size = new Size(448, 15);
 
                 // 调整底部按钮
@@ -332,7 +339,12 @@ namespace Byte_Harmonic.Forms
                     uiImageButton16 = null;
                 }
 
+                //调整添加歌单按钮
+                uiImageButton18.Size = new Size(33, 33);
+                uiImageButton18.Location = new Point(22, 276);
 
+                //调整歌单label
+                uiLabel5.Visible = false;
             }
             else
             {
@@ -344,6 +356,10 @@ namespace Byte_Harmonic.Forms
                 // 恢复panel2
                 panel2.Location = new Point(209, 65);
                 panel2.Size = new Size(824, 512);
+
+                //调整uiFlowLayoutPanel1
+                flowLayoutPanel1.SendToBack();
+                flowLayoutPanel1.Width = 170;
 
                 // 恢复pictureBox1
                 pictureBox1.Location = new Point(190, 593);
@@ -362,7 +378,7 @@ namespace Byte_Harmonic.Forms
                 uiLabel4.Location = new Point(209, 646);
 
                 // 恢复进度条
-                uiTrackBar1.Location = new Point(458, 660);
+                uiTrackBar1.Location = new Point(460, 660);
                 uiTrackBar1.Size = new Size(334, 15);
 
                 // 恢复底部按钮
@@ -418,6 +434,13 @@ namespace Byte_Harmonic.Forms
                     uiImageButton16.ZoomScaleDisabled = true;
                     this.Controls.Add(uiImageButton16);
                 }
+
+                //调整添加歌单按钮
+                uiImageButton18.Size = new Size(25, 25);
+                uiImageButton18.Location = new Point(135,276);
+
+                //调整歌单label
+                uiLabel5.Visible = true;
             }
             isFirstForm = !isFirstForm; // 切换状态
 
@@ -508,7 +531,7 @@ namespace Byte_Harmonic.Forms
         private BHButton MenuButton2;
         private BHButton MenuButton3;
 
-        private void InitializeBHButton()
+        private void InitializeMenu()
         {
             MenuButton1 = new BHButton("icons8-christmas-star-100 (2)", "icons8-christmas-star-100 (3)", "收藏");
             MenuButton2 = new BHButton("icons8-scroll-down-96", "icons8-scroll-down-96 (1)", "下载");
@@ -618,6 +641,25 @@ namespace Byte_Harmonic.Forms
                 moreControl = null;
             }
         }
-    }
 
+        //
+        //初始化侧边歌单
+        //
+        private void InitializeSongsList()
+        {
+
+            List<string> dataList;
+            dataList = ["1", "2", "3", "4", "5","6","7"];
+
+            foreach (string item in dataList)
+            {
+                // 创建控件
+                Control control = new BHButton("20180317200156_qpcds", "20180317200156_qpcds", item);
+                control.Tag = item; // 将数据对象存储在Tag中
+
+                // 添加到父容器
+                flowLayoutPanel1.Controls.Add(control);
+            }
+        }   
+    }
 }
