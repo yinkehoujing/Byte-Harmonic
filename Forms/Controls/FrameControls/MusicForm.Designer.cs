@@ -1,4 +1,5 @@
 ﻿using Byte_Harmonic.Forms.FormUtils;
+using Byte_Harmonic.Models;
 
 namespace Byte_Harmonic.Forms
 {
@@ -20,6 +21,9 @@ namespace Byte_Harmonic.Forms
                 components.Dispose();
             }
             base.Dispose(disposing);
+
+            Console.WriteLine("MusicForm disposed");
+
         }
 
         #region 组件设计器生成的代码
@@ -47,6 +51,12 @@ namespace Byte_Harmonic.Forms
             uiTrackBar1 = new Sunny.UI.UITrackBar();
             uiImageButton3 = new Sunny.UI.UIImageButton();
             uiImageButton1 = new Sunny.UI.UIImageButton();
+            pictureBox1 = new PictureBox();
+            uiLabel4 = new Sunny.UI.UILabel();
+            uiLabel5 = new Sunny.UI.UILabel();
+            uiLabel6 = new Sunny.UI.UILabel();
+            uiLabel7 = new Sunny.UI.UILabel();
+            uiLabel8 = new Sunny.UI.UILabel();
             ((System.ComponentModel.ISupportInitialize)uiImageButton14).BeginInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton13).BeginInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton12).BeginInit();
@@ -59,6 +69,7 @@ namespace Byte_Harmonic.Forms
             ((System.ComponentModel.ISupportInitialize)uiImageButton5).BeginInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // uiImageButton14
@@ -130,6 +141,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton11.TabStop = false;
             uiImageButton11.Text = null;
             uiImageButton11.ZoomScaleDisabled = true;
+            uiImageButton11.Click += uiImageButton11_Click;
             // 
             // uiImageButton10
             // 
@@ -164,6 +176,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton9.TabStop = false;
             uiImageButton9.Text = null;
             uiImageButton9.ZoomScaleDisabled = true;
+            uiImageButton9.Click += uiImageButton9_Click;
             // 
             // uiImageButton8
             // 
@@ -198,6 +211,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton7.TabStop = false;
             uiImageButton7.Text = null;
             uiImageButton7.ZoomScaleDisabled = true;
+            uiImageButton7.Click += uiImageButton7_Click;
             // 
             // uiImageButton6
             // 
@@ -215,6 +229,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton6.TabStop = false;
             uiImageButton6.Text = null;
             uiImageButton6.ZoomScaleDisabled = true;
+            uiImageButton6.Click += uiImageButton6_Click;
             // 
             // uiImageButton5
             // 
@@ -222,8 +237,8 @@ namespace Byte_Harmonic.Forms
             uiImageButton5.BackColor = Color.White;
             uiImageButton5.Cursor = Cursors.Hand;
             uiImageButton5.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiImageButton5.Image = (Image)resources.GetObject("uiImageButton5.Image");
-            uiImageButton5.ImageHover = (Image)resources.GetObject("uiImageButton5.ImageHover");
+            uiImageButton5.Image = Properties.Resources.icons8_play_96__1_;
+            uiImageButton5.ImageHover = Properties.Resources.icons8_play_96;
             uiImageButton5.Location = new Point(508, 612);
             uiImageButton5.Name = "uiImageButton5";
             uiImageButton5.Size = new Size(30, 30);
@@ -232,17 +247,20 @@ namespace Byte_Harmonic.Forms
             uiImageButton5.TabStop = false;
             uiImageButton5.Text = null;
             uiImageButton5.ZoomScaleDisabled = true;
+            uiImageButton5.Click += uiImageButton5_Click;
             // 
             // uiLabel3
             // 
             uiLabel3.BackColor = Color.White;
             uiLabel3.Font = new Font("黑体", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiLabel3.ForeColor = Color.Black;
-            uiLabel3.Location = new Point(29, 618);
+            uiLabel3.Location = new Point(70, 465);
+            uiLabel3.MaximumSize = new Size(300, 24);
             uiLabel3.Name = "uiLabel3";
-            uiLabel3.Size = new Size(174, 24);
+            uiLabel3.Size = new Size(300, 24);
             uiLabel3.TabIndex = 31;
-            uiLabel3.Text = "歌名——歌手";
+            uiLabel3.Text = "长长的歌名——长歌手";
+            uiLabel3.TextAlign = ContentAlignment.BottomCenter;
             uiLabel3.Click += uiLabel3_Click;
             // 
             // uiLabel2
@@ -250,11 +268,11 @@ namespace Byte_Harmonic.Forms
             uiLabel2.BackColor = Color.White;
             uiLabel2.Font = new Font("黑体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiLabel2.ForeColor = Color.FromArgb(158, 158, 158);
-            uiLabel2.Location = new Point(246, 665);
+            uiLabel2.Location = new Point(235, 665);
             uiLabel2.Name = "uiLabel2";
-            uiLabel2.Size = new Size(45, 15);
+            uiLabel2.Size = new Size(56, 15);
             uiLabel2.TabIndex = 30;
-            uiLabel2.Text = "0:00";
+            uiLabel2.Text = "00:00";
             // 
             // uiLabel1
             // 
@@ -263,9 +281,10 @@ namespace Byte_Harmonic.Forms
             uiLabel1.ForeColor = Color.FromArgb(158, 158, 158);
             uiLabel1.Location = new Point(760, 665);
             uiLabel1.Name = "uiLabel1";
-            uiLabel1.Size = new Size(45, 15);
+            uiLabel1.Size = new Size(51, 15);
             uiLabel1.TabIndex = 29;
-            uiLabel1.Text = "0:00";
+            uiLabel1.Text = "00:00";
+            uiLabel1.Click += uiLabel1_Click;
             // 
             // uiTrackBar1
             // 
@@ -281,6 +300,7 @@ namespace Byte_Harmonic.Forms
             uiTrackBar1.Size = new Size(457, 15);
             uiTrackBar1.TabIndex = 28;
             uiTrackBar1.Text = "uiTrackBar1";
+            uiTrackBar1.ValueChanged += uiTrackBar1_ValueChanged;
             // 
             // uiImageButton3
             // 
@@ -290,7 +310,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton3.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiImageButton3.Image = (Image)resources.GetObject("uiImageButton3.Image");
             uiImageButton3.ImageHover = (Image)resources.GetObject("uiImageButton3.ImageHover");
-            uiImageButton3.Location = new Point(957, 14);
+            uiImageButton3.Location = new Point(958, 14);
             uiImageButton3.Name = "uiImageButton3";
             uiImageButton3.Size = new Size(24, 24);
             uiImageButton3.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -318,11 +338,75 @@ namespace Byte_Harmonic.Forms
             uiImageButton1.ZoomScaleDisabled = true;
             uiImageButton1.Click += uiImageButton1_Click;
             // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = Properties.Resources.big_logo;
+            pictureBox1.Location = new Point(91, 122);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(256, 256);
+            pictureBox1.TabIndex = 45;
+            pictureBox1.TabStop = false;
+            // 
+            // uiLabel4
+            // 
+            uiLabel4.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiLabel4.ForeColor = Color.FromArgb(48, 48, 48);
+            uiLabel4.Location = new Point(539, 100);
+            uiLabel4.Name = "uiLabel4";
+            uiLabel4.Size = new Size(334, 58);
+            uiLabel4.TabIndex = 46;
+            uiLabel4.Text = "uiLabel4";
+            // 
+            // uiLabel5
+            // 
+            uiLabel5.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiLabel5.ForeColor = Color.FromArgb(48, 48, 48);
+            uiLabel5.Location = new Point(539, 178);
+            uiLabel5.Name = "uiLabel5";
+            uiLabel5.Size = new Size(334, 58);
+            uiLabel5.TabIndex = 47;
+            uiLabel5.Text = "uiLabel5";
+            // 
+            // uiLabel6
+            // 
+            uiLabel6.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiLabel6.ForeColor = Color.FromArgb(48, 48, 48);
+            uiLabel6.Location = new Point(539, 275);
+            uiLabel6.Name = "uiLabel6";
+            uiLabel6.Size = new Size(334, 58);
+            uiLabel6.TabIndex = 48;
+            uiLabel6.Text = "uiLabel6";
+            // 
+            // uiLabel7
+            // 
+            uiLabel7.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiLabel7.ForeColor = Color.FromArgb(48, 48, 48);
+            uiLabel7.Location = new Point(539, 378);
+            uiLabel7.Name = "uiLabel7";
+            uiLabel7.Size = new Size(334, 58);
+            uiLabel7.TabIndex = 49;
+            uiLabel7.Text = "uiLabel7";
+            // 
+            // uiLabel8
+            // 
+            uiLabel8.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiLabel8.ForeColor = Color.FromArgb(48, 48, 48);
+            uiLabel8.Location = new Point(539, 451);
+            uiLabel8.Name = "uiLabel8";
+            uiLabel8.Size = new Size(334, 58);
+            uiLabel8.TabIndex = 50;
+            uiLabel8.Text = "uiLabel8";
+            // 
             // MusicForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 17F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.White;
+            Controls.Add(uiLabel8);
+            Controls.Add(uiLabel7);
+            Controls.Add(uiLabel6);
+            Controls.Add(uiLabel5);
+            Controls.Add(uiLabel4);
+            Controls.Add(pictureBox1);
             Controls.Add(uiImageButton3);
             Controls.Add(uiImageButton1);
             Controls.Add(uiImageButton14);
@@ -354,6 +438,7 @@ namespace Byte_Harmonic.Forms
             ((System.ComponentModel.ISupportInitialize)uiImageButton5).EndInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton3).EndInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
 
@@ -375,5 +460,13 @@ namespace Byte_Harmonic.Forms
         private Sunny.UI.UITrackBar uiTrackBar1;
         private Sunny.UI.UIImageButton uiImageButton3;
         private Sunny.UI.UIImageButton uiImageButton1;
+        private PictureBox pictureBox1;
+        private Sunny.UI.UILabel uiLabel4;
+        private Sunny.UI.UILabel uiLabel5;
+        private Sunny.UI.UILabel uiLabel6;
+        private Sunny.UI.UILabel uiLabel7;
+        private Sunny.UI.UILabel uiLabel8;
+        // not used
     }
+
 }

@@ -34,7 +34,29 @@ namespace Byte_Harmonic.Models
         public void Load(string filePath)
         {
             // 读取文件所有行（假设 UTF-8 编码，可根据需要更改）
-            var lines = File.ReadAllLines(filePath, Encoding.UTF8);
+            string[] lines;
+
+            try
+            {
+                lines = File.ReadAllLines(filePath, Encoding.UTF8);
+            }
+            catch (FileNotFoundException ex)
+            {
+                throw new Exception($"歌词文件未找到: {filePath}", ex);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                throw new Exception($"无法访问歌词文件: {filePath}", ex);
+            }
+            catch (IOException ex)
+            {
+                throw new Exception($"读取歌词文件时发生IO错误: {filePath}", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"加载歌词文件时发生未知错误: {filePath}", ex);
+            }
+
             int offsetMs = 0;  // 时间偏移（毫秒）
             var regex = new Regex(@"\[(\d{2}):(\d{2})\.(\d{2})\](.*)");
 

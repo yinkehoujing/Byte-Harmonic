@@ -39,6 +39,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton6 = new Sunny.UI.UIImageButton();
             uiImageButton5 = new Sunny.UI.UIImageButton();
             uiImageButton3 = new Sunny.UI.UIImageButton();
+            lyricsLabel = new Sunny.UI.UILabel();
             ((System.ComponentModel.ISupportInitialize)uiImageButton1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)ExitButton).BeginInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton2).BeginInit();
@@ -51,15 +52,15 @@ namespace Byte_Harmonic.Forms
             // 
             // uiImageButton1
             // 
-            uiImageButton1.BackColor = MPColor.Grey1;
+            uiImageButton1.BackColor = Color.FromArgb(250, 250, 250);
             uiImageButton1.BackgroundImageLayout = ImageLayout.Stretch;
             uiImageButton1.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiImageButton1.Image = (Image)resources.GetObject("uiImageButton1.Image");
             uiImageButton1.ImageHover = (Image)resources.GetObject("uiImageButton1.ImageHover");
-            uiImageButton1.Location = new Point(657, 3);
-            uiImageButton1.Margin = new Padding(2, 3, 2, 3);
+            uiImageButton1.Location = new Point(845, 4);
+            uiImageButton1.Margin = new Padding(3, 4, 3, 4);
             uiImageButton1.Name = "uiImageButton1";
-            uiImageButton1.Size = new Size(19, 20);
+            uiImageButton1.Size = new Size(24, 24);
             uiImageButton1.SizeMode = PictureBoxSizeMode.StretchImage;
             uiImageButton1.TabIndex = 15;
             uiImageButton1.TabStop = false;
@@ -68,15 +69,15 @@ namespace Byte_Harmonic.Forms
             // 
             // ExitButton
             // 
-            ExitButton.BackColor = MPColor.Grey1;
+            ExitButton.BackColor = Color.FromArgb(250, 250, 250);
             ExitButton.BackgroundImageLayout = ImageLayout.Stretch;
             ExitButton.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             ExitButton.Image = (Image)resources.GetObject("ExitButton.Image");
             ExitButton.ImageHover = (Image)resources.GetObject("ExitButton.ImageHover");
-            ExitButton.Location = new Point(690, 3);
-            ExitButton.Margin = new Padding(2, 3, 2, 3);
+            ExitButton.Location = new Point(887, 4);
+            ExitButton.Margin = new Padding(3, 4, 3, 4);
             ExitButton.Name = "ExitButton";
-            ExitButton.Size = new Size(19, 20);
+            ExitButton.Size = new Size(24, 24);
             ExitButton.SizeMode = PictureBoxSizeMode.StretchImage;
             ExitButton.TabIndex = 14;
             ExitButton.TabStop = false;
@@ -85,15 +86,15 @@ namespace Byte_Harmonic.Forms
             // 
             // uiImageButton2
             // 
-            uiImageButton2.BackColor = MPColor.Grey1;
+            uiImageButton2.BackColor = Color.FromArgb(250, 250, 250);
             uiImageButton2.BackgroundImageLayout = ImageLayout.Stretch;
             uiImageButton2.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiImageButton2.Image = (Image)resources.GetObject("uiImageButton2.Image");
             uiImageButton2.ImageHover = (Image)resources.GetObject("uiImageButton2.ImageHover");
-            uiImageButton2.Location = new Point(621, 3);
-            uiImageButton2.Margin = new Padding(2, 3, 2, 3);
+            uiImageButton2.Location = new Point(798, 4);
+            uiImageButton2.Margin = new Padding(3, 4, 3, 4);
             uiImageButton2.Name = "uiImageButton2";
-            uiImageButton2.Size = new Size(19, 20);
+            uiImageButton2.Size = new Size(24, 24);
             uiImageButton2.SizeMode = PictureBoxSizeMode.StretchImage;
             uiImageButton2.TabIndex = 16;
             uiImageButton2.TabStop = false;
@@ -103,14 +104,15 @@ namespace Byte_Harmonic.Forms
             // uiImageButton8
             // 
             uiImageButton8.Anchor = AnchorStyles.None;
-            uiImageButton8.BackColor = MPColor.Grey1;
+            uiImageButton8.BackColor = Color.FromArgb(250, 250, 250);
             uiImageButton8.Cursor = Cursors.Hand;
             uiImageButton8.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiImageButton8.Image = (Image)resources.GetObject("uiImageButton8.Image");
             uiImageButton8.ImageHover = (Image)resources.GetObject("uiImageButton8.ImageHover");
-            uiImageButton8.Location = new Point(157, 4);
+            uiImageButton8.Location = new Point(202, 5);
+            uiImageButton8.Margin = new Padding(4);
             uiImageButton8.Name = "uiImageButton8";
-            uiImageButton8.Size = new Size(19, 19);
+            uiImageButton8.Size = new Size(24, 22);
             uiImageButton8.SizeMode = PictureBoxSizeMode.StretchImage;
             uiImageButton8.TabIndex = 26;
             uiImageButton8.TabStop = false;
@@ -120,77 +122,95 @@ namespace Byte_Harmonic.Forms
             // uiImageButton7
             // 
             uiImageButton7.Anchor = AnchorStyles.None;
-            uiImageButton7.BackColor = MPColor.Grey1;
+            uiImageButton7.BackColor = Color.FromArgb(250, 250, 250);
             uiImageButton7.Cursor = Cursors.Hand;
             uiImageButton7.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiImageButton7.Image = (Image)resources.GetObject("uiImageButton7.Image");
             uiImageButton7.ImageHover = (Image)resources.GetObject("uiImageButton7.ImageHover");
-            uiImageButton7.Location = new Point(121, 4);
+            uiImageButton7.Location = new Point(156, 5);
+            uiImageButton7.Margin = new Padding(4);
             uiImageButton7.Name = "uiImageButton7";
-            uiImageButton7.Size = new Size(19, 19);
+            uiImageButton7.Size = new Size(24, 22);
             uiImageButton7.SizeMode = PictureBoxSizeMode.StretchImage;
             uiImageButton7.TabIndex = 25;
             uiImageButton7.TabStop = false;
             uiImageButton7.Text = null;
             uiImageButton7.ZoomScaleDisabled = true;
+            uiImageButton7.Click += uiImageButton7_Click;
             // 
             // uiImageButton6
             // 
             uiImageButton6.Anchor = AnchorStyles.None;
-            uiImageButton6.BackColor = MPColor.Grey1;
+            uiImageButton6.BackColor = Color.FromArgb(250, 250, 250);
             uiImageButton6.Cursor = Cursors.Hand;
             uiImageButton6.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiImageButton6.Image = (Image)resources.GetObject("uiImageButton6.Image");
             uiImageButton6.ImageHover = (Image)resources.GetObject("uiImageButton6.ImageHover");
-            uiImageButton6.Location = new Point(45, 4);
+            uiImageButton6.Location = new Point(58, 5);
+            uiImageButton6.Margin = new Padding(4);
             uiImageButton6.Name = "uiImageButton6";
-            uiImageButton6.Size = new Size(19, 19);
+            uiImageButton6.Size = new Size(24, 22);
             uiImageButton6.SizeMode = PictureBoxSizeMode.StretchImage;
             uiImageButton6.TabIndex = 24;
             uiImageButton6.TabStop = false;
             uiImageButton6.Text = null;
             uiImageButton6.ZoomScaleDisabled = true;
+            uiImageButton6.Click += uiImageButton6_Click;
             // 
             // uiImageButton5
             // 
             uiImageButton5.Anchor = AnchorStyles.None;
-            uiImageButton5.BackColor = MPColor.Grey1;
+            uiImageButton5.BackColor = Color.FromArgb(250, 250, 250);
             uiImageButton5.Cursor = Cursors.Hand;
             uiImageButton5.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiImageButton5.Image = (Image)resources.GetObject("uiImageButton5.Image");
             uiImageButton5.ImageHover = (Image)resources.GetObject("uiImageButton5.ImageHover");
-            uiImageButton5.Location = new Point(82, 4);
+            uiImageButton5.Location = new Point(105, 5);
+            uiImageButton5.Margin = new Padding(4);
             uiImageButton5.Name = "uiImageButton5";
-            uiImageButton5.Size = new Size(19, 19);
+            uiImageButton5.Size = new Size(24, 22);
             uiImageButton5.SizeMode = PictureBoxSizeMode.StretchImage;
             uiImageButton5.TabIndex = 23;
             uiImageButton5.TabStop = false;
             uiImageButton5.Text = null;
             uiImageButton5.ZoomScaleDisabled = true;
+            uiImageButton5.Click += uiImageButton5_Click;
             // 
             // uiImageButton3
             // 
             uiImageButton3.Anchor = AnchorStyles.None;
-            uiImageButton3.BackColor = MPColor.Grey1;
+            uiImageButton3.BackColor = Color.FromArgb(250, 250, 250);
             uiImageButton3.Cursor = Cursors.Hand;
             uiImageButton3.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiImageButton3.Image = (Image)resources.GetObject("uiImageButton3.Image");
             uiImageButton3.ImageHover = (Image)resources.GetObject("uiImageButton3.ImageHover");
-            uiImageButton3.Location = new Point(625, -558);
+            uiImageButton3.Location = new Point(804, -656);
+            uiImageButton3.Margin = new Padding(4);
             uiImageButton3.Name = "uiImageButton3";
-            uiImageButton3.Size = new Size(24, 24);
+            uiImageButton3.Size = new Size(31, 28);
             uiImageButton3.SizeMode = PictureBoxSizeMode.StretchImage;
             uiImageButton3.TabIndex = 22;
             uiImageButton3.TabStop = false;
             uiImageButton3.Text = null;
             uiImageButton3.ZoomScaleDisabled = true;
             // 
+            // lyricsLabel
+            // 
+            lyricsLabel.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            lyricsLabel.ForeColor = Color.FromArgb(48, 48, 48);
+            lyricsLabel.Location = new Point(92, 54);
+            lyricsLabel.Name = "lyricsLabel";
+            lyricsLabel.Size = new Size(355, 29);
+            lyricsLabel.TabIndex = 27;
+            lyricsLabel.Text = "歌词";
+            // 
             // WordForm
             // 
-            BackColor = MPColor.Grey1;
-            AutoScaleDimensions = new SizeF(7F, 17F);
+            AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(720, 100);
+            BackColor = Color.FromArgb(250, 250, 250);
+            ClientSize = new Size(926, 118);
+            Controls.Add(lyricsLabel);
             Controls.Add(uiImageButton8);
             Controls.Add(uiImageButton7);
             Controls.Add(uiImageButton6);
@@ -201,9 +221,12 @@ namespace Byte_Harmonic.Forms
             Controls.Add(ExitButton);
             FormBorderStyle = FormBorderStyle.None;
             Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(4);
             Name = "WordForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "WordForm";
+            Load += WordForm_Load;
+            FormClosing += WordForm_FormClosing;
             ((System.ComponentModel.ISupportInitialize)uiImageButton1).EndInit();
             ((System.ComponentModel.ISupportInitialize)ExitButton).EndInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton2).EndInit();
@@ -225,5 +248,6 @@ namespace Byte_Harmonic.Forms
         private Sunny.UI.UIImageButton uiImageButton6;
         private Sunny.UI.UIImageButton uiImageButton5;
         private Sunny.UI.UIImageButton uiImageButton3;
+        private Sunny.UI.UILabel lyricsLabel;
     }
 }

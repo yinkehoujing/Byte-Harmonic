@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Byte_Harmonic.Utils;
+using System.Collections.Generic;
 
 namespace Byte_Harmonic.Models
 {
@@ -34,6 +35,7 @@ namespace Byte_Harmonic.Models
         /// <summary>
         /// 带参数的构造函数。
         /// </summary>
+        // [[maybe unused]]
         public Song(string title, string artist, int duration)
         {
             Title = title;
@@ -46,8 +48,27 @@ namespace Byte_Harmonic.Models
         }
 
         /// <summary>
+        /// 全参构造函数。
+        /// </summary>
+        public Song(int id, string title, string artist, bool downloaded, string musicFilePath, string lrcFilePath, int duration, List<string> tags)
+        {
+            Lyrics = new Lyrics();
+            Id = id;
+            Title = title;
+            Artist = artist;
+            Downloaded = downloaded;
+            MusicFilePath = FileHelper.GetAssetPath(musicFilePath);
+            LrcFilePath = FileHelper.GetAssetPath(lrcFilePath);
+            Duration = duration;
+            Tags = tags ?? new List<string>();
+            Lyrics?.Load(LrcFilePath); // Assets 路径下存储
+        }
+
+
+        /// <summary>
         /// 加载歌词文件（LRC）。
         /// </summary>
+        // [[maybe unused]]
         public void LoadLyrics(string lrcPath)
         {
             Lyrics = new Lyrics();
