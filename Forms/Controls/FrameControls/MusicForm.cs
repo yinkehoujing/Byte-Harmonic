@@ -125,7 +125,6 @@ namespace Byte_Harmonic.Forms
                 uiLabel4.Text = prepre;
                 uiLabel5.Text = prev;
                 uiLabel6.Text = lyrics;
-                uiLabel6.ForeColor = Color.Red;
                 uiLabel7.Text = nxt;
                 uiLabel8.Text = nxtnxt;
 

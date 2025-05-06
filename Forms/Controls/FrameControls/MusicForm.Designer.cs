@@ -350,7 +350,7 @@ namespace Byte_Harmonic.Forms
             // uiLabel4
             // 
             uiLabel4.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiLabel4.ForeColor = Color.FromArgb(48, 48, 48);
+            uiLabel4.ForeColor = MPColor.Grey4;
             uiLabel4.Location = new Point(539, 100);
             uiLabel4.Name = "uiLabel4";
             uiLabel4.Size = new Size(334, 58);
@@ -359,8 +359,8 @@ namespace Byte_Harmonic.Forms
             // 
             // uiLabel5
             // 
-            uiLabel5.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiLabel5.ForeColor = Color.FromArgb(48, 48, 48);
+            uiLabel5.Font = new Font("宋体", 13F);
+            uiLabel5.ForeColor = MPColor.Grey4;
             uiLabel5.Location = new Point(539, 178);
             uiLabel5.Name = "uiLabel5";
             uiLabel5.Size = new Size(334, 58);
@@ -369,8 +369,8 @@ namespace Byte_Harmonic.Forms
             // 
             // uiLabel6
             // 
-            uiLabel6.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiLabel6.ForeColor = Color.FromArgb(48, 48, 48);
+            uiLabel6.Font = new Font("宋体", 15F);
+            uiLabel6.ForeColor = Color.Black;
             uiLabel6.Location = new Point(539, 275);
             uiLabel6.Name = "uiLabel6";
             uiLabel6.Size = new Size(334, 58);
@@ -379,8 +379,8 @@ namespace Byte_Harmonic.Forms
             // 
             // uiLabel7
             // 
-            uiLabel7.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiLabel7.ForeColor = Color.FromArgb(48, 48, 48);
+            uiLabel7.Font = new Font("宋体", 13F);
+            uiLabel7.ForeColor = MPColor.Grey4;
             uiLabel7.Location = new Point(539, 378);
             uiLabel7.Name = "uiLabel7";
             uiLabel7.Size = new Size(334, 58);
@@ -390,7 +390,7 @@ namespace Byte_Harmonic.Forms
             // uiLabel8
             // 
             uiLabel8.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiLabel8.ForeColor = Color.FromArgb(48, 48, 48);
+            uiLabel8.ForeColor = MPColor.Grey4;
             uiLabel8.Location = new Point(539, 451);
             uiLabel8.Name = "uiLabel8";
             uiLabel8.Size = new Size(334, 58);
