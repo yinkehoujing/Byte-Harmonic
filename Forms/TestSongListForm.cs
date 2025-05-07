@@ -47,7 +47,7 @@ namespace Byte_Harmonic.Forms
         {
             try
             {
-                await _userService.LoginAsync("admin@example.com", "adminPassword");
+                await _userService.Login("admin@example.com", "adminPassword");
                 listBoxResults.Items.Add("管理员登录: 通过");
             }
             catch
