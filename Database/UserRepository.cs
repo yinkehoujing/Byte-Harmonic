@@ -10,13 +10,31 @@ namespace Byte_Harmonic.Database
 {
     public class UserRepository
     {
-        private readonly string _connectionString =
-            "server=localhost;user=root;database=Byte_Harmonic;port=3306;password=595129854";
+        private string connectionString =
+            "server=localhost;user=root;database=Byte_Harmonic;port=3306;password=";
+        private readonly string _connectionString;
+
 
         // 无参构造：从 ConfigManager 里拿连接串
         public UserRepository()
         {
-            _connectionString = "server=localhost;user=root;database=Byte_Harmonic;port=3306;password=595129854";
+            if (!File.Exists(FileHelper.GetProjectRootPath("passwd.txt")))
+            {
+                Console.WriteLine("未找到本地根目录下 passwd.txt, 使用默认的连接字符串");
+                _connectionString = connectionString;
+            }
+            else
+            {
+                // 不要修改下面内容！！！
+                connectionString = "server=localhost;user=root;database=Byte_Harmonic;port=3306;password=";
+                var firstNonEmptyLine = File.ReadLines(FileHelper.GetProjectRootPath("passwd.txt"))
+                                            .Select(line => line.Trim())
+                                            .FirstOrDefault(line => !string.IsNullOrEmpty(line));
+
+                connectionString += firstNonEmptyLine;
+                _connectionString = connectionString;
+
+            }
         }
 
         // 保留一个注入构造，方便测试

@@ -21,6 +21,7 @@ namespace Byte_Harmonic.Database
             }
             else
             {
+                // 不要修改下面内容！！！
                 connectionString = "server=localhost;user=root;database=Byte_Harmonic;port=3306;password=";
                 var firstNonEmptyLine = File.ReadLines(FileHelper.GetProjectRootPath("passwd.txt"))
                                             .Select(line => line.Trim())

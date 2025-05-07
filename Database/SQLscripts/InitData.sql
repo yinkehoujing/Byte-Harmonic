@@ -18,3 +18,13 @@ VALUES
 INSERT INTO Users (Account, Username, Password, IsAdmin)
 VALUES 
 ('admin', '管理员', 'argon2id:4:4:65536:S3N1vILMxrTJYeKF17oXxQ==:xiLKTDg0oQ+fImOudiK9dXOAOX9dKA/T7KIsi6PVDa0=', 1);
+
+-- 插入歌单：流行精选
+INSERT INTO Playlists (Name, Owner)
+VALUES ('流行精选', 'admin');
+
+INSERT INTO SonglistSongs (SonglistId, SongId)
+VALUES
+(1, 1),  -- 天外来物
+(1, 2),  -- 传奇（王菲）
+(1, 8);  -- 如愿

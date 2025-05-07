@@ -119,9 +119,19 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
         private async Task LoadSonglistDetails(string songlistName)
         {
             Console.WriteLine("LoadSonglistDetails");
-            AppContext.currentViewingSonglist = await songlistservice.GetSonglistByName(songlistName);
 
-            AppContext.TriggerSonglistLoaded(); // 仍然可以是同步的
+            // 主动捕获异常
+            try
+            {
+                AppContext.currentViewingSonglist = await songlistservice.GetSonglistByName(songlistName);
+                Console.WriteLine("Songlist loaded successfully");
+
+                AppContext.TriggerSonglistLoaded(); // 确认是否能执行到这里
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"LoadSonglistDetails 出错: {ex.Message}");
+            }
         }
 
         private void GreetingClick(object? sender, EventArgs e)
