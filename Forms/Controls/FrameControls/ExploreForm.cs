@@ -25,9 +25,14 @@ namespace Byte_Harmonic.Forms
             InitializeComponent();
             InitializeMenu();//初始化菜单三个按钮
             InitializeSongsList();//初始化菜单三个按钮
-
             resourceManager = new ResourceManager("Byte_Harmonic.Properties.Resources", typeof(Resources).Assembly);//获取全局资源
-            starControl = new StarControl(uiImageButton8, resourceManager);
+
+            // 关于默认播放歌曲的收藏显示问题
+            starControl = new StarControl(uiImageButton8);
+
+            //AppContext._playbackService.GetCurrentSong();
+            //var song = AppContext._songRepository.GetSongById(AppContext._playbackService.GetPlaylist().PlaySongs[0].Id);
+
             starControl.InitStarButton(false);//初始化收藏按钮//TODO传入是否被收藏
             uiImageButton8.Click += starControl.StarButtonClick;
 

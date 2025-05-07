@@ -1,4 +1,5 @@
-﻿using Sunny.UI;
+﻿using Byte_Harmonic.Properties;
+using Sunny.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,13 +12,12 @@ namespace Byte_Harmonic.Forms.FormUtils
     class StarControl
     {
         private readonly UIImageButton _button;
-        private readonly ResourceManager _resourceManager;
+        private readonly ResourceManager _resourceManager = new ResourceManager("Byte_Harmonic.Properties.Resources", typeof(Resources).Assembly);//获取全局资源
         private bool _isStared;
 
-        public StarControl(UIImageButton button, ResourceManager resourceManager)
+        public StarControl(UIImageButton button)
         {
             _button = button ?? throw new ArgumentNullException(nameof(button));
-            _resourceManager = resourceManager ?? throw new ArgumentNullException(nameof(resourceManager));
         }
 
         // 公开方法：初始化按钮图标

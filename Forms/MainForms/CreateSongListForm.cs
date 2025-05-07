@@ -32,8 +32,8 @@ namespace Byte_Harmonic.Forms
                 if (string.IsNullOrEmpty(songlistName))
                     throw new ArgumentException("请输入歌单名");
 
-                if (_songlistService.CheckIfSonglistExists(songlistName))
-                    throw new ArgumentException("歌单名已存在");
+                //if (_songlistService.CheckIfSonglistExists(songlistName))
+                //    throw new ArgumentException("歌单名已存在");
 
                 _songlistService.CreateSonglist(songlistName);
                 DialogResult = DialogResult.OK;
