@@ -14,7 +14,7 @@ namespace Byte_Harmonic.Services
     public class UserService
     {
         private readonly UserRepository _userRepository;
-        private User? _currentUser;
+        public User? _currentUser;
 
         public UserService(UserRepository userRepository)
         {
@@ -31,7 +31,7 @@ namespace Byte_Harmonic.Services
 
             var user = await _userRepository.GetUserByAccountAsync(account);
             if (user == null || !await _userRepository.VerifyPasswordAsync(account, password))
-                //throw new UnauthorizedAccessException("账号或密码错误");
+                throw new UnauthorizedAccessException("账号或密码错误l");
 
             _currentUser = user;
             return user;
