@@ -187,6 +187,9 @@ namespace Byte_Harmonic.Forms
             });
         }
 
+
+        
+
         private void OnPlaybackPaused(bool isPaused)
         {
             RunOnUiThread(() =>
