@@ -90,8 +90,7 @@ namespace Byte_Harmonic.Forms
         private void LoadSonglistToPanel()
         {
             Console.WriteLine("load a new panel");
-            panel2.Controls.Clear();
-            panel2.Controls.Add(new Controls.FrameControls.MainPanel.PlayList());
+            LoadPage(page: new SongsList());
         }
         public void LoadPage(UserControl page)
         {
