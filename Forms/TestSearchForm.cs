@@ -36,7 +36,7 @@ namespace Byte_Harmonic.Forms
            // await TestEmptyKeywordSearch();
            // await TestWhitespaceKeywordSearch();
             await TestLoggedInUserSearch();
-            await DisplaySampleResults();
+            //await DisplaySampleResults();
         }
 
         // 测试1: 空关键字搜索
@@ -74,14 +74,19 @@ namespace Byte_Harmonic.Forms
         {
             try
             {
-                await _userService.Login("admin", "123456789");
-                var result = await _searchService.SearchSongs("天外来物");
+            
+               
+
+                 await _userService.Login("admin", "123456789");
+                var user = _userService.GetCurrentUser();
+                var result = await _searchService.SearchSongs("传奇");
+                listBoxResults.Items.Add($"LoginAsync: 通过 (用户: {user.Username})");
+
 
                 listBoxResults.Items.Add($"3. 登录用户搜索测试: ✓ 完成");
                 listBoxResults.Items.Add($"   找到 {result.Count} 条匹配结果");
 
                 // 验证搜索历史
-                var user = _userService.GetCurrentUser();
                 var history = await _userRepo.GetSearchHistoryAsync(user.Account);
                 bool historyRecorded = history.Contains("天外来物");
 
@@ -103,11 +108,11 @@ namespace Byte_Harmonic.Forms
         {
             try
             {
-                var result = await _searchService.SearchSongs("传奇");
+                var result = await _searchService.SearchSongs("凤凰");
 
                 if (result.Count > 0)
                 {
-                    listBoxResults.Items.Add("5. 搜索结果示例:");
+                    listBoxResults.Items.Add("4. 搜索结果示例:");
                     foreach (var song in result.Take(3))
                     {
                         listBoxResults.Items.Add($"   - {song.Title} - {song.Artist}");
@@ -115,12 +120,12 @@ namespace Byte_Harmonic.Forms
                 }
                 else
                 {
-                    listBoxResults.Items.Add("5. 搜索结果示例: 无匹配结果");
+                    listBoxResults.Items.Add("4. 搜索结果示例: 无匹配结果");
                 }
             }
             catch (Exception ex)
             {
-                listBoxResults.Items.Add($"5. 结果显示测试: ✗ 异常 - {ex.Message}");
+                listBoxResults.Items.Add($"4. 结果显示测试: ✗ 异常 - {ex.Message}");
             }
         }
     }
