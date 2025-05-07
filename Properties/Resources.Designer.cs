@@ -73,9 +73,229 @@ namespace Byte_Harmonic.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap _20180317200156_qpcds1 {
+            get {
+                object obj = ResourceManager.GetObject("20180317200156_qpcds1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap _20180329163140_yCdxG {
+            get {
+                object obj = ResourceManager.GetObject("20180329163140_yCdxG", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap _20191112193539_FiAHr {
+            get {
+                object obj = ResourceManager.GetObject("20191112193539_FiAHr", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap _20200203155615_isVGc {
+            get {
+                object obj = ResourceManager.GetObject("20200203155615_isVGc", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap _20200203155618_vrYXa {
+            get {
+                object obj = ResourceManager.GetObject("20200203155618_vrYXa", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap _20200430202120_TeKBd {
+            get {
+                object obj = ResourceManager.GetObject("20200430202120_TeKBd", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap _20200523112641_FKw5P {
+            get {
+                object obj = ResourceManager.GetObject("20200523112641_FKw5P", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap _20200529015621_odwmy {
+            get {
+                object obj = ResourceManager.GetObject("20200529015621_odwmy", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap _20200814113647_mc3dE {
+            get {
+                object obj = ResourceManager.GetObject("20200814113647_mc3dE", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap _20200911044803_bda92 {
+            get {
+                object obj = ResourceManager.GetObject("20200911044803_bda92", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap _20201229010227_8236f {
+            get {
+                object obj = ResourceManager.GetObject("20201229010227_8236f", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap _20210122145551_cpcvh {
+            get {
+                object obj = ResourceManager.GetObject("20210122145551_cpcvh", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap _20211204234402_4859a {
+            get {
+                object obj = ResourceManager.GetObject("20211204234402_4859a", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap _20211213165146_49843 {
+            get {
+                object obj = ResourceManager.GetObject("20211213165146_49843", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap _20220527140936_0943a {
+            get {
+                object obj = ResourceManager.GetObject("20220527140936_0943a", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap _20220716003359_34de1_thumb_1000_0 {
+            get {
+                object obj = ResourceManager.GetObject("20220716003359_34de1.thumb.1000_0", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap _20220922220900_45a55_thumb_400_0 {
+            get {
+                object obj = ResourceManager.GetObject("20220922220900_45a55.thumb.400_0", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap _20220922221323_70916_thumb_400_0 {
+            get {
+                object obj = ResourceManager.GetObject("20220922221323_70916.thumb.400_0", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap _20220922221347_a853d_thumb_1000_0 {
+            get {
+                object obj = ResourceManager.GetObject("20220922221347_a853d.thumb.1000_0", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap _20221215101448_84554_thumb_400_0 {
+            get {
+                object obj = ResourceManager.GetObject("20221215101448_84554.thumb.400_0", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap big_logo {
             get {
                 object obj = ResourceManager.GetObject("big-logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap diskgif {
+            get {
+                object obj = ResourceManager.GetObject("diskgif", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap diskpng {
+            get {
+                object obj = ResourceManager.GetObject("diskpng", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -226,6 +446,16 @@ namespace Byte_Harmonic.Properties {
         internal static System.Drawing.Bitmap icons8_headphones_100__1_ {
             get {
                 object obj = ResourceManager.GetObject("icons8-headphones-100 (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_headphones_100__1_1 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-headphones-100 (1)1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -966,6 +1196,36 @@ namespace Byte_Harmonic.Properties {
         internal static System.Drawing.Bitmap icons8_音乐时间_96__1_ {
             get {
                 object obj = ResourceManager.GetObject("icons8-音乐时间-96 (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap OIP_C {
+            get {
+                object obj = ResourceManager.GetObject("OIP-C", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap OIP_C__1_ {
+            get {
+                object obj = ResourceManager.GetObject("OIP-C (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap OIP_C__2_ {
+            get {
+                object obj = ResourceManager.GetObject("OIP-C (2)", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

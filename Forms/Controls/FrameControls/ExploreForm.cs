@@ -21,14 +21,13 @@ namespace Byte_Harmonic.Forms
         private StarControl starControl;
         public ExploreForm()
         {
-            
             InitializeComponent();
             InitializeMenu();//初始化菜单三个按钮
             InitializeSongsList();//初始化菜单三个按钮
-
+            InitializeSearchBox();//初始化搜索框
             resourceManager = new ResourceManager("Byte_Harmonic.Properties.Resources", typeof(Resources).Assembly);//获取全局资源
-            starControl = new StarControl(uiImageButton8, resourceManager);
-            starControl.InitStarButton(false);//初始化收藏按钮//TODO传入是否被收藏
+            starControl = new StarControl(uiImageButton8);
+            starControl.InitStarButton(false);//初始化收藏按钮 //TODO传入是否被收藏
             uiImageButton8.Click += starControl.StarButtonClick;
 
             LoadMusicExplorerControl(); // 装入初始探索页面
@@ -46,8 +45,6 @@ namespace Byte_Harmonic.Forms
             {
                 throw new ArgumentException("songlist 为空!!!");
             }
-
-
 
             var song = AppContext._playbackService.GetCurrentSong();
             if (song == null)
@@ -679,6 +676,79 @@ namespace Byte_Harmonic.Forms
             panel2.Controls.Add(control);
         }
 
-       
+        //
+        //搜索栏
+        //
+        private AdvancedSearchBox searchBox;
+        private void InitializeSearchBox()
+        {
+            searchBox = new AdvancedSearchBox();
+            searchBox.Location = new Point(285, 29);
+            searchBox.Width = 300;
+            this.Controls.Add(searchBox);
+            searchBox.BringToFront();
+
+            // 绑定事件等
+            searchBox.SearchTriggered += OnSearchTriggered;
+            searchBox.GetSuggestions += GetSearchSuggestions;
+            searchBox.GetHistoryTags += GetSearchHistory;
+        }
+
+        private void OnSearchTriggered(string searchText)
+        {
+            // 处理搜索逻辑
+            UIMessageBox.Show($"执行搜索: {searchText}", "搜索", UIStyle.Custom);
+
+            // 这里可以添加搜索历史记录
+            // AddToSearchHistory(searchText);
+        }
+
+        private List<string> GetSearchSuggestions(string input)
+        {
+            // 模拟后端获取建议项
+            var allItems = new List<string>
+        {
+            "周杰伦 七里香",
+            "周杰伦 晴天",
+            "周杰伦 夜曲",
+            "周杰伦 七里香",
+            "周杰伦 晴天",
+            "周杰伦 夜曲",
+            "林俊杰 江南",
+            "林俊杰 修炼爱情",
+            "林俊杰 她说",
+            "五月天 倔强",
+            "五月天 突然好想你",
+            "五月天 温柔",
+            "陈奕迅 十年",
+            "陈奕迅 浮夸",
+            "陈奕迅 富士山下",
+            "邓紫棋 光年之外",
+            "邓紫棋 泡沫",
+            "邓紫棋 喜欢你",
+            "薛之谦 演员",
+            "薛之谦 丑八怪",
+            "薛之谦 认真的雪",
+            "张惠妹 听海",
+            "张惠妹 记得"
+        };
+
+            return allItems.FindAll(x => x.Contains(input));
+        }
+
+        private List<string> GetSearchHistory()
+        {
+            // 模拟获取历史记录
+            return new List<string>
+        {
+            "周杰伦",
+            "林俊杰",
+            "韩红",
+            "七里香",
+            "周杰伦 七里香",
+            "周杰伦 晴天",
+            "杰伦 夜曲",
+        };
+        }
     }
 }

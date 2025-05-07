@@ -410,7 +410,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton13.BackColor = Color.White;
             uiImageButton13.Cursor = Cursors.Hand;
             uiImageButton13.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiImageButton13.Image = (Image)resources.GetObject("uiImageButton13.Image");
+            uiImageButton13.Image = Properties.Resources.icons8_view_more_96;
             uiImageButton13.ImageHover = (Image)resources.GetObject("uiImageButton13.ImageHover");
             uiImageButton13.Location = new Point(960, 629);
             uiImageButton13.Name = "uiImageButton13";
