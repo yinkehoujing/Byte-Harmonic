@@ -83,6 +83,16 @@ namespace Byte_Harmonic.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap ezgif_6754076f369bb2 {
+            get {
+                object obj = ResourceManager.GetObject("ezgif-6754076f369bb2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_christmas_star_100 {
             get {
                 object obj = ResourceManager.GetObject("icons8-christmas-star-100", resourceCulture);

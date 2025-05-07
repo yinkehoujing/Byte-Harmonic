@@ -6,21 +6,21 @@ using System.Threading.Tasks;
 
 namespace Byte_Harmonic.Forms.FormUtils
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using System.Windows.Forms;
 
-    public static class InfiniteTextScroller
+    public static class TextScroller
     {
         private static readonly Dictionary<Control, ScrollerInfo> _scrollers = new Dictionary<Control, ScrollerInfo>();
 
         public static void EnableAutoScroll(this Control control,
-         int scrollSpeed = 1,
-         int scrollInterval = 30,
-         int pauseDuration = 2000,
-         int startDelay = 1000)
+            int scrollSpeed = 1,
+            int scrollInterval = 16,
+            int pauseDuration = 2000)
         {
             if (_scrollers.ContainsKey(control)) return;
-
-            // 预先测量文本宽度
-            int textWidth = TextRenderer.MeasureText(control.Text, control.Font).Width;
 
             var info = new ScrollerInfo
             {
@@ -29,63 +29,145 @@ namespace Byte_Harmonic.Forms.FormUtils
                 ScrollSpeed = scrollSpeed,
                 ScrollInterval = scrollInterval,
                 PauseDuration = pauseDuration,
-                StartDelay = startDelay,
-                CurrentOffset = 0,
-                TextWidth = textWidth,
-                State = ScrollState.WaitingToStart
+                LastFrameTime = DateTime.Now
             };
 
-            // 安全设置双缓冲
-            SafeSetDoubleBuffered(control);
-
-            // 初始化定时器
-            info.ScrollTimer = new System.Windows.Forms.Timer { Interval = startDelay };
-            info.ScrollTimer.Tick += (sender, e) => ScrollTimerTick(info);
-
-            control.TextChanged += (s, e) =>
-            {
-                info.OriginalText = control.Text;
-                ResetScrollState(info);
-            };
-
-            control.SizeChanged += (s, e) => ResetScrollState(info);
-            control.Paint += (s, e) => ControlPaint(info, e.Graphics);
-            control.Disposed += (s, e) => DisableInfiniteScroll(control);
-            control.HandleCreated += (s, e) => OnHandleCreated(info);
-
-            _scrollers.Add(control, info);
-
-            // 如果句柄已创建，直接启动
             if (control.IsHandleCreated)
             {
-                info.ScrollTimer.Start();
-                control.Invalidate();
-            }
-        }
-
-        private static void OnHandleCreated(ScrollerInfo info)
-        {
-            // 句柄创建后启动定时器
-            info.ScrollTimer.Start();
-            info.Control.Invalidate();
-        }
-
-        private static void SafeSetDoubleBuffered(Control control)
-        {
-            // 安全设置双缓冲
-            if (control.IsHandleCreated)
-            {
-                SetDoubleBuffered(control);
+                InitializeScroller(info);
             }
             else
             {
-                control.HandleCreated += (s, e) => SetDoubleBuffered(control);
+                control.HandleCreated += (s, e) => InitializeScroller(info);
             }
+        }
+
+        private static void InitializeScroller(ScrollerInfo info)
+        {
+            SetDoubleBuffered(info.Control);
+
+            info.Timer = new Timer { Interval = 1 };
+            info.Timer.Tick += (sender, e) => ScrollTimerTick(info);
+
+            info.Control.TextChanged += (s, e) =>
+            {
+                // 文本变化时重新检测是否需要滚动
+                bool previousState = info.NeedsScroll;
+                UpdateTextInfo(info);
+
+                // 状态变化时重绘
+                if (previousState != info.NeedsScroll)
+                {
+                    info.Control.Invalidate();
+                }
+            };
+
+            info.Control.SizeChanged += (s, e) => UpdateTextInfo(info);
+            info.Control.Paint += (s, e) =>
+            {
+                // 只有需要滚动时才接管绘制
+                if (info.NeedsScroll)
+                {
+                    PaintScrollingText(info, e.Graphics);
+                }
+                else
+                {
+                    // 不接管绘制，使用控件原生绘制
+                    return;
+                }
+            };
+            info.Control.Disposed += (s, e) => DisableAutoScroll(info.Control);
+
+            _scrollers[info.Control] = info;
+            UpdateTextInfo(info);
+
+            // 50ms后恢复正常间隔
+            var timer = new Timer { Interval = 50 };
+            timer.Tick += (s, e) =>
+            {
+                info.Timer.Interval = info.ScrollInterval;
+                timer.Stop();
+                timer.Dispose();
+            };
+            timer.Start();
+        }
+
+        private static void ScrollTimerTick(ScrollerInfo info)
+        {
+            if (!info.Control.IsHandleCreated || !info.NeedsScroll) return;
+
+            var now = DateTime.Now;
+            double elapsedMs = (now - info.LastFrameTime).TotalMilliseconds;
+            info.LastFrameTime = now;
+
+            if (info.IsPausing)
+            {
+                info.PauseElapsed += elapsedMs;
+                if (info.PauseElapsed >= info.PauseDuration)
+                {
+                    info.IsPausing = false;
+                    info.CurrentOffset = 0;
+                }
+                return;
+            }
+
+            float pixelsToMove = (float)(info.ScrollSpeed * elapsedMs / info.ScrollInterval);
+            info.CurrentOffset += pixelsToMove;
+
+            int maxOffset = Math.Max(0, info.TextWidth - info.Control.ClientSize.Width);
+            if (info.CurrentOffset >= maxOffset)
+            {
+                info.CurrentOffset = maxOffset;
+                info.IsPausing = true;
+                info.PauseElapsed = 0;
+            }
+
+            info.Control.Invalidate();
+        }
+
+        private static void PaintScrollingText(ScrollerInfo info, Graphics g)
+        {
+            using (var brush = new SolidBrush(info.Control.ForeColor))
+            {
+                g.Clear(info.Control.BackColor);
+                g.DrawString(info.OriginalText, info.Control.Font, brush,
+                    new Point(-(int)info.CurrentOffset, 0));
+            }
+        }
+
+        private static void UpdateTextInfo(ScrollerInfo info)
+        {
+            info.OriginalText = info.Control.Text;
+            info.TextWidth = TextRenderer.MeasureText(info.OriginalText, info.Control.Font).Width;
+
+            // 只有当文本确实超出可见区域时才启用滚动
+            info.NeedsScroll = info.TextWidth > info.Control.ClientSize.Width;
+
+            info.CurrentOffset = 0;
+            info.IsPausing = false;
+
+            if (info.NeedsScroll)
+            {
+                info.Timer.Start();
+            }
+            else
+            {
+                info.Timer.Stop();
+            }
+        }
+
+        public static void DisableAutoScroll(this Control control)
+        {
+            if (!_scrollers.TryGetValue(control, out var info)) return;
+
+            info.Timer?.Stop();
+            info.Timer?.Dispose();
+            _scrollers.Remove(control);
+            control.Invalidate();
         }
 
         private static void SetDoubleBuffered(Control control)
         {
-            // 使用更安全的方式设置双缓冲
             if (control.GetType().GetProperty("DoubleBuffered",
                 System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic) != null)
             {
@@ -95,104 +177,20 @@ namespace Byte_Harmonic.Forms.FormUtils
             }
         }
 
-
-        public static void DisableInfiniteScroll(this Control control)
-        {
-            if (!_scrollers.TryGetValue(control, out var info)) return;
-
-            info.ScrollTimer.Stop();
-            info.ScrollTimer.Dispose();
-            control.Paint -= (s, e) => ControlPaint(info, e.Graphics);
-            _scrollers.Remove(control);
-            control.Invalidate();
-        }
-
-        private static void ScrollTimerTick(ScrollerInfo info)
-        {
-            switch (info.State)
-            {
-                case ScrollState.WaitingToStart:
-                    // 初始延迟结束，开始滚动
-                    info.State = ScrollState.Scrolling;
-                    info.ScrollTimer.Interval = info.ScrollInterval;
-                    info.TextWidth = TextRenderer.MeasureText(info.OriginalText, info.Control.Font).Width;
-                    info.Control.Invalidate();
-                    break;
-
-                case ScrollState.Scrolling:
-                    // 执行滚动
-                    info.CurrentOffset += info.ScrollSpeed;
-
-                    // 检查是否滚动到末尾
-                    if (info.CurrentOffset >= info.TextWidth - info.Control.Width)
-                    {
-                        info.State = ScrollState.Pausing;
-                        info.ScrollTimer.Interval = info.PauseDuration;
-                        info.CurrentOffset = info.TextWidth - info.Control.Width; // 确保完全显示末尾
-                    }
-                    info.Control.Invalidate();
-                    break;
-
-                case ScrollState.Pausing:
-                    // 暂停结束，重置并重新开始滚动
-                    info.State = ScrollState.Scrolling;
-                    info.ScrollTimer.Interval = info.ScrollInterval;
-                    info.CurrentOffset = 0;
-                    info.Control.Invalidate();
-                    break;
-            }
-        }
-
-        private static void ControlPaint(ScrollerInfo info, Graphics g)
-        {
-            if (info.TextWidth <= info.Control.Width)
-            {
-                // 文本不超长，正常显示
-                TextRenderer.DrawText(g, info.OriginalText, info.Control.Font,
-                    new Rectangle(0, 0, info.Control.Width, info.Control.Height),
-                    info.Control.ForeColor, info.Control.BackColor);
-                return;
-            }
-
-            // 绘制滚动文本
-            using (var brush = new SolidBrush(info.Control.ForeColor))
-            {
-                var rect = new RectangleF(-info.CurrentOffset, 0, info.TextWidth, info.Control.Height);
-                g.Clear(info.Control.BackColor);
-                g.DrawString(info.OriginalText, info.Control.Font, brush, rect);
-            }
-        }
-
-        private static void ResetScrollState(ScrollerInfo info)
-        {
-            info.State = ScrollState.WaitingToStart;
-            info.CurrentOffset = 0;
-            info.ScrollTimer.Interval = info.StartDelay;
-            info.TextWidth = TextRenderer.MeasureText(info.OriginalText, info.Control.Font).Width;
-            info.Control.Invalidate();
-        }
-
-
         private class ScrollerInfo
         {
             public Control Control { get; set; }
             public string OriginalText { get; set; }
-            public System.Windows.Forms.Timer ScrollTimer { get; set; }
+            public Timer Timer { get; set; }
             public int ScrollSpeed { get; set; }
             public int ScrollInterval { get; set; }
             public int PauseDuration { get; set; }
-            public int StartDelay { get; set; }
-            public int CurrentOffset { get; set; }
+            public float CurrentOffset { get; set; }
             public int TextWidth { get; set; }
-            public ScrollState State { get; set; }
-            public bool IsFirstRun { get; set; } 
-        }
-
-        private enum ScrollState
-        {
-            WaitingToStart,
-            Scrolling,
-            Pausing
+            public bool NeedsScroll { get; set; }
+            public bool IsPausing { get; set; }
+            public double PauseElapsed { get; set; }
+            public DateTime LastFrameTime { get; set; }
         }
     }
 }

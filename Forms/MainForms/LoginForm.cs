@@ -51,6 +51,7 @@ namespace Byte_Harmonic.Forms
             {
                 uiLabel3.Text = "请确认同意服务协议";
             }
+
         }
 
         private void uiTextBox1_TextChanged(object sender, EventArgs e)
@@ -80,6 +81,7 @@ namespace Byte_Harmonic.Forms
                 loginButton1.Text = "登录";
                 uiImageButton2.Text = "注册";
             }
+
         }
 
         private void uiImageButton3_Click(object sender, EventArgs e)

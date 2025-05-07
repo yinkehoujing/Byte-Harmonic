@@ -243,7 +243,7 @@ namespace Byte_Harmonic.Forms
             uiLabel3.Name = "uiLabel3";
             uiLabel3.Size = new Size(300, 24);
             uiLabel3.TabIndex = 31;
-            uiLabel3.Text = "长长的歌名1111111111111111——长歌手";
+            uiLabel3.Text = "123456489794651621564894848948494948989843135";
             uiLabel3.TextAlign = ContentAlignment.BottomCenter;
             uiLabel3.Click += uiLabel3_Click;
             // 
@@ -324,62 +324,58 @@ namespace Byte_Harmonic.Forms
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = Properties.Resources.big_logo;
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
             pictureBox1.Location = new Point(91, 122);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(256, 256);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 45;
             pictureBox1.TabStop = false;
             // 
             // uiLabel4
             // 
-            uiLabel4.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiLabel4.Font = new Font("黑体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiLabel4.ForeColor = Color.FromArgb(189, 189, 189);
             uiLabel4.Location = new Point(539, 100);
             uiLabel4.Name = "uiLabel4";
-            uiLabel4.Size = new Size(334, 58);
+            uiLabel4.Size = new Size(417, 58);
             uiLabel4.TabIndex = 46;
-            uiLabel4.Text = "uiLabel4";
             // 
             // uiLabel5
             // 
-            uiLabel5.Font = new Font("宋体", 13F);
+            uiLabel5.Font = new Font("黑体", 12.75F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiLabel5.ForeColor = Color.FromArgb(189, 189, 189);
             uiLabel5.Location = new Point(539, 178);
             uiLabel5.Name = "uiLabel5";
-            uiLabel5.Size = new Size(334, 58);
+            uiLabel5.Size = new Size(417, 58);
             uiLabel5.TabIndex = 47;
-            uiLabel5.Text = "uiLabel5";
             // 
             // uiLabel6
             // 
-            uiLabel6.Font = new Font("宋体", 15F);
+            uiLabel6.Font = new Font("黑体", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiLabel6.ForeColor = Color.Black;
             uiLabel6.Location = new Point(539, 275);
             uiLabel6.Name = "uiLabel6";
-            uiLabel6.Size = new Size(334, 58);
+            uiLabel6.Size = new Size(417, 58);
             uiLabel6.TabIndex = 48;
-            uiLabel6.Text = "uiLabel6";
             // 
             // uiLabel7
             // 
-            uiLabel7.Font = new Font("宋体", 13F);
+            uiLabel7.Font = new Font("黑体", 12.75F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiLabel7.ForeColor = Color.FromArgb(189, 189, 189);
-            uiLabel7.Location = new Point(539, 378);
+            uiLabel7.Location = new Point(539, 373);
             uiLabel7.Name = "uiLabel7";
-            uiLabel7.Size = new Size(334, 58);
+            uiLabel7.Size = new Size(417, 58);
             uiLabel7.TabIndex = 49;
-            uiLabel7.Text = "uiLabel7";
             // 
             // uiLabel8
             // 
-            uiLabel8.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiLabel8.Font = new Font("黑体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiLabel8.ForeColor = Color.FromArgb(189, 189, 189);
             uiLabel8.Location = new Point(539, 451);
             uiLabel8.Name = "uiLabel8";
-            uiLabel8.Size = new Size(334, 58);
+            uiLabel8.Size = new Size(417, 58);
             uiLabel8.TabIndex = 50;
-            uiLabel8.Text = "uiLabel8";
             // 
             // uiImageButton17
             // 

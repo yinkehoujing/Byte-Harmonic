@@ -27,12 +27,8 @@ namespace Byte_Harmonic.Forms
         public MusicForm()
         {
             InitializeComponent();
-            uiLabel3.EnableAutoScroll(
-                scrollSpeed: 1,
-                scrollInterval: 50,
-                pauseDuration: 3000,
-                startDelay: 1500
-            );
+            uiLabel3.EnableAutoScroll();
+
             // UI 层 订阅 PlaybackStopped 事件，接收到这个事件后，UI 层的回调函数会被执行,负责更新 UI 元素 
             AppContext.updateSongUI += OnCurrentSongChanged;
             //AppContext.PlaybackPaused += OnPlaybackPaused;
@@ -77,13 +73,15 @@ namespace Byte_Harmonic.Forms
             {
                 uiImageButton5.Image = ((Image)(resourceManager.GetObject("icons8-pause-96")));
                 uiImageButton5.ImageHover = ((Image)(resourceManager.GetObject("icons8-pause-96 (1)")));
+                pictureBox1.Image = ((Image)(resourceManager.GetObject("ezgif-6754076f369bb2")));
+                
             }
             else
             {
                 // 暂停了显示下面图标
                 uiImageButton5.Image = ((Image)(resourceManager.GetObject("icons8-play-96")));
                 uiImageButton5.ImageHover = ((Image)(resourceManager.GetObject("icons8-play-96 (1)")));
-
+                pictureBox1.Image = ((Image)(resourceManager.GetObject("icons8-headphones-100 (1)")));
             }
         }
 
