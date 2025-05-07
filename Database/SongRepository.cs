@@ -8,7 +8,7 @@ namespace Byte_Harmonic.Database
 {
     public class SongRepository
     {
-        private readonly string _connectionString = "server=localhost;user=root;database=Byte_Harmonic;port=3306;password=";
+        private readonly string _connectionString = "server=localhost;user=root;database=Byte_Harmonic;port=3306;password=Sunflower";
         private static string connectionString = "";
 
 
@@ -21,7 +21,7 @@ namespace Byte_Harmonic.Database
             }
             else
             {
-                connectionString = "server=localhost;user=root;database=Byte_Harmonic;port=3306;password=";
+                connectionString = "server=localhost;user=root;database=Byte_Harmonic;port=3306;password=Sunflower";
                 var firstNonEmptyLine = File.ReadLines(FileHelper.GetProjectRootPath("passwd.txt"))
                                             .Select(line => line.Trim())
                                             .FirstOrDefault(line => !string.IsNullOrEmpty(line));
