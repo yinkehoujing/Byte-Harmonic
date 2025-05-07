@@ -20,6 +20,7 @@ namespace Byte_Harmonic.Forms
         public static SongRepository _songRepository = new SongRepository();
         public static UserRepository userRepository = new UserRepository();
         public static User currentUser = null;
+        public static Songlist currentViewingSonglist = null;
 
 
         // 只更新 UI 的事件
@@ -28,6 +29,8 @@ namespace Byte_Harmonic.Forms
         public static event Action<TimeSpan> PositionChanged; // 更新 label2, 进度条
         public static event Action<bool> ShowPlayingBtn; // 更新 label2, 进度条
         public static event Action<float> VolumeChanged; // 0 - 1 之间
+        public static event Action SonglistLoaded; // 更新 panel2
+
 
         // 实际响应，修改 PlaybackService 对象
         public static event Action<double>? PlaybackSpeedChanged;
@@ -46,6 +49,12 @@ namespace Byte_Harmonic.Forms
         {
             Console.WriteLine("TriggerVolumeChanged");
             VolumeChanged?.Invoke(volumeValue);
+        }
+
+        public static void TriggerSonglistLoaded()
+        {
+            Console.WriteLine("TriggerSonglistLoaded");
+            SonglistLoaded?.Invoke();
         }
 
         public static void TriggerupdateSongUI(Song song)

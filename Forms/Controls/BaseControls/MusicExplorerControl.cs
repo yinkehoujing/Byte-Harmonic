@@ -8,11 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Byte_Harmonic.Services;
+using Byte_Harmonic.Database;
 
 namespace Byte_Harmonic.Forms.Controls.BaseControls
 {
     public partial class MusicExplorerControl : UserControl
     {
+        SonglistService songlistservice;
         public MusicExplorerControl()
         {
             InitializeComponent();
@@ -109,8 +111,13 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             this.Controls.Add(greetingPanel);
         }
 
-        private void LoadSonglistDetails(string songlistName)
+        private async Task LoadSonglistDetails(string songlistName)
         {
+            AppContext.currentViewingSonglist = await songlistservice.GetSonglistByName(songlistName);
+
+            // 触发 panel2 的更新
+
+            AppContext.TriggerSonglistLoaded();
 
         }
 
