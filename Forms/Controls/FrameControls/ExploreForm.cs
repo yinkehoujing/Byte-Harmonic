@@ -285,6 +285,8 @@ namespace Byte_Harmonic.Forms
             if (isFirstForm)
             {
                 // 切换到第二个窗体形态
+                //调整搜索框
+                searchBox.Location = new Point(173, 28);
 
                 // 调整pictureBox2
                 pictureBox2.Location = new Point(72, 9);
@@ -354,6 +356,9 @@ namespace Byte_Harmonic.Forms
             else
             {
                 // 切换回第一个窗体形态
+                //调整搜索框
+                searchBox.Location = new Point(285, 28);
+
                 // 恢复pictureBox2
                 pictureBox2.Location = new Point(190, 10);
                 pictureBox2.Size = new Size(860, 580);
