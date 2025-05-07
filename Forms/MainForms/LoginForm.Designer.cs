@@ -1,6 +1,6 @@
 ﻿using Byte_Harmonic.Forms.FormUtils;
 
-namespace Byte_Harmonic.Forms
+namespace Byte_Harmonic.Forms.MainForms
 {
     partial class LoginForm
     {

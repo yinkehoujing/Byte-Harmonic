@@ -1,4 +1,5 @@
 ﻿// CreateSongListForm.cs
+using Byte_Harmonic.Database;
 using Byte_Harmonic.Services;
 using Sunny.UI;
 using System;
@@ -11,16 +12,23 @@ namespace Byte_Harmonic.Forms
     {
         private readonly SonglistService _songlistService;
 
-        public CreateSongListForm(SonglistService songlistService)
+        // 无参构造函数，自动初始化服务
+        public CreateSongListForm()
         {
             InitializeComponent();
-            _songlistService = songlistService;
+
+            // 初始化仓储与服务
+            var songRepo = new SonglistRepository();
+            var userRepo = new UserRepository();
+            var userService = new UserService(userRepo);
+            _songlistService = new SonglistService(songRepo, userService);
 
             // SunnyUI样式配置
             StyleCustomMode = true;
             Style = UIStyle.Blue;
             btnConfirm.Style = UIStyle.Blue;
         }
+
 
         private void btnConfirm_Click(object sender, EventArgs e)
         {

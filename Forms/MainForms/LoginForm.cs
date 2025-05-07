@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Byte_Harmonic.Forms
+namespace Byte_Harmonic.Forms.MainForms
 {
     public partial class LoginForm : Form
     {
@@ -37,7 +37,7 @@ namespace Byte_Harmonic.Forms
 
         private void uiButton1_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
