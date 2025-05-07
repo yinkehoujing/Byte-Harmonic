@@ -33,7 +33,7 @@ namespace Byte_Harmonic.Forms
             starControl.InitStarButton(false);//初始化收藏按钮 //TODO传入是否被收藏
             uiImageButton8.Click += starControl.StarButtonClick;
 
-            LoadMusicExplorerControl(); // 装入初始探索页面
+           // LoadMusicExplorerControl(); // 装入初始探索页面
             LoadPage(page: new SongsList());
             uiLabel3.EnableAutoScroll();//支持文字过长时滚动
             uiLabel4.EnableAutoScroll();
@@ -42,6 +42,7 @@ namespace Byte_Harmonic.Forms
             AppContext.LyricsUpdated += OnLyricsUpdated;
             AppContext.updateSongUI += OnUpdateSongUI;
             AppContext.ShowPlayingBtn += OnShowPlayingBtn;
+           // AppContext.SonglistLoaded += LoadSonglistToPanel;
             var songlist = AppContext._songRepository.GetAllSongs();
 
             if (songlist.Count <= 0)
@@ -86,14 +87,18 @@ namespace Byte_Harmonic.Forms
                 uiLabel2.Text = seekPosition.ToString(@"mm\:ss");
             };
         }
-
+        private void LoadSonglistToPanel()
+        {
+            Console.WriteLine("load a new panel");
+            panel2.Controls.Clear();
+            panel2.Controls.Add(new Controls.FrameControls.MainPanel.PlayList());
+        }
         public void LoadPage(UserControl page)
         {
             panel2.Controls.Clear();    // 清空之前的页面
             page.Dock = DockStyle.Fill;        // 填满容器
             panel2.Controls.Add(page);   // 添加新页面
         }
-
         private void OnShowPlayingBtn(bool isPaused)
         {
             if (isPaused)

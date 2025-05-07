@@ -29,6 +29,12 @@ namespace Byte_Harmonic.Forms
             var userService = new UserService(userRepo);
             _songService = new SonglistService(songRepo, userService);
 
+            //把“浏览”“新建”“列表操作”等事件都挂上去
+            btnSelectMp3.Click += btnSelectMp3_Click;
+            btnSelectLrc.Click += btnSelectLrc_Click;
+            btnCreate.Click += btnCreate_Click;
+            dgvSongs.CellContentClick += dgvSongs_CellContentClick;
+
             InitSongList();
         }
 

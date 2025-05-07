@@ -262,6 +262,15 @@ namespace Byte_Harmonic.Services
             return _repository.CheckIfSonglistExists(songlistName);
         }
 
+        // 根据歌单名获取当前用户的歌单
+        public async Task<Songlist> GetSonglistByName(string name)
+        {
+            var currentUser = _userService.GetCurrentUser();
+            if (currentUser == null)
+                throw new UnauthorizedAccessException("用户未登录");
+
+            return await _repository.GetSonglistByNameAndOwner(name, currentUser.Account);
+        }
         #endregion
     }
 }

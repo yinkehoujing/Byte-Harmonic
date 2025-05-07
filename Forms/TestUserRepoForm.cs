@@ -246,7 +246,8 @@ namespace Byte_Harmonic.Forms
         {
             try
             {
-                var user = await _userService.Login("admin", "123456789");
+                await _userService.Login("admin", "123456789");
+                 var user= _userService.GetCurrentUser();
                 listBoxResults.Items.Add($"LoginAsync: 通过 (用户: {user.Username})");
             }
             catch (Exception ex)
