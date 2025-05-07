@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Byte_Harmonic.Forms
+namespace Byte_Harmonic.Forms.MainForms
 {
     public partial class LoginForm : Form
     {
