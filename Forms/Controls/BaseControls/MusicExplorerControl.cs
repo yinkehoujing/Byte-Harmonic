@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Byte_Harmonic.Services;
 using Byte_Harmonic.Database;
+using NAudio.CoreAudioApi;
 
 namespace Byte_Harmonic.Forms.Controls.BaseControls
 {
@@ -17,6 +18,10 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
         SonglistService songlistservice;
         public MusicExplorerControl()
         {
+            var songlistRepo = new SonglistRepository();
+            var userRepo = new UserRepository();
+            var userService = new UserService(userRepo);
+            songlistservice = new SonglistService(songlistRepo, userService);
             InitializeComponent();
             SetupLayout();
         }
@@ -111,14 +116,11 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             this.Controls.Add(greetingPanel);
         }
 
-        private void LoadSonglistDetails(string songlistName)
+        private async Task LoadSonglistDetails(string songlistName)
         {
-            AppContext.currentViewingSonglist = songlistservice.GetSonglistByName(songlistName);
+            AppContext.currentViewingSonglist = await songlistservice.GetSonglistByName(songlistName);
 
-            // 触发 panel2 的更新
-
-            AppContext.TriggerSonglistLoaded();
-
+            AppContext.TriggerSonglistLoaded(); // 仍然可以是同步的
         }
 
         private void GreetingClick(object? sender, EventArgs e)

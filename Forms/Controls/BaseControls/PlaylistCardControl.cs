@@ -14,8 +14,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
         private string imageText;
         private Label titleLabel;
 
-        public event Action<string> PlaylistClicked;
-
+        public event Func<string, Task> PlaylistClicked;
 
         public string CoverImageText
         {
