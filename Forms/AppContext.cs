@@ -1,6 +1,7 @@
 ﻿using Byte_Harmonic.Database;
 using Byte_Harmonic.Models;
 using Byte_Harmonic.Utils;
+using Byte_Harmonic.Services;
 using Services;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace Byte_Harmonic.Forms
         public static PlaybackService _playbackService = new PlaybackService();
         public static SongRepository _songRepository = new SongRepository();
         public static UserRepository userRepository = new UserRepository();
+        public static UserService userService = new UserService(userRepository);
         public static User currentUser = null;
         public static Songlist currentViewingSonglist = null;
 
