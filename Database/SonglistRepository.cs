@@ -317,11 +317,12 @@ namespace Byte_Harmonic.Database
         // 根据歌单名和所有者获取歌单
         public Songlist GetSonglistByNameAndOwner(string name, string ownerAccount)
         {
-            return _dbContext.Songlists
-                .Include(s => s.Songs) 
-                .FirstOrDefault(s =>
-                    s.Name == name &&
-                    s.Owner == ownerAccount);
+            //return _dbContext.Songlists
+            //    .Include(s => s.Songs)
+            //    .FirstOrDefault(s =>
+            //        s.Name == name &&
+            //        s.Owner == ownerAccount);
+            return null;
         }
 
         #endregion
