@@ -1,4 +1,6 @@
-﻿using Byte_Harmonic.Forms.FormUtils;
+﻿using Byte_Harmonic.Database;
+using Byte_Harmonic.Forms.FormUtils;
+using Byte_Harmonic.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,6 +17,12 @@ namespace Byte_Harmonic.Forms
     {
         private readonly MouseMove _mouseHandler;//用于鼠标控制窗口
         private readonly FormStyle _styleHandler;//用于更改窗口样式
+        private readonly SonglistRepository _songlistRepo;
+        private readonly UserRepository _userRepo;
+        private readonly UserService _userService;
+        private readonly SearchService _searchService;
+        private readonly string _connectionString =
+            "server=localhost;user=root;database=Byte_Harmonic;port=3306;password=gan2023302";
         public LoginForm()
         {
             
@@ -51,6 +59,8 @@ namespace Byte_Harmonic.Forms
             {
                 uiLabel3.Text = "请确认同意服务协议";
             }
+
+            AppContext.currentUser = _userService.GetCurrentUser();
 
         }
 

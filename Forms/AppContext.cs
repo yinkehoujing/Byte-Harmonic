@@ -18,6 +18,8 @@ namespace Byte_Harmonic.Forms
         public static System.Windows.Forms.Timer _log_timer = new System.Windows.Forms.Timer();
         public static PlaybackService _playbackService = new PlaybackService();
         public static SongRepository _songRepository = new SongRepository();
+        public static UserRepository userRepository = new UserRepository();
+        public static User currentUser = null;
 
 
         // 只更新 UI 的事件

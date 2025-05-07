@@ -12,7 +12,7 @@ namespace Byte_Harmonic.Forms.FormUtils
     class StarControl
     {
         private readonly UIImageButton _button;
-        private readonly ResourceManager _resourceManager;
+        private readonly ResourceManager _resourceManager = new ResourceManager("Byte_Harmonic.Properties.Resources", typeof(Resources).Assembly);//获取全局资源
         private bool _isStared;
 
         public StarControl(UIImageButton button)

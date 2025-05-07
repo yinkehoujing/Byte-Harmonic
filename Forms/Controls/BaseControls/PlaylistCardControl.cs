@@ -7,17 +7,19 @@ using Sunny.UI;
 
 namespace Byte_Harmonic.Forms.Controls.BaseControls
 {
+    // 外部响应 PlaylistClicked 事件
     public partial class PlaylistCardControl : UserControl
     {
         private UIImageButton imageButton;
+        private string imageText;
         private Label titleLabel;
 
-        public event EventHandler PlaylistClicked;
+        public event Action<string> PlaylistClicked;
 
-        public Image CoverImage
+        public string CoverImageText
         {
-            get => imageButton.Image;
-            set => imageButton.Image = value;
+            get => imageText;
+            set => imageText = value;
         }
 
         public string PlaylistName
@@ -34,12 +36,13 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
 
         private void SetupLayout()
         {
+            imageText = "1 (10)"; // default image seed
             this.Width = 100;
             this.Height = 130;
             this.Margin = new Padding(10);
 
             var resourceManager = new ResourceManager("Byte_Harmonic.Properties.Resources", typeof(Resources).Assembly);
-            var img = (Image)(resourceManager.GetObject("20180317200156_qpcds"));
+            var img = (Image)(resourceManager.GetObject(imageText));
 
             imageButton = new UIImageButton
             {
@@ -50,7 +53,10 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
                 Cursor = Cursors.Hand
             };
 
-            imageButton.Click += (s, e) => PlaylistClicked?.Invoke(this, EventArgs.Empty);
+            imageButton.Click += (s, e) =>
+            {
+                PlaylistClicked?.Invoke(PlaylistName);
+            };
 
             titleLabel = new Label
             {
