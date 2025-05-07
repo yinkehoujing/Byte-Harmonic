@@ -3,20 +3,32 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
+using System.Configuration;
 using Byte_Harmonic.Services;
 using Byte_Harmonic.Models;
+//using Byte_Harmonic.Repositories;
+using Byte_Harmonic.Database;
 
 namespace Byte_Harmonic.Forms
 {
     public partial class AdminForm : UIForm
     {
-        private readonly SonglistService _songService;
+        private SonglistService _songService;
         private List<Song> _currentSongs = new List<Song>();
 
-        public AdminForm(SonglistService songService)
+        // 无参构造函数，负责初始化组件和服务
+        public AdminForm()
         {
             InitializeComponent();
-            _songService = songService;
+
+            // 仓储自己去拿连接串
+            var songRepo = new SonglistRepository();
+            var userRepo = new UserRepository();
+
+            // 组装服务
+            var userService = new UserService(userRepo);
+            _songService = new SonglistService(songRepo, userService);
+
             InitSongList();
         }
 

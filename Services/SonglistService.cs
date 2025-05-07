@@ -7,8 +7,8 @@ using System.Xml;
 using Byte_Harmonic.Database;
 using Byte_Harmonic.Models;
 using MySql.Data.MySqlClient;
-using Newtonsoft.Json; // 需要安装NuGet包
-using TagLib;         // 需要安装TagLib# NuGet包
+using Newtonsoft.Json; 
+using TagLib;         
 
 
 namespace Byte_Harmonic.Services
@@ -251,6 +251,17 @@ namespace Byte_Harmonic.Services
 
         //获取所有歌单（异步操作）
         public Task<List<Songlist>> GetAllPlaylistsAsync() => _repository.GetAllPlaylistsAsync();
+
+       
+        // 检查给定的歌单名是否已存在（防止重复创建）
+        public bool CheckIfSonglistExists(string songlistName)
+        {
+            if (string.IsNullOrWhiteSpace(songlistName))
+                throw new ArgumentException("歌单名称不能为空", nameof(songlistName));
+
+            return _repository.CheckIfSonglistExists(songlistName);
+        }
+
         #endregion
     }
 }
