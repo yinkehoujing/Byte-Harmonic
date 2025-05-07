@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Byte_Harmonic.Services;
 using Byte_Harmonic.Database;
+using NAudio.CoreAudioApi;
 
 namespace Byte_Harmonic.Forms.Controls.BaseControls
 {
@@ -17,6 +18,10 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
         SonglistService songlistservice;
         public MusicExplorerControl()
         {
+            var songlistRepo = new SonglistRepository();
+            var userRepo = new UserRepository();
+            var userService = new UserService(userRepo);
+            songlistservice = new SonglistService(songlistRepo, userService);
             InitializeComponent();
             SetupLayout();
         }
