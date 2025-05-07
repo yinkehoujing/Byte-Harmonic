@@ -21,19 +21,13 @@ namespace Byte_Harmonic.Forms
         private StarControl starControl;
         public ExploreForm()
         {
-            
             InitializeComponent();
             InitializeMenu();//初始化菜单三个按钮
             InitializeSongsList();//初始化菜单三个按钮
+            InitializeSearchBox();//初始化搜索框
             resourceManager = new ResourceManager("Byte_Harmonic.Properties.Resources", typeof(Resources).Assembly);//获取全局资源
-
-            // 关于默认播放歌曲的收藏显示问题
             starControl = new StarControl(uiImageButton8);
-
-            //AppContext._playbackService.GetCurrentSong();
-            //var song = AppContext._songRepository.GetSongById(AppContext._playbackService.GetPlaylist().PlaySongs[0].Id);
-
-            starControl.InitStarButton(false);//初始化收藏按钮//TODO传入是否被收藏
+            starControl.InitStarButton(false);//初始化收藏按钮 //TODO传入是否被收藏
             uiImageButton8.Click += starControl.StarButtonClick;
 
             LoadMusicExplorerControl(); // 装入初始探索页面
@@ -51,8 +45,6 @@ namespace Byte_Harmonic.Forms
             {
                 throw new ArgumentException("songlist 为空!!!");
             }
-
-
 
             var song = AppContext._playbackService.GetCurrentSong();
             if (song == null)
@@ -288,11 +280,13 @@ namespace Byte_Harmonic.Forms
         private void Back_Click_1(object sender, EventArgs e)
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExploreForm));//获取该控件资源
-           
+
 
             if (isFirstForm)
             {
                 // 切换到第二个窗体形态
+                //调整搜索框
+                searchBox.Location = new Point(173, 28);
 
                 // 调整pictureBox2
                 pictureBox2.Location = new Point(72, 9);
@@ -362,6 +356,9 @@ namespace Byte_Harmonic.Forms
             else
             {
                 // 切换回第一个窗体形态
+                //调整搜索框
+                searchBox.Location = new Point(285, 28);
+
                 // 恢复pictureBox2
                 pictureBox2.Location = new Point(190, 10);
                 pictureBox2.Size = new Size(860, 580);
@@ -661,20 +658,24 @@ namespace Byte_Harmonic.Forms
         //
         private void InitializeSongsList()
         {
-
+            //TODO:调用后端获取歌单
             List<string> dataList;
             dataList = ["1", "2", "3", "4", "5", "6", "7"];
 
             foreach (string item in dataList)
             {
                 // 创建控件
-                Control control = new BHButton("20180317200156_qpcds", "20180317200156_qpcds", item);
+                Random random = new Random();
+                int randomNumber = random.Next(1, 11);
+                string num = randomNumber.ToString();
+                Control control = new BHButton("1 (" + num + ")", "1 (" + num + ")", item);
                 control.Tag = item; // 将数据对象存储在Tag中
                 control.Width = 155;
                 // 添加到父容器
                 flowLayoutPanel1.Controls.Add(control);
             }
         }
+
         //
         // 装入 MusicExplorerControl
         //
@@ -683,7 +684,85 @@ namespace Byte_Harmonic.Forms
             Control control = new MusicExplorerControl();
             panel2.Controls.Add(control);
         }
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            LoadMusicExplorerControl();
+        }
+        //
+        //搜索栏
+        //
+        private AdvancedSearchBox searchBox;
+        private void InitializeSearchBox()
+        {
+            searchBox = new AdvancedSearchBox();
+            searchBox.Location = new Point(285, 29);
+            searchBox.Width = 300;
+            this.Controls.Add(searchBox);
+            searchBox.BringToFront();
 
-       
+            // 绑定事件等
+            searchBox.SearchTriggered += OnSearchTriggered;
+            searchBox.GetSuggestions += GetSearchSuggestions;
+            searchBox.GetHistoryTags += GetSearchHistory;
+        }
+
+        private void OnSearchTriggered(string searchText)
+        {
+            // 处理搜索逻辑
+            UIMessageBox.Show($"执行搜索: {searchText}", "搜索", UIStyle.Custom);
+
+            // 这里可以添加搜索历史记录
+            // AddToSearchHistory(searchText);
+        }
+
+        private List<string> GetSearchSuggestions(string input)
+        {
+            // 模拟后端获取建议项
+            var allItems = new List<string>
+        {
+            "周杰伦 七里香",
+            "周杰伦 晴天",
+            "周杰伦 夜曲",
+            "周杰伦 七里香",
+            "周杰伦 晴天",
+            "周杰伦 夜曲",
+            "林俊杰 江南",
+            "林俊杰 修炼爱情",
+            "林俊杰 她说",
+            "五月天 倔强",
+            "五月天 突然好想你",
+            "五月天 温柔",
+            "陈奕迅 十年",
+            "陈奕迅 浮夸",
+            "陈奕迅 富士山下",
+            "邓紫棋 光年之外",
+            "邓紫棋 泡沫",
+            "邓紫棋 喜欢你",
+            "薛之谦 演员",
+            "薛之谦 丑八怪",
+            "薛之谦 认真的雪",
+            "张惠妹 听海",
+            "张惠妹 记得"
+        };
+
+            return allItems.FindAll(x => x.Contains(input));
+        }
+
+        private List<string> GetSearchHistory()
+        {
+            // 模拟获取历史记录
+            return new List<string>
+        {
+            "周杰伦",
+            "林俊杰",
+            "韩红",
+            "七里香",
+            "周杰伦 七里香",
+            "周杰伦 晴天",
+            "杰伦 夜曲",
+        };
+        }
+
+        
     }
 }

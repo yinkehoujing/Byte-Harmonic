@@ -73,7 +73,7 @@ namespace Byte_Harmonic.Forms
             {
                 uiImageButton5.Image = ((Image)(resourceManager.GetObject("icons8-pause-96")));
                 uiImageButton5.ImageHover = ((Image)(resourceManager.GetObject("icons8-pause-96 (1)")));
-                pictureBox1.Image = ((Image)(resourceManager.GetObject("ezgif-6754076f369bb2")));
+                pictureBox1.Image = ((Image)(resourceManager.GetObject("diskgif")));
 
             }
             else
@@ -81,7 +81,7 @@ namespace Byte_Harmonic.Forms
                 // 暂停了显示下面图标
                 uiImageButton5.Image = ((Image)(resourceManager.GetObject("icons8-play-96")));
                 uiImageButton5.ImageHover = ((Image)(resourceManager.GetObject("icons8-play-96 (1)")));
-                pictureBox1.Image = ((Image)(resourceManager.GetObject("icons8-headphones-100 (1)")));
+                pictureBox1.Image = ((Image)(resourceManager.GetObject("diskpng")));
             }
         }
 

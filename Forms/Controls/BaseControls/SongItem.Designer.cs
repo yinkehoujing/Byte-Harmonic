@@ -1,6 +1,6 @@
-﻿namespace Byte_Harmonic.Forms
+﻿namespace Byte_Harmonic.Forms.Controls.BaseControls
 {
-    partial class FoldMenu
+    partial class SongItem
     {
         /// <summary> 
         /// 必需的设计器变量。

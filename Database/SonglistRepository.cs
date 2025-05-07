@@ -4,6 +4,8 @@ using System.Data;
 using Byte_Harmonic.Models;
 using MySql.Data.MySqlClient; // 根据实际数据库类型调整
 using Dapper;
+using System.Data.SqlClient;
+using Byte_Harmonic.Utils;
 
 namespace Byte_Harmonic.Database
 {
@@ -13,6 +15,11 @@ namespace Byte_Harmonic.Database
     public class SonglistRepository
     {
         private readonly string _connectionString;
+
+        public SonglistRepository()
+        {
+            _connectionString = "server=localhost;user=root;database=Byte_Harmonic;port=3306;password=Sunflower";
+        }
 
         public SonglistRepository(string connectionString)
         {
@@ -286,6 +293,25 @@ namespace Byte_Harmonic.Database
             }
 
             return playlists;
+        }
+
+        
+        // 检查指定名称的歌单是否存在
+        public bool CheckIfSonglistExists(string songlistName)
+        {
+            const string sql = @"
+            SELECT COUNT(1)
+            FROM Playlists
+            WHERE Name = @Name;
+        ";
+
+            using (var conn = new SqlConnection(_connectionString))
+            {
+                conn.Open();
+                // ExecuteScalar 返回第一行第一列的值；>0 则表示存在
+                var count = conn.ExecuteScalar<int>(sql, new { Name = songlistName });
+                return count > 0;
+            }
         }
 
         #endregion

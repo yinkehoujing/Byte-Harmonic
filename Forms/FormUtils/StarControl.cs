@@ -18,6 +18,7 @@ namespace Byte_Harmonic.Forms.FormUtils
         public StarControl(UIImageButton button)
         {
             _button = button ?? throw new ArgumentNullException(nameof(button));
+            _resourceManager = new ResourceManager("Byte_Harmonic.Properties.Resources", typeof(Resources).Assembly);//获取全局资源
         }
 
         // 公开方法：初始化按钮图标

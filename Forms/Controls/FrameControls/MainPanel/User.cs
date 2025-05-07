@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Byte_Harmonic.Forms
+namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
 {
-    public partial class FoldMenu: UserControl
+    public partial class User: UserControl
     {
-        public FoldMenu()
+        public User()
         {
             InitializeComponent();
         }
