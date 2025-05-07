@@ -28,7 +28,7 @@ namespace Byte_Harmonic.Forms
         }
 
         // 新建歌曲按钮点击事件
-        private void btnCreate_Click(object sender, EventArgs e)
+        private async void btnCreate_Click(object sender, EventArgs e)
         {
             var newSong = new Song
             {
@@ -42,7 +42,7 @@ namespace Byte_Harmonic.Forms
 
             try
             {
-                _songService.ImportSongsAsync(new List<Song> { newSong });
+                await _songService.ImportSongsAsync(newSong);
                 UIMessageBox.Show("歌曲添加成功！");
                 InitSongList(); // 刷新列表
             }
@@ -76,25 +76,27 @@ namespace Byte_Harmonic.Forms
         }
 
         // 歌曲列表操作
-        private void dgvSongs_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private async void dgvSongs_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
 
             var song = _currentSongs[e.RowIndex];
             if (dgvSongs.Columns[e.ColumnIndex].Name == "colDelete")
             {
-                if (UIMessageBox.ShowConfirm("确认删除该歌曲？") == DialogResult.OK)
+                if (UIMessageBox.ShowAsk("确认删除该歌曲？"))
                 {
-                    _songService.DeleteSong(song.Id);
+                    await _songService.DeleteSongAsync(song.Id);
                     InitSongList();
                 }
             }
+            /*
             else if (dgvSongs.Columns[e.ColumnIndex].Name == "colEdit")
             {
                 using var editForm = new EditSongForm(song, _songService);
                 editForm.ShowDialog();
                 InitSongList();
             }
+            */
         }
     }
 }

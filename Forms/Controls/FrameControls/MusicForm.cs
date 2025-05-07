@@ -189,26 +189,8 @@ namespace Byte_Harmonic.Forms
             });
         }
 
-        private void UpdatePositionUI(TimeSpan position)
-        {
-            if (!_isDragging) // 防止拖动冲突
-            {
-                RunOnUiThread(() =>
-                {
-                    uiLabel2.Text = position.ToString(@"mm\:ss");
-                    uiTrackBar1.Value = Math.Min((int)position.TotalSeconds, uiTrackBar1.Maximum);
-                });
-            }
-        }
 
-        private void OnCurrentSongChanged(Song currentSong)
-        {
-            RunOnUiThread(() =>
-            {
-                uiLabel3.Text = $"{currentSong.Title}——{currentSong.Artist}";
-                UpdateTrackBarMaximum(); // 播放下一首后更新 UI
-            });
-        }
+        
 
         private void OnPlaybackPaused(bool isPaused)
         {

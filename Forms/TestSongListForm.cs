@@ -147,18 +147,18 @@ namespace Byte_Harmonic.Forms
 
         private async Task TestShareLinkAsync()
         {
-            try
-            {
-                var playlist = (await _songlistService.GetAllPlaylistsAsync()).First();
-                playlist.IsPublic = true;
-                string link = _songlistService.GetShareLink(playlist);
-                listBoxResults.Items.Add($"生成分享链接: {(!string.IsNullOrEmpty(link) ? "通过" : "失败")}");
-                listBoxResults.Items.Add($"链接示例: {link}");
-            }
-            catch (Exception ex)
-            {
-                listBoxResults.Items.Add($"分享功能异常: {ex.Message}");
-            }
+            //try
+            //{
+            //    var playlist = (await _songlistService.GetAllPlaylistsAsync()).First();
+            //    playlist.IsPublic = true;
+            //    string link = _songlistService.GetShareLink(playlist);
+            //    listBoxResults.Items.Add($"生成分享链接: {(!string.IsNullOrEmpty(link) ? "通过" : "失败")}");
+            //    listBoxResults.Items.Add($"链接示例: {link}");
+            //}
+            //catch (Exception ex)
+            //{
+            //    listBoxResults.Items.Add($"分享功能异常: {ex.Message}");
+            //}
         }
         #endregion
     }

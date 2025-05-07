@@ -71,38 +71,35 @@ namespace Byte_Harmonic.Database
         }
 
         //从曲库中删除歌曲
-        public void DeleteSong(int songId)
+        public async Task DeleteSongAsync(int songId)
         {
             using var conn = new MySqlConnection(_connectionString);
-            conn.Open();
+            await conn.OpenAsync();
 
-            // 使用事务确保关联数据删除
-            using var transaction = conn.BeginTransaction();
+            using var transaction = await conn.BeginTransactionAsync();
             try
             {
                 // 删除关联标签
-                var deleteTagsSql = "DELETE FROM SongTags WHERE SongId = @songId";
-                new MySqlCommand(deleteTagsSql, conn) { Parameters = { new("@songId", songId) } }
-                    .ExecuteNonQuery();
+                await conn.ExecuteAsync("DELETE FROM SongTags WHERE SongId = @songId",
+                    new { songId }, transaction);
 
                 // 删除歌单关联
-                var deletePlaylistSql = "DELETE FROM SonglistSongs WHERE SongId = @songId";
-                new MySqlCommand(deletePlaylistSql, conn) { Parameters = { new("@songId", songId) } }
-                    .ExecuteNonQuery();
+                await conn.ExecuteAsync("DELETE FROM SonglistSongs WHERE SongId = @songId",
+                    new { songId }, transaction);
 
                 // 删除歌曲
-                var deleteSongSql = "DELETE FROM Songs WHERE Id = @songId";
-                new MySqlCommand(deleteSongSql, conn) { Parameters = { new("@songId", songId) } }
-                    .ExecuteNonQuery();
+                await conn.ExecuteAsync("DELETE FROM Songs WHERE Id = @songId",
+                    new { songId }, transaction);
 
-                transaction.Commit();
+                await transaction.CommitAsync();
             }
             catch
             {
-                transaction.Rollback();
+                await transaction.RollbackAsync();
                 throw;
             }
         }
+
         #endregion
 
         #region 标签管理
