@@ -6,14 +6,12 @@ using System.Linq;
 using System.Xml;
 using Byte_Harmonic.Database;
 using Byte_Harmonic.Models;
-using MySql.Data.MySqlClient;
-using Newtonsoft.Json; 
-using TagLib;         
+using Newtonsoft.Json; // 需要安装NuGet包
+using TagLib;         // 需要安装TagLib# NuGet包
 
 
 namespace Byte_Harmonic.Services
 {
-    //User无抽象类，只有isAdmin
     public class SonglistService
     {
         private readonly SonglistRepository _repository;
@@ -58,23 +56,6 @@ namespace Byte_Harmonic.Services
             }
         }
 
-        //导入歌曲（根据歌曲名）
-        public async Task<bool> ImportSongsAsync(Song song)
-        {
-            if (!_userService.GetCurrentUser().IsAdmin)
-                throw new UnauthorizedAccessException("只有管理员可以添加歌曲");
-
-            try
-            {
-                await _repository.AddSongAsync(song); // 调用仓库层方法
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"添加失败: {ex.Message}");
-                return false;
-            }
-        }
 
         //获取所有歌曲
         public Task<List<Song>> GetAllSongsAsync() => _repository.GetAllSongsAsync();
@@ -102,35 +83,7 @@ namespace Byte_Harmonic.Services
             return true;
         }
 
-        //删除歌曲
-        public async Task<bool> DeleteSongAsync(int songId)
-        {
-            // 权限校验：仅管理员可删除歌曲
-            if (!_userService.GetCurrentUser().IsAdmin)
-            {
-                throw new UnauthorizedAccessException("管理员权限不足");
-            }
 
-            try
-            {
-                await _repository.DeleteSongAsync(songId);
-                return true;
-            }
-            catch (MySqlException ex)
-            {
-                //记录日志
-                Console.WriteLine($"异步删除失败: {ex.Message}");
-                return false;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"系统异常: {ex.Message}");
-                return false;
-            }
-        }
-        #endregion
-
-        #region 标签管理
         //根据标签筛选出所有歌曲
         public List<Song> FilterSongsByTag(string tag)
         {
@@ -238,7 +191,6 @@ namespace Byte_Harmonic.Services
             return _repository.GetSongsInPlaylist(songlist.Id);
         }
 
-        /*
         //分享歌单链接
         public string GetShareLink(Songlist songlist)
         {
@@ -247,21 +199,11 @@ namespace Byte_Harmonic.Services
                 songlist.GenerateShareLink();
             return songlist.ShareLink;
         }
-        */
 
-        //获取所有歌单（异步操作）
-        public Task<List<Songlist>> GetAllPlaylistsAsync() => _repository.GetAllPlaylistsAsync();
-
-       
-        // 检查给定的歌单名是否已存在（防止重复创建）
-        public bool CheckIfSonglistExists(string songlistName)
+        internal async Task<Songlist> GetSonglistByName(string songlistName)
         {
-            if (string.IsNullOrWhiteSpace(songlistName))
-                throw new ArgumentException("歌单名称不能为空", nameof(songlistName));
-
-            return _repository.CheckIfSonglistExists(songlistName);
+            throw new NotImplementedException();
         }
-
         #endregion
     }
 }

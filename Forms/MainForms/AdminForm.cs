@@ -22,12 +22,12 @@ namespace Byte_Harmonic.Forms
             InitializeComponent();
 
             // 仓储自己去拿连接串
-            var songRepo = new SonglistRepository();
+            //var songRepo = new SonglistRepository();
             var userRepo = new UserRepository();
 
             // 组装服务
             var userService = new UserService(userRepo);
-            _songService = new SonglistService(songRepo, userService);
+            //_songService = new SonglistService(songRepo, userService);
 
             InitSongList();
         }
@@ -42,26 +42,26 @@ namespace Byte_Harmonic.Forms
         // 新建歌曲按钮点击事件
         private async void btnCreate_Click(object sender, EventArgs e)
         {
-            var newSong = new Song
-            {
-                Title = txtTitle.Text.Trim(),
-                Artist = txtArtist.Text.Trim(),
-                MusicFilePath = txtMp3Path.Text,
-                LrcFilePath = txtLrcPath.Text,
-                Downloaded = true,
-                Tags = new List<string>(txtTags.Text.Split(','))
-            };
+            //var newSong = new Song
+            //{
+            //    Title = txtTitle.Text.Trim(),
+            //    Artist = txtArtist.Text.Trim(),
+            //    MusicFilePath = txtMp3Path.Text,
+            //    LrcFilePath = txtLrcPath.Text,
+            //    Downloaded = true,
+            //    Tags = new List<string>(txtTags.Text.Split(','))
+            //};
 
-            try
-            {
-                await _songService.ImportSongsAsync(newSong);
-                UIMessageBox.Show("歌曲添加成功！");
-                InitSongList(); // 刷新列表
-            }
-            catch (Exception ex)
-            {
-                UIMessageBox.ShowError($"添加失败：{ex.Message}");
-            }
+            //try
+            //{
+            //    await _songService.ImportSongsAsync(newSong);
+            //    UIMessageBox.Show("歌曲添加成功！");
+            //    InitSongList(); // 刷新列表
+            //}
+            //catch (Exception ex)
+            //{
+            //    UIMessageBox.ShowError($"添加失败：{ex.Message}");
+            //}
         }
 
         // 文件选择事件
@@ -97,7 +97,7 @@ namespace Byte_Harmonic.Forms
             {
                 if (UIMessageBox.ShowAsk("确认删除该歌曲？"))
                 {
-                    await _songService.DeleteSongAsync(song.Id);
+                    //await _songService.DeleteSongAsync(song.Id);
                     InitSongList();
                 }
             }

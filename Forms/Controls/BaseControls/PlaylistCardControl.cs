@@ -14,7 +14,8 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
         private string imageText;
         private Label titleLabel;
 
-        public event Action<string> PlaylistClicked;
+        public event Func<string, Task> PlaylistClicked;
+
 
         public string CoverImageText
         {
@@ -53,9 +54,9 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
                 Cursor = Cursors.Hand
             };
 
-            imageButton.Click += (s, e) =>
+            imageButton.Click += async (s, e) =>
             {
-                PlaylistClicked?.Invoke(PlaylistName);
+                await PlaylistClicked?.Invoke(PlaylistName);
             };
 
             titleLabel = new Label
