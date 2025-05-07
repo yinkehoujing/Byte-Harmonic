@@ -18,7 +18,7 @@ namespace Byte_Harmonic.Database
 
         public SonglistRepository()
         {
-            _connectionString = ConfigManager.GetConnectionString("DefaultConnection");
+            _connectionString = "server=localhost;user=root;database=Byte_Harmonic;port=3306;password=Sunflower";
         }
 
         public SonglistRepository(string connectionString)

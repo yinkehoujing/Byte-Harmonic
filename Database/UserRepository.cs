@@ -11,12 +11,12 @@ namespace Byte_Harmonic.Database
     public class UserRepository
     {
         private readonly string _connectionString =
-            "server=localhost;user=root;database=Byte_Harmonic;port=3306;password=595129854";
+            "server=localhost;user=root;database=Byte_Harmonic;port=3306;password=Sunflower";
 
         // 无参构造：从 ConfigManager 里拿连接串
         public UserRepository()
         {
-            _connectionString = ConfigManager.GetConnectionString("DefaultConnection");
+            _connectionString = "server=localhost;user=root;database=Byte_Harmonic;port=3306;password=Sunflower";
         }
 
         // 保留一个注入构造，方便测试
