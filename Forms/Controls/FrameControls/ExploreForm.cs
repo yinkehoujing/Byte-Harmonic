@@ -25,6 +25,9 @@ namespace Byte_Harmonic.Forms
             InitializeSongsList();//初始化菜单三个按钮
             LoadMusicExplorerControl(); // 装入初始探索页面
 
+            uiLabel3.EnableAutoScroll();//支持文字过长时滚动
+            uiLabel4.EnableAutoScroll();
+
             // 使用 AppContext 注册事件
             AppContext.LyricsUpdated += OnLyricsUpdated;
             AppContext.updateSongUI += OnUpdateSongUI;
