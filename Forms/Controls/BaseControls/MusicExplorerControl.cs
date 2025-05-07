@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Byte_Harmonic.Services;
 
 namespace Byte_Harmonic.Forms.Controls.BaseControls
 {
@@ -53,11 +54,14 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
                 FlowDirection = FlowDirection.LeftToRight
             };
 
-            var card1 = new PlaylistCardControl { PlaylistName = "流行精选" };
-            var card2 = new PlaylistCardControl { PlaylistName = "华语金曲" };
-            var card3 = new PlaylistCardControl { PlaylistName = "摇滚年代" };
-            var card4 = new PlaylistCardControl { PlaylistName = "古风系列" };
-            var card5 = new PlaylistCardControl { PlaylistName = "本周最热" };
+            var card1 = new PlaylistCardControl { PlaylistName = "流行精选" , CoverImageText = "1 (1)" };
+            var card2 = new PlaylistCardControl { PlaylistName = "华语金曲", CoverImageText = "1 (1)" };
+            var card3 = new PlaylistCardControl { PlaylistName = "摇滚年代" , CoverImageText = "1 (1)" };
+            var card4 = new PlaylistCardControl { PlaylistName = "古风系列" , CoverImageText = "1 (1)" };
+            var card5 = new PlaylistCardControl { PlaylistName = "本周最热" , CoverImageText = "1 (1)" };
+
+            card1.PlaylistClicked += LoadSonglistDetails;
+
 
 
             if (playlistPanel != null)
@@ -103,6 +107,11 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             this.Controls.Add(playlistPanel);
             this.Controls.Add(topHeader);
             this.Controls.Add(greetingPanel);
+        }
+
+        private void LoadSonglistDetails(string songlistName)
+        {
+
         }
 
         private void GreetingClick(object? sender, EventArgs e)
