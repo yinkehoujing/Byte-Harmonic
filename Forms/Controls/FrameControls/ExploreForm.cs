@@ -670,6 +670,7 @@ namespace Byte_Harmonic.Forms
                 flowLayoutPanel1.Controls.Add(control);
             }
         }
+
         //
         // 装入 MusicExplorerControl
         //
@@ -678,7 +679,10 @@ namespace Byte_Harmonic.Forms
             Control control = new MusicExplorerControl();
             panel2.Controls.Add(control);
         }
-
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            LoadMusicExplorerControl();
+        }
         //
         //搜索栏
         //
@@ -754,12 +758,6 @@ namespace Byte_Harmonic.Forms
         };
         }
 
-        //
-        //装入探索页
-        //
-        private void pictureBox3_Click(object sender, EventArgs e)
-        {
-            LoadMusicExplorerControl();
-        }
+        
     }
 }
