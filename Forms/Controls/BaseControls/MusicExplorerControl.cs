@@ -118,6 +118,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
 
         private async Task LoadSonglistDetails(string songlistName)
         {
+            Console.WriteLine("LoadSonglistDetails");
             AppContext.currentViewingSonglist = await songlistservice.GetSonglistByName(songlistName);
 
             AppContext.TriggerSonglistLoaded(); // 仍然可以是同步的
