@@ -20,7 +20,11 @@ namespace Byte_Harmonic.Forms
         public static PlaybackService _playbackService = new PlaybackService();
         public static SongRepository _songRepository = new SongRepository();
         public static UserRepository userRepository = new UserRepository();
+
+        // 登录后获得以下信息
+        public static SonglistRepository songlistRepository = new SonglistRepository();
         public static UserService userService = new UserService(userRepository);
+        public static SonglistService songlistService = new SonglistService(songlistRepository, userService);
         public static User currentUser = null;
         public static Songlist currentViewingSonglist = null;
 

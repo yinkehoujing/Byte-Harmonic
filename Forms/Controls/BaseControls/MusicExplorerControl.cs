@@ -15,13 +15,9 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
 {
     public partial class MusicExplorerControl : UserControl
     {
-        SonglistService songlistservice;
         public MusicExplorerControl()
         {
             var songlistRepo = new SonglistRepository();
-            var userRepo = new UserRepository();
-            var userService = new UserService(userRepo);
-            songlistservice = new SonglistService(songlistRepo, userService);
             InitializeComponent();
             SetupLayout();
         }
@@ -118,12 +114,19 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
 
         private async Task LoadSonglistDetails(string songlistName)
         {
-            Console.WriteLine("LoadSonglistDetails");
 
             // 主动捕获异常
             try
             {
-                AppContext.currentViewingSonglist = await songlistservice.GetSonglistByName(songlistName);
+                //AppContext.currentViewingSonglist = await songlistservice.GetSonglistByName(songlistName);
+                Console.WriteLine($"{AppContext.userService.GetCurrentUser()} 's things");
+                if(AppContext.songlistService == null)
+                {
+                    Console.WriteLine("nanbeng");
+                    throw new ArgumentNullException(nameof (AppContext.songlistService));
+                }
+                AppContext.currentViewingSonglist = await AppContext.songlistService.GetSonglistByName(songlistName);
+
                 Console.WriteLine("Songlist loaded successfully");
 
                 AppContext.TriggerSonglistLoaded(); // 确认是否能执行到这里

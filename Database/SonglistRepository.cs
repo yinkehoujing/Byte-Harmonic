@@ -340,14 +340,15 @@ namespace Byte_Harmonic.Database
 
             const string sql = @"
                 SELECT * 
-                FROM Songlists
+                FROM Playlists 
                 WHERE Name = @Name
-                AND OwnerAccount = @OwnerAccount;
+                AND Owner = @Owner;
             ";
 
-            var songlist = await conn.QuerySingleOrDefaultAsync<Songlist>(sql, new { Name = name, OwnerAccount = ownerAccount });
+            var songlist = await conn.QuerySingleOrDefaultAsync<Songlist>(sql, new { Name = name, Owner = ownerAccount });
 
             return songlist; // 如果找不到匹配项，返回 null
+
         }
 
         #endregion

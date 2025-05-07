@@ -88,8 +88,16 @@ namespace Byte_Harmonic.Forms.MainForms
                     uiLabel3.Text = "登录失败了: " + ex.Message;
                 }
                 AppContext.userService = _userService;
+                AppContext.songlistService = new SonglistService(AppContext.songlistRepository, AppContext.userService);
 
                 AppContext.currentUser = _userService.GetCurrentUser();
+
+                if(AppContext.currentUser == null)
+                {
+                    throw new ArgumentNullException(nameof (AppContext.currentUser));
+                }
+
+                Console.WriteLine($"currentUser is {AppContext.currentUser.Account}");
             }
             else
             {

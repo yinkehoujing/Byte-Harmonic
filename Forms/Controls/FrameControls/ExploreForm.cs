@@ -42,7 +42,7 @@ namespace Byte_Harmonic.Forms
             AppContext.LyricsUpdated += OnLyricsUpdated;
             AppContext.updateSongUI += OnUpdateSongUI;
             AppContext.ShowPlayingBtn += OnShowPlayingBtn;
-           // AppContext.SonglistLoaded += LoadSonglistToPanel;
+            AppContext.SonglistLoaded += LoadSonglistToPanel;
             var songlist = AppContext._songRepository.GetAllSongs();
 
             if (songlist.Count <= 0)
