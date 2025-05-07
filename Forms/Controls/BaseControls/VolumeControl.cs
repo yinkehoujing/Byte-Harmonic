@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Byte_Harmonic.Forms.FormUtils;
-using static MaterialSkin.Controls.MaterialSlider;
 
 namespace Byte_Harmonic.Forms.Controls.BaseControls
 {

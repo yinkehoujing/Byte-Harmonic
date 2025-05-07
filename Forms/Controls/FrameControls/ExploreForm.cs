@@ -6,7 +6,6 @@ using Byte_Harmonic.Models;
 using Byte_Harmonic.Properties;
 using Byte_Harmonic.Services;
 using Google.Protobuf.WellKnownTypes;
-using MaterialSkin.Controls;
 using NAudio.Gui;
 using Org.BouncyCastle.Utilities;
 using Services;
@@ -18,11 +17,20 @@ namespace Byte_Harmonic.Forms
 {
     public partial class ExploreForm : UserControl
     {
+        private ResourceManager resourceManager;
+        private StarControl starControl;
         public ExploreForm()
         {
+            
             InitializeComponent();
             InitializeMenu();//初始化菜单三个按钮
             InitializeSongsList();//初始化菜单三个按钮
+
+            resourceManager = new ResourceManager("Byte_Harmonic.Properties.Resources", typeof(Resources).Assembly);//获取全局资源
+            starControl = new StarControl(uiImageButton8, resourceManager);
+            starControl.InitStarButton(false);//初始化收藏按钮//TODO传入是否被收藏
+            uiImageButton8.Click += starControl.StarButtonClick;
+
             LoadMusicExplorerControl(); // 装入初始探索页面
 
             uiLabel3.EnableAutoScroll();//支持文字过长时滚动
@@ -82,8 +90,6 @@ namespace Byte_Harmonic.Forms
 
         private void OnShowPlayingBtn(bool isPaused)
         {
-            ResourceManager resourceManager = new ResourceManager("Byte_Harmonic.Properties.Resources", typeof(Resources).Assembly);//获取全局资源
-
             if (isPaused)
             {
                 uiImageButton5.Image = ((Image)(resourceManager.GetObject("icons8-pause-96")));
@@ -277,7 +283,7 @@ namespace Byte_Harmonic.Forms
         private void Back_Click_1(object sender, EventArgs e)
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExploreForm));//获取该控件资源
-            ResourceManager resourceManager = new ResourceManager("Byte_Harmonic.Properties.Resources", typeof(Resources).Assembly);//获取全局资源
+           
 
             if (isFirstForm)
             {
@@ -439,7 +445,7 @@ namespace Byte_Harmonic.Forms
 
                 //调整添加歌单按钮
                 uiImageButton18.Size = new Size(25, 25);
-                uiImageButton18.Location = new Point(135,276);
+                uiImageButton18.Location = new Point(135, 276);
 
                 //调整歌单label
                 uiLabel5.Visible = true;
@@ -453,7 +459,7 @@ namespace Byte_Harmonic.Forms
 
         }
 
-        
+
 
 
         // 事件定义, 通知 MusicForm 执行实际逻辑
@@ -652,7 +658,7 @@ namespace Byte_Harmonic.Forms
         {
 
             List<string> dataList;
-            dataList = ["1", "2", "3", "4", "5","6","7"];
+            dataList = ["1", "2", "3", "4", "5", "6", "7"];
 
             foreach (string item in dataList)
             {
@@ -663,7 +669,7 @@ namespace Byte_Harmonic.Forms
                 // 添加到父容器
                 flowLayoutPanel1.Controls.Add(control);
             }
-        }   
+        }
         //
         // 装入 MusicExplorerControl
         //
@@ -673,5 +679,6 @@ namespace Byte_Harmonic.Forms
             panel2.Controls.Add(control);
         }
 
+       
     }
 }

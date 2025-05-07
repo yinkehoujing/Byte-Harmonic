@@ -74,7 +74,7 @@ namespace Byte_Harmonic.Forms
                 uiImageButton5.Image = ((Image)(resourceManager.GetObject("icons8-pause-96")));
                 uiImageButton5.ImageHover = ((Image)(resourceManager.GetObject("icons8-pause-96 (1)")));
                 pictureBox1.Image = ((Image)(resourceManager.GetObject("ezgif-6754076f369bb2")));
-                
+
             }
             else
             {
@@ -364,6 +364,51 @@ namespace Byte_Harmonic.Forms
 
         }
 
+        //
+        //UI:倍速控制
+        //
+        private SpeedControl speedControl = null;
+        private void uiImageButton17_Click(object sender, EventArgs e)
+        {
+            if (speedControl == null)
+            {
+                speedControl = new SpeedControl(uiImageButton17.Location, AppContext._playbackService.GetPlaybackSpeed());
+                this.Controls.Add(speedControl);
+                speedControl.BringToFront();
+            }
+            else
+            {
+                using (speedControl) // 自动释放
+                {
+                    this.Controls.Remove(speedControl);
+                }
+                speedControl = null;
+            }
+
+        }
+
+        //
+        //UI:更多
+        //
+        private MoreControl moreControl = null;
+        private void uiImageButton13_Click(object sender, EventArgs e)
+        {
+            if (moreControl == null)
+            {
+                moreControl = new MoreControl(uiImageButton13.Location);
+                this.Controls.Add(moreControl);
+                moreControl.BringToFront();
+            }
+            else
+            {
+                using (moreControl) // 自动释放
+                {
+                    this.Controls.Remove(moreControl);
+                }
+                moreControl = null;
+            }
+        }
+
         private void uiImageButton2_Click(object sender, EventArgs e)
         {
             if (secondForm != null && !secondForm.IsDisposed)
@@ -377,6 +422,7 @@ namespace Byte_Harmonic.Forms
                 secondForm.Show();
             }
         }
+
     }
 
 }

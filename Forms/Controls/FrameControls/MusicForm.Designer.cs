@@ -108,6 +108,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton13.TabStop = false;
             uiImageButton13.Text = null;
             uiImageButton13.ZoomScaleDisabled = true;
+            uiImageButton13.Click += uiImageButton13_Click;
             // 
             // uiImageButton11
             // 
@@ -243,7 +244,6 @@ namespace Byte_Harmonic.Forms
             uiLabel3.Name = "uiLabel3";
             uiLabel3.Size = new Size(300, 24);
             uiLabel3.TabIndex = 31;
-            uiLabel3.Text = "123456489794651621564894848948494948989843135";
             uiLabel3.TextAlign = ContentAlignment.BottomCenter;
             uiLabel3.Click += uiLabel3_Click;
             // 
@@ -393,6 +393,8 @@ namespace Byte_Harmonic.Forms
             uiImageButton17.TabStop = false;
             uiImageButton17.Text = null;
             uiImageButton17.ZoomScaleDisabled = true;
+            uiImageButton17.Click += uiImageButton17_Click;
+
             // 
             // uiImageButton2
             // 

@@ -51,15 +51,13 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             uiTrackBar1.Size = new Size(40, 120);
             uiTrackBar1.TabIndex = 1;
             uiTrackBar1.Text = "uiTrackBar1";
-            uiTrackBar1.Value = 25; 
-            uiTrackBar1.Maximum = 100;
-            uiTrackBar1.Minimum = 0;
+            uiTrackBar1.Value = 25;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("黑体", 10.5F, FontStyle.Bold, GraphicsUnit.Point, 134);
-            label1.Location = new Point(40, 11);
+            label1.Location = new Point(40, 15);
             label1.Name = "label1";
             label1.Size = new Size(31, 14);
             label1.TabIndex = 2;
@@ -69,7 +67,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             // 
             label2.AutoSize = true;
             label2.Font = new Font("黑体", 10.5F, FontStyle.Bold, GraphicsUnit.Point, 134);
-            label2.Location = new Point(40, 42);
+            label2.Location = new Point(40, 49);
             label2.Name = "label2";
             label2.Size = new Size(39, 14);
             label2.TabIndex = 3;
@@ -79,7 +77,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             // 
             label3.AutoSize = true;
             label3.Font = new Font("黑体", 10.5F, FontStyle.Bold, GraphicsUnit.Point, 134);
-            label3.Location = new Point(40, 75);
+            label3.Location = new Point(40, 83);
             label3.Name = "label3";
             label3.Size = new Size(31, 14);
             label3.TabIndex = 4;
@@ -89,7 +87,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             // 
             label4.AutoSize = true;
             label4.Font = new Font("黑体", 10.5F, FontStyle.Bold, GraphicsUnit.Point, 134);
-            label4.Location = new Point(40, 108);
+            label4.Location = new Point(40, 112);
             label4.Name = "label4";
             label4.Size = new Size(39, 14);
             label4.TabIndex = 5;
