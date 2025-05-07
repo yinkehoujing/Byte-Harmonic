@@ -12,6 +12,9 @@ using Services;
 using Sunny.UI;
 using System.Resources;
 using System.Windows.Forms;
+using Byte_Harmonic.Forms.Controls.BaseControls;
+using Byte_Harmonic.Forms.Controls.FrameControls;
+using Byte_Harmonic.Forms.Controls.FrameControls.MainPanel;
 
 namespace Byte_Harmonic.Forms
 {
@@ -23,7 +26,7 @@ namespace Byte_Harmonic.Forms
         {
             InitializeComponent();
             InitializeMenu();//初始化菜单三个按钮
-            InitializeSongsList();//初始化菜单三个按钮
+            InitializeSongsList();//初始化侧边歌单
             InitializeSearchBox();//初始化搜索框
             resourceManager = new ResourceManager("Byte_Harmonic.Properties.Resources", typeof(Resources).Assembly);//获取全局资源
             starControl = new StarControl(uiImageButton8);
@@ -31,7 +34,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton8.Click += starControl.StarButtonClick;
 
             LoadMusicExplorerControl(); // 装入初始探索页面
-
+            LoadPage(page: new SongsList());
             uiLabel3.EnableAutoScroll();//支持文字过长时滚动
             uiLabel4.EnableAutoScroll();
 
@@ -84,6 +87,12 @@ namespace Byte_Harmonic.Forms
             };
         }
 
+        public void LoadPage(UserControl page)
+        {
+            panel2.Controls.Clear();    // 清空之前的页面
+            page.Dock = DockStyle.Fill;        // 填满容器
+            panel2.Controls.Add(page);   // 添加新页面
+        }
 
         private void OnShowPlayingBtn(bool isPaused)
         {
@@ -681,9 +690,9 @@ namespace Byte_Harmonic.Forms
         //
         private void LoadMusicExplorerControl()
         {
-            Control control = new MusicExplorerControl();
-            panel2.Controls.Add(control);
+            LoadPage(page:new MusicExplorerControl());
         }
+
         private void pictureBox3_Click(object sender, EventArgs e)
         {
             LoadMusicExplorerControl();
@@ -704,6 +713,7 @@ namespace Byte_Harmonic.Forms
             searchBox.SearchTriggered += OnSearchTriggered;
             searchBox.GetSuggestions += GetSearchSuggestions;
             searchBox.GetHistoryTags += GetSearchHistory;
+            searchBox.HistoryChanged += ChangeHistory;
         }
 
         private void OnSearchTriggered(string searchText)
@@ -763,6 +773,9 @@ namespace Byte_Harmonic.Forms
         };
         }
 
-        
+        private void ChangeHistory(List<string> list)
+        {
+
+        }
     }
 }
