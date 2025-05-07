@@ -6,6 +6,7 @@ using MySql.Data.MySqlClient; // 根据实际数据库类型调整
 using Dapper;
 using System.Data.SqlClient;
 using Byte_Harmonic.Utils;
+using System.Data.Common;
 
 namespace Byte_Harmonic.Database
 {
@@ -315,13 +316,21 @@ namespace Byte_Harmonic.Database
         }
 
         // 根据歌单名和所有者获取歌单
-        public Songlist GetSonglistByNameAndOwner(string name, string ownerAccount)
+        public async Task<Songlist> GetSonglistByNameAndOwner(string name, string ownerAccount)
         {
-            return _dbContext.Songlists
-                .Include(s => s.Songs) 
-                .FirstOrDefault(s =>
-                    s.Name == name &&
-                    s.Owner == ownerAccount);
+            using var conn = new MySqlConnection(_connectionString);
+            await conn.OpenAsync();
+
+            const string sql = @"
+                SELECT * 
+                FROM Songlists
+                WHERE Name = @Name
+                AND OwnerAccount = @OwnerAccount;
+            ";
+
+            var songlist = await conn.QuerySingleOrDefaultAsync<Songlist>(sql, new { Name = name, OwnerAccount = ownerAccount });
+
+            return songlist; // 如果找不到匹配项，返回 null
         }
 
         #endregion
