@@ -271,8 +271,6 @@ namespace Byte_Harmonic.Services
 
             return _repository.GetSonglistByNameAndOwner(name, currentUser.Account);
         }
-
-        //ts
         #endregion
     }
 }
