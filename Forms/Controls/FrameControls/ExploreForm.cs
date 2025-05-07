@@ -39,6 +39,7 @@ namespace Byte_Harmonic.Forms
             AppContext.LyricsUpdated += OnLyricsUpdated;
             AppContext.updateSongUI += OnUpdateSongUI;
             AppContext.ShowPlayingBtn += OnShowPlayingBtn;
+            AppContext.SonglistLoaded += LoadSonglistToPanel;
             var songlist = AppContext._songRepository.GetAllSongs();
 
             if (songlist.Count <= 0)
@@ -84,6 +85,11 @@ namespace Byte_Harmonic.Forms
             };
         }
 
+        private void LoadSonglistToPanel()
+        {
+            panel2.Controls.Clear();
+            panel2.Controls.Add(new Controls.FrameControls.MainPanel.PlayList());
+        }
 
         private void OnShowPlayingBtn(bool isPaused)
         {

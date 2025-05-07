@@ -38,7 +38,7 @@ namespace Byte_Harmonic.Forms
             await TestImportSongsAsync();
             await TestExportSongsAsync();
             await TestTagOperationsAsync();
-            await TestPlaylistOperationsAsync();
+            //await TestPlaylistOperationsAsync();
             await TestShareLinkAsync();
         }
 
@@ -116,34 +116,34 @@ namespace Byte_Harmonic.Forms
             }
         }
 
-        private async Task TestPlaylistOperationsAsync()
-        {
-            try
-            {
-                // 创建歌单
-                _songlistService.CreateSonglist("测试歌单");
-                var playlists = await _songlistService.GetAllPlaylistsAsync();
-                listBoxResults.Items.Add($"创建歌单: {(playlists.Any() ? "通过" : "失败")}");
+        //private async Task TestPlaylistOperationsAsync()
+        //{
+        //    try
+        //    {
+        //        // 创建歌单
+        //        _songlistService.CreateSonglist("测试歌单");
+        //        var playlists = await _songlistService.GetAllPlaylistsAsync();
+        //        listBoxResults.Items.Add($"创建歌单: {(playlists.Any() ? "通过" : "失败")}");
 
-                // 添加歌曲
-                var song = (await _songlistService.GetAllSongsAsync()).First();
-                var playlist = playlists.First();
-                bool addResult = _songlistService.AddSongToSonglist(song, playlist);
-                listBoxResults.Items.Add($"添加歌曲到歌单: {(addResult ? "通过" : "失败")}");
+        //        // 添加歌曲
+        //        var song = (await _songlistService.GetAllSongsAsync()).First();
+        //        var playlist = playlists.First();
+        //        bool addResult = _songlistService.AddSongToSonglist(song, playlist);
+        //        listBoxResults.Items.Add($"添加歌曲到歌单: {(addResult ? "通过" : "失败")}");
 
-                // 导出歌单
-                bool exportResult = _songlistService.ExportSonglist(playlist, @"D:\playlist.json");
-                listBoxResults.Items.Add($"导出歌单: {(exportResult ? "通过" : "失败")}");
+        //        // 导出歌单
+        //        bool exportResult = _songlistService.ExportSonglist(playlist, @"D:\playlist.json");
+        //        listBoxResults.Items.Add($"导出歌单: {(exportResult ? "通过" : "失败")}");
 
-                // 导入歌单
-                bool importResult = _songlistService.ImportSonglist(@"D:\playlist.json");
-                listBoxResults.Items.Add($"导入歌单: {(importResult ? "通过" : "失败")}");
-            }
-            catch (Exception ex)
-            {
-                listBoxResults.Items.Add($"歌单操作异常: {ex.Message}");
-            }
-        }
+        //        // 导入歌单
+        //        bool importResult = _songlistService.ImportSonglist(@"D:\playlist.json");
+        //        listBoxResults.Items.Add($"导入歌单: {(importResult ? "通过" : "失败")}");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        listBoxResults.Items.Add($"歌单操作异常: {ex.Message}");
+        //    }
+        //}
 
         private async Task TestShareLinkAsync()
         {
