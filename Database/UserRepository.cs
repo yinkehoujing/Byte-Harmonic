@@ -5,7 +5,6 @@ using Byte_Harmonic.Models;
 using Byte_Harmonic.Utils;
 
 
-
 //新操作
 namespace Byte_Harmonic.Database
 {
@@ -13,6 +12,20 @@ namespace Byte_Harmonic.Database
     {
         private readonly string _connectionString =
             "server=localhost;user=root;database=Byte_Harmonic;port=3306;password=595129854";
+
+        // 无参构造：从 ConfigManager 里拿连接串
+        public UserRepository()
+        {
+            _connectionString = ConfigManager.GetConnectionString("DefaultConnection");
+        }
+
+        // 保留一个注入构造，方便测试
+        public UserRepository(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
+
+
         #region 用户系统
         // 添加用户（返回是否成功）
         public async Task<bool> AddUserAsync(User user)
