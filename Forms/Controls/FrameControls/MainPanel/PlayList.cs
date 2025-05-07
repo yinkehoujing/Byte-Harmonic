@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Byte_Harmonic.Forms.Controls.FrameControls
+namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
 {
-    public partial class TestExplore: UserControl
+    public partial class PlayList: UserControl
     {
-        public TestExplore()
+        public PlayList()
         {
             InitializeComponent();
         }

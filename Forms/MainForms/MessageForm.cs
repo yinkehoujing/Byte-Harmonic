@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Byte_Harmonic.Forms.Controls.FrameControls
+namespace Byte_Harmonic.Forms.MainForms
 {
-    public partial class TestEx2: Form
+    public partial class MessageForm: Form
     {
-        public TestEx2()
+        public MessageForm()
         {
             InitializeComponent();
         }

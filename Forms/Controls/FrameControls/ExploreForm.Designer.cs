@@ -62,6 +62,7 @@ namespace Byte_Harmonic.Forms
             uiLabel5 = new Sunny.UI.UILabel();
             flowLayoutPanel1 = new FlowLayoutPanel();
             mySqlDataAdapter1 = new MySql.Data.MySqlClient.MySqlDataAdapter();
+            pictureBox3 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)uiImageButton1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)Back).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -83,6 +84,7 @@ namespace Byte_Harmonic.Forms
             ((System.ComponentModel.ISupportInitialize)uiImageButton16).BeginInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton17).BeginInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton18).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             SuspendLayout();
             // 
             // uiImageButton1
@@ -534,10 +536,23 @@ namespace Byte_Harmonic.Forms
             mySqlDataAdapter1.SelectCommand = null;
             mySqlDataAdapter1.UpdateCommand = null;
             // 
+            // pictureBox3
+            // 
+            pictureBox3.Cursor = Cursors.Hand;
+            pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
+            pictureBox3.Location = new Point(16, 29);
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.Size = new Size(44, 44);
+            pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox3.TabIndex = 35;
+            pictureBox3.TabStop = false;
+            pictureBox3.Click += pictureBox3_Click;
+            // 
             // ExploreForm
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.FromArgb(250, 250, 250);
+            Controls.Add(pictureBox3);
             Controls.Add(flowLayoutPanel1);
             Controls.Add(uiLabel5);
             Controls.Add(uiImageButton18);
@@ -591,6 +606,7 @@ namespace Byte_Harmonic.Forms
             ((System.ComponentModel.ISupportInitialize)uiImageButton16).EndInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton17).EndInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton18).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ResumeLayout(false);
         }
 
@@ -626,5 +642,6 @@ namespace Byte_Harmonic.Forms
         private Sunny.UI.UILabel uiLabel5;
         private FlowLayoutPanel flowLayoutPanel1;
         private MySql.Data.MySqlClient.MySqlDataAdapter mySqlDataAdapter1;
+        private PictureBox pictureBox3;
     }
 }

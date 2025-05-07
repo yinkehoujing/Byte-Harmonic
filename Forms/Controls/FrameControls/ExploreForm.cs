@@ -280,7 +280,7 @@ namespace Byte_Harmonic.Forms
         private void Back_Click_1(object sender, EventArgs e)
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExploreForm));//获取该控件资源
-           
+
 
             if (isFirstForm)
             {
@@ -653,14 +653,17 @@ namespace Byte_Harmonic.Forms
         //
         private void InitializeSongsList()
         {
-
+            //TODO:调用后端获取歌单
             List<string> dataList;
             dataList = ["1", "2", "3", "4", "5", "6", "7"];
 
             foreach (string item in dataList)
             {
                 // 创建控件
-                Control control = new BHButton("20180317200156_qpcds", "20180317200156_qpcds", item);
+                Random random = new Random();
+                int randomNumber = random.Next(1, 11);
+                string num = randomNumber.ToString();
+                Control control = new BHButton("1 (" + num + ")", "1 (" + num + ")", item);
                 control.Tag = item; // 将数据对象存储在Tag中
                 control.Width = 155;
                 // 添加到父容器
@@ -749,6 +752,14 @@ namespace Byte_Harmonic.Forms
             "周杰伦 晴天",
             "杰伦 夜曲",
         };
+        }
+
+        //
+        //装入探索页
+        //
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            LoadMusicExplorerControl();
         }
     }
 }
