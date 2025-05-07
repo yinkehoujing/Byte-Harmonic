@@ -23,7 +23,7 @@ namespace Byte_Harmonic.Forms.MainForms
         private readonly UserService _userService;
         private readonly SearchService _searchService;
         private readonly string _connectionString =
-            "server=localhost;user=root;database=Byte_Harmonic;port=3306;password=595129854";
+            "server=localhost;user=root;database=Byte_Harmonic;port=3306;password=";
         public LoginForm()
         {
             
