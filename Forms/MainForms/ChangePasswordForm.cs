@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Byte_Harmonic.Forms
+namespace Byte_Harmonic.Forms.MainForms
 {
-    public partial class UnfoldMenu: UserControl
+    public partial class ChangePasswordForm: Form
     {
-        public UnfoldMenu()
+        public ChangePasswordForm()
         {
             InitializeComponent();
         }

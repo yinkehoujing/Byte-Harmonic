@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Byte_Harmonic.Forms.Controls.FrameControls
+namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
 {
-    public partial class TestEx2: Form
+    public partial class User: UserControl
     {
-        public TestEx2()
+        public User()
         {
             InitializeComponent();
         }

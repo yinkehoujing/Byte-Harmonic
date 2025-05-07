@@ -1,6 +1,6 @@
-﻿namespace Byte_Harmonic.Forms
+﻿namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
 {
-    partial class UnfoldMenu
+    partial class SongList
     {
         /// <summary> 
         /// 必需的设计器变量。

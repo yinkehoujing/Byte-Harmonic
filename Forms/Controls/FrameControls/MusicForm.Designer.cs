@@ -324,7 +324,7 @@ namespace Byte_Harmonic.Forms
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Image = Properties.Resources.diskpng;
             pictureBox1.Location = new Point(91, 122);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(256, 256);
@@ -394,7 +394,6 @@ namespace Byte_Harmonic.Forms
             uiImageButton17.Text = null;
             uiImageButton17.ZoomScaleDisabled = true;
             uiImageButton17.Click += uiImageButton17_Click;
-
             // 
             // uiImageButton2
             // 
