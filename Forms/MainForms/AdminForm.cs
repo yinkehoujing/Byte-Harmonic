@@ -21,17 +21,12 @@ namespace Byte_Harmonic.Forms
         {
             InitializeComponent();
 
-            // 1. 读连接字符串
-            var conn = ConfigurationManager
-                       .ConnectionStrings["DefaultConnection"]
-                       .ConnectionString;
+            // 仓储自己去拿连接串
+            var songRepo = new SonglistRepository();
+            var userRepo = new UserRepository();
 
-            // 2. 实例化仓储
-            var songRepo = new SonglistRepository(conn);
-            var userRepo = new UserRepository(conn);          // 用户数据仓储
-            // 3. 实例化用户服务
+            // 组装服务
             var userService = new UserService(userRepo);
-            // 4. 传入两个参数
             _songService = new SonglistService(songRepo, userService);
 
             InitSongList();

@@ -5,6 +5,7 @@ using Byte_Harmonic.Models;
 using MySql.Data.MySqlClient; // 根据实际数据库类型调整
 using Dapper;
 using System.Data.SqlClient;
+using Byte_Harmonic.Utils;
 
 namespace Byte_Harmonic.Database
 {
@@ -14,6 +15,11 @@ namespace Byte_Harmonic.Database
     public class SonglistRepository
     {
         private readonly string _connectionString;
+
+        public SonglistRepository()
+        {
+            _connectionString = ConfigManager.GetConnectionString("DefaultConnection");
+        }
 
         public SonglistRepository(string connectionString)
         {
