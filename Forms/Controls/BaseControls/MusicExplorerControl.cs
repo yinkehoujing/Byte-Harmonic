@@ -111,9 +111,9 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             this.Controls.Add(greetingPanel);
         }
 
-        private async Task LoadSonglistDetails(string songlistName)
+        private void LoadSonglistDetails(string songlistName)
         {
-            AppContext.currentViewingSonglist = await songlistservice.GetSonglistByName(songlistName);
+            AppContext.currentViewingSonglist = songlistservice.GetSonglistByName(songlistName);
 
             // 触发 panel2 的更新
 

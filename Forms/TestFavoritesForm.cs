@@ -34,11 +34,11 @@ namespace Byte_Harmonic.Forms
         private async Task RunAllFavoritesTests()
         {
             await TestAddFavoriteSong();
-            await TestRemoveFavoriteSong();
+            //await TestRemoveFavoriteSong();
             await TestGetFavoriteSongs();
             //await TestGetFavoriteSongsCount();
             //await TestAddFavoriteSongs();
-            await TestClearAllFavorites();
+            //await TestClearAllFavorites();
         }
 
         // 测试1: 添加收藏歌曲

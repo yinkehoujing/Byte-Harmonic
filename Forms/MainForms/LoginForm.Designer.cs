@@ -37,6 +37,7 @@ namespace Byte_Harmonic.Forms.MainForms
             uiLabel1 = new Sunny.UI.UILabel();
             uiLabel2 = new Sunny.UI.UILabel();
             passwordBox = new Sunny.UI.UITextBox();
+            passwordBox.PasswordChar = '*';
             uiImageButton3 = new Sunny.UI.UIImageButton();
             uiCheckBox1 = new Sunny.UI.UICheckBox();
             ExitButton = new Sunny.UI.UIImageButton();
