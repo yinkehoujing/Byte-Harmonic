@@ -23,7 +23,10 @@ namespace Byte_Harmonic.Forms
             AppContext.LyricsUpdated += OnLyricsUpdated;
             AppContext.ShowPlayingBtn += OnShowPlayingBtn;
 
-            AppContext.TriggerShowPlayingBtn(!AppContext._playbackService.IsPaused);
+            if((AppContext._playbackService.GetCurrentSong() != null))
+            {
+                AppContext.TriggerShowPlayingBtn(!AppContext._playbackService.IsPaused);
+            }
 
         }
 
