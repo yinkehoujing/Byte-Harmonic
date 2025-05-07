@@ -103,7 +103,7 @@ namespace Byte_Harmonic.Forms
             {
                 if (UIMessageBox.ShowAsk("确认删除该歌曲？"))
                 {
-                    //await _songService.DeleteSongAsync(song.Id);
+                    await _songService.DeleteSongAsync(song.Id);
                     InitSongList();
                 }
             }
