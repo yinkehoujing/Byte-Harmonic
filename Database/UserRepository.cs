@@ -385,6 +385,49 @@ namespace Byte_Harmonic.Database
 
             return await cmd.ExecuteNonQueryAsync() > 0;
         }
+        //更新搜索记录
+        public async Task<bool> UpdateSearchHistoryAsync(string username, List<string> history)
+        {
+            if (string.IsNullOrWhiteSpace(username) || history == null || history.Count == 0)
+            {
+                throw new ArgumentException("用户名或历史记录无效");
+            }
+
+            using var connection = new MySqlConnection(_connectionString);
+            await connection.OpenAsync();
+            using var transaction = await connection.BeginTransactionAsync();
+
+            try
+            {
+                // 清空当前用户的搜索历史记录
+                const string clearSql = "DELETE FROM SearchHistory WHERE Username = @Username";
+                using var clearCmd = new MySqlCommand(clearSql, connection, transaction);
+                clearCmd.Parameters.AddWithValue("@Username", username);
+                await clearCmd.ExecuteNonQueryAsync();
+
+                // 插入新的搜索历史记录
+                const string insertSql = "INSERT INTO SearchHistory (Username, Keyword, Time) VALUES (@Username, @Keyword, UTC_TIMESTAMP())";
+                using var insertCmd = new MySqlCommand(insertSql, connection, transaction);
+                insertCmd.Parameters.AddWithValue("@Username", username);
+
+                foreach (var keyword in history)
+                {
+                    insertCmd.Parameters.Clear();
+                    insertCmd.Parameters.AddWithValue("@Username", username);
+                    insertCmd.Parameters.AddWithValue("@Keyword", keyword.Trim());
+                    await insertCmd.ExecuteNonQueryAsync();
+                }
+
+                await transaction.CommitAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                await transaction.RollbackAsync();
+                Console.WriteLine($"更新搜索历史失败: {ex.Message}");
+                return false;
+            }
+        }
         #endregion
 
     }

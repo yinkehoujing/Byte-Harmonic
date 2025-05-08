@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Byte_Harmonic.Database;
 using Byte_Harmonic.Models;
 using Byte_Harmonic.Services;
+using AppContext = Byte_Harmonic.Forms.AppContext;
 
 namespace Byte_Harmonic.Services
 {
@@ -13,7 +14,7 @@ namespace Byte_Harmonic.Services
         private readonly SonglistRepository _repository;
         private readonly UserRepository _userRepo;
         private readonly UserService _userService;
-
+      
         public SearchService(SonglistRepository repository, UserRepository userRepo, UserService userService)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
@@ -28,7 +29,7 @@ namespace Byte_Harmonic.Services
                 return new List<Song>();
 
             // 记录搜索历史
-            var currentUser = _userService.GetCurrentUser();
+            var currentUser = AppContext.currentUser;
             if (currentUser != null)
             {
                 await _userRepo.AddSearchHistoryAsync(currentUser.Account, keyword);
@@ -41,26 +42,35 @@ namespace Byte_Harmonic.Services
                 (!string.IsNullOrEmpty(s.Artist) && s.Artist.ToLower().Contains(keyword))
             ).ToList();
         }
-
-        // 按关键字搜索歌单（歌单名）
-       /* public async Task<List<Songlist>> SearchSonglistsAsync(string keyword)
+        //更新搜索记录
+        public async Task<bool> UpdateSearchHistory(string username, List<string> history)
         {
-            if (string.IsNullOrWhiteSpace(keyword))
-                return new List<Songlist>();
-
-            // 记录搜索历史
-            var currentUser = _userService.GetCurrentUser();
-            if (currentUser != null)
+            if (string.IsNullOrWhiteSpace(username) || history == null || history.Count == 0)
             {
-                await _userRepo.AddSearchHistoryAsync(currentUser.Account, keyword);
+                throw new ArgumentException("用户名或历史记录无效");
             }
 
-            var allSonglists = await _repository.GetAllPlaylistsAsync();
-            keyword = keyword.ToLower();
-            return allSonglists.Where(sl =>
-                !string.IsNullOrEmpty(sl.Name) && sl.Name.ToLower().Contains(keyword)
-            ).ToList();
-        }*/
+            return await _userRepo.UpdateSearchHistoryAsync(username, history);
+        }
+        // 按关键字搜索歌单（歌单名）
+        /* public async Task<List<Songlist>> SearchSonglistsAsync(string keyword)
+         {
+             if (string.IsNullOrWhiteSpace(keyword))
+                 return new List<Songlist>();
+
+             // 记录搜索历史
+             var currentUser = _userService.GetCurrentUser();
+             if (currentUser != null)
+             {
+                 await _userRepo.AddSearchHistoryAsync(currentUser.Account, keyword);
+             }
+
+             var allSonglists = await _repository.GetAllPlaylistsAsync();
+             keyword = keyword.ToLower();
+             return allSonglists.Where(sl =>
+                 !string.IsNullOrEmpty(sl.Name) && sl.Name.ToLower().Contains(keyword)
+             ).ToList();
+         }*/
 
         // 按单个标签筛选歌曲
         public async Task<List<Song>> SearchSongsByTagAsync(string tag)
@@ -69,7 +79,7 @@ namespace Byte_Harmonic.Services
                 return new List<Song>();
 
             // 记录搜索历史
-            var currentUser = _userService.GetCurrentUser();
+            var currentUser = AppContext.currentUser;
             if (currentUser != null)
             {
                 await _userRepo.AddSearchHistoryAsync(currentUser.Account, tag);

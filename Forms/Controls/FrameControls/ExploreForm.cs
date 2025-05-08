@@ -15,6 +15,7 @@ using System.Windows.Forms;
 using Byte_Harmonic.Forms.Controls.BaseControls;
 using Byte_Harmonic.Forms.Controls.FrameControls;
 using Byte_Harmonic.Forms.Controls.FrameControls.MainPanel;
+using Org.BouncyCastle.Utilities.Collections;
 
 namespace Byte_Harmonic.Forms
 {
@@ -22,6 +23,7 @@ namespace Byte_Harmonic.Forms
     {
         private ResourceManager resourceManager;
         private StarControl starControl;
+        private SearchService _searchService;
         public ExploreForm()
         {
             InitializeComponent();
@@ -43,6 +45,9 @@ namespace Byte_Harmonic.Forms
             AppContext.updateSongUI += OnUpdateSongUI;
             AppContext.ShowPlayingBtn += OnShowPlayingBtn;
             AppContext.SonglistLoaded += LoadSonglistToPanel;
+            //初始化searchservice
+            _searchService = new SearchService(AppContext.songlistRepository, AppContext.userRepository, AppContext.userService);
+
             AppContext.PlaybackModeChanged += OnPlaybackModeChanged;
             var songlist = AppContext._songRepository.GetAllSongs();
 
@@ -190,7 +195,7 @@ namespace Byte_Harmonic.Forms
         private int cornerRadius = 18;//通用设置圆角
         private Form secondForm;//用于歌词页
 
-
+        #region 暂时封装
         private void MainForm_Load(object sender, EventArgs e)//窗口加载
         {
             _styleHandler.SetPictureBoxRoundCorners(pictureBox2, cornerRadius);//绘制圆角
@@ -738,7 +743,7 @@ namespace Byte_Harmonic.Forms
                 flowLayoutPanel1.Controls.Add(control);
             }
         }
-
+#endregion
         //
         // 装入 MusicExplorerControl
         //
@@ -770,51 +775,101 @@ namespace Byte_Harmonic.Forms
             searchBox.HistoryChanged += ChangeHistory;
         }
 
-        private void OnSearchTriggered(string searchText)
+        private async void OnSearchTriggered(string searchText)
         {
-            // 处理搜索逻辑
+            try
+            {
+                if (string.IsNullOrWhiteSpace(searchText))
+                {
+                    UIMessageBox.Show("请输入搜索内容", "提示", UIStyle.Custom);
+                    return;
+                }
+
+                // 显示加载状态
+                //var loading = new UILoading(this);
+               // loading.Show();
+
+                // 执行搜索
+                var results = await _searchService.SearchSongs(searchText);
+
+                // 关闭加载状态
+                //loading.Hide();
+
+                if (results == null || results.Count == 0)
+                {
+                    UIMessageBox.Show("未找到匹配的歌曲", "提示", UIStyle.Custom);
+                    return;
+                }
+
+                // 创建并加载搜索结果页面
+                //var searchResultsPage = new SearchResultsControl(results);
+               // LoadPage(searchResultsPage);
+            }
+            catch (Exception ex)
+            {
+                UIMessageBox.Show($"搜索出错: {ex.Message}", "错误", UIStyle.Custom);
+            }
+            /*// 处理搜索逻辑
             UIMessageBox.Show($"执行搜索: {searchText}", "搜索", UIStyle.Custom);
 
             // 这里可以添加搜索历史记录
-            // AddToSearchHistory(searchText);
+            // AddToSearchHistory(searchText);*/
         }
 
-        private List<string> GetSearchSuggestions(string input)
+        private async Task<List<string>> GetSearchSuggestions(string input)
         {
-            // 模拟后端获取建议项
-            var allItems = new List<string>
-        {
-            "周杰伦 七里香",
-            "周杰伦 晴天",
-            "周杰伦 夜曲",
-            "周杰伦 七里香",
-            "周杰伦 晴天",
-            "周杰伦 夜曲",
-            "林俊杰 江南",
-            "林俊杰 修炼爱情",
-            "林俊杰 她说",
-            "五月天 倔强",
-            "五月天 突然好想你",
-            "五月天 温柔",
-            "陈奕迅 十年",
-            "陈奕迅 浮夸",
-            "陈奕迅 富士山下",
-            "邓紫棋 光年之外",
-            "邓紫棋 泡沫",
-            "邓紫棋 喜欢你",
-            "薛之谦 演员",
-            "薛之谦 丑八怪",
-            "薛之谦 认真的雪",
-            "张惠妹 听海",
-            "张惠妹 记得"
-        };
+            /*  // 模拟后端获取建议项
+              var allItems = new List<string>
+          {
+              "周杰伦 七里香",
+              "周杰伦 晴天",
+              "周杰伦 夜曲",
+              "周杰伦 七里香",
+              "周杰伦 晴天",
+              "周杰伦 夜曲",
+              "林俊杰 江南",
+              "林俊杰 修炼爱情",
+              "林俊杰 她说",
+              "五月天 倔强",
+              "五月天 突然好想你",
+              "五月天 温柔",
+              "陈奕迅 十年",
+              "陈奕迅 浮夸",
+              "陈奕迅 富士山下",
+              "邓紫棋 光年之外",
+              "邓紫棋 泡沫",
+              "邓紫棋 喜欢你",
+              "薛之谦 演员",
+              "薛之谦 丑八怪",
+              "薛之谦 认真的雪",
+              "张惠妹 听海",
+              "张惠妹 记得"
+          };
 
-            return allItems.FindAll(x => x.Contains(input));
+              return allItems.FindAll(x => x.Contains(input));*/
+            try
+            {
+                if (string.IsNullOrWhiteSpace(input))
+                {
+                    return new List<string>();
+                }
+
+                var songs = await _searchService.SearchSongs(input);
+                return songs
+                    .Select(s => $"{s.Artist} - {s.Title}")
+                    .Distinct()
+                    .Take(10) // 限制建议数量
+                    .ToList();
+            }
+            catch
+            {
+                return new List<string>();
+            }
         }
 
-        private List<string> GetSearchHistory()
+        private async Task<List<string>> GetSearchHistory()
         {
-            // 模拟获取历史记录
+            /*// 模拟获取历史记录
             return new List<string>
         {
             "周杰伦",
@@ -824,12 +879,40 @@ namespace Byte_Harmonic.Forms
             "周杰伦 七里香",
             "周杰伦 晴天",
             "杰伦 夜曲",
-        };
+        };*/
+            try
+            {
+                if (AppContext.currentUser == null)
+                {
+                    return new List<string>();
+                }
+
+                return await AppContext.userRepository.GetSearchHistoryAsync(AppContext.currentUser.Account);
+            }
+
+            catch
+            {
+                return new List<string>();
+            }
+
         }
 
-        private void ChangeHistory(List<string> list)
+        private async void ChangeHistory(List<string> history)
         {
-
+            try
+            {
+                if (AppContext.currentUser != null)
+                {
+                    await _searchService.UpdateSearchHistory(
+                        AppContext.currentUser.Account,
+                        history
+                    );
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"更新搜索历史失败: {ex.Message}");
+            }
         }
 
         private void uiImageButton15_Click(object sender, EventArgs e)

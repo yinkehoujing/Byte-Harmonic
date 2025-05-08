@@ -43,12 +43,14 @@ namespace Byte_Harmonic.Forms.MainForms
             uiImageButton1 = new Sunny.UI.UIImageButton();
             uiImageButton2 = new Sunny.UI.UIImageButton();
             uiLabel3 = new Sunny.UI.UILabel();
+            loadingBox = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)loginButton1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)logoBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)ExitButton).BeginInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)loadingBox).BeginInit();
             SuspendLayout();
             // 
             // loginButton1
@@ -250,6 +252,19 @@ namespace Byte_Harmonic.Forms.MainForms
             uiLabel3.TabIndex = 16;
             uiLabel3.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // loadingBox
+            // 
+            loadingBox.BackColor = Color.Transparent;
+            loadingBox.BackgroundImageLayout = ImageLayout.Stretch;
+            loadingBox.Image = (Image)resources.GetObject("loadingBox.Image");
+            loadingBox.Location = new Point(166, 393);
+            loadingBox.Margin = new Padding(2, 3, 2, 3);
+            loadingBox.Name = "loadingBox";
+            loadingBox.Size = new Size(35, 34);
+            loadingBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            loadingBox.TabIndex = 17;
+            loadingBox.TabStop = false;
+            // 
             // LoginForm
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
@@ -257,6 +272,7 @@ namespace Byte_Harmonic.Forms.MainForms
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(360, 480);
+            Controls.Add(loadingBox);
             Controls.Add(uiLabel3);
             Controls.Add(uiImageButton2);
             Controls.Add(uiImageButton1);
@@ -284,6 +300,7 @@ namespace Byte_Harmonic.Forms.MainForms
             ((System.ComponentModel.ISupportInitialize)ExitButton).EndInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton1).EndInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)loadingBox).EndInit();
             ResumeLayout(false);
         }
 
@@ -300,5 +317,6 @@ namespace Byte_Harmonic.Forms.MainForms
         private Sunny.UI.UIImageButton uiImageButton2;
         private Sunny.UI.UIImageButton uiImageButton3;
         private Sunny.UI.UILabel uiLabel3;
+        private PictureBox loadingBox;
     }
 }
