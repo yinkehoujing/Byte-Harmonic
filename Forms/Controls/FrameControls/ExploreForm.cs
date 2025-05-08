@@ -35,7 +35,6 @@ namespace Byte_Harmonic.Forms
 
             LoadMusicExplorerControl(); // 装入初始探索页面
             //LoadPage(page: new SongsList());
-
             uiLabel3.EnableAutoScroll();//支持文字过长时滚动
             uiLabel4.EnableAutoScroll();
 
@@ -98,6 +97,7 @@ namespace Byte_Harmonic.Forms
             panel2.Controls.Clear();    // 清空之前的页面
             page.Dock = DockStyle.Fill;        // 填满容器
             panel2.Controls.Add(page);   // 添加新页面
+            Console.WriteLine("load a page");
         }
         private void OnShowPlayingBtn(bool isPaused)
         {
@@ -695,7 +695,7 @@ namespace Byte_Harmonic.Forms
         //
         private void LoadMusicExplorerControl()
         {
-            LoadPage(page:new MusicExplorerControl());
+            LoadPage(page: new MusicExplorerControl());
         }
 
         private void pictureBox3_Click(object sender, EventArgs e)
@@ -781,6 +781,16 @@ namespace Byte_Harmonic.Forms
         private void ChangeHistory(List<string> list)
         {
 
+        }
+
+        private void uiImageButton15_Click(object sender, EventArgs e)
+        {
+            LoadPage(page: new Settings());
+        }
+
+        private void uiImageButton16_Click(object sender, EventArgs e)
+        {
+            LoadPage(page: new UserForm());
         }
     }
 }

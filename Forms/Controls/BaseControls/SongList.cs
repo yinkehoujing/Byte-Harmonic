@@ -14,10 +14,12 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
     public partial class SongList : UserControl
     {
         private bool selectAll = false;
-
+        private bool enableBulkOp = false;
         public SongList()
         {
             InitializeComponent();
+            this.Dock = DockStyle.Fill;
+            this.Margin = new Padding(10);
             this.LoadSongs();
         }
 
@@ -51,12 +53,14 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
 
         private void SelectAllButton_Click(object sender, EventArgs e)
         {
+            selectAll = !selectAll;
             if (selectAll)
             {
                 foreach (SongItem item in flowLayoutSongs.Controls)
                 {
                     item.ChooseAction();
                 }
+                
             }
             else
             {
@@ -65,7 +69,6 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
                     item.NotChooseAction();
                 }
             }
-
         }
 
         private void PlayAllButton_Click(object sender, EventArgs e)
@@ -73,10 +76,81 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             //TODO:播放被选中的第一首歌，item.Selected表示被选中
             foreach (SongItem item in flowLayoutSongs.Controls)
             {
-                if(item.Selected)
+                if (item.Selected)
                 {
-                    //TODO:加入播放队列
+                    //TODO:后端：加入播放队列
                 }
+            }
+        }
+
+        private void StarAllButton_Click(object sender, EventArgs e)
+        {
+            foreach (SongItem item in flowLayoutSongs.Controls)
+            {
+                if (item.Selected)
+                {
+                    //TODO:后端：收藏
+                    //TODO:收藏成功后弹窗
+                }
+            }
+        }
+
+        private void DownloadAllButton_Click(object sender, EventArgs e)
+        {
+            foreach (SongItem item in flowLayoutSongs.Controls)
+            {
+                if (item.Selected)
+                {
+                    //TODO:下载
+                    //TODO:下载成功后弹窗
+                }
+            }
+        }
+
+        private void AddAllButton_Click(object sender, EventArgs e)
+        {
+            //TODO:显示添加到的窗口
+        }
+
+        private void DeleteAllButton_Click(object sender, EventArgs e)
+        {
+            //TODO:后端删除
+            //TODO:显示信息面：删除成功
+            this.LoadSongs();//更新数据
+        }
+
+        private void BulkOperateButton_Click(object sender, EventArgs e)
+        {
+            enableBulkOp = !enableBulkOp;
+            if(enableBulkOp)
+            {
+                SelectAllButton.Visible = true;
+                SelectAllButton.Enabled = true;
+                DeleteAllButton.Visible = true;
+                DeleteAllButton.Enabled = true;
+                AddAllButton.Visible = true;
+                AddAllButton.Enabled = true;
+                DownloadAllButton.Visible = true;
+                DownloadAllButton.Enabled = true;
+                StarAllButton.Visible = true;
+                StarAllButton.Enabled = true;
+                PlayAllButton.Visible = true;
+                PlayAllButton.Enabled = true;
+            }
+            else
+            {
+                SelectAllButton.Visible = false;
+                SelectAllButton.Enabled = false;
+                DeleteAllButton.Visible = false;
+                DeleteAllButton.Enabled = false;
+                AddAllButton.Visible = false;
+                AddAllButton.Enabled = false;
+                DownloadAllButton.Visible = false;
+                DownloadAllButton.Enabled = false;
+                StarAllButton.Visible = false;
+                StarAllButton.Enabled = false;
+                PlayAllButton.Visible = false;
+                PlayAllButton.Enabled = false;
             }
         }
     }

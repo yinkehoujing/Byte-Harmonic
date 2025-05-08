@@ -458,6 +458,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton15.TabStop = false;
             uiImageButton15.Text = null;
             uiImageButton15.ZoomScaleDisabled = true;
+            uiImageButton15.Click += uiImageButton15_Click;
             // 
             // uiImageButton16
             // 
@@ -475,6 +476,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton16.TabStop = false;
             uiImageButton16.Text = null;
             uiImageButton16.ZoomScaleDisabled = true;
+            uiImageButton16.Click += uiImageButton16_Click;
             // 
             // uiImageButton17
             // 
