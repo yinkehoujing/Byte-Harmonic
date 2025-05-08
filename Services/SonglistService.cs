@@ -250,9 +250,17 @@ namespace Byte_Harmonic.Services
         */
 
         //获取所有歌单（异步操作）
-        public Task<List<Songlist>> GetAllPlaylistsAsync() => _repository.GetAllPlaylistsAsync();
+        public async Task<List<Songlist>> GetAllPlaylistsAsync()
+        {
+            var currentUser = _userService.GetCurrentUser();
+            if (currentUser == null)
+                throw new UnauthorizedAccessException("用户未登录");
 
-       
+            // 传递当前用户账号给Repository
+            return await _repository.GetAllPlaylistsAsync(currentUser.Account);
+        }
+
+
         // 检查给定的歌单名是否已存在（防止重复创建）
         public bool CheckIfSonglistExists(string songlistName)
         {
@@ -265,13 +273,12 @@ namespace Byte_Harmonic.Services
         // 根据歌单名获取当前用户的歌单
         public async Task<Songlist> GetSonglistByName(string name)
         {
-            Console.WriteLine("begin function:GetSonglistByName ");
             var currentUser = _userService.GetCurrentUser();
             if (currentUser == null)
                 throw new UnauthorizedAccessException("用户未登录");
 
-            Console.WriteLine("end function:GetSonglistByName ");
-            return  await _repository.GetSonglistByNameAndOwner(name, currentUser.Account);
+            // 传递当前用户账号给Repository
+            return await _repository.GetSonglistByNameAndOwner(name, currentUser.Account);
         }
         #endregion
     }

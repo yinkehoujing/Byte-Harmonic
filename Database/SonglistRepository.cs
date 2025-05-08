@@ -283,20 +283,21 @@ namespace Byte_Harmonic.Database
         }
 
         //获取所有歌单（异步操作）
-        public async Task<List<Songlist>> GetAllPlaylistsAsync()
+        public async Task<List<Songlist>> GetAllPlaylistsAsync(string currentAccount)
         {
             using var conn = new MySqlConnection(_connectionString);
             await conn.OpenAsync();
 
             // 步骤1：获取所有歌单基础信息
             const string baseSql = @"SELECT 
-                          Id,
-                          Name,
-                          Owner,
-                          IsPublic
-                          FROM Playlists";
+                  Id,
+                  Name,
+                  Owner,
+                  FROM Playlists
+                  WHERE Owner = @currentAccount   
+                     OR Owner = 'Admin'"; // 返回当前用户和Admin的歌单
 
-            var playlists = (await conn.QueryAsync<Songlist>(baseSql)).ToList();
+            var playlists = (await conn.QueryAsync<Songlist>(baseSql, new { currentAccount })).ToList();
 
             // 步骤2：为每个歌单填充歌曲列表
             const string songsSql = @"SELECT s.* 
@@ -333,25 +334,28 @@ namespace Byte_Harmonic.Database
         }
 
         // 根据歌单名和所有者获取歌单
-        public async Task<Songlist> GetSonglistByNameAndOwner(string name, string ownerAccount)
+        public async Task<Songlist> GetSonglistByNameAndOwner(string name, string currentAccount)
         {
             using var conn = new MySqlConnection(_connectionString);
             conn.Open();
 
             // 步骤1：获取歌单基本信息
             const string baseSql = @"SELECT 
-            Id,
-            Name,
-            Owner,
-            IsPublic
-            FROM Playlists
-            WHERE Name = @name AND Owner = @ownerAccount";
+                Id,
+                Name,
+                Owner,
+                FROM Playlists
+                WHERE Name = @name 
+                  AND (Owner = @currentAccount OR Owner = 'Admin')
+                ORDER BY Owner = @currentAccount DESC 
+                LIMIT 1";     // 优先返回用户自己的歌单
 
-            var songlist = conn.QueryFirstOrDefault<Songlist>(baseSql, new
+            var songlist = await conn.QueryFirstOrDefaultAsync<Songlist>(baseSql, new
             {
                 name,
-                ownerAccount
+                currentAccount
             });
+
 
             if (songlist == null) return null;
 
