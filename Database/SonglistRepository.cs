@@ -292,8 +292,7 @@ namespace Byte_Harmonic.Database
             const string baseSql = @"SELECT 
                           Id,
                           Name,
-                          Owner,
-                          IsPublic
+                          Owner
                           FROM Playlists";
 
             var playlists = (await conn.QueryAsync<Songlist>(baseSql)).ToList();
@@ -342,8 +341,7 @@ namespace Byte_Harmonic.Database
             const string baseSql = @"SELECT 
             Id,
             Name,
-            Owner,
-            IsPublic
+            Owner
             FROM Playlists
             WHERE Name = @name AND Owner = @ownerAccount";
 
