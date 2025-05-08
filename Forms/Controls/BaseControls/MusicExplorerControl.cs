@@ -11,6 +11,9 @@ using Byte_Harmonic.Services;
 using Byte_Harmonic.Database;
 using NAudio.CoreAudioApi;
 using Byte_Harmonic.Forms.FormUtils;
+using Byte_Harmonic.Properties;
+using Sunny.UI;
+using System.Resources;
 
 namespace Byte_Harmonic.Forms.Controls.BaseControls
 {
@@ -75,8 +78,25 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
                 AutoSize = true,
                 Padding = new Padding(10, 10, 0, 0)
             };
+
+
+            var resourceManager = new ResourceManager("Byte_Harmonic.Properties.Resources", typeof(Resources).Assembly);//获取全局资源
+            var img = ((Image)(resourceManager.GetObject("icons8-定期约会-96")));
+            // 刷新按钮
+            var refreshIcon = new PictureBox
+            {
+                Dock = DockStyle.Left,
+                Width = 20,
+                Height = 20,
+                Image = img, // 添加刷新图标
+                SizeMode = PictureBoxSizeMode.Zoom,
+                Cursor = Cursors.Hand
+            };
+
+            panel2.Controls.Add(refreshIcon);
             panel2.Controls.Add(label2);
 
+            refreshIcon.Click += refreshClick;
             // 歌单流式面板
             FlowLayoutPanel playlistPanel = new FlowLayoutPanel
             {
@@ -145,16 +165,18 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
                 ForeColor = Color.Yellow
             };
 
-            // 添加歌曲项（写死的8项）
-            column1.Controls.Add(new SongItemControl(Color.White, 0, "晴天——周杰伦"));
-            column1.Controls.Add(new SongItemControl(Color.White, 0, "七里香——周杰伦"));
-            column1.Controls.Add(new SongItemControl(Color.White, 0, "稻香——周杰伦"));
-            column1.Controls.Add(new SongItemControl(Color.White, 0, "简单爱——周杰伦"));
+            var songs = AppContext._songRepository.GetRandomSongs(8);
 
-            column2.Controls.Add(new SongItemControl(Color.White, 0, "夜曲——周杰伦"));
-            column2.Controls.Add(new SongItemControl(Color.White, 0, "搁浅——周杰伦"));
-            column2.Controls.Add(new SongItemControl(Color.White, 0, "东风破——周杰伦"));
-            column2.Controls.Add(new SongItemControl(Color.White, 0, "彩虹——周杰伦"));
+            // 添加歌曲项（写死的8项）
+            for(int i = 0; i < 4; i++)
+            {
+                column1.Controls.Add(new SongItemControl(Color.White, songs[i].Id, songs[i].Title, songs[i].Artist));
+            }
+
+            for (int i = 4; i < 8; i++)
+            {
+                column2.Controls.Add(new SongItemControl(Color.White, songs[i].Id, songs[i].Title, songs[i].Artist));
+            }
 
             // 添加两个列到主容器
             songPanel.Controls.Add(column1);
@@ -169,6 +191,11 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             this.Controls.Add(playlistPanel);
             this.Controls.Add(panel1);
             this.Controls.Add(greetingPanel);
+        }
+
+        private void refreshClick(object? sender, EventArgs e)
+        {
+            MessageBox.Show("刷新歌单探索");
         }
 
         private async Task LoadSonglistDetails(string songlistName)

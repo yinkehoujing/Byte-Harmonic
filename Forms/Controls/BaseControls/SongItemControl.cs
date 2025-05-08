@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using Byte_Harmonic.Forms.FormUtils;
+using Byte_Harmonic.Utils;
 using Sunny.UI;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
@@ -12,15 +13,19 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
         private Color color;
         public int songID;
         private string songName;
+        private string artistName;
 
 
-        public SongItemControl(Color color, int songID, string songNameAndArtistName)
+
+        public SongItemControl(Color color, int songID, string songName, string artistName)
         {
             InitializeComponent();
             this.songID = songID;
-            this.songName = songNameAndArtistName;
+            this.songName = songName;
+            this.artistName = artistName;
             this.color = color;
             InitializeUI();
+            this.artistName = artistName;
         }
 
         private void InitializeUI()
@@ -45,22 +50,18 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
 
             this.BackColor = color;
 
-            uiLabel1.Text = songName;
+            uiLabel1.Text = songName + "——" + artistName;
         }
 
         private void playButton_Click(object sender, EventArgs e)
         {
             // TODO: 播放逻辑
-        }
+            Console.WriteLine("playButton clicked!!");
+            AppContext.TogglePlayPauseSong(AppContext._songRepository.GetSongById(songID));
+            AppContext.TriggerupdateSongUI(AppContext._playbackService.GetCurrentSong());
+            //AppContext.TriggerPositionChanged(AppContext._playbackService.GetCurrentPosition());
 
-        private void downloadButton_Click(object sender, EventArgs e)
-        {
-            // TODO: 下载逻辑
-        }
 
-        private void favoriteButton_Click(object sender, EventArgs e)
-        {
-            // TODO: 收藏逻辑
         }
 
         public void BulkActions()
