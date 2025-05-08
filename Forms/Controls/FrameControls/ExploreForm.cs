@@ -36,7 +36,6 @@ namespace Byte_Harmonic.Forms
             uiImageButton8.Click += starControl.StarButtonClick;
 
             LoadMusicExplorerControl(); // 装入初始探索页面
-            //LoadPage(page: new SongsList());
             uiLabel3.EnableAutoScroll();//支持文字过长时滚动
             uiLabel4.EnableAutoScroll();
 
@@ -358,8 +357,6 @@ namespace Byte_Harmonic.Forms
                 // 调整按钮位置
                 uiImageButton1.Location = new Point(1005, 28);
                 uiImageButton3.Location = new Point(958, 28);
-                uiImageButton2.Location = new Point(97, 28);
-                uiImageButton4.Location = new Point(133, 28);
 
                 // 调整标签位置
                 uiLabel1.Location = new Point(800, 659);
@@ -429,8 +426,6 @@ namespace Byte_Harmonic.Forms
                 // 恢复按钮位置
                 uiImageButton1.Location = new Point(1003, 29);
                 uiImageButton3.Location = new Point(956, 29);
-                uiImageButton2.Location = new Point(209, 29);
-                uiImageButton4.Location = new Point(245, 29);
 
                 // 恢复标签位置
                 uiLabel1.Location = new Point(798, 660);
