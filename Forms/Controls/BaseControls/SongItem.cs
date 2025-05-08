@@ -84,6 +84,8 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
         private void deleteButton1_Click(object sender, EventArgs e)
         {
             //TODO：调用删除的后端程序
+
+            //TODO:前端更新
         }
 
         private void addButton_Click(object sender, EventArgs e)
@@ -94,6 +96,8 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
         private void downloadButton_Click(object sender, EventArgs e)
         {
             //TODO:调用下载
+
+            
         }
 
         private void playButton_Click(object sender, EventArgs e)

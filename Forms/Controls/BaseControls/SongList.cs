@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Byte_Harmonic.Models;
+using Sunny.UI;
 
 namespace Byte_Harmonic.Forms.Controls.BaseControls
 {
@@ -109,7 +110,15 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
 
         private void DeleteAllButton_Click(object sender, EventArgs e)
         {
-            //TODO:后端删除
+           
+            foreach (SongItem item in flowLayoutPanel.Controls)
+            {
+                if (item.Selected)
+                {
+                    //TODO:后端删除
+                    int id = item.songID;
+                }
+            }
             //TODO:显示信息面：删除成功
             this.LoadSongs();//更新数据
         }

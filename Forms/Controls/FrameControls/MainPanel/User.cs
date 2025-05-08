@@ -11,37 +11,24 @@ namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
 {
     public partial class UserForm :UserControl
     {
-        private SonglistService _songService;
-        private UserService _userService;
         private List<Songlist> _songlists;
-
         public UserForm()
         {
             InitializeComponent();
-
-            // 仓储自己去拿连接串
-            var songRepo = new SonglistRepository();
-            var userRepo = new UserRepository();
-
-            // 组装服务
-            var userService = new UserService(userRepo);
-            _songService = new SonglistService(songRepo, userService);
-            _userService = new UserService(userRepo);
-
             LoadUserData();
         }
 
         //载入数据
         private async void LoadUserData()
         {
-            var currentUser = _userService.GetCurrentUser();
+            var currentUser = AppContext.userService.GetCurrentUser();
 
             // 用户信息
             lblAccount.Text = $"账号：{currentUser.Account}";
             txtUsername.Text = currentUser.Username;
 
             // 加载歌单
-            _songlists = await _songService.GetAllPlaylistsAsync();
+            _songlists = await AppContext.songlistService.GetAllPlaylistsAsync();
             songlistPanel.Controls.Clear();
 
             foreach (var songlist in _songlists)
@@ -59,13 +46,13 @@ namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
             {
                 try
                 {
-                    _userService.UpdateUsername(txtUsername.Text.Trim());
+                    AppContext.userService.UpdateUsername(txtUsername.Text.Trim());
                     new MessageForm("已修改用户名").ShowDialog();
                 }
                 catch (Exception ex)
                 {
                     UIMessageBox.ShowError($"修改失败：{ex.Message}");
-                    txtUsername.Text = _userService.GetCurrentUser().Username;
+                    txtUsername.Text = AppContext.userService.GetCurrentUser().Username;
                 }
             }
         }
@@ -73,7 +60,7 @@ namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
         // 退出登录
         private void btnLogout_Click(object sender, EventArgs e)
         {
-            _userService.Logout();
+            AppContext.userService.Logout();
             var loginForm = new LoginForm();
             this.Hide();
             loginForm.Show();
