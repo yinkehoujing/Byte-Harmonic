@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using Byte_Harmonic.Services;
 using Byte_Harmonic.Database;
 using NAudio.CoreAudioApi;
+using Byte_Harmonic.Forms.FormUtils;
 
 namespace Byte_Harmonic.Forms.Controls.BaseControls
 {
@@ -41,9 +42,40 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
                 Padding = new Padding(10, 10, 0, 0)
             };
             greetingPanel.Controls.Add(label);
-            // 歌单探索标题栏
-            Panel topHeader = CreateHeader("歌单探索", TopRefresh_Click);
-            topHeader.Dock = DockStyle.Top;
+
+
+            var panel1 = new Panel
+            {
+                Height = 40,
+                Dock = DockStyle.Top
+            };
+
+            var label1 = new Label
+            {
+                Text = "歌曲探索",
+                Dock = DockStyle.Left,
+                Font = new System.Drawing.Font("Microsoft YaHei", 13F),
+                AutoSize = true,
+                Padding = new Padding(10, 10, 0, 0)
+            };
+            panel1.Controls.Add(label1);
+
+
+            var panel2 = new Panel
+            {
+                Height = 40,
+                Dock = DockStyle.Top
+            };
+
+            var label2 = new Label
+            {
+                Text = "歌单探索",
+                Dock = DockStyle.Left,
+                Font = new System.Drawing.Font("Microsoft YaHei", 13F),
+                AutoSize = true,
+                Padding = new Padding(10, 10, 0, 0)
+            };
+            panel2.Controls.Add(label2);
 
             // 歌单流式面板
             FlowLayoutPanel playlistPanel = new FlowLayoutPanel
@@ -80,11 +112,8 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
                 playlistPanel.Controls.Add(card5);
             }
 
-            // 歌曲探索标题栏
-            Panel bottomHeader = CreateHeader("歌曲探索", BottomRefresh_Click);
-            bottomHeader.Dock = DockStyle.Top;
-
             // 歌曲流式面板
+            // 主容器：横向排列两个列
             FlowLayoutPanel songPanel = new FlowLayoutPanel
             {
                 Name = "songPanel",
@@ -92,27 +121,53 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
                 AutoScroll = true,
                 WrapContents = false,
                 Padding = new Padding(10),
-                FlowDirection = FlowDirection.TopDown
+                FlowDirection = FlowDirection.LeftToRight // 横向放两个列容器
             };
 
-            var songItem = new SongItemControl();
-            songItem.SongTitle = "晴天";
-            songItem.Artist = "周杰伦";
-            songItem.PlayClicked += (s, e) => MessageBox.Show("播放");
-            songItem.FavoriteClicked += (s, e) => MessageBox.Show("收藏");
-            songItem.DownloadClicked += (s, e) => MessageBox.Show("下载");
+            // 每列：纵向排列 4 个歌曲项
+            FlowLayoutPanel column1 = new FlowLayoutPanel
+            {
+                Width = 360, // 自定义列宽
+                Height = 200, // 限制高度让每列只显示 4 项 (每项约高 45)
+                FlowDirection = FlowDirection.TopDown,
+                WrapContents = false,
+                AutoScroll = false,
+                ForeColor = Color.Yellow
+            };
 
-            songPanel.BackColor = Color.LightBlue;
-            songItem.BackColor = Color.LightYellow;
+            FlowLayoutPanel column2 = new FlowLayoutPanel
+            {
+                Width = 360,
+                Height = 200,
+                FlowDirection = FlowDirection.TopDown,
+                WrapContents = false,
+                AutoScroll = false,
+                ForeColor = Color.Yellow
+            };
 
-            songPanel.Controls.Add(songItem);
+            // 添加歌曲项（写死的8项）
+            column1.Controls.Add(new SongItemControl(Color.White, 0, "晴天——周杰伦"));
+            column1.Controls.Add(new SongItemControl(Color.White, 0, "七里香——周杰伦"));
+            column1.Controls.Add(new SongItemControl(Color.White, 0, "稻香——周杰伦"));
+            column1.Controls.Add(new SongItemControl(Color.White, 0, "简单爱——周杰伦"));
+
+            column2.Controls.Add(new SongItemControl(Color.White, 0, "夜曲——周杰伦"));
+            column2.Controls.Add(new SongItemControl(Color.White, 0, "搁浅——周杰伦"));
+            column2.Controls.Add(new SongItemControl(Color.White, 0, "东风破——周杰伦"));
+            column2.Controls.Add(new SongItemControl(Color.White, 0, "彩虹——周杰伦"));
+
+            // 添加两个列到主容器
+            songPanel.Controls.Add(column1);
+            songPanel.Controls.Add(column2);
+
+
 
 
             // 添加控件
-            this.Controls.Add(bottomHeader);
             this.Controls.Add(songPanel);
+            this.Controls.Add(panel2);
             this.Controls.Add(playlistPanel);
-            this.Controls.Add(topHeader);
+            this.Controls.Add(panel1);
             this.Controls.Add(greetingPanel);
         }
 
