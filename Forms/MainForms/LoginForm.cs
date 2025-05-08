@@ -36,7 +36,7 @@ namespace Byte_Harmonic.Forms.MainForms
             _styleHandler = new FormStyle(this);
             _userRepo = new UserRepository();
             _userService = new UserService(_userRepo);
-           
+            loadingBox.Visible = false;
         }
 
         private void uiButton1_Click(object sender, EventArgs e)
@@ -72,6 +72,8 @@ namespace Byte_Harmonic.Forms.MainForms
                     if (user != null)
                     {
                         uiLabel3.Text = "登录成功";
+                        loginButton1.Text = "";
+                        loadingBox.Visible = true;
                         await Task.Delay(1000); // 延迟1000毫秒（1秒）
                         MainForm mainForm = new MainForm();
                         mainForm.Show();
@@ -92,11 +94,12 @@ namespace Byte_Harmonic.Forms.MainForms
 
                 AppContext.currentUser = _userService.GetCurrentUser();
 
-                if(AppContext.currentUser != null)
+                if(AppContext.currentUser == null)
                 {
-                    Console.WriteLine($"currentUser is {AppContext.currentUser.Account}");
+                    throw new ArgumentNullException(nameof (AppContext.currentUser));
                 }
 
+                Console.WriteLine($"currentUser is {AppContext.currentUser.Account}");
             }
             else
             {
