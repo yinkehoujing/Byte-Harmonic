@@ -59,7 +59,10 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             Console.WriteLine("playButton clicked!!");
             AppContext.TogglePlayPauseSong(AppContext._songRepository.GetSongById(songID));
             AppContext.TriggerupdateSongUI(AppContext._playbackService.GetCurrentSong());
-            //AppContext.TriggerPositionChanged(AppContext._playbackService.GetCurrentPosition());
+            var lyricsLine = AppContext._playbackService.GetCurrentLyricsLine()?.Text ?? "[No Lyrics]";
+            var position = AppContext._playbackService.GetCurrentPosition();
+
+            AppContext.TriggerLyricsUpdated(lyricsLine, position);            // 更新进度条
 
 
         }

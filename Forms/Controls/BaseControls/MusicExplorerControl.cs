@@ -39,15 +39,48 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
                 Dock = DockStyle.Top
             };
 
+            string greeting = GetTimeBasedGreeting();
+
+            string GetTimeBasedGreeting()
+            {
+                var hour = DateTime.Now.Hour;
+                if (hour < 6) return "深夜好";
+                else if (hour < 9) return "早安";
+                else if (hour < 12) return "上午好";
+                else if (hour < 14) return "午安";
+                else if (hour < 18) return "下午好";
+                else if (hour < 21) return "傍晚好";
+                else return "晚安";
+            }
+
             var label = new Label
             {
-                Text = "清晨好",
+                Text = greeting,
                 Dock = DockStyle.Left,
                 Font = new System.Drawing.Font("Microsoft YaHei", 18F),
                 AutoSize = true,
                 Padding = new Padding(10, 10, 0, 0)
             };
             greetingPanel.Controls.Add(label);
+
+            string[] quotes = {
+                "音乐是灵魂的解药。",
+                "让旋律治愈你的一天。",
+                "今日份的耳朵享受～",
+                "没有音乐，生活将是一个错误。",
+                "放轻松，听点不一样的。"
+            };
+
+            var quoteLabel = new Label
+            {
+                Text = quotes[new Random().Next(quotes.Length)],
+                Font = new Font("Microsoft YaHei", 12F, FontStyle.Italic),
+                AutoSize = true,
+                ForeColor = MPColor.Grey4,
+                Dock = DockStyle.Right,
+            };
+
+            greetingPanel.Controls.Add(quoteLabel);
 
 
             var panel1 = new Panel
