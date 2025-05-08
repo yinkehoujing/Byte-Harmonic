@@ -63,6 +63,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             uiLabel1.Name = "uiLabel1";
             uiLabel1.Size = new Size(522, 26);
             uiLabel1.TabIndex = 1;
+            uiLabel1.Click += uiLabel1_Click;
             // 
             // deleteButton
             // 

@@ -62,7 +62,8 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             deleteButton.Location = new Point(addButton.Left - buttonSpacing - 24, 10);
 
             // 4. 处理容器大小变化
-            this.Resize += (sender, e) => {
+            this.Resize += (sender, e) =>
+            {
                 // 动态调整标签宽度
                 uiLabel1.Width = deleteButton.Left - uiLabel1.Left - buttonSpacing;
 
@@ -77,10 +78,10 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             uiCheckBox.CheckBoxColor = color;
             uiCheckBox.ReadOnly = true;
 
-            foreach (UIImageButton button in this.Controls)
-            {
-                button.BackColor = color;
-            }
+            //foreach (UIImageButton button in this.Controls)
+            //{
+            //    button.BackColor = color;
+            //}
 
             uiLabel1.Text = songName;
         }
@@ -118,7 +119,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             uiCheckBox.CheckBoxColor = color;
             uiCheckBox.ReadOnly = true;
         }
-        
+
         public void ChooseAction()
         {
             uiCheckBox.Checked = true;
@@ -127,6 +128,11 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
         public void NotChooseAction()
         {
             uiCheckBox.Checked = false;
+        }
+
+        private void uiLabel1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
