@@ -35,6 +35,7 @@ namespace Byte_Harmonic.Forms
 
             LoadMusicExplorerControl(); // 装入初始探索页面
             //LoadPage(page: new SongsList());
+
             uiLabel3.EnableAutoScroll();//支持文字过长时滚动
             uiLabel4.EnableAutoScroll();
 
