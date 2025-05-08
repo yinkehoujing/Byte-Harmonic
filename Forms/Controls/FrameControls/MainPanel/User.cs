@@ -9,7 +9,7 @@ using Byte_Harmonic.Database;
 
 namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
 {
-    public partial class UserForm : UIForm
+    public partial class UserForm :UserControl
     {
         private SonglistService _songService;
         private UserService _userService;
@@ -29,8 +29,6 @@ namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
             _userService = new UserService(userRepo);
 
             LoadUserData();
-            StyleCustomMode = true;
-            Style = UIStyle.Blue;
         }
 
         //载入数据
@@ -79,7 +77,11 @@ namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
             var loginForm = new LoginForm();
             this.Hide();
             loginForm.Show();
-            this.Close();
+            MainForm main = this.FindForm() as MainForm;
+            if (main != null)
+            {
+                main.Close();
+            }
         }
 
         // 修改密码

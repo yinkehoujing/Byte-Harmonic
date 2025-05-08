@@ -49,12 +49,14 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             // flowLayoutSongs
             // 
             flowLayoutSongs.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            flowLayoutSongs.FillColor = Color.White;
             flowLayoutSongs.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             flowLayoutSongs.Location = new Point(17, 85);
             flowLayoutSongs.Margin = new Padding(4, 5, 4, 5);
             flowLayoutSongs.MinimumSize = new Size(1, 1);
             flowLayoutSongs.Name = "flowLayoutSongs";
             flowLayoutSongs.Padding = new Padding(2);
+            flowLayoutSongs.RectSides = ToolStripStatusLabelBorderSides.None;
             flowLayoutSongs.ShowText = false;
             flowLayoutSongs.Size = new Size(790, 410);
             flowLayoutSongs.TabIndex = 0;
@@ -67,6 +69,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             BulkOperateButton.FillColor = Color.White;
             BulkOperateButton.FillColor2 = Color.Transparent;
             BulkOperateButton.FillHoverColor = Color.Silver;
+            BulkOperateButton.FillPressColor = Color.FromArgb(166, 215, 231);
             BulkOperateButton.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             BulkOperateButton.ForeColor = Color.Black;
             BulkOperateButton.Location = new Point(720, 13);
@@ -74,16 +77,19 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             BulkOperateButton.Name = "BulkOperateButton";
             BulkOperateButton.Radius = 10;
             BulkOperateButton.RectColor = Color.FromArgb(189, 189, 189);
+            BulkOperateButton.RectHoverColor = Color.Transparent;
             BulkOperateButton.Size = new Size(87, 25);
             BulkOperateButton.TabIndex = 1;
             BulkOperateButton.Text = "批量处理";
             BulkOperateButton.TipsFont = new Font("黑体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            BulkOperateButton.Click += BulkOperateButton_Click;
             // 
             // DeleteAllButton
             // 
-            DeleteAllButton.Anchor = AnchorStyles.None;
+            DeleteAllButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             DeleteAllButton.BackColor = Color.White;
             DeleteAllButton.Cursor = Cursors.Hand;
+            DeleteAllButton.Enabled = false;
             DeleteAllButton.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             DeleteAllButton.Image = (Image)resources.GetObject("DeleteAllButton.Image");
             DeleteAllButton.ImageHover = (Image)resources.GetObject("DeleteAllButton.ImageHover");
@@ -94,13 +100,16 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             DeleteAllButton.TabIndex = 8;
             DeleteAllButton.TabStop = false;
             DeleteAllButton.Text = null;
+            DeleteAllButton.Visible = false;
             DeleteAllButton.ZoomScaleDisabled = true;
+            DeleteAllButton.Click += DeleteAllButton_Click;
             // 
             // AddAllButton
             // 
-            AddAllButton.Anchor = AnchorStyles.None;
+            AddAllButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             AddAllButton.BackColor = Color.White;
             AddAllButton.Cursor = Cursors.Hand;
+            AddAllButton.Enabled = false;
             AddAllButton.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             AddAllButton.Image = (Image)resources.GetObject("AddAllButton.Image");
             AddAllButton.ImageHover = (Image)resources.GetObject("AddAllButton.ImageHover");
@@ -111,13 +120,16 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             AddAllButton.TabIndex = 9;
             AddAllButton.TabStop = false;
             AddAllButton.Text = null;
+            AddAllButton.Visible = false;
             AddAllButton.ZoomScaleDisabled = true;
+            AddAllButton.Click += AddAllButton_Click;
             // 
             // DownloadAllButton
             // 
-            DownloadAllButton.Anchor = AnchorStyles.None;
+            DownloadAllButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             DownloadAllButton.BackColor = Color.White;
             DownloadAllButton.Cursor = Cursors.Hand;
+            DownloadAllButton.Enabled = false;
             DownloadAllButton.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             DownloadAllButton.Image = (Image)resources.GetObject("DownloadAllButton.Image");
             DownloadAllButton.ImageHover = (Image)resources.GetObject("DownloadAllButton.ImageHover");
@@ -128,49 +140,58 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             DownloadAllButton.TabIndex = 10;
             DownloadAllButton.TabStop = false;
             DownloadAllButton.Text = null;
+            DownloadAllButton.Visible = false;
             DownloadAllButton.ZoomScaleDisabled = true;
+            DownloadAllButton.Click += DownloadAllButton_Click;
             // 
             // StarAllButton
             // 
-            StarAllButton.Anchor = AnchorStyles.None;
+            StarAllButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             StarAllButton.BackColor = Color.White;
             StarAllButton.Cursor = Cursors.Hand;
+            StarAllButton.Enabled = false;
             StarAllButton.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             StarAllButton.Image = (Image)resources.GetObject("StarAllButton.Image");
             StarAllButton.ImageHover = (Image)resources.GetObject("StarAllButton.ImageHover");
-            StarAllButton.Location = new Point(690, 53);
+            StarAllButton.Location = new Point(692, 55);
             StarAllButton.Name = "StarAllButton";
-            StarAllButton.Size = new Size(24, 24);
+            StarAllButton.Size = new Size(20, 20);
             StarAllButton.SizeMode = PictureBoxSizeMode.StretchImage;
             StarAllButton.TabIndex = 11;
             StarAllButton.TabStop = false;
             StarAllButton.Text = null;
+            StarAllButton.Visible = false;
             StarAllButton.ZoomScaleDisabled = true;
+            StarAllButton.Click += StarAllButton_Click;
             // 
             // PlayAllButton
             // 
-            PlayAllButton.Anchor = AnchorStyles.None;
+            PlayAllButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             PlayAllButton.BackColor = Color.White;
             PlayAllButton.Cursor = Cursors.Hand;
+            PlayAllButton.Enabled = false;
             PlayAllButton.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             PlayAllButton.Image = (Image)resources.GetObject("PlayAllButton.Image");
             PlayAllButton.ImageHover = (Image)resources.GetObject("PlayAllButton.ImageHover");
-            PlayAllButton.Location = new Point(660, 53);
+            PlayAllButton.Location = new Point(662, 54);
             PlayAllButton.Name = "PlayAllButton";
-            PlayAllButton.Size = new Size(24, 24);
+            PlayAllButton.Size = new Size(22, 22);
             PlayAllButton.SizeMode = PictureBoxSizeMode.StretchImage;
             PlayAllButton.TabIndex = 12;
             PlayAllButton.TabStop = false;
             PlayAllButton.Text = null;
+            PlayAllButton.Visible = false;
             PlayAllButton.ZoomScaleDisabled = true;
             PlayAllButton.Click += PlayAllButton_Click;
             // 
             // SelectAllButton
             // 
             SelectAllButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            SelectAllButton.Enabled = false;
             SelectAllButton.FillColor = Color.White;
             SelectAllButton.FillColor2 = Color.Transparent;
             SelectAllButton.FillHoverColor = Color.Silver;
+            SelectAllButton.FillPressColor = Color.FromArgb(166, 215, 231);
             SelectAllButton.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             SelectAllButton.ForeColor = Color.Black;
             SelectAllButton.Location = new Point(606, 53);
@@ -178,16 +199,18 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             SelectAllButton.Name = "SelectAllButton";
             SelectAllButton.Radius = 10;
             SelectAllButton.RectColor = Color.FromArgb(189, 189, 189);
+            SelectAllButton.RectHoverColor = Color.Transparent;
             SelectAllButton.Size = new Size(48, 25);
             SelectAllButton.TabIndex = 13;
             SelectAllButton.Text = "全选";
             SelectAllButton.TipsFont = new Font("黑体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            SelectAllButton.Visible = false;
             SelectAllButton.Click += SelectAllButton_Click;
             // 
             // SongList
             // 
-            AutoScaleDimensions = new SizeF(7F, 17F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
+            BackColor = Color.White;
             Controls.Add(SelectAllButton);
             Controls.Add(PlayAllButton);
             Controls.Add(StarAllButton);

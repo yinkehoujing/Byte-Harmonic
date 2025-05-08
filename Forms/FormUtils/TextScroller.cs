@@ -17,7 +17,7 @@ namespace Byte_Harmonic.Forms.FormUtils
 
         public static void EnableAutoScroll(this Control control,
             int scrollSpeed = 1,
-            int scrollInterval = 16,
+            int scrollInterval = 50,
             int pauseDuration = 2000)
         {
             if (_scrollers.ContainsKey(control)) return;
