@@ -23,8 +23,46 @@ VALUES
 INSERT INTO Playlists (Name, Owner)
 VALUES ('流行精选', 'admin');
 
+INSERT INTO Playlists (Name, Owner)
+VALUES ('华语金曲', 'admin');
+
+INSERT INTO Playlists (Name, Owner)
+VALUES ('摇滚年代', 'admin');
+
+INSERT INTO Playlists (Name, Owner)
+VALUES ('古风系列', 'admin');
+
+INSERT INTO Playlists (Name, Owner)
+VALUES ('本周最热', 'admin');
+
+
 INSERT INTO SonglistSongs (SonglistId, SongId)
 VALUES
 (1, 1),  -- 天外来物
 (1, 2),  -- 传奇（王菲）
 (1, 8);  -- 如愿
+
+INSERT INTO SonglistSongs (SonglistId, SongId)
+VALUES
+(2, 3),  
+(2, 4),  
+(2, 8);  
+
+INSERT INTO SonglistSongs (SonglistId, SongId)
+VALUES
+(3, 4),  
+(3, 6),  
+(3, 7);  
+
+INSERT INTO SonglistSongs (SonglistId, SongId)
+VALUES
+(4, 5),  
+(4, 6),  
+(4, 7);  
+
+INSERT INTO SonglistSongs (SonglistId, SongId)
+VALUES
+(4, 1),  
+(4, 8),  
+(4, 9);  
+

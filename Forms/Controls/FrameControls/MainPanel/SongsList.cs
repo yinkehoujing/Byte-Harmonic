@@ -17,6 +17,10 @@ namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
 
         public SongsList()
         {
+            if(AppContext.currentViewingSonglist != null)
+            {
+                Console.WriteLine($"{AppContext.currentViewingSonglist.Name} and has {AppContext.currentViewingSonglist.Songs.Count} songs");
+            }
             InitializeComponent();
             songlist = new SongList();
             this.Controls.Add(songlist);

@@ -64,6 +64,10 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             var card5 = new PlaylistCardControl { PlaylistName = "本周最热" , CoverImageText = "1 (1)" };
 
             card1.PlaylistClicked += LoadSonglistDetails;
+            card2.PlaylistClicked += LoadSonglistDetails;
+            card3.PlaylistClicked += LoadSonglistDetails;
+            card4.PlaylistClicked += LoadSonglistDetails;
+            card5.PlaylistClicked += LoadSonglistDetails;
 
 
 
@@ -126,6 +130,11 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
                     throw new ArgumentNullException(nameof (AppContext.songlistService));
                 }
                 AppContext.currentViewingSonglist = await AppContext.songlistService.GetSonglistByName(songlistName);
+
+                if(AppContext.currentViewingSonglist == null)
+                {
+                    throw new ArgumentNullException(nameof (AppContext.currentViewingSonglist));
+                }
 
                 Console.WriteLine("Songlist loaded successfully");
 

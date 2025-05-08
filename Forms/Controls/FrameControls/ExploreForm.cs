@@ -33,7 +33,7 @@ namespace Byte_Harmonic.Forms
             starControl.InitStarButton(false);//初始化收藏按钮 //TODO传入是否被收藏
             uiImageButton8.Click += starControl.StarButtonClick;
 
-           // LoadMusicExplorerControl(); // 装入初始探索页面
+            //LoadMusicExplorerControl(); // 装入初始探索页面
             LoadPage(page: new SongsList());
             uiLabel3.EnableAutoScroll();//支持文字过长时滚动
             uiLabel4.EnableAutoScroll();
