@@ -9,6 +9,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Sunny.UI;
 using Byte_Harmonic.Forms.FormUtils;
+using Byte_Harmonic.Forms.MainForms;
+using Byte_Harmonic.Models;
+using Byte_Harmonic.Services;
+using Byte_Harmonic.Utils;
 
 namespace Byte_Harmonic.Forms.Controls.BaseControls
 {
@@ -93,11 +97,54 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             //TODO:调用添加到页面
         }
 
+        //下载文件
         private void downloadButton_Click(object sender, EventArgs e)
         {
-            //TODO:调用下载
+            try
+            {
+                // 获取服务实例
+                var songService = AppContext.songlistRepository;
+                var config = ConfigManager.Instance;
 
-            
+                // 获取歌曲详细信息
+                var song = songService.GetSongById(this.songID);
+                if (song == null) throw new Exception("歌曲不存在");
+
+                // 验证本地文件
+                if (!File.Exists(song.MusicFilePath))
+                    throw new Exception("本地文件不存在，无法下载");
+
+                // 生成文件名
+                var fileName = GenerateFileName(song, config.NamingStyle);
+                var destPath = Path.Combine(config.DownloadPath, $"{fileName}{Path.GetExtension(song.MusicFilePath)}");
+
+                // 确保目录存在
+                Directory.CreateDirectory(Path.GetDirectoryName(destPath));
+
+                // 复制文件
+                File.Copy(song.MusicFilePath, destPath, overwrite: true);
+
+                // 更新下载状态
+                song.Downloaded = true;
+                //songService.UpdateSong(song);
+
+                new MessageForm("下载成功").ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                UIMessageBox.ShowError($"下载失败：{ex.Message}");
+            }
+        }
+
+        private string GenerateFileName(Song song, int namingStyle)
+        {
+            return namingStyle switch
+            {
+                0 => song.Title,
+                1 => $"{song.Title} - {song.Artist}",
+                2 => $"{song.Artist} - {song.Title}",
+                _ => song.Title
+            };
         }
 
         private void playButton_Click(object sender, EventArgs e)

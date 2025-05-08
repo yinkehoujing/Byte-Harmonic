@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Byte_Harmonic.Models;
 using Sunny.UI;
+using Byte_Harmonic.Forms.MainForms;
+using Byte_Harmonic.Services;
+using Byte_Harmonic.Utils;
 
 namespace Byte_Harmonic.Forms.Controls.BaseControls
 {
@@ -90,16 +93,36 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             }
         }
 
+        //下载文件
         private void DownloadAllButton_Click(object sender, EventArgs e)
         {
+            var config = ConfigManager.Instance;
+            var songService = AppContext.songlistRepository;
+            var successCount = 0;
+
             foreach (SongItem item in flowLayoutPanel.Controls)
             {
                 if (item.Selected)
                 {
-                    //TODO:下载
-                    //TODO:下载成功后弹窗
+                    try
+                    {
+                        var song = songService.GetSongById(item.songID);
+                        if (!File.Exists(song.MusicFilePath)) continue;
+
+                        var fileName = Byte_Harmonic.Utils.FileHelper.GenerateFileName(song, config.NamingStyle);
+                        var destPath = Path.Combine(config.DownloadPath, $"{fileName}{Path.GetExtension(song.MusicFilePath)}");
+
+                        File.Copy(song.MusicFilePath, destPath);
+                        successCount++;
+                    }
+                    catch
+                    {
+                        // 忽略单个失败
+                    }
                 }
             }
+
+            new MessageForm($"成功下载{successCount}首歌曲").ShowDialog();
         }
 
         private void AddAllButton_Click(object sender, EventArgs e)

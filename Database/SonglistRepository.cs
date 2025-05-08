@@ -125,6 +125,14 @@ namespace Byte_Harmonic.Database
             }
         }
 
+        //通过Id获取对应歌曲
+        public Song GetSongById(int songId)
+        {
+            using var conn = new MySqlConnection(_connectionString);
+            const string sql = @"SELECT * FROM Songs WHERE Id = @songId";
+            return conn.QueryFirstOrDefault<Song>(sql, new { songId });
+        }
+
         #endregion
 
         #region 标签管理
