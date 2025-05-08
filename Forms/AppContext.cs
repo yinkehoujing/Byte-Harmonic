@@ -43,7 +43,17 @@ namespace Byte_Harmonic.Forms
         public static event Action<List<Song>> PlaylistSetRequested; // 响应，设置初始的 Playlist
         public static event Action<PlaybackMode>? PlaybackModeChanged;
 
+        // 下载设置（下载路径和命名方式）
+        public static string DownloadPath { get; private set; }
+        public static int NamingStyle { get; private set; }
 
+        //载入下载设置
+        public static void LoadSettings()
+        {
+            var cfg = ConfigManager.Instance;
+            DownloadPath = cfg.DownloadPath;
+            NamingStyle = cfg.NamingStyle;
+        }
 
         public static void TriggerPositionChanged(TimeSpan ts)
         {
@@ -106,6 +116,8 @@ namespace Byte_Harmonic.Forms
 
         public static void Initialize()
         {
+            //载入下载设置
+            LoadSettings();
             // 用于调试
             // 注册 LyricsUpdated 事件处理函数
             LyricsUpdated += OnLyricsUpdated;
