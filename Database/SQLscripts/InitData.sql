@@ -69,3 +69,56 @@ VALUES
 (5, 8),  
 (5, 9);  
 
+-- 第 6 个歌单为空
+
+-- 插入一些标签
+
+INSERT INTO Tags (Name) VALUES 
+('动感'),
+('抒情'),
+('浪漫'),
+('电子'),
+('古风'),
+('摇滚');
+
+-- 假设标签的 ID 按插入顺序是 1-6
+
+-- 天外来物（动感）
+INSERT INTO SongTags (SongId, TagId) VALUES (1, 1);
+
+-- 传奇（王菲） 抒情、浪漫
+INSERT INTO SongTags (SongId, TagId) VALUES 
+(2, 2),
+(2, 3);
+
+-- 海阔天空（摇滚）
+INSERT INTO SongTags (SongId, TagId) VALUES (3, 6);
+
+-- 最炫民族风（动感、电子）
+INSERT INTO SongTags (SongId, TagId) VALUES 
+(4, 1),
+(4, 4);
+
+-- 公子向北走（一点古风、抒情）
+INSERT INTO SongTags (SongId, TagId) VALUES 
+(5, 2),
+(5, 5);
+
+-- 一笑江湖（古风、动感）
+INSERT INTO SongTags (SongId, TagId) VALUES 
+(6, 1),
+(6, 5);
+
+-- 探故知（古风、抒情）
+INSERT INTO SongTags (SongId, TagId) VALUES 
+(7, 2),
+(7, 5);
+
+-- 如愿（王菲）浪漫、抒情
+INSERT INTO SongTags (SongId, TagId) VALUES 
+(8, 2),
+(8, 3);
+
+-- 传奇（李健） 抒情
+INSERT INTO SongTags (SongId, TagId) VALUES (9, 2);
+
