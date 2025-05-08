@@ -23,6 +23,7 @@ namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
             }
             InitializeComponent();
             songlist = new SongList();
+            songlist.LoadSongs();
             this.Controls.Add(songlist);
         }
     }
