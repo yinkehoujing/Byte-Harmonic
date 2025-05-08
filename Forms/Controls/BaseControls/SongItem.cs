@@ -98,7 +98,9 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
 
         private void playButton_Click(object sender, EventArgs e)
         {
-            //TODO:调用播放
+            Console.WriteLine("playButton clicked!!");
+            AppContext.TogglePlayPauseSong(AppContext._songRepository.GetSongById(songID));
+            AppContext.TriggerupdateSongUI(AppContext._playbackService.GetCurrentSong());
         }
 
         //让多选框显示
