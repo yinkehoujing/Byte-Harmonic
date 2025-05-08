@@ -92,12 +92,11 @@ namespace Byte_Harmonic.Forms.MainForms
 
                 AppContext.currentUser = _userService.GetCurrentUser();
 
-                if(AppContext.currentUser == null)
+                if(AppContext.currentUser != null)
                 {
-                    throw new ArgumentNullException(nameof (AppContext.currentUser));
+                    Console.WriteLine($"currentUser is {AppContext.currentUser.Account}");
                 }
 
-                Console.WriteLine($"currentUser is {AppContext.currentUser.Account}");
             }
             else
             {

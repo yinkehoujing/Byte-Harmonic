@@ -1003,6 +1003,16 @@ namespace Byte_Harmonic.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_播放_96__1_1 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-播放-96 (1)1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_播放_961 {
             get {
                 object obj = ResourceManager.GetObject("icons8-播放-961", resourceCulture);
