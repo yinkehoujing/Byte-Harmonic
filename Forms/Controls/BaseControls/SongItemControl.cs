@@ -1,93 +1,76 @@
 ﻿using System;
 using System.Drawing;
-using System.Resources;
 using System.Windows.Forms;
+using Byte_Harmonic.Forms.FormUtils;
+using Byte_Harmonic.Utils;
 using Sunny.UI;
-using Byte_Harmonic.Properties;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace Byte_Harmonic.Forms.Controls.BaseControls
 {
     public partial class SongItemControl : UserControl
     {
-        private UILabel titleLabel;
-        private UILabel artistLabel;
-        private UIImageButton playButton;
-        private UIImageButton favButton;
-        private UIImageButton downloadButton;
+        private Color color;
+        public int songID;
+        private string songName;
+        private string artistName;
 
-        public event EventHandler PlayClicked;
-        public event EventHandler FavoriteClicked;
-        public event EventHandler DownloadClicked;
 
-        public string SongTitle
-        {
-            get => titleLabel.Text;
-            set => titleLabel.Text = value;
-        }
 
-        public string Artist
-        {
-            get => artistLabel.Text;
-            set => artistLabel.Text = value;
-        }
-
-        public SongItemControl()
+        public SongItemControl(Color color, int songID, string songName, string artistName)
         {
             InitializeComponent();
-            SetupLayout();
+            this.songID = songID;
+            this.songName = songName;
+            this.artistName = artistName;
+            this.color = color;
+            InitializeUI();
+            this.artistName = artistName;
         }
-        private void SetupLayout()
+
+        private void InitializeUI()
         {
-            this.Height = 60;  // 适当增加高度
-            this.Width = 1000;
-            this.Margin = new Padding(5);
 
-            var resourceManager = new ResourceManager("Byte_Harmonic.Properties.Resources", typeof(Resources).Assembly);
+            //uiLabel1.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Bottom;
+            //uiLabel1.AutoSize = false;
 
-            titleLabel = new UILabel
-            {
-                Text = "歌曲名称",
-                Font = new Font("Microsoft YaHei", 10F, FontStyle.Bold),
-                Location = new Point(10, 5),
-                AutoSize = true
-            };
+            //int buttonSpacing = 5;
+            //int buttonRightMargin = 10;
 
-            artistLabel = new UILabel
-            {
-                Text = "演唱者",
-                Font = new Font("Microsoft YaHei", 9F),
-                Location = new Point(10, 25),
-                AutoSize = true
-            };
+            //playButton.Anchor = AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Bottom;
+            //playButton.Location = new Point(Width - buttonRightMargin - 24, 10);
 
-            //playButton = CreateIconButton(resourceManager.GetObject("icons8-播放-96") as Image, PlayClicked);
-            //favButton = CreateIconButton(resourceManager.GetObject("icons8-christmas-star-100") as Image, FavoriteClicked);
-            //downloadButton = CreateIconButton(resourceManager.GetObject("icons8-scroll-down-96") as Image, DownloadClicked);
+         
+            //this.Resize += (sender, e) =>
+            //{
+            //    uiLabel1.Width = playButton.Left - uiLabel1.Left - buttonSpacing;
 
-            //int buttonStartX = 800;
-            //playButton.Location = new Point(buttonStartX, 10);
-            //favButton.Location = new Point(buttonStartX + 40, 10);
-            //downloadButton.Location = new Point(buttonStartX + 80, 10);
+            //    playButton.Left = Width - buttonRightMargin - 24;
+            //};
 
-            this.Controls.Add(titleLabel);
-            this.Controls.Add(artistLabel);
-            //this.Controls.Add(playButton);
-            //this.Controls.Add(favButton);
-            //this.Controls.Add(downloadButton);
+            this.BackColor = color;
+
+            uiLabel1.Text = songName + "——" + artistName;
         }
 
-        private UIImageButton CreateIconButton(Image img, EventHandler clickEvent)
+        private void playButton_Click(object sender, EventArgs e)
         {
-            var btn = new UIImageButton
-            {
-                Size = new Size(24, 24),
-                Image = img,
-                Cursor = Cursors.Hand
-            };
-            if (clickEvent != null)
-                btn.Click += (s, e) => clickEvent?.Invoke(this, EventArgs.Empty);
+            // TODO: 播放逻辑
+            Console.WriteLine("playButton clicked!!");
+            AppContext.TogglePlayPauseSong(AppContext._songRepository.GetSongById(songID));
+            AppContext.TriggerupdateSongUI(AppContext._playbackService.GetCurrentSong());
+            //AppContext.TriggerPositionChanged(AppContext._playbackService.GetCurrentPosition());
 
-            return btn;
+
         }
+
+        public void BulkActions()
+        {
+        }
+
+        public void CancelBulkActions()
+        {
+        }
+
     }
 }

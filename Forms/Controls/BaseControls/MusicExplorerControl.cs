@@ -10,11 +10,18 @@ using System.Windows.Forms;
 using Byte_Harmonic.Services;
 using Byte_Harmonic.Database;
 using NAudio.CoreAudioApi;
+using Byte_Harmonic.Forms.FormUtils;
+using Byte_Harmonic.Properties;
+using Sunny.UI;
+using System.Resources;
 
 namespace Byte_Harmonic.Forms.Controls.BaseControls
 {
     public partial class MusicExplorerControl : UserControl
     {
+        private FlowLayoutPanel column1;
+        private FlowLayoutPanel column2;
+
         public MusicExplorerControl()
         {
             var songlistRepo = new SonglistRepository();
@@ -41,20 +48,77 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
                 Padding = new Padding(10, 10, 0, 0)
             };
             greetingPanel.Controls.Add(label);
-            // 歌单探索标题栏
-            Panel topHeader = CreateHeader("歌单探索", TopRefresh_Click);
-            topHeader.Dock = DockStyle.Top;
 
+
+            var panel1 = new Panel
+            {
+                Height = 40,
+                Dock = DockStyle.Top
+            };
+
+            var label1 = new Label
+            {
+                Text = "歌曲探索",
+                Dock = DockStyle.Left,
+                Font = new System.Drawing.Font("Microsoft YaHei", 13F),
+                AutoSize = true,
+                Padding = new Padding(10, 10, 0, 0)
+            };
+            panel1.Controls.Add(label1);
+
+
+            var panel2 = new Panel
+            {
+                Height = 40,
+                Dock = DockStyle.Top
+            };
+
+            var label2 = new Label
+            {
+                Text = "歌单探索",
+                Dock = DockStyle.Left,
+                Font = new System.Drawing.Font("Microsoft YaHei", 13F),
+                AutoSize = true,
+                Padding = new Padding(10, 10, 0, 0)
+            };
+
+
+            var resourceManager = new ResourceManager("Byte_Harmonic.Properties.Resources", typeof(Resources).Assembly);//获取全局资源
+            var img = ((Image)(resourceManager.GetObject("icons8-定期约会-96")));
+            // 刷新按钮
+            var refreshIcon = new PictureBox
+            {
+                Dock = DockStyle.Left,
+                Width = 20,
+                Height = 20,
+                Image = img, // 添加刷新图标
+                SizeMode = PictureBoxSizeMode.Zoom,
+                Cursor = Cursors.Hand
+            };
+
+            panel2.Controls.Add(refreshIcon);
+            panel2.Controls.Add(label2);
+
+            refreshIcon.Click += refreshClick;
+
+            Panel playlistContainer = new Panel
+            {
+                Dock = DockStyle.Top,
+                Height = 180,
+                Padding = new Padding(0),
+            };
             // 歌单流式面板
             FlowLayoutPanel playlistPanel = new FlowLayoutPanel
             {
                 Name = "playlistPanel",
-                Dock = DockStyle.Top,
-                Height = 180,
                 AutoScroll = true,
                 WrapContents = true,
                 Padding = new Padding(10),
-                FlowDirection = FlowDirection.LeftToRight
+                FlowDirection = FlowDirection.LeftToRight,
+                Anchor = AnchorStyles.None, // 不拉伸
+                AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                Margin = new Padding(0)
             };
 
             var card1 = new PlaylistCardControl { PlaylistName = "流行精选" , CoverImageText = "1 (1)" };
@@ -62,12 +126,15 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             var card3 = new PlaylistCardControl { PlaylistName = "摇滚年代" , CoverImageText = "1 (1)" };
             var card4 = new PlaylistCardControl { PlaylistName = "古风系列" , CoverImageText = "1 (1)" };
             var card5 = new PlaylistCardControl { PlaylistName = "本周最热" , CoverImageText = "1 (1)" };
+            var card6 = new PlaylistCardControl { PlaylistName = "欧美金曲", CoverImageText = "1 (1)" };
+
 
             card1.PlaylistClicked += LoadSonglistDetails;
             card2.PlaylistClicked += LoadSonglistDetails;
             card3.PlaylistClicked += LoadSonglistDetails;
             card4.PlaylistClicked += LoadSonglistDetails;
             card5.PlaylistClicked += LoadSonglistDetails;
+            card6.PlaylistClicked += LoadSonglistDetails;
 
 
 
@@ -78,13 +145,15 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
                 playlistPanel.Controls.Add(card3);
                 playlistPanel.Controls.Add(card4);
                 playlistPanel.Controls.Add(card5);
+                playlistPanel.Controls.Add(card6);
+
             }
 
-            // 歌曲探索标题栏
-            Panel bottomHeader = CreateHeader("歌曲探索", BottomRefresh_Click);
-            bottomHeader.Dock = DockStyle.Top;
+            playlistContainer.Controls.Add(playlistPanel);
+
 
             // 歌曲流式面板
+            // 主容器：横向排列两个列
             FlowLayoutPanel songPanel = new FlowLayoutPanel
             {
                 Name = "songPanel",
@@ -92,28 +161,84 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
                 AutoScroll = true,
                 WrapContents = false,
                 Padding = new Padding(10),
-                FlowDirection = FlowDirection.TopDown
+                FlowDirection = FlowDirection.LeftToRight // 横向放两个列容器
             };
 
-            var songItem = new SongItemControl();
-            songItem.SongTitle = "晴天";
-            songItem.Artist = "周杰伦";
-            songItem.PlayClicked += (s, e) => MessageBox.Show("播放");
-            songItem.FavoriteClicked += (s, e) => MessageBox.Show("收藏");
-            songItem.DownloadClicked += (s, e) => MessageBox.Show("下载");
+            // 每列：纵向排列 4 个歌曲项
+            column1 = new FlowLayoutPanel
+            {
+                Width = 360, // 自定义列宽
+                Height = 200, // 限制高度让每列只显示 4 项 (每项约高 45)
+                FlowDirection = FlowDirection.TopDown,
+                WrapContents = false,
+                AutoScroll = false,
+                ForeColor = Color.Yellow
+            };
 
-            songPanel.BackColor = Color.LightBlue;
-            songItem.BackColor = Color.LightYellow;
+            column2 = new FlowLayoutPanel
+            {
+                Width = 360,
+                Height = 200,
+                FlowDirection = FlowDirection.TopDown,
+                WrapContents = false,
+                AutoScroll = false,
+                ForeColor = Color.Yellow
+            };
 
-            songPanel.Controls.Add(songItem);
+            var songs = AppContext._songRepository.GetRandomSongs(8);
+
+            // 添加歌曲项（写死的8项）
+            for(int i = 0; i < 4; i++)
+            {
+                column1.Controls.Add(new SongItemControl(Color.White, songs[i].Id, songs[i].Title, songs[i].Artist));
+            }
+
+            for (int i = 4; i < 8; i++)
+            {
+                column2.Controls.Add(new SongItemControl(Color.White, songs[i].Id, songs[i].Title, songs[i].Artist));
+            }
+
+            // 添加两个列到主容器
+            songPanel.Controls.Add(column1);
+            songPanel.Controls.Add(column2);
+
+
+
+            this.Resize += (s, e) =>
+            {
+                playlistPanel.Left = (playlistContainer.ClientSize.Width - playlistPanel.Width) / 2;
+            };
+            this.Load += (s, e) =>
+            {
+                playlistPanel.Left = (playlistContainer.ClientSize.Width - playlistPanel.Width) / 2;
+            };
 
 
             // 添加控件
-            this.Controls.Add(bottomHeader);
             this.Controls.Add(songPanel);
-            this.Controls.Add(playlistPanel);
-            this.Controls.Add(topHeader);
+            this.Controls.Add(panel2);
+            this.Controls.Add(playlistContainer);
+            this.Controls.Add(panel1);
             this.Controls.Add(greetingPanel);
+        }
+
+        private void refreshClick(object? sender, EventArgs e)
+        {
+            MessageBox.Show("刷新歌单探索成功！");
+            column1.Controls.Clear();
+            column2.Controls.Clear();
+
+            var songs = AppContext._songRepository.GetRandomSongs(8);
+
+            for (int i = 0; i < 4; i++)
+            {
+                column1.Controls.Add(new SongItemControl(Color.White, songs[i].Id, songs[i].Title, songs[i].Artist));
+            }
+
+            for (int i = 4; i < 8; i++)
+            {
+                column2.Controls.Add(new SongItemControl(Color.White, songs[i].Id, songs[i].Title, songs[i].Artist));
+            }
         }
 
         private async Task LoadSonglistDetails(string songlistName)

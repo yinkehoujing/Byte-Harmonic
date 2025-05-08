@@ -1,4 +1,6 @@
-﻿namespace Byte_Harmonic.Forms.Controls.BaseControls
+﻿using System.Xml.Linq;
+
+namespace Byte_Harmonic.Forms.Controls.BaseControls
 {
     partial class SongItemControl
     {
@@ -21,17 +23,60 @@
         }
 
         #region 组件设计器生成的代码
+        private Sunny.UI.UILabel uiLabel1;
+        private Sunny.UI.UIImageButton playButton;
 
-        /// <summary> 
-        /// 设计器支持所需的方法 - 不要修改
-        /// 使用代码编辑器修改此方法的内容。
-        /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            uiLabel1 = new Sunny.UI.UILabel();
+            playButton = new Sunny.UI.UIImageButton();
+            ((System.ComponentModel.ISupportInitialize)playButton).BeginInit();
+            SuspendLayout();
+            // 
+            // uiLabel1
+            // 
+            uiLabel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
+            uiLabel1.Font = new Font("黑体", 12F);
+            uiLabel1.ForeColor = Color.FromArgb(48, 48, 48);
+            uiLabel1.Location = new Point(20, 12);
+            uiLabel1.Margin = new Padding(4, 0, 4, 0);
+            uiLabel1.Name = "uiLabel1";
+            uiLabel1.Size = new Size(236, 31);
+            uiLabel1.TabIndex = 1;
+            uiLabel1.Text = "长长歌曲名——长长歌手";
+            // 
+            // playButton
+            // 
+            playButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+            playButton.BackColor = Color.White;
+            playButton.Cursor = Cursors.Hand;
+            playButton.Font = new Font("宋体", 12F);
+            playButton.Image = Properties.Resources.icons8_播放_961;
+            playButton.Location = new Point(397, 12);
+            playButton.Margin = new Padding(4);
+            playButton.Name = "playButton";
+            playButton.Size = new Size(31, 28);
+            playButton.SizeMode = PictureBoxSizeMode.StretchImage;
+            playButton.TabIndex = 4;
+            playButton.TabStop = false;
+            playButton.Text = null;
+            playButton.ZoomScaleDisabled = true;
+            playButton.Click += playButton_Click;
+            // 
+            // SongItemControl
+            // 
+            AutoScaleDimensions = new SizeF(9F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(playButton);
+            Controls.Add(uiLabel1);
+            Margin = new Padding(4);
+            MaximumSize = new Size(445, 53);
+            Name = "SongItemControl";
+            Size = new Size(445, 53);
+            ((System.ComponentModel.ISupportInitialize)playButton).EndInit();
+            ResumeLayout(false);
         }
-
-        #endregion
     }
+
+    #endregion
 }

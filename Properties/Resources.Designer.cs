@@ -223,6 +223,16 @@ namespace Byte_Harmonic.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_christmas_star_100__1_1 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-christmas-star-100 (1)1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_christmas_star_100__2_ {
             get {
                 object obj = ResourceManager.GetObject("icons8-christmas-star-100 (2)", resourceCulture);
@@ -236,6 +246,16 @@ namespace Byte_Harmonic.Properties {
         internal static System.Drawing.Bitmap icons8_christmas_star_100__3_ {
             get {
                 object obj = ResourceManager.GetObject("icons8-christmas-star-100 (3)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_christmas_star_1001 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-christmas-star-1001", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -623,6 +643,16 @@ namespace Byte_Harmonic.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_scroll_down_961 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-scroll-down-961", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_settings_48 {
             get {
                 object obj = ResourceManager.GetObject("icons8-settings-48", resourceCulture);
@@ -966,6 +996,16 @@ namespace Byte_Harmonic.Properties {
         internal static System.Drawing.Bitmap icons8_播放_96__1_ {
             get {
                 object obj = ResourceManager.GetObject("icons8-播放-96 (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_播放_961 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-播放-961", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
