@@ -209,5 +209,37 @@ namespace Byte_Harmonic.Database
 
             return cmd.ExecuteNonQuery() > 0;
         }
+
+        public List<Song> GetDownloadedSongs(int maximum = 10)
+        {
+            var songs = new List<Song>();
+
+            using var connection = new MySqlConnection(connectionString);
+            connection.Open();
+
+            string sql = "SELECT * FROM Songs WHERE Downloaded = @Downloaded LIMIT @Max";
+            using var cmd = new MySqlCommand(sql, connection);
+            cmd.Parameters.AddWithValue("@Max", maximum);
+            cmd.Parameters.AddWithValue("@Downloaded", 1);
+
+
+            using var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                var song = new Song(
+                    id: reader.GetInt32("Id"),
+                    title: reader.GetString("Title"),
+                    artist: reader.GetString("Artist"),
+                    downloaded: reader.GetBoolean("Downloaded"),
+                    musicFilePath: reader.GetString("MusicFilePath"),
+                    lrcFilePath: reader.IsDBNull(reader.GetOrdinal("LrcFilePath")) ? string.Empty : reader.GetString("LrcFilePath"),
+                    duration: reader.GetInt32("Duration"),
+                    tags: new List<string>() // 因数据库未存储 Tags 字段
+                );
+
+                songs.Add(song);
+            }
+            return songs;
+        }
     }
 }

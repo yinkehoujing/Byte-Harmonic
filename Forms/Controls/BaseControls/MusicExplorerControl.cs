@@ -121,12 +121,12 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
                 Margin = new Padding(0)
             };
 
-            var card1 = new PlaylistCardControl { PlaylistName = "流行精选" , CoverImageText = "1 (1)" };
-            var card2 = new PlaylistCardControl { PlaylistName = "华语金曲", CoverImageText = "1 (1)" };
-            var card3 = new PlaylistCardControl { PlaylistName = "摇滚年代" , CoverImageText = "1 (1)" };
-            var card4 = new PlaylistCardControl { PlaylistName = "古风系列" , CoverImageText = "1 (1)" };
-            var card5 = new PlaylistCardControl { PlaylistName = "本周最热" , CoverImageText = "1 (1)" };
-            var card6 = new PlaylistCardControl { PlaylistName = "欧美金曲", CoverImageText = "1 (1)" };
+            var card1 = new PlaylistCardControl("流行精选", "1 (2)");
+            var card2 = new PlaylistCardControl("华语金曲", "1 (9)");
+            var card3 = new PlaylistCardControl("摇滚年代", "1 (4)");
+            var card4 = new PlaylistCardControl("古风系列", "1 (5)");
+            var card5 = new PlaylistCardControl("本周最热", "1 (3)");
+            var card6 = new PlaylistCardControl("欧美金曲", "1 (1)");
 
 
             card1.PlaylistClicked += LoadSonglistDetails;

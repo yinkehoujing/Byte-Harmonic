@@ -55,7 +55,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             BulkOperateButton.FillPressColor = Color.FromArgb(166, 215, 231);
             BulkOperateButton.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             BulkOperateButton.ForeColor = Color.Black;
-            BulkOperateButton.Location = new Point(720, 13);
+            BulkOperateButton.Location = new Point(719, 13);
             BulkOperateButton.MinimumSize = new Size(1, 1);
             BulkOperateButton.Name = "BulkOperateButton";
             BulkOperateButton.Radius = 10;
@@ -76,7 +76,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             DeleteAllButton.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             DeleteAllButton.Image = (Image)resources.GetObject("DeleteAllButton.Image");
             DeleteAllButton.ImageHover = (Image)resources.GetObject("DeleteAllButton.ImageHover");
-            DeleteAllButton.Location = new Point(783, 53);
+            DeleteAllButton.Location = new Point(782, 53);
             DeleteAllButton.Name = "DeleteAllButton";
             DeleteAllButton.Size = new Size(24, 24);
             DeleteAllButton.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -96,7 +96,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             AddAllButton.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             AddAllButton.Image = (Image)resources.GetObject("AddAllButton.Image");
             AddAllButton.ImageHover = (Image)resources.GetObject("AddAllButton.ImageHover");
-            AddAllButton.Location = new Point(753, 53);
+            AddAllButton.Location = new Point(743, 53);
             AddAllButton.Name = "AddAllButton";
             AddAllButton.Size = new Size(24, 24);
             AddAllButton.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -116,7 +116,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             DownloadAllButton.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             DownloadAllButton.Image = (Image)resources.GetObject("DownloadAllButton.Image");
             DownloadAllButton.ImageHover = (Image)resources.GetObject("DownloadAllButton.ImageHover");
-            DownloadAllButton.Location = new Point(720, 53);
+            DownloadAllButton.Location = new Point(705, 53);
             DownloadAllButton.Name = "DownloadAllButton";
             DownloadAllButton.Size = new Size(24, 24);
             DownloadAllButton.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -136,7 +136,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             StarAllButton.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             StarAllButton.Image = (Image)resources.GetObject("StarAllButton.Image");
             StarAllButton.ImageHover = (Image)resources.GetObject("StarAllButton.ImageHover");
-            StarAllButton.Location = new Point(692, 55);
+            StarAllButton.Location = new Point(667, 55);
             StarAllButton.Name = "StarAllButton";
             StarAllButton.Size = new Size(20, 20);
             StarAllButton.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -156,7 +156,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             PlayAllButton.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             PlayAllButton.Image = (Image)resources.GetObject("PlayAllButton.Image");
             PlayAllButton.ImageHover = (Image)resources.GetObject("PlayAllButton.ImageHover");
-            PlayAllButton.Location = new Point(662, 54);
+            PlayAllButton.Location = new Point(629, 54);
             PlayAllButton.Name = "PlayAllButton";
             PlayAllButton.Size = new Size(22, 22);
             PlayAllButton.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -177,7 +177,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             SelectAllButton.FillPressColor = Color.FromArgb(166, 215, 231);
             SelectAllButton.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             SelectAllButton.ForeColor = Color.Black;
-            SelectAllButton.Location = new Point(606, 53);
+            SelectAllButton.Location = new Point(560, 53);
             SelectAllButton.MinimumSize = new Size(1, 1);
             SelectAllButton.Name = "SelectAllButton";
             SelectAllButton.Radius = 10;
@@ -192,6 +192,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             // 
             // flowLayoutPanel
             // 
+            flowLayoutPanel.AutoScroll = true;
             flowLayoutPanel.Location = new Point(3, 104);
             flowLayoutPanel.Name = "flowLayoutPanel";
             flowLayoutPanel.Size = new Size(818, 393);
