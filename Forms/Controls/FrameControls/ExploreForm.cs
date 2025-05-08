@@ -103,19 +103,22 @@ namespace Byte_Harmonic.Forms
                 bHButton3 = new BHButton("icons8-repeat-96", "icons8-repeat-96 (1)", "列表循环");
                 bHButton4 = new BHButton("icons8-随机-96 (1)", "icons8-随机-96", "随机播放");
             */
-            if(mode == PlaybackMode.Sequential)
+            if (mode == PlaybackMode.Sequential)
             {
                 uiImageButton9.Image = ((Image)(resourceManager.GetObject("icons8-定期约会-96")));
                 uiImageButton9.ImageHover = ((Image)(resourceManager.GetObject("icons8-定期约会-96 (1)")));
-            }else if(mode == PlaybackMode.RepeatOne)
+            }
+            else if (mode == PlaybackMode.RepeatOne)
             {
                 uiImageButton9.Image = ((Image)(resourceManager.GetObject("icons8-定期约会-96 (2)")));
                 uiImageButton9.ImageHover = ((Image)(resourceManager.GetObject("icons8-定期约会-96 (3)")));
-            }else if(mode == PlaybackMode.Shuffle)
+            }
+            else if (mode == PlaybackMode.Shuffle)
             {
                 uiImageButton9.Image = ((Image)(resourceManager.GetObject("icons8-随机-96 (1)")));
                 uiImageButton9.ImageHover = ((Image)(resourceManager.GetObject("icons8-随机-96")));
-            }else if(mode == PlaybackMode.ListLooping)
+            }
+            else if (mode == PlaybackMode.ListLooping)
             {
                 uiImageButton9.Image = ((Image)(resourceManager.GetObject("icons8-repeat-96")));
                 uiImageButton9.ImageHover = ((Image)(resourceManager.GetObject("icons8-repeat-96 (1)")));
@@ -738,7 +741,7 @@ namespace Byte_Harmonic.Forms
                 flowLayoutPanel1.Controls.Add(control);
             }
         }
-#endregion
+        #endregion
         //
         // 装入 MusicExplorerControl
         //
@@ -782,7 +785,7 @@ namespace Byte_Harmonic.Forms
 
                 // 显示加载状态
                 //var loading = new UILoading(this);
-               // loading.Show();
+                // loading.Show();
 
                 // 执行搜索
                 var results = await _searchService.SearchSongs(searchText);
@@ -798,7 +801,7 @@ namespace Byte_Harmonic.Forms
 
                 // 创建并加载搜索结果页面
                 //var searchResultsPage = new SearchResultsControl(results);
-               // LoadPage(searchResultsPage);
+                // LoadPage(searchResultsPage);
             }
             catch (Exception ex)
             {
@@ -918,6 +921,11 @@ namespace Byte_Harmonic.Forms
         private void uiImageButton16_Click(object sender, EventArgs e)
         {
             LoadPage(page: new UserForm());
+        }
+
+        private void uiImageButton10_Click(object sender, EventArgs e)
+        {
+            LoadPage(new PlayList());
         }
     }
 }

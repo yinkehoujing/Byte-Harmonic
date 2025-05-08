@@ -221,7 +221,7 @@ namespace Byte_Harmonic.Forms
         {
 
             Console.WriteLine("begin to Toggle PlayPause");
-            if (AppContext._playbackService.GetCurrentSong() == null || AppContext._playbackService.GetCurrentSong() != song)
+            if (AppContext._playbackService.GetCurrentSong() == null || AppContext._playbackService.GetCurrentSong().Id != song.Id)
             {
                 AppContext._playbackService.PlaySong(song); 
                 StartTimer(); // 没有对应地暂停 log_timer, 重新计时

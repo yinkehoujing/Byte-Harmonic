@@ -1,6 +1,7 @@
 ﻿using Byte_Harmonic.Database;
 using Byte_Harmonic.Forms.FormUtils;
 using Byte_Harmonic.Forms.MainForms;
+using Byte_Harmonic.Properties;
 using Byte_Harmonic.Services;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -94,12 +96,11 @@ namespace Byte_Harmonic.Forms.MainForms
 
                 AppContext.currentUser = _userService.GetCurrentUser();
 
-                if(AppContext.currentUser == null)
+                if(AppContext.currentUser != null)
                 {
-                    throw new ArgumentNullException(nameof (AppContext.currentUser));
+                    Console.WriteLine($"currentUser is {AppContext.currentUser.Account}");
                 }
 
-                Console.WriteLine($"currentUser is {AppContext.currentUser.Account}");
             }
             else
             {

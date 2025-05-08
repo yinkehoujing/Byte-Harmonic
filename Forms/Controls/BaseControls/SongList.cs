@@ -33,10 +33,10 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             bool isWhite = false; // 初始颜色标记
             Color[] colors = { Color.White, Color.FromArgb(240, 240, 240) }; // 黑白交替色
 
-            songs.Reverse();
-
-            foreach (Song song in songs)
+            for (int i = songs.Count - 1; i >= 0; i--)
             {
+                var song = songs[i];
+
                 // 创建SongItem（交替颜色）
                 SongItem item = new SongItem(
                     color: colors[isWhite ? 0 : 1],
@@ -49,6 +49,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
                 item.BringToFront();
                 isWhite = !isWhite; // 切换颜色标记
             }
+
         }
 
         private void SelectAllButton_Click(object sender, EventArgs e)
