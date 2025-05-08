@@ -32,6 +32,8 @@ namespace Services
 
         public bool IsPaused => _isPaused;
 
+        public PlaybackMode PlaybackMode => _playlist.PlaybackMode;
+
         public PlaybackService()
         {
             Console.WriteLine("PlaybackService().....");
@@ -261,6 +263,7 @@ namespace Services
             {
                 // 不变
             } 
+            // 列表循环 和 顺序播放
             else
             {
                 _currentIndex = (_currentIndex + 1) % _playlist.PlaySongs.Count;

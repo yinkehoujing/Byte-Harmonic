@@ -43,6 +43,7 @@ namespace Byte_Harmonic.Forms
             AppContext.updateSongUI += OnUpdateSongUI;
             AppContext.ShowPlayingBtn += OnShowPlayingBtn;
             AppContext.SonglistLoaded += LoadSonglistToPanel;
+            AppContext.PlaybackModeChanged += OnPlaybackModeChanged;
             var songlist = AppContext._songRepository.GetAllSongs();
 
             if (songlist.Count <= 0)
@@ -72,6 +73,7 @@ namespace Byte_Harmonic.Forms
                 AppContext.TriggerupdateSongUI(song);
                 AppContext.TriggerLyricsUpdated(text, position);
                 AppContext.TriggerShowPlayingBtn(!AppContext._playbackService.IsPaused);
+                AppContext.TriggerPlaybackModeChanged(AppContext._playbackService.PlaybackMode);
             }
 
 
@@ -87,6 +89,36 @@ namespace Byte_Harmonic.Forms
                 uiLabel2.Text = seekPosition.ToString(@"mm\:ss");
             };
         }
+
+        private void OnPlaybackModeChanged(PlaybackMode mode)
+        {
+            // 更新 uiImageButton9 的图标
+            /*
+                bHButton1 = new BHButton("icons8-定期约会-96", "icons8-定期约会-96 (1)", "顺序播放");
+                bHButton2 = new BHButton("icons8-定期约会-96 (2)", "icons8-定期约会-96 (3)", "单曲循环");
+                bHButton3 = new BHButton("icons8-repeat-96", "icons8-repeat-96 (1)", "列表循环");
+                bHButton4 = new BHButton("icons8-随机-96 (1)", "icons8-随机-96", "随机播放");
+            */
+            if(mode == PlaybackMode.Sequential)
+            {
+                uiImageButton9.Image = ((Image)(resourceManager.GetObject("icons8-定期约会-96")));
+                uiImageButton9.ImageHover = ((Image)(resourceManager.GetObject("icons8-定期约会-96 (1)")));
+            }else if(mode == PlaybackMode.RepeatOne)
+            {
+                uiImageButton9.Image = ((Image)(resourceManager.GetObject("icons8-定期约会-96 (2)")));
+                uiImageButton9.ImageHover = ((Image)(resourceManager.GetObject("icons8-定期约会-96 (3)")));
+            }else if(mode == PlaybackMode.Shuffle)
+            {
+                uiImageButton9.Image = ((Image)(resourceManager.GetObject("icons8-随机-96 (1)")));
+                uiImageButton9.ImageHover = ((Image)(resourceManager.GetObject("icons8-随机-96")));
+            }else if(mode == PlaybackMode.ListLooping)
+            {
+                uiImageButton9.Image = ((Image)(resourceManager.GetObject("icons8-repeat-96")));
+                uiImageButton9.ImageHover = ((Image)(resourceManager.GetObject("icons8-repeat-96 (1)")));
+            }
+
+        }
+
         private void LoadSonglistToPanel()
         {
             Console.WriteLine("load a new panel");
@@ -642,6 +674,13 @@ namespace Byte_Harmonic.Forms
             if (playOrderControl == null)
             {
                 playOrderControl = new PlayOrderControl(uiImageButton9.Location);
+                playOrderControl.RequestClose += () =>
+                {
+                    Console.WriteLine("closed of playOrderControl ");
+                    this.Controls.Remove(playOrderControl);
+                    playOrderControl.Dispose();
+                    playOrderControl = null;
+                };
                 this.Controls.Add(playOrderControl);
                 playOrderControl.BringToFront();
             }
