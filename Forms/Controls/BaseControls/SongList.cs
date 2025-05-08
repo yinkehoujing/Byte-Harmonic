@@ -11,19 +11,23 @@ using Byte_Harmonic.Models;
 
 namespace Byte_Harmonic.Forms.Controls.BaseControls
 {
-    public partial class SongList: UserControl
+    public partial class SongList : UserControl
     {
+        private bool selectAll = false;
+
         public SongList()
         {
             InitializeComponent();
+            this.LoadSongs();
         }
 
-        public void LoadSongs(List<Song> songs)
+        public void LoadSongs()
         {
             flowLayoutSongs.Controls.Clear(); // 清空现有项
 
             bool isWhite = false; // 初始颜色标记
             Color[] colors = { Color.White, Color.FromArgb(240, 240, 240) }; // 黑白交替色
+            List<Song> songs = AppContext.currentViewingSonglist.Songs;
 
             foreach (var song in songs)
             {
@@ -45,5 +49,35 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             }
         }
 
+        private void SelectAllButton_Click(object sender, EventArgs e)
+        {
+            if (selectAll)
+            {
+                foreach (SongItem item in flowLayoutSongs.Controls)
+                {
+                    item.ChooseAction();
+                }
+            }
+            else
+            {
+                foreach (SongItem item in flowLayoutSongs.Controls)
+                {
+                    item.NotChooseAction();
+                }
+            }
+
+        }
+
+        private void PlayAllButton_Click(object sender, EventArgs e)
+        {
+            //TODO:播放被选中的第一首歌，item.Selected表示被选中
+            foreach (SongItem item in flowLayoutSongs.Controls)
+            {
+                if(item.Selected)
+                {
+                    //TODO:加入播放队列
+                }
+            }
+        }
     }
 }

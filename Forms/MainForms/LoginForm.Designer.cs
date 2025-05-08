@@ -37,7 +37,6 @@ namespace Byte_Harmonic.Forms.MainForms
             uiLabel1 = new Sunny.UI.UILabel();
             uiLabel2 = new Sunny.UI.UILabel();
             passwordBox = new Sunny.UI.UITextBox();
-            passwordBox.PasswordChar = '*';
             uiImageButton3 = new Sunny.UI.UIImageButton();
             uiCheckBox1 = new Sunny.UI.UICheckBox();
             ExitButton = new Sunny.UI.UIImageButton();
@@ -144,6 +143,7 @@ namespace Byte_Harmonic.Forms.MainForms
             passwordBox.MinimumSize = new Size(1, 14);
             passwordBox.Name = "passwordBox";
             passwordBox.Padding = new Padding(4);
+            passwordBox.PasswordChar = '*';
             passwordBox.Radius = 10;
             passwordBox.RectSides = ToolStripStatusLabelBorderSides.None;
             passwordBox.ScrollBarBackColor = SystemColors.ActiveCaption;
@@ -243,10 +243,10 @@ namespace Byte_Harmonic.Forms.MainForms
             uiLabel3.BackColor = Color.Transparent;
             uiLabel3.Font = new Font("黑体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiLabel3.ForeColor = Color.PeachPuff;
-            uiLabel3.Location = new Point(87, 338);
+            uiLabel3.Location = new Point(23, 338);
             uiLabel3.Margin = new Padding(2, 0, 2, 0);
             uiLabel3.Name = "uiLabel3";
-            uiLabel3.Size = new Size(185, 30);
+            uiLabel3.Size = new Size(326, 30);
             uiLabel3.TabIndex = 16;
             uiLabel3.TextAlign = ContentAlignment.MiddleCenter;
             // 

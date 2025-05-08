@@ -119,6 +119,14 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             uiCheckBox.ReadOnly = true;
         }
         
+        public void ChooseAction()
+        {
+            uiCheckBox.Checked = true;
+        }
 
+        public void NotChooseAction()
+        {
+            uiCheckBox.Checked = false;
+        }
     }
 }

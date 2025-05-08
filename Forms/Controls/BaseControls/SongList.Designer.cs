@@ -32,18 +32,18 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SongList));
             flowLayoutSongs = new Sunny.UI.UIFlowLayoutPanel();
-            uiButton1 = new Sunny.UI.UIButton();
-            uiImageButton3 = new Sunny.UI.UIImageButton();
-            uiImageButton1 = new Sunny.UI.UIImageButton();
-            uiImageButton2 = new Sunny.UI.UIImageButton();
-            uiImageButton4 = new Sunny.UI.UIImageButton();
-            uiImageButton5 = new Sunny.UI.UIImageButton();
-            uiButton2 = new Sunny.UI.UIButton();
-            ((System.ComponentModel.ISupportInitialize)uiImageButton3).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)uiImageButton1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)uiImageButton2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)uiImageButton4).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)uiImageButton5).BeginInit();
+            BulkOperateButton = new Sunny.UI.UIButton();
+            DeleteAllButton = new Sunny.UI.UIImageButton();
+            AddAllButton = new Sunny.UI.UIImageButton();
+            DownloadAllButton = new Sunny.UI.UIImageButton();
+            StarAllButton = new Sunny.UI.UIImageButton();
+            PlayAllButton = new Sunny.UI.UIImageButton();
+            SelectAllButton = new Sunny.UI.UIButton();
+            ((System.ComponentModel.ISupportInitialize)DeleteAllButton).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)AddAllButton).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)DownloadAllButton).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)StarAllButton).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)PlayAllButton).BeginInit();
             SuspendLayout();
             // 
             // flowLayoutSongs
@@ -61,158 +61,160 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             flowLayoutSongs.Text = "uiFlowLayoutPanel1";
             flowLayoutSongs.TextAlignment = ContentAlignment.MiddleCenter;
             // 
-            // uiButton1
+            // BulkOperateButton
             // 
-            uiButton1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            uiButton1.FillColor = Color.White;
-            uiButton1.FillColor2 = Color.Transparent;
-            uiButton1.FillHoverColor = Color.Silver;
-            uiButton1.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiButton1.ForeColor = Color.Black;
-            uiButton1.Location = new Point(720, 13);
-            uiButton1.MinimumSize = new Size(1, 1);
-            uiButton1.Name = "uiButton1";
-            uiButton1.Radius = 10;
-            uiButton1.RectColor = Color.FromArgb(189, 189, 189);
-            uiButton1.Size = new Size(87, 25);
-            uiButton1.TabIndex = 1;
-            uiButton1.Text = "批量处理";
-            uiButton1.TipsFont = new Font("黑体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            BulkOperateButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            BulkOperateButton.FillColor = Color.White;
+            BulkOperateButton.FillColor2 = Color.Transparent;
+            BulkOperateButton.FillHoverColor = Color.Silver;
+            BulkOperateButton.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            BulkOperateButton.ForeColor = Color.Black;
+            BulkOperateButton.Location = new Point(720, 13);
+            BulkOperateButton.MinimumSize = new Size(1, 1);
+            BulkOperateButton.Name = "BulkOperateButton";
+            BulkOperateButton.Radius = 10;
+            BulkOperateButton.RectColor = Color.FromArgb(189, 189, 189);
+            BulkOperateButton.Size = new Size(87, 25);
+            BulkOperateButton.TabIndex = 1;
+            BulkOperateButton.Text = "批量处理";
+            BulkOperateButton.TipsFont = new Font("黑体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             // 
-            // uiImageButton3
+            // DeleteAllButton
             // 
-            uiImageButton3.Anchor = AnchorStyles.None;
-            uiImageButton3.BackColor = Color.White;
-            uiImageButton3.Cursor = Cursors.Hand;
-            uiImageButton3.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiImageButton3.Image = (Image)resources.GetObject("uiImageButton3.Image");
-            uiImageButton3.ImageHover = (Image)resources.GetObject("uiImageButton3.ImageHover");
-            uiImageButton3.Location = new Point(783, 44);
-            uiImageButton3.Name = "uiImageButton3";
-            uiImageButton3.Size = new Size(24, 24);
-            uiImageButton3.SizeMode = PictureBoxSizeMode.StretchImage;
-            uiImageButton3.TabIndex = 8;
-            uiImageButton3.TabStop = false;
-            uiImageButton3.Text = null;
-            uiImageButton3.ZoomScaleDisabled = true;
+            DeleteAllButton.Anchor = AnchorStyles.None;
+            DeleteAllButton.BackColor = Color.White;
+            DeleteAllButton.Cursor = Cursors.Hand;
+            DeleteAllButton.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            DeleteAllButton.Image = (Image)resources.GetObject("DeleteAllButton.Image");
+            DeleteAllButton.ImageHover = (Image)resources.GetObject("DeleteAllButton.ImageHover");
+            DeleteAllButton.Location = new Point(783, 53);
+            DeleteAllButton.Name = "DeleteAllButton";
+            DeleteAllButton.Size = new Size(24, 24);
+            DeleteAllButton.SizeMode = PictureBoxSizeMode.StretchImage;
+            DeleteAllButton.TabIndex = 8;
+            DeleteAllButton.TabStop = false;
+            DeleteAllButton.Text = null;
+            DeleteAllButton.ZoomScaleDisabled = true;
             // 
-            // uiImageButton1
+            // AddAllButton
             // 
-            uiImageButton1.Anchor = AnchorStyles.None;
-            uiImageButton1.BackColor = Color.White;
-            uiImageButton1.Cursor = Cursors.Hand;
-            uiImageButton1.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiImageButton1.Image = (Image)resources.GetObject("uiImageButton1.Image");
-            uiImageButton1.ImageHover = (Image)resources.GetObject("uiImageButton1.ImageHover");
-            uiImageButton1.Location = new Point(753, 44);
-            uiImageButton1.Name = "uiImageButton1";
-            uiImageButton1.Size = new Size(24, 24);
-            uiImageButton1.SizeMode = PictureBoxSizeMode.StretchImage;
-            uiImageButton1.TabIndex = 9;
-            uiImageButton1.TabStop = false;
-            uiImageButton1.Text = null;
-            uiImageButton1.ZoomScaleDisabled = true;
+            AddAllButton.Anchor = AnchorStyles.None;
+            AddAllButton.BackColor = Color.White;
+            AddAllButton.Cursor = Cursors.Hand;
+            AddAllButton.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            AddAllButton.Image = (Image)resources.GetObject("AddAllButton.Image");
+            AddAllButton.ImageHover = (Image)resources.GetObject("AddAllButton.ImageHover");
+            AddAllButton.Location = new Point(753, 53);
+            AddAllButton.Name = "AddAllButton";
+            AddAllButton.Size = new Size(24, 24);
+            AddAllButton.SizeMode = PictureBoxSizeMode.StretchImage;
+            AddAllButton.TabIndex = 9;
+            AddAllButton.TabStop = false;
+            AddAllButton.Text = null;
+            AddAllButton.ZoomScaleDisabled = true;
             // 
-            // uiImageButton2
+            // DownloadAllButton
             // 
-            uiImageButton2.Anchor = AnchorStyles.None;
-            uiImageButton2.BackColor = Color.White;
-            uiImageButton2.Cursor = Cursors.Hand;
-            uiImageButton2.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiImageButton2.Image = (Image)resources.GetObject("uiImageButton2.Image");
-            uiImageButton2.ImageHover = (Image)resources.GetObject("uiImageButton2.ImageHover");
-            uiImageButton2.Location = new Point(720, 44);
-            uiImageButton2.Name = "uiImageButton2";
-            uiImageButton2.Size = new Size(24, 24);
-            uiImageButton2.SizeMode = PictureBoxSizeMode.StretchImage;
-            uiImageButton2.TabIndex = 10;
-            uiImageButton2.TabStop = false;
-            uiImageButton2.Text = null;
-            uiImageButton2.ZoomScaleDisabled = true;
+            DownloadAllButton.Anchor = AnchorStyles.None;
+            DownloadAllButton.BackColor = Color.White;
+            DownloadAllButton.Cursor = Cursors.Hand;
+            DownloadAllButton.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            DownloadAllButton.Image = (Image)resources.GetObject("DownloadAllButton.Image");
+            DownloadAllButton.ImageHover = (Image)resources.GetObject("DownloadAllButton.ImageHover");
+            DownloadAllButton.Location = new Point(720, 53);
+            DownloadAllButton.Name = "DownloadAllButton";
+            DownloadAllButton.Size = new Size(24, 24);
+            DownloadAllButton.SizeMode = PictureBoxSizeMode.StretchImage;
+            DownloadAllButton.TabIndex = 10;
+            DownloadAllButton.TabStop = false;
+            DownloadAllButton.Text = null;
+            DownloadAllButton.ZoomScaleDisabled = true;
             // 
-            // uiImageButton4
+            // StarAllButton
             // 
-            uiImageButton4.Anchor = AnchorStyles.None;
-            uiImageButton4.BackColor = Color.White;
-            uiImageButton4.Cursor = Cursors.Hand;
-            uiImageButton4.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiImageButton4.Image = (Image)resources.GetObject("uiImageButton4.Image");
-            uiImageButton4.ImageHover = (Image)resources.GetObject("uiImageButton4.ImageHover");
-            uiImageButton4.Location = new Point(690, 44);
-            uiImageButton4.Name = "uiImageButton4";
-            uiImageButton4.Size = new Size(24, 24);
-            uiImageButton4.SizeMode = PictureBoxSizeMode.StretchImage;
-            uiImageButton4.TabIndex = 11;
-            uiImageButton4.TabStop = false;
-            uiImageButton4.Text = null;
-            uiImageButton4.ZoomScaleDisabled = true;
+            StarAllButton.Anchor = AnchorStyles.None;
+            StarAllButton.BackColor = Color.White;
+            StarAllButton.Cursor = Cursors.Hand;
+            StarAllButton.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            StarAllButton.Image = (Image)resources.GetObject("StarAllButton.Image");
+            StarAllButton.ImageHover = (Image)resources.GetObject("StarAllButton.ImageHover");
+            StarAllButton.Location = new Point(690, 53);
+            StarAllButton.Name = "StarAllButton";
+            StarAllButton.Size = new Size(24, 24);
+            StarAllButton.SizeMode = PictureBoxSizeMode.StretchImage;
+            StarAllButton.TabIndex = 11;
+            StarAllButton.TabStop = false;
+            StarAllButton.Text = null;
+            StarAllButton.ZoomScaleDisabled = true;
             // 
-            // uiImageButton5
+            // PlayAllButton
             // 
-            uiImageButton5.Anchor = AnchorStyles.None;
-            uiImageButton5.BackColor = Color.White;
-            uiImageButton5.Cursor = Cursors.Hand;
-            uiImageButton5.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiImageButton5.Image = (Image)resources.GetObject("uiImageButton5.Image");
-            uiImageButton5.ImageHover = (Image)resources.GetObject("uiImageButton5.ImageHover");
-            uiImageButton5.Location = new Point(660, 44);
-            uiImageButton5.Name = "uiImageButton5";
-            uiImageButton5.Size = new Size(24, 24);
-            uiImageButton5.SizeMode = PictureBoxSizeMode.StretchImage;
-            uiImageButton5.TabIndex = 12;
-            uiImageButton5.TabStop = false;
-            uiImageButton5.Text = null;
-            uiImageButton5.ZoomScaleDisabled = true;
+            PlayAllButton.Anchor = AnchorStyles.None;
+            PlayAllButton.BackColor = Color.White;
+            PlayAllButton.Cursor = Cursors.Hand;
+            PlayAllButton.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            PlayAllButton.Image = (Image)resources.GetObject("PlayAllButton.Image");
+            PlayAllButton.ImageHover = (Image)resources.GetObject("PlayAllButton.ImageHover");
+            PlayAllButton.Location = new Point(660, 53);
+            PlayAllButton.Name = "PlayAllButton";
+            PlayAllButton.Size = new Size(24, 24);
+            PlayAllButton.SizeMode = PictureBoxSizeMode.StretchImage;
+            PlayAllButton.TabIndex = 12;
+            PlayAllButton.TabStop = false;
+            PlayAllButton.Text = null;
+            PlayAllButton.ZoomScaleDisabled = true;
+            PlayAllButton.Click += PlayAllButton_Click;
             // 
-            // uiButton2
+            // SelectAllButton
             // 
-            uiButton2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            uiButton2.FillColor = Color.White;
-            uiButton2.FillColor2 = Color.Transparent;
-            uiButton2.FillHoverColor = Color.Silver;
-            uiButton2.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiButton2.ForeColor = Color.Black;
-            uiButton2.Location = new Point(606, 44);
-            uiButton2.MinimumSize = new Size(1, 1);
-            uiButton2.Name = "uiButton2";
-            uiButton2.Radius = 10;
-            uiButton2.RectColor = Color.FromArgb(189, 189, 189);
-            uiButton2.Size = new Size(48, 25);
-            uiButton2.TabIndex = 13;
-            uiButton2.Text = "全选";
-            uiButton2.TipsFont = new Font("黑体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            SelectAllButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            SelectAllButton.FillColor = Color.White;
+            SelectAllButton.FillColor2 = Color.Transparent;
+            SelectAllButton.FillHoverColor = Color.Silver;
+            SelectAllButton.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            SelectAllButton.ForeColor = Color.Black;
+            SelectAllButton.Location = new Point(606, 53);
+            SelectAllButton.MinimumSize = new Size(1, 1);
+            SelectAllButton.Name = "SelectAllButton";
+            SelectAllButton.Radius = 10;
+            SelectAllButton.RectColor = Color.FromArgb(189, 189, 189);
+            SelectAllButton.Size = new Size(48, 25);
+            SelectAllButton.TabIndex = 13;
+            SelectAllButton.Text = "全选";
+            SelectAllButton.TipsFont = new Font("黑体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            SelectAllButton.Click += SelectAllButton_Click;
             // 
             // SongList
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(uiButton2);
-            Controls.Add(uiImageButton5);
-            Controls.Add(uiImageButton4);
-            Controls.Add(uiImageButton2);
-            Controls.Add(uiImageButton1);
-            Controls.Add(uiImageButton3);
-            Controls.Add(uiButton1);
+            Controls.Add(SelectAllButton);
+            Controls.Add(PlayAllButton);
+            Controls.Add(StarAllButton);
+            Controls.Add(DownloadAllButton);
+            Controls.Add(AddAllButton);
+            Controls.Add(DeleteAllButton);
+            Controls.Add(BulkOperateButton);
             Controls.Add(flowLayoutSongs);
             Name = "SongList";
             Size = new Size(824, 512);
-            ((System.ComponentModel.ISupportInitialize)uiImageButton3).EndInit();
-            ((System.ComponentModel.ISupportInitialize)uiImageButton1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)uiImageButton2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)uiImageButton4).EndInit();
-            ((System.ComponentModel.ISupportInitialize)uiImageButton5).EndInit();
+            ((System.ComponentModel.ISupportInitialize)DeleteAllButton).EndInit();
+            ((System.ComponentModel.ISupportInitialize)AddAllButton).EndInit();
+            ((System.ComponentModel.ISupportInitialize)DownloadAllButton).EndInit();
+            ((System.ComponentModel.ISupportInitialize)StarAllButton).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PlayAllButton).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
         private Sunny.UI.UIFlowLayoutPanel flowLayoutSongs;
-        private Sunny.UI.UIButton uiButton1;
-        private Sunny.UI.UIImageButton uiImageButton3;
-        private Sunny.UI.UIImageButton uiImageButton1;
-        private Sunny.UI.UIImageButton uiImageButton2;
-        private Sunny.UI.UIImageButton uiImageButton4;
-        private Sunny.UI.UIImageButton uiImageButton5;
-        private Sunny.UI.UIButton uiButton2;
+        private Sunny.UI.UIButton BulkOperateButton;
+        private Sunny.UI.UIImageButton DeleteAllButton;
+        private Sunny.UI.UIImageButton AddAllButton;
+        private Sunny.UI.UIImageButton DownloadAllButton;
+        private Sunny.UI.UIImageButton StarAllButton;
+        private Sunny.UI.UIImageButton PlayAllButton;
+        private Sunny.UI.UIButton SelectAllButton;
     }
 }
