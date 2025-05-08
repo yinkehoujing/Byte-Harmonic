@@ -31,7 +31,7 @@ namespace Byte_Harmonic.Forms.MainForms
             lblMessage.Location = new Point(0, 35);
             lblMessage.Name = "lblMessage";
             lblMessage.Padding = new Padding(10);
-            lblMessage.Size = new Size(300, 167);
+            lblMessage.Size = new Size(300, 112);
             lblMessage.TabIndex = 1;
             lblMessage.TextAlign = ContentAlignment.MiddleCenter;
             // 
@@ -39,14 +39,15 @@ namespace Byte_Harmonic.Forms.MainForms
             // 
             btnConfirm.Anchor = AnchorStyles.Bottom;
             btnConfirm.Cursor = Cursors.Hand;
-            btnConfirm.FillColor = Color.FromArgb(166, 215, 231);
-            btnConfirm.FillHoverColor = MPColor.Blue4;
-            btnConfirm.FillPressColor = MPColor.Blue4;
+            btnConfirm.FillColor = Color.FromArgb(163, 199, 224);
+            btnConfirm.FillHoverColor = MPColor.Blue3;
+            btnConfirm.FillPressColor = MPColor.Blue3;
+            btnConfirm.RectHoverColor= MPColor.Blue3;
             btnConfirm.Font = new Font("黑体", 12F);
             btnConfirm.Location = new Point(105, 150);
             btnConfirm.MinimumSize = new Size(1, 1);
             btnConfirm.Name = "btnConfirm";
-            btnConfirm.RectColor = Color.FromArgb(166, 215, 231);
+            btnConfirm.RectColor = Color.FromArgb(163, 199, 224);
             btnConfirm.Size = new Size(90, 35);
             btnConfirm.TabIndex = 0;
             btnConfirm.Text = "确认";
@@ -69,7 +70,7 @@ namespace Byte_Harmonic.Forms.MainForms
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             Text = "提示";
-            TitleColor = MPColor.Blue3;
+            TitleColor = Color.FromArgb(163, 199, 224);
             ZoomScaleRect = new Rectangle(15, 15, 300, 200);
             ResumeLayout(false);
         }

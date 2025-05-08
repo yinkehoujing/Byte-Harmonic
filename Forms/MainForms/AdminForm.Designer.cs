@@ -19,7 +19,6 @@ namespace Byte_Harmonic.Forms
 
         private Sunny.UI.UITabControl tabControl;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
 
         private Sunny.UI.UITextBox txtTitle;
         private Sunny.UI.UITextBox txtArtist;
@@ -31,13 +30,6 @@ namespace Byte_Harmonic.Forms
         private Sunny.UI.UIButton btnSelectLrc;
         private Sunny.UI.UIButton btnCreate;
 
-        private Sunny.UI.UIDataGridView dgvSongs;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colId;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colTitle;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colArtist;
-        private System.Windows.Forms.DataGridViewButtonColumn colEdit;
-        private System.Windows.Forms.DataGridViewButtonColumn colDelete;
-
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -48,11 +40,6 @@ namespace Byte_Harmonic.Forms
         #region Windows Form Designer generated code
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             tabControl = new UITabControl();
             tabPage1 = new TabPage();
             lblTitle = new UILabel();
@@ -68,23 +55,13 @@ namespace Byte_Harmonic.Forms
             lblTags = new UILabel();
             txtTags = new UITextBox();
             btnCreate = new UIButton();
-            tabPage2 = new TabPage();
-            dgvSongs = new UIDataGridView();
-            colId = new DataGridViewTextBoxColumn();
-            colTitle = new DataGridViewTextBoxColumn();
-            colArtist = new DataGridViewTextBoxColumn();
-            colEdit = new DataGridViewButtonColumn();
-            colDelete = new DataGridViewButtonColumn();
             tabControl.SuspendLayout();
             tabPage1.SuspendLayout();
-            tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvSongs).BeginInit();
             SuspendLayout();
             // 
             // tabControl
             // 
             tabControl.Controls.Add(tabPage1);
-            tabControl.Controls.Add(tabPage2);
             tabControl.Dock = DockStyle.Fill;
             tabControl.DrawMode = TabDrawMode.OwnerDrawFixed;
             tabControl.Font = new Font("微软雅黑", 12F);
@@ -280,101 +257,6 @@ namespace Byte_Harmonic.Forms
             btnCreate.Text = "新建";
             btnCreate.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             // 
-            // tabPage2
-            // 
-            tabPage2.Controls.Add(dgvSongs);
-            tabPage2.Location = new Point(0, 40);
-            tabPage2.Name = "tabPage2";
-            tabPage2.Size = new Size(800, 525);
-            tabPage2.TabIndex = 1;
-            tabPage2.Text = "歌曲管理";
-            // 
-            // dgvSongs
-            // 
-            dgvSongs.AllowUserToAddRows = false;
-            dgvSongs.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(235, 243, 255);
-            dgvSongs.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            dgvSongs.BackgroundColor = Color.White;
-            dgvSongs.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = Color.FromArgb(80, 160, 255);
-            dataGridViewCellStyle2.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dataGridViewCellStyle2.ForeColor = Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dgvSongs.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            dgvSongs.ColumnHeadersHeight = 32;
-            dgvSongs.Columns.AddRange(new DataGridViewColumn[] { colId, colTitle, colArtist, colEdit, colDelete });
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Window;
-            dataGridViewCellStyle3.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dataGridViewCellStyle3.ForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
-            dgvSongs.DefaultCellStyle = dataGridViewCellStyle3;
-            dgvSongs.Dock = DockStyle.Fill;
-            dgvSongs.EnableHeadersVisualStyles = false;
-            dgvSongs.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dgvSongs.GridColor = Color.FromArgb(80, 160, 255);
-            dgvSongs.Location = new Point(0, 0);
-            dgvSongs.Name = "dgvSongs";
-            dgvSongs.ReadOnly = true;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = Color.FromArgb(235, 243, 255);
-            dataGridViewCellStyle4.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dataGridViewCellStyle4.ForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(80, 160, 255);
-            dataGridViewCellStyle4.SelectionForeColor = Color.White;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dgvSongs.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
-            dgvSongs.RowHeadersVisible = false;
-            dgvSongs.RowHeadersWidth = 62;
-            dataGridViewCellStyle5.BackColor = Color.White;
-            dataGridViewCellStyle5.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            dgvSongs.RowsDefaultCellStyle = dataGridViewCellStyle5;
-            dgvSongs.SelectedIndex = -1;
-            dgvSongs.Size = new Size(800, 525);
-            dgvSongs.StripeOddColor = Color.FromArgb(235, 243, 255);
-            dgvSongs.TabIndex = 0;
-            // 
-            // colId
-            // 
-            colId.MinimumWidth = 8;
-            colId.Name = "colId";
-            colId.ReadOnly = true;
-            colId.Width = 150;
-            // 
-            // colTitle
-            // 
-            colTitle.MinimumWidth = 8;
-            colTitle.Name = "colTitle";
-            colTitle.ReadOnly = true;
-            colTitle.Width = 150;
-            // 
-            // colArtist
-            // 
-            colArtist.MinimumWidth = 8;
-            colArtist.Name = "colArtist";
-            colArtist.ReadOnly = true;
-            colArtist.Width = 150;
-            // 
-            // colEdit
-            // 
-            colEdit.MinimumWidth = 8;
-            colEdit.Name = "colEdit";
-            colEdit.ReadOnly = true;
-            colEdit.Width = 150;
-            // 
-            // colDelete
-            // 
-            colDelete.MinimumWidth = 8;
-            colDelete.Name = "colDelete";
-            colDelete.ReadOnly = true;
-            colDelete.Width = 150;
-            // 
             // AdminForm
             // 
             ClientSize = new Size(800, 600);
@@ -388,8 +270,6 @@ namespace Byte_Harmonic.Forms
             ZoomScaleRect = new Rectangle(22, 22, 800, 600);
             tabControl.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
-            tabPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dgvSongs).EndInit();
             ResumeLayout(false);
         }
         #endregion
