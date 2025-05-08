@@ -164,6 +164,7 @@ namespace Byte_Harmonic.Forms
             panel2.Name = "panel2";
             panel2.Size = new Size(824, 512);
             panel2.TabIndex = 12;
+            panel2.Paint += panel2_Paint;
             // 
             // uiTrackBar1
             // 
@@ -295,6 +296,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton8.TabStop = false;
             uiImageButton8.Text = null;
             uiImageButton8.ZoomScaleDisabled = true;
+            uiImageButton8.Click += uiImageButton8_Click;
             // 
             // uiImageButton9
             // 

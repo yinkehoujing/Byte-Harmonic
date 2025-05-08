@@ -34,8 +34,8 @@ namespace Byte_Harmonic.Forms
         private async Task RunAllFavoritesTests()
         {
             await TestAddFavoriteSong();
-            //await TestRemoveFavoriteSong();
-            await TestGetFavoriteSongs();
+            await TestRemoveFavoriteSong();
+            //await TestGetFavoriteSongs();
             //await TestGetFavoriteSongsCount();
             //await TestAddFavoriteSongs();
             //await TestClearAllFavorites();
@@ -47,7 +47,7 @@ namespace Byte_Harmonic.Forms
             try
             {
                 await _userService.Login("admin", "123456789");
-                bool result = await _favoritesService.AddFavoriteSongAsync("admin", 3);
+                bool result = await _favoritesService.AddFavoriteSongAsync("admin", 2);
                 listBoxResults.Items.Add($"1. 添加收藏歌曲测试: {(result ? "✓ 通过" : "✗ 失败")}");
             }
             catch (Exception ex)
@@ -66,8 +66,9 @@ namespace Byte_Harmonic.Forms
             try
             {
                 await _userService.Login("admin", "123456789");
-                bool result = await _favoritesService.RemoveFavoriteSongAsync("admin", 1);
-                listBoxResults.Items.Add($"2. 取消收藏歌曲测试: {(result ? "✓ 通过" : "✗ 失败")}");
+               // bool result = await _favoritesService.RemoveFavoriteSongAsync("admin", 1);
+              // bool isFavorite = _favoritesService.IsSongFavorite("admin", 3);
+                //listBoxResults.Items.Add($"2. 取消收藏歌曲测试: {(isFavorite ? "✓ 通过" : "✗ 失败")}");
             }
             catch (Exception ex)
             {

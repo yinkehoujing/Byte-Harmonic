@@ -16,6 +16,7 @@ using Byte_Harmonic.Forms.Controls.BaseControls;
 using Byte_Harmonic.Forms.Controls.FrameControls;
 using Byte_Harmonic.Forms.Controls.FrameControls.MainPanel;
 using Org.BouncyCastle.Utilities.Collections;
+using static Sunny.UI.SnowFlakeId;
 
 namespace Byte_Harmonic.Forms
 {
@@ -24,6 +25,7 @@ namespace Byte_Harmonic.Forms
         private ResourceManager resourceManager;
         private StarControl starControl;
         private SearchService _searchService;
+        private FavoritesService _favoritesService;
         public ExploreForm()
         {
             InitializeComponent();
@@ -31,8 +33,13 @@ namespace Byte_Harmonic.Forms
             InitializeSongsList();//初始化侧边歌单
             InitializeSearchBox();//初始化搜索框
             resourceManager = new ResourceManager("Byte_Harmonic.Properties.Resources", typeof(Resources).Assembly);//获取全局资源
+            //初始化收藏service                                                                                                    //初始化
+            _favoritesService = new FavoritesService(AppContext.userRepository);
+            //初始化用户和歌曲
+            var song = AppContext._playbackService.GetCurrentSong();
             starControl = new StarControl(uiImageButton8);
-            starControl.InitStarButton(false);//初始化收藏按钮 //TODO传入是否被收藏
+            bool isFavorite = _favoritesService.IsSongFavorite(AppContext.currentUser.Account, 1);
+            starControl.InitStarButton(isFavorite);//初始化收藏按钮 //TODO传入是否被收藏
             uiImageButton8.Click += starControl.StarButtonClick;
 
             LoadMusicExplorerControl(); // 装入初始探索页面
@@ -55,7 +62,7 @@ namespace Byte_Harmonic.Forms
                 throw new ArgumentException("songlist 为空!!!");
             }
 
-            var song = AppContext._playbackService.GetCurrentSong();
+            ;
             if (song == null)
             {
                 AppContext.TriggerPlaylistSetRequested(songlist);
@@ -852,7 +859,7 @@ namespace Byte_Harmonic.Forms
                     return new List<string>();
                 }
 
-                var songs = await _searchService.SearchSongs(input);
+                var songs = await _searchService.JustSearchSong(input);
                 return songs
                     .Select(s => $"{s.Artist} - {s.Title}")
                     .Distinct()
@@ -923,9 +930,26 @@ namespace Byte_Harmonic.Forms
             LoadPage(page: new UserForm());
         }
 
-        private void uiImageButton10_Click(object sender, EventArgs e)
+        private void uiImageButton8_Click(object sender, EventArgs e)
         {
-            LoadPage(new PlayList());
+            if (_favoritesService.IsSongFavorite(AppContext.currentUser.Account, AppContext._playbackService.GetCurrentSong().Id) == true)
+            {
+                _favoritesService.RemoveFavoriteSongAsync(AppContext.currentUser.Account, AppContext._playbackService.GetCurrentSong().Id);
+                // bool isFavorite = _favoritesService.IsSongFavorite(AppContext.currentUser.Account, AppContext._playbackService.GetCurrentSong().Id);
+                starControl.InitStarButton(false);
+            }
+            else
+            {
+                int temp = AppContext._playbackService.GetCurrentSong().Id;
+                _favoritesService.AddFavoriteSongsAsync(AppContext.currentUser.Account, new[] { temp });
+                bool isFavorite = _favoritesService.IsSongFavorite(AppContext.currentUser.Account, AppContext._playbackService.GetCurrentSong().Id);
+                starControl.InitStarButton(true);
+            }
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

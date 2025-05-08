@@ -14,7 +14,7 @@ namespace Byte_Harmonic.Services
         private readonly SonglistRepository _repository;
         private readonly UserRepository _userRepo;
         private readonly UserService _userService;
-      
+
         public SearchService(SonglistRepository repository, UserRepository userRepo, UserService userService)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
@@ -42,6 +42,19 @@ namespace Byte_Harmonic.Services
                 (!string.IsNullOrEmpty(s.Artist) && s.Artist.ToLower().Contains(keyword))
             ).ToList();
         }
+        //只是用于推荐
+        public async Task<List<Song>> JustSearchSong(string keyword)
+        {
+            if (string.IsNullOrWhiteSpace(keyword))
+                return new List<Song>();
+            var allSongs = await _repository.GetAllSongsAsync();
+            keyword = keyword.ToLower();
+            return allSongs.Where(s =>
+                (!string.IsNullOrEmpty(s.Title) && s.Title.ToLower().Contains(keyword)) ||
+                (!string.IsNullOrEmpty(s.Artist) && s.Artist.ToLower().Contains(keyword))
+            ).ToList();
+        }
+
         //更新搜索记录
         public async Task<bool> UpdateSearchHistory(string username, List<string> history)
         {
@@ -86,7 +99,7 @@ namespace Byte_Harmonic.Services
             }
 
             int tagId = _repository.EnsureTagExists(tag);
-            return  _repository.GetSongsByTag(tagId);
+            return _repository.GetSongsByTag(tagId);
         }
 
         // 按多个标签（交集）筛选歌曲
@@ -103,7 +116,7 @@ namespace Byte_Harmonic.Services
             }
 
             var tagIds = tags.Select(t => _repository.EnsureTagExists(t)).ToList();
-            return  _repository.GetSongsByTags(tagIds);
+            return _repository.GetSongsByTags(tagIds);
         }
 
         // 获取某歌单中的歌曲
@@ -138,5 +151,7 @@ namespace Byte_Harmonic.Services
             var result = allSongs.Where(s => tagFilteredSongs.Any(ts => ts.Id == s.Id)).ToList();
             return result;
         }
+
+        
     }
 }

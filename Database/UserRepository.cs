@@ -153,17 +153,17 @@ namespace Byte_Harmonic.Database
         #region 收藏歌曲功能
 
         // 检查歌曲是否已被收藏
-        public async Task<bool> IsSongFavoriteAsync(string username, int songId)
+        public bool IsSongFavorite(string username, int songId)
         {
             using var connection = new MySqlConnection(_connectionString);
-            await connection.OpenAsync();
+            connection.Open();  // 同步打开连接
 
             const string sql = "SELECT COUNT(*) FROM Favorites WHERE Username = @Username AND SongId = @SongId";
             using var cmd = new MySqlCommand(sql, connection);
             cmd.Parameters.AddWithValue("@Username", username);
             cmd.Parameters.AddWithValue("@SongId", songId);
 
-            var count = (long)await cmd.ExecuteScalarAsync();
+            var count = (long)cmd.ExecuteScalar();  // 同步执行查询
             return count > 0;
         }
 
@@ -174,7 +174,7 @@ namespace Byte_Harmonic.Database
             await connection.OpenAsync();
 
             // 先检查是否已收藏
-            if (await IsSongFavoriteAsync(username, songId))
+            if ( IsSongFavorite(username, songId))
             {
                 return false;
             }
@@ -260,7 +260,7 @@ namespace Byte_Harmonic.Database
             {
                 foreach (var songId in songIds)
                 {
-                    if (!await IsSongFavoriteAsync(username, songId))
+                    if (! IsSongFavorite(username, songId))
                     {
                         const string sql = "INSERT INTO Favorites (Username, SongId) VALUES (@Username, @SongId)";
                         using var cmd = new MySqlCommand(sql, connection, transaction);
