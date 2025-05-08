@@ -128,6 +128,12 @@ namespace Byte_Harmonic.Services
                 return false;
             }
         }
+
+        //通过Id获取对应歌曲
+        public Song GetSongById(int songId)
+        {
+            return _repository.GetSongById(songId);
+        }
         #endregion
 
         #region 标签管理

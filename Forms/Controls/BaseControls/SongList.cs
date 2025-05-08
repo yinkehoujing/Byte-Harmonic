@@ -8,6 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Byte_Harmonic.Models;
+using Sunny.UI;
+using Byte_Harmonic.Forms.MainForms;
+using Byte_Harmonic.Services;
+using Byte_Harmonic.Utils;
 
 namespace Byte_Harmonic.Forms.Controls.BaseControls
 {
@@ -22,13 +26,14 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             this.Margin = new Padding(10);
         }
 
-        public void LoadSongs()
+        public void LoadSongs(List<Song> songs)
         {
             flowLayoutPanel.Controls.Clear(); // 清空现有项
 
             bool isWhite = false; // 初始颜色标记
             Color[] colors = { Color.White, Color.FromArgb(240, 240, 240) }; // 黑白交替色
-            List<Song> songs = AppContext.currentViewingSonglist.Songs;
+
+            songs.Reverse();
 
             foreach (Song song in songs)
             {
@@ -90,16 +95,36 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             }
         }
 
+        //下载文件
         private void DownloadAllButton_Click(object sender, EventArgs e)
         {
+            var config = ConfigManager.Instance;
+            var songService = AppContext.songlistRepository;
+            var successCount = 0;
+
             foreach (SongItem item in flowLayoutPanel.Controls)
             {
                 if (item.Selected)
                 {
-                    //TODO:下载
-                    //TODO:下载成功后弹窗
+                    try
+                    {
+                        var song = songService.GetSongById(item.songID);
+                        if (!File.Exists(song.MusicFilePath)) continue;
+
+                        var fileName = Byte_Harmonic.Utils.FileHelper.GenerateFileName(song, config.NamingStyle);
+                        var destPath = Path.Combine(config.DownloadPath, $"{fileName}{Path.GetExtension(song.MusicFilePath)}");
+
+                        File.Copy(song.MusicFilePath, destPath);
+                        successCount++;
+                    }
+                    catch
+                    {
+                        // 忽略单个失败
+                    }
                 }
             }
+
+            new MessageForm($"成功下载{successCount}首歌曲").ShowDialog();
         }
 
         private void AddAllButton_Click(object sender, EventArgs e)
@@ -109,9 +134,17 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
 
         private void DeleteAllButton_Click(object sender, EventArgs e)
         {
-            //TODO:后端删除
+           
+            foreach (SongItem item in flowLayoutPanel.Controls)
+            {
+                if (item.Selected)
+                {
+                    //TODO:后端删除
+                    int id = item.songID;
+                }
+            }
             //TODO:显示信息面：删除成功
-            this.LoadSongs();//更新数据
+            this.LoadSongs(AppContext.currentViewingSonglist.Songs);//更新数据
         }
 
         private void BulkOperateButton_Click(object sender, EventArgs e)

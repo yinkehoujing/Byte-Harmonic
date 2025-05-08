@@ -23,7 +23,8 @@ namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
             }
             InitializeComponent();
             songlist = new SongList();
-            songlist.LoadSongs();
+            var songs = AppContext.currentViewingSonglist.Songs;
+            songlist.LoadSongs(songs);
             this.Controls.Add(songlist);
         }
     }

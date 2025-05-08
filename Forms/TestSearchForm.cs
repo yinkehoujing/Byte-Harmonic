@@ -79,7 +79,7 @@ namespace Byte_Harmonic.Forms
 
                  await _userService.Login("admin", "123456789");
                 var user = _userService.GetCurrentUser();
-                var result = await _searchService.SearchSongs("传奇");
+                var result = await _searchService.SearchSongs("天外来物");
                 listBoxResults.Items.Add($"LoginAsync: 通过 (用户: {user.Username})");
 
 

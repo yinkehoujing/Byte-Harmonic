@@ -192,6 +192,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             // 
             // flowLayoutPanel
             // 
+            flowLayoutPanel.AutoScroll = true;
             flowLayoutPanel.Location = new Point(3, 104);
             flowLayoutPanel.Name = "flowLayoutPanel";
             flowLayoutPanel.Size = new Size(818, 393);

@@ -52,6 +52,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             playButton.Cursor = Cursors.Hand;
             playButton.Font = new Font("宋体", 12F);
             playButton.Image = Properties.Resources.icons8_播放_961;
+            playButton.ImageHover = Properties.Resources.icons8_播放_96__1_1;
             playButton.Location = new Point(397, 12);
             playButton.Margin = new Padding(4);
             playButton.Name = "playButton";
