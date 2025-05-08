@@ -22,13 +22,12 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             this.Margin = new Padding(10);
         }
 
-        public void LoadSongs()
+        public void LoadSongs(List<Song> songs)
         {
             flowLayoutPanel.Controls.Clear(); // 清空现有项
 
             bool isWhite = false; // 初始颜色标记
             Color[] colors = { Color.White, Color.FromArgb(240, 240, 240) }; // 黑白交替色
-            List<Song> songs = AppContext.currentViewingSonglist.Songs;
 
             foreach (Song song in songs)
             {
@@ -111,7 +110,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
         {
             //TODO:后端删除
             //TODO:显示信息面：删除成功
-            this.LoadSongs();//更新数据
+            this.LoadSongs(AppContext.currentViewingSonglist.Songs);//更新数据
         }
 
         private void BulkOperateButton_Click(object sender, EventArgs e)

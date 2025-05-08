@@ -563,8 +563,8 @@ namespace Byte_Harmonic.Forms
 
             //TODO
             //MenuButton1.Click += MenuButton1_Click;
-            //MenuButton2.Click += MenuButton2_Click;
-            //MenuButton3.Click += MenuButton3_Click;
+            MenuButton2.Click += MenuButton2_Click;
+            MenuButton3.Click += MenuButton3_Click;
 
             MenuButton1.Location = new Point(6, 91);
             MenuButton2.Location = new Point(6, 148);
@@ -574,6 +574,16 @@ namespace Byte_Harmonic.Forms
             this.Controls.Add(MenuButton2);
             this.Controls.Add(MenuButton3);
 
+        }
+
+        private void MenuButton2_Click(object? sender, EventArgs e)
+        {
+            LoadPage(page: new Download());
+        }
+
+        private void MenuButton3_Click(object? sender, EventArgs e)
+        {
+            LoadPage(page: new PlayList());
         }
 
         //
