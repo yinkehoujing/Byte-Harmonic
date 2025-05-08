@@ -263,7 +263,7 @@ namespace Byte_Harmonic.Services
         }
 
         // 根据歌单名获取当前用户的歌单
-        public async Task<Songlist> GetSonglistByName(string name)
+        public Songlist GetSonglistByName(string name)
         {
             Console.WriteLine("begin function:GetSonglistByName ");
             var currentUser = _userService.GetCurrentUser();
@@ -271,7 +271,7 @@ namespace Byte_Harmonic.Services
                 throw new UnauthorizedAccessException("用户未登录");
 
             Console.WriteLine("end function:GetSonglistByName ");
-            return await _repository.GetSonglistByNameAndOwner(name, currentUser.Account);
+            return  _repository.GetSonglistByNameAndOwner(name, currentUser.Account);
         }
         #endregion
     }
