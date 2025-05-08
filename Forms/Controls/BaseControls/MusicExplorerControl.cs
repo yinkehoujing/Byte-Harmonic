@@ -100,16 +100,25 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             panel2.Controls.Add(label2);
 
             refreshIcon.Click += refreshClick;
+
+            Panel playlistContainer = new Panel
+            {
+                Dock = DockStyle.Top,
+                Height = 180,
+                Padding = new Padding(0),
+            };
             // 歌单流式面板
             FlowLayoutPanel playlistPanel = new FlowLayoutPanel
             {
                 Name = "playlistPanel",
-                Dock = DockStyle.Top,
-                Height = 180,
                 AutoScroll = true,
                 WrapContents = true,
                 Padding = new Padding(10),
-                FlowDirection = FlowDirection.LeftToRight
+                FlowDirection = FlowDirection.LeftToRight,
+                Anchor = AnchorStyles.None, // 不拉伸
+                AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                Margin = new Padding(0)
             };
 
             var card1 = new PlaylistCardControl { PlaylistName = "流行精选" , CoverImageText = "1 (1)" };
@@ -117,12 +126,15 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             var card3 = new PlaylistCardControl { PlaylistName = "摇滚年代" , CoverImageText = "1 (1)" };
             var card4 = new PlaylistCardControl { PlaylistName = "古风系列" , CoverImageText = "1 (1)" };
             var card5 = new PlaylistCardControl { PlaylistName = "本周最热" , CoverImageText = "1 (1)" };
+            var card6 = new PlaylistCardControl { PlaylistName = "欧美金曲", CoverImageText = "1 (1)" };
+
 
             card1.PlaylistClicked += LoadSonglistDetails;
             card2.PlaylistClicked += LoadSonglistDetails;
             card3.PlaylistClicked += LoadSonglistDetails;
             card4.PlaylistClicked += LoadSonglistDetails;
             card5.PlaylistClicked += LoadSonglistDetails;
+            card6.PlaylistClicked += LoadSonglistDetails;
 
 
 
@@ -133,7 +145,12 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
                 playlistPanel.Controls.Add(card3);
                 playlistPanel.Controls.Add(card4);
                 playlistPanel.Controls.Add(card5);
+                playlistPanel.Controls.Add(card6);
+
             }
+
+            playlistContainer.Controls.Add(playlistPanel);
+
 
             // 歌曲流式面板
             // 主容器：横向排列两个列
@@ -187,11 +204,20 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
 
 
 
+            this.Resize += (s, e) =>
+            {
+                playlistPanel.Left = (playlistContainer.ClientSize.Width - playlistPanel.Width) / 2;
+            };
+            this.Load += (s, e) =>
+            {
+                playlistPanel.Left = (playlistContainer.ClientSize.Width - playlistPanel.Width) / 2;
+            };
+
 
             // 添加控件
             this.Controls.Add(songPanel);
             this.Controls.Add(panel2);
-            this.Controls.Add(playlistPanel);
+            this.Controls.Add(playlistContainer);
             this.Controls.Add(panel1);
             this.Controls.Add(greetingPanel);
         }
