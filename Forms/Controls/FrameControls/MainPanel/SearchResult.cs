@@ -30,22 +30,15 @@ namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
             this.Controls.Add(songlist);
         }
 
-        private void CheckBox_CheckedChanged(object sender, EventArgs e)
+        private async void CheckBox_CheckedChanged(object sender, EventArgs e)
         {
             List<string> tags = new List<string> { };
             foreach (Sunny.UI.UICheckBox item in checkPanel.Controls)
             {
                 tags.Add(item.Tag.ToString());
             }
-
-            if (tags.Count == 1)
-            {
-                songs = AppContext.searchService.SearchSongsByTagAsync(tags[0]);
-            }
-            else if (tags.Count > 1)
-            {
-                songs = AppContext.searchService.SearchSongsByTagsAsync(tags);
-            }
+            //TODO:更改使用新的后端函数
+            songs = await AppContext.searchService.SearchSongsByTagsAsync(tags);
 
             songlist.LoadSongs(songs);
         }

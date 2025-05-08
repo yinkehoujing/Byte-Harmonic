@@ -26,6 +26,7 @@ namespace Byte_Harmonic.Forms
         public static SonglistRepository songlistRepository = new SonglistRepository();
         public static UserService userService = new UserService(userRepository);
         public static SonglistService songlistService = new SonglistService(songlistRepository, userService);
+        public static SearchService searchService = new SearchService(songlistRepository, userRepository, userService);
         public static User currentUser = null;
         public static Songlist currentViewingSonglist = null;
 
