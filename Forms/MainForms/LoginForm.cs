@@ -63,7 +63,7 @@ namespace Byte_Harmonic.Forms.MainForms
             {
                 uiLabel3.Text = "请确认同意服务协议";
             }
-            if (loginButton1.Text == "登录")
+            else if (loginButton1.Text == "登录")
             {
                 try
                 {
@@ -72,8 +72,14 @@ namespace Byte_Harmonic.Forms.MainForms
                     if (user != null)
                     {
                         uiLabel3.Text = "登录成功";
+                        AppContext.userService = _userService;
+                        AppContext.songlistService = new SonglistService(AppContext.songlistRepository, AppContext.userService);
+
+
+                        AppContext.currentUser = _userService.GetCurrentUser();
                         await Task.Delay(1000); // 延迟1000毫秒（1秒）
                         MainForm mainForm = new MainForm();
+
                         mainForm.Show();
                         //隐藏当前界面；
                         this.Hide();
@@ -87,10 +93,7 @@ namespace Byte_Harmonic.Forms.MainForms
                 {
                     uiLabel3.Text = "登录失败了: " + ex.Message;
                 }
-                AppContext.userService = _userService;
-                AppContext.songlistService = new SonglistService(AppContext.songlistRepository, AppContext.userService);
-
-                AppContext.currentUser = _userService.GetCurrentUser();
+                
 
                 if(AppContext.currentUser != null)
                 {

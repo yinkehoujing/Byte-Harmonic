@@ -407,7 +407,7 @@ public class AdvancedSearchBox : UITextBox
     private void SetupEvents()
     {
         // 添加防抖处理，避免频繁触发搜索建议
-        var debouncer = new Debouncer(TimeSpan.FromMilliseconds(300));
+        var debouncer = new Debouncer(TimeSpan.FromMilliseconds(100));
         this.TextChanged += async (s, e) =>
         {
             debouncer.Debounce(async () =>
@@ -459,7 +459,7 @@ public class AdvancedSearchBox : UITextBox
         };
     }
 
-    private async Task UpdateSuggestionsAsync()
+    /*private async Task UpdateSuggestionsAsync()
     {
         if (string.IsNullOrWhiteSpace(this.Text))
         {
@@ -487,6 +487,48 @@ public class AdvancedSearchBox : UITextBox
         }
         catch (Exception ex)
         {
+            Console.WriteLine($"获取搜索建议失败: {ex.Message}");
+        }
+    }*/
+    private async Task UpdateSuggestionsAsync()
+    {
+        if (string.IsNullOrWhiteSpace(this.Text))
+        {
+            // 如果搜索框为空，只显示历史记录
+            await LoadHistoryTagsAsync();
+            return;
+        }
+
+        try
+        {
+            // 显示加载状态
+           // ShowLoadingIndicator();
+
+            // 同时启动加载建议和历史记录的任务
+            var suggestionsTask = GetSuggestions?.Invoke(this.Text) ?? Task.FromResult(new List<string>());
+            var historyTask = GetHistoryTags?.Invoke() ?? Task.FromResult(new List<string>());
+
+            // 等待两个任务完成
+            await Task.WhenAll(suggestionsTask, historyTask);
+
+            // 获取结果
+            var suggestions = await suggestionsTask;
+            var historyTags = await historyTask;
+
+            // 隐藏加载状态
+           // HideLoadingIndicator();
+
+            // 更新UI需要在UI线程上执行
+            this.Invoke((MethodInvoker)delegate
+            {
+                UpdateSuggestionsUI(suggestions, historyTags);
+            });
+        }
+        catch (Exception ex)
+        {
+            // 隐藏加载状态
+            //HideLoadingIndicator();
+
             Console.WriteLine($"获取搜索建议失败: {ex.Message}");
         }
     }
@@ -528,34 +570,80 @@ public class AdvancedSearchBox : UITextBox
         }
     }
 
+    /* private void UpdateSuggestionsUI(List<string> suggestions, List<string> historyTags)
+     {
+         bool hasSuggestions = suggestions.Count > 0;
+         bool hasHistory = historyTags.Count > 0;
+
+         _suggestionList.Items.Clear();
+         _suggestionList.Items.AddRange(suggestions.ToArray());
+         _suggestionList.ItemHeight = 20;
+         suggestionPanel.Height = Math.Min(suggestions.Count * 20, 200); // 限制最大高度
+         _suggestionList.Height = suggestionPanel.Height;
+
+         UpdateHistoryTagsUI(historyTags);
+
+         // 设置历史记录区域可见性
+         _historyLabel.Visible = hasHistory;
+         _historyPanel.Visible = hasHistory;
+         _separator.Visible = hasSuggestions && hasHistory;
+         _separator.Height = hasSuggestions && hasHistory ? 1 : 0;
+
+         // 计算并设置下拉面板高度
+         int suggestionHeight = hasSuggestions ? suggestionPanel.Height : 0;
+         int historyHeight = hasHistory ? _historyPanel.Height : 0;
+         int headerHeight = hasHistory ? _historyLabel.Height : 0;
+         int separatorHeight = _separator.Visible ? _separator.Height : 0;
+
+         _dropDownPanel.Height = suggestionHeight + separatorHeight + headerHeight + historyHeight + 10; // 10为额外边距
+
+         // 显示下拉面板
+         if (hasSuggestions || hasHistory)
+         {
+             ShowDropDown();
+         }
+         else
+         {
+             HideDropDown();
+         }
+     }*/
     private void UpdateSuggestionsUI(List<string> suggestions, List<string> historyTags)
     {
         bool hasSuggestions = suggestions.Count > 0;
         bool hasHistory = historyTags.Count > 0;
 
         _suggestionList.Items.Clear();
-        _suggestionList.Items.AddRange(suggestions.ToArray());
+
+        if (hasSuggestions)
+        {
+            _suggestionList.Items.AddRange(suggestions.ToArray());
+        }
+        else
+        {
+            // 添加提示行
+            _suggestionList.Items.Add("没有匹配结果");
+        }
+
         _suggestionList.ItemHeight = 20;
-        suggestionPanel.Height = Math.Min(suggestions.Count * 20, 200); // 限制最大高度
-        _suggestionList.Height = suggestionPanel.Height;
+
+        // 确保最小高度（即使没有匹配结果，也给点高度）
+        int suggestionHeight = Math.Min(Math.Max(suggestions.Count, 1) * 20, 200);
+        suggestionPanel.Height = suggestionHeight;
+        _suggestionList.Height = suggestionHeight;
 
         UpdateHistoryTagsUI(historyTags);
 
-        // 设置历史记录区域可见性
         _historyLabel.Visible = hasHistory;
         _historyPanel.Visible = hasHistory;
         _separator.Visible = hasSuggestions && hasHistory;
-        _separator.Height = hasSuggestions && hasHistory ? 1 : 0;
+        _separator.Height = _separator.Visible ? 1 : 0;
 
-        // 计算并设置下拉面板高度
-        int suggestionHeight = hasSuggestions ? suggestionPanel.Height : 0;
         int historyHeight = hasHistory ? _historyPanel.Height : 0;
         int headerHeight = hasHistory ? _historyLabel.Height : 0;
         int separatorHeight = _separator.Visible ? _separator.Height : 0;
 
         _dropDownPanel.Height = suggestionHeight + separatorHeight + headerHeight + historyHeight + 10; // 10为额外边距
 
-        // 显示下拉面板
         if (hasSuggestions || hasHistory)
         {
             ShowDropDown();
@@ -564,7 +652,11 @@ public class AdvancedSearchBox : UITextBox
         {
             HideDropDown();
         }
+
+        // 强制刷新 UI
+        _dropDownPanel.Refresh();
     }
+
 
     private void UpdateHistoryTagsUI(List<string> historyTags)
     {
