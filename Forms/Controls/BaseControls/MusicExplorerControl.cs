@@ -19,6 +19,9 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
 {
     public partial class MusicExplorerControl : UserControl
     {
+        private FlowLayoutPanel column1;
+        private FlowLayoutPanel column2;
+
         public MusicExplorerControl()
         {
             var songlistRepo = new SonglistRepository();
@@ -145,7 +148,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             };
 
             // 每列：纵向排列 4 个歌曲项
-            FlowLayoutPanel column1 = new FlowLayoutPanel
+            column1 = new FlowLayoutPanel
             {
                 Width = 360, // 自定义列宽
                 Height = 200, // 限制高度让每列只显示 4 项 (每项约高 45)
@@ -155,7 +158,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
                 ForeColor = Color.Yellow
             };
 
-            FlowLayoutPanel column2 = new FlowLayoutPanel
+            column2 = new FlowLayoutPanel
             {
                 Width = 360,
                 Height = 200,
@@ -195,7 +198,21 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
 
         private void refreshClick(object? sender, EventArgs e)
         {
-            MessageBox.Show("刷新歌单探索");
+            MessageBox.Show("刷新歌单探索成功！");
+            column1.Controls.Clear();
+            column2.Controls.Clear();
+
+            var songs = AppContext._songRepository.GetRandomSongs(8);
+
+            for (int i = 0; i < 4; i++)
+            {
+                column1.Controls.Add(new SongItemControl(Color.White, songs[i].Id, songs[i].Title, songs[i].Artist));
+            }
+
+            for (int i = 4; i < 8; i++)
+            {
+                column2.Controls.Add(new SongItemControl(Color.White, songs[i].Id, songs[i].Title, songs[i].Artist));
+            }
         }
 
         private async Task LoadSonglistDetails(string songlistName)
