@@ -29,6 +29,8 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             bool isWhite = false; // 初始颜色标记
             Color[] colors = { Color.White, Color.FromArgb(240, 240, 240) }; // 黑白交替色
 
+            songs.Reverse();
+
             foreach (Song song in songs)
             {
                 // 创建SongItem（交替颜色）
