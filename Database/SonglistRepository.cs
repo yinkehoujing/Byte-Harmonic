@@ -333,7 +333,7 @@ namespace Byte_Harmonic.Database
         }
 
         // 根据歌单名和所有者获取歌单
-        public Songlist GetSonglistByNameAndOwner(string name, string ownerAccount)
+        public async Task<Songlist> GetSonglistByNameAndOwner(string name, string ownerAccount)
         {
             using var conn = new MySqlConnection(_connectionString);
             conn.Open();
