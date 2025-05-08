@@ -1,6 +1,7 @@
 ﻿using Byte_Harmonic.Database;
 using Byte_Harmonic.Forms.FormUtils;
 using Byte_Harmonic.Forms.MainForms;
+using Byte_Harmonic.Properties;
 using Byte_Harmonic.Services;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -36,7 +38,7 @@ namespace Byte_Harmonic.Forms.MainForms
             _styleHandler = new FormStyle(this);
             _userRepo = new UserRepository();
             _userService = new UserService(_userRepo);
-           
+            loadingBox.Visible = false;
         }
 
         private void uiButton1_Click(object sender, EventArgs e)
@@ -72,6 +74,9 @@ namespace Byte_Harmonic.Forms.MainForms
                     if (user != null)
                     {
                         uiLabel3.Text = "登录成功";
+                        loginButton1.Text = "";
+                        loadingBox.Visible = true;
+
                         AppContext.userService = _userService;
                         AppContext.songlistService = new SonglistService(AppContext.songlistRepository, AppContext.userService);
 

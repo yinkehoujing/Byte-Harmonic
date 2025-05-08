@@ -13,7 +13,8 @@ namespace Byte_Harmonic.Models
     {
         Sequential, // 顺序播放
         Shuffle,    // 随机播放
-        RepeatOne   // 单曲循环
+        RepeatOne,   // 单曲循环
+        ListLooping
     }
 
     /// <summary>

@@ -17,6 +17,14 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
         private BHButton bHButton2;
         private BHButton bHButton3;
         private BHButton bHButton4;
+
+        public event Action? RequestClose;
+
+        private void RaiseClose()
+        {
+            RequestClose?.Invoke();
+        }
+
         public PlayOrderControl(Point ButtonLocation)
         {
             InitializeComponent();
@@ -39,23 +47,31 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             {
                 AppContext._playbackService.SetPlaybackMode(PlaybackMode.Sequential);
                 // 通知 UI 更改
+                RaiseClose();
+                AppContext.TriggerPlaybackModeChanged(PlaybackMode.Sequential);
             };
 
             bHButton2.Click += (s, e) =>
             {
                 AppContext._playbackService.SetPlaybackMode(PlaybackMode.RepeatOne);
+                RaiseClose();
+                AppContext.TriggerPlaybackModeChanged(PlaybackMode.RepeatOne);
             };
 
 
             bHButton3.Click += (s, e) =>
             {
-                AppContext._playbackService.SetPlaybackMode(PlaybackMode.Sequential);
+                AppContext._playbackService.SetPlaybackMode(PlaybackMode.ListLooping);
+                RaiseClose();
+                AppContext.TriggerPlaybackModeChanged(PlaybackMode.ListLooping);
             };
 
 
             bHButton4.Click += (s, e) =>
             {
                 AppContext._playbackService.SetPlaybackMode(PlaybackMode.Shuffle);
+                RaiseClose();
+                AppContext.TriggerPlaybackModeChanged(PlaybackMode.Shuffle);
             };
 
 
