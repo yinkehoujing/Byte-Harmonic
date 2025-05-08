@@ -36,52 +36,47 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
 
         private void InitializeUI()
         {
-            // 1. 设置 uiCheckBox (左侧固定位置)
-            uiCheckBox.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Bottom;
-            uiCheckBox.Location = new Point(10, 8);  // 左边距10px
+            //// 1. 设置 uiCheckBox (左侧固定位置)
+            //uiCheckBox.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Bottom;
+            //uiCheckBox.Location = new Point(10, 8);  // 左边距10px
 
-            // 2. 设置 uiLabel1 (中间拉伸部分)
-            uiLabel1.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Bottom;
-            uiLabel1.Location = new Point(40, 10);  // 从checkbox右侧开始
-            uiLabel1.AutoSize = false;  // 禁止自动调整大小
+            //// 2. 设置 uiLabel1 (中间拉伸部分)
+            //uiLabel1.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Bottom;
+            //uiLabel1.Location = new Point(40, 10);  // 从checkbox右侧开始
+            //uiLabel1.AutoSize = false;  // 禁止自动调整大小
 
-            // 3. 设置右侧按钮组 (保持右对齐)
-            int buttonSpacing = 5;  // 按钮间距
-            int buttonRightMargin = 10;  // 右边距
+            //// 3. 设置右侧按钮组 (保持右对齐)
+            //int buttonSpacing = 5;  // 按钮间距
+            //int buttonRightMargin = 10;  // 右边距
 
-            playButton.Anchor = AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Bottom;
-            playButton.Location = new Point(Width - buttonRightMargin - 24, 10);
+            //playButton.Anchor = AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Bottom;
+            //playButton.Location = new Point(Width - buttonRightMargin - 24, 10);
 
-            downloadButton.Anchor = AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Bottom;
-            downloadButton.Location = new Point(playButton.Left - buttonSpacing - 24, 10);
+            //downloadButton.Anchor = AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Bottom;
+            //downloadButton.Location = new Point(playButton.Left - buttonSpacing - 24, 10);
 
-            addButton.Anchor = AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Bottom;
-            addButton.Location = new Point(downloadButton.Left - buttonSpacing - 24, 10);
+            //addButton.Anchor = AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Bottom;
+            //addButton.Location = new Point(downloadButton.Left - buttonSpacing - 24, 10);
 
-            deleteButton.Anchor = AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Bottom;
-            deleteButton.Location = new Point(addButton.Left - buttonSpacing - 24, 10);
+            //deleteButton.Anchor = AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Bottom;
+            //deleteButton.Location = new Point(addButton.Left - buttonSpacing - 24, 10);
 
-            // 4. 处理容器大小变化
-            this.Resize += (sender, e) =>
-            {
-                // 动态调整标签宽度
-                uiLabel1.Width = deleteButton.Left - uiLabel1.Left - buttonSpacing;
+            //// 4. 处理容器大小变化
+            //this.Resize += (sender, e) =>
+            //{
+            //    // 动态调整标签宽度
+            //    uiLabel1.Width = deleteButton.Left - uiLabel1.Left - buttonSpacing;
 
-                // 重新定位右侧按钮
-                playButton.Left = Width - buttonRightMargin - 24;
-                downloadButton.Left = playButton.Left - buttonSpacing - 24;
-                addButton.Left = downloadButton.Left - buttonSpacing - 24;
-                deleteButton.Left = addButton.Left - buttonSpacing - 24;
-            };
+            //    // 重新定位右侧按钮
+            //    playButton.Left = Width - buttonRightMargin - 24;
+            //    downloadButton.Left = playButton.Left - buttonSpacing - 24;
+            //    addButton.Left = downloadButton.Left - buttonSpacing - 24;
+            //    deleteButton.Left = addButton.Left - buttonSpacing - 24;
+            //};
 
             this.BackColor = color;
             uiCheckBox.CheckBoxColor = color;
             uiCheckBox.ReadOnly = true;
-
-            //foreach (UIImageButton button in this.Controls)
-            //{
-            //    button.BackColor = color;
-            //}
 
             uiLabel1.Text = songName;
         }
@@ -111,6 +106,9 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
         {
             uiCheckBox.CheckBoxColor = MPColor.Blue3;
             uiCheckBox.ReadOnly = false;
+            uiCheckBox.Visible = true;
+            uiCheckBox.BringToFront();
+            Console.WriteLine("bulk");
         }
 
         //让多选框消失
@@ -118,6 +116,8 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
         {
             uiCheckBox.CheckBoxColor = color;
             uiCheckBox.ReadOnly = true;
+            uiCheckBox.Visible = false;
+            Console.WriteLine("notbulk");
         }
 
         public void ChooseAction()

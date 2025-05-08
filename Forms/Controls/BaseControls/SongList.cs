@@ -20,33 +20,28 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             InitializeComponent();
             this.Dock = DockStyle.Fill;
             this.Margin = new Padding(10);
-            this.LoadSongs();
         }
 
         public void LoadSongs()
         {
-            flowLayoutSongs.Controls.Clear(); // 清空现有项
+            flowLayoutPanel.Controls.Clear(); // 清空现有项
 
             bool isWhite = false; // 初始颜色标记
             Color[] colors = { Color.White, Color.FromArgb(240, 240, 240) }; // 黑白交替色
             List<Song> songs = AppContext.currentViewingSonglist.Songs;
 
-            foreach (var song in songs)
+            foreach (Song song in songs)
             {
                 // 创建SongItem（交替颜色）
-                var item = new SongItem(
+                SongItem item = new SongItem(
                     color: colors[isWhite ? 0 : 1],
                     songID: song.Id,
-                    songName: song.Title
+                    songName: song.Title+" —— "+song.Artist
                 );
 
-                // 设置统一尺寸
-                item.Width = flowLayoutSongs.ClientSize.Width - 2; // 留出边距
-                item.Height = 40; // 固定高度
-
                 // 添加到FlowLayoutPanel
-                flowLayoutSongs.Controls.Add(item);
-
+                flowLayoutPanel.Controls.Add(item);
+                item.BringToFront();
                 isWhite = !isWhite; // 切换颜色标记
             }
         }
@@ -56,7 +51,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             selectAll = !selectAll;
             if (selectAll)
             {
-                foreach (SongItem item in flowLayoutSongs.Controls)
+                foreach (SongItem item in flowLayoutPanel.Controls)
                 {
                     item.ChooseAction();
                 }
@@ -64,7 +59,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             }
             else
             {
-                foreach (SongItem item in flowLayoutSongs.Controls)
+                foreach (SongItem item in flowLayoutPanel.Controls)
                 {
                     item.NotChooseAction();
                 }
@@ -74,7 +69,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
         private void PlayAllButton_Click(object sender, EventArgs e)
         {
             //TODO:播放被选中的第一首歌，item.Selected表示被选中
-            foreach (SongItem item in flowLayoutSongs.Controls)
+            foreach (SongItem item in flowLayoutPanel.Controls)
             {
                 if (item.Selected)
                 {
@@ -85,7 +80,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
 
         private void StarAllButton_Click(object sender, EventArgs e)
         {
-            foreach (SongItem item in flowLayoutSongs.Controls)
+            foreach (SongItem item in flowLayoutPanel.Controls)
             {
                 if (item.Selected)
                 {
@@ -97,7 +92,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
 
         private void DownloadAllButton_Click(object sender, EventArgs e)
         {
-            foreach (SongItem item in flowLayoutSongs.Controls)
+            foreach (SongItem item in flowLayoutPanel.Controls)
             {
                 if (item.Selected)
                 {
@@ -124,6 +119,10 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             enableBulkOp = !enableBulkOp;
             if(enableBulkOp)
             {
+                foreach (SongItem item in flowLayoutPanel.Controls)
+                {
+                    item.BulkActions();
+                }
                 SelectAllButton.Visible = true;
                 SelectAllButton.Enabled = true;
                 DeleteAllButton.Visible = true;
@@ -139,6 +138,10 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             }
             else
             {
+                foreach (SongItem item in flowLayoutPanel.Controls)
+                {
+                    item.CancelBulkActions();
+                }
                 SelectAllButton.Visible = false;
                 SelectAllButton.Enabled = false;
                 DeleteAllButton.Visible = false;

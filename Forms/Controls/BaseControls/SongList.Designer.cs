@@ -31,7 +31,6 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SongList));
-            flowLayoutSongs = new Sunny.UI.UIFlowLayoutPanel();
             BulkOperateButton = new Sunny.UI.UIButton();
             DeleteAllButton = new Sunny.UI.UIImageButton();
             AddAllButton = new Sunny.UI.UIImageButton();
@@ -39,29 +38,13 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             StarAllButton = new Sunny.UI.UIImageButton();
             PlayAllButton = new Sunny.UI.UIImageButton();
             SelectAllButton = new Sunny.UI.UIButton();
+            flowLayoutPanel = new FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)DeleteAllButton).BeginInit();
             ((System.ComponentModel.ISupportInitialize)AddAllButton).BeginInit();
             ((System.ComponentModel.ISupportInitialize)DownloadAllButton).BeginInit();
             ((System.ComponentModel.ISupportInitialize)StarAllButton).BeginInit();
             ((System.ComponentModel.ISupportInitialize)PlayAllButton).BeginInit();
             SuspendLayout();
-            // 
-            // flowLayoutSongs
-            // 
-            flowLayoutSongs.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            flowLayoutSongs.FillColor = Color.White;
-            flowLayoutSongs.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            flowLayoutSongs.Location = new Point(17, 85);
-            flowLayoutSongs.Margin = new Padding(4, 5, 4, 5);
-            flowLayoutSongs.MinimumSize = new Size(1, 1);
-            flowLayoutSongs.Name = "flowLayoutSongs";
-            flowLayoutSongs.Padding = new Padding(2);
-            flowLayoutSongs.RectSides = ToolStripStatusLabelBorderSides.None;
-            flowLayoutSongs.ShowText = false;
-            flowLayoutSongs.Size = new Size(790, 410);
-            flowLayoutSongs.TabIndex = 0;
-            flowLayoutSongs.Text = "uiFlowLayoutPanel1";
-            flowLayoutSongs.TextAlignment = ContentAlignment.MiddleCenter;
             // 
             // BulkOperateButton
             // 
@@ -207,10 +190,18 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             SelectAllButton.Visible = false;
             SelectAllButton.Click += SelectAllButton_Click;
             // 
+            // flowLayoutPanel
+            // 
+            flowLayoutPanel.Location = new Point(3, 104);
+            flowLayoutPanel.Name = "flowLayoutPanel";
+            flowLayoutPanel.Size = new Size(818, 393);
+            flowLayoutPanel.TabIndex = 14;
+            // 
             // SongList
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.White;
+            Controls.Add(flowLayoutPanel);
             Controls.Add(SelectAllButton);
             Controls.Add(PlayAllButton);
             Controls.Add(StarAllButton);
@@ -218,7 +209,6 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             Controls.Add(AddAllButton);
             Controls.Add(DeleteAllButton);
             Controls.Add(BulkOperateButton);
-            Controls.Add(flowLayoutSongs);
             Name = "SongList";
             Size = new Size(824, 512);
             ((System.ComponentModel.ISupportInitialize)DeleteAllButton).EndInit();
@@ -230,8 +220,6 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
         }
 
         #endregion
-
-        private Sunny.UI.UIFlowLayoutPanel flowLayoutSongs;
         private Sunny.UI.UIButton BulkOperateButton;
         private Sunny.UI.UIImageButton DeleteAllButton;
         private Sunny.UI.UIImageButton AddAllButton;
@@ -239,5 +227,6 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
         private Sunny.UI.UIImageButton StarAllButton;
         private Sunny.UI.UIImageButton PlayAllButton;
         private Sunny.UI.UIButton SelectAllButton;
+        private FlowLayoutPanel flowLayoutPanel;
     }
 }

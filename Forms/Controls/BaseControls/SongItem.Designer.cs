@@ -48,7 +48,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             uiCheckBox.CheckBoxColor = Color.FromArgb(166, 215, 231);
             uiCheckBox.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiCheckBox.ForeColor = Color.FromArgb(48, 48, 48);
-            uiCheckBox.Location = new Point(3, 8);
+            uiCheckBox.Location = new Point(5, 8);
             uiCheckBox.MinimumSize = new Size(1, 1);
             uiCheckBox.Name = "uiCheckBox";
             uiCheckBox.Size = new Size(24, 29);
@@ -57,23 +57,23 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             // uiLabel1
             // 
             uiLabel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
-            uiLabel1.Font = new Font("黑体", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiLabel1.Font = new Font("黑体", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiLabel1.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel1.Location = new Point(43, 10);
+            uiLabel1.Location = new Point(40, 13);
             uiLabel1.Name = "uiLabel1";
-            uiLabel1.Size = new Size(522, 26);
+            uiLabel1.Size = new Size(601, 19);
             uiLabel1.TabIndex = 1;
             uiLabel1.Click += uiLabel1_Click;
             // 
             // deleteButton
             // 
             deleteButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
-            deleteButton.BackColor = Color.White;
+            deleteButton.BackColor = Color.Transparent;
             deleteButton.Cursor = Cursors.Hand;
             deleteButton.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             deleteButton.Image = (Image)resources.GetObject("deleteButton.Image");
             deleteButton.ImageHover = (Image)resources.GetObject("deleteButton.ImageHover");
-            deleteButton.Location = new Point(700, 10);
+            deleteButton.Location = new Point(776, 10);
             deleteButton.Name = "deleteButton";
             deleteButton.Size = new Size(24, 24);
             deleteButton.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -86,12 +86,12 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             // addButton
             // 
             addButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
-            addButton.BackColor = Color.White;
+            addButton.BackColor = Color.Transparent;
             addButton.Cursor = Cursors.Hand;
             addButton.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             addButton.Image = (Image)resources.GetObject("addButton.Image");
             addButton.ImageHover = (Image)resources.GetObject("addButton.ImageHover");
-            addButton.Location = new Point(661, 10);
+            addButton.Location = new Point(737, 10);
             addButton.Name = "addButton";
             addButton.Size = new Size(24, 24);
             addButton.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -104,12 +104,12 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             // downloadButton
             // 
             downloadButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
-            downloadButton.BackColor = Color.White;
+            downloadButton.BackColor = Color.Transparent;
             downloadButton.Cursor = Cursors.Hand;
             downloadButton.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             downloadButton.Image = (Image)resources.GetObject("downloadButton.Image");
             downloadButton.ImageHover = (Image)resources.GetObject("downloadButton.ImageHover");
-            downloadButton.Location = new Point(623, 10);
+            downloadButton.Location = new Point(699, 10);
             downloadButton.Name = "downloadButton";
             downloadButton.Size = new Size(24, 24);
             downloadButton.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -122,12 +122,12 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             // playButton
             // 
             playButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
-            playButton.BackColor = Color.White;
+            playButton.BackColor = Color.Transparent;
             playButton.Cursor = Cursors.Hand;
             playButton.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             playButton.Image = (Image)resources.GetObject("playButton.Image");
             playButton.ImageHover = (Image)resources.GetObject("playButton.ImageHover");
-            playButton.Location = new Point(585, 10);
+            playButton.Location = new Point(661, 10);
             playButton.Name = "playButton";
             playButton.Size = new Size(24, 24);
             playButton.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -148,7 +148,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             Controls.Add(uiLabel1);
             Controls.Add(uiCheckBox);
             Name = "SongItem";
-            Size = new Size(742, 45);
+            Size = new Size(818, 45);
             ((System.ComponentModel.ISupportInitialize)deleteButton).EndInit();
             ((System.ComponentModel.ISupportInitialize)addButton).EndInit();
             ((System.ComponentModel.ISupportInitialize)downloadButton).EndInit();
