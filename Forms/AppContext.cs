@@ -10,6 +10,7 @@ using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using Byte_Harmonic.Properties;
+using static Sunny.UI.SnowFlakeId;
 
 namespace Byte_Harmonic.Forms
 {
@@ -191,6 +192,34 @@ namespace Byte_Harmonic.Forms
             {
                 AppContext._playbackService.PlayPlaylist(0); // 假设从队首播放
                 StartTimer(); // 没有对应地暂停 log_timer
+                TriggerShowPlayingBtn(true);
+            }
+            else if (AppContext._playbackService.IsPaused)
+            {
+                AppContext._playbackService.Resume();
+                TimerHelper.RestartTimer(ref AppContext._timer);
+                TimerHelper.RestartTimer(ref AppContext._log_timer);
+                TriggerShowPlayingBtn(true);
+            }
+            else
+            {
+                AppContext._playbackService.Pause();
+                TimerHelper.StopTimer(ref AppContext._timer);
+                TimerHelper.StopTimer(ref AppContext._log_timer);
+                TriggerShowPlayingBtn(false);
+
+
+            }
+        }
+
+        public static void TogglePlayPauseSong(Song song)
+        {
+
+            Console.WriteLine("begin to Toggle PlayPause");
+            if (AppContext._playbackService.GetCurrentSong() == null || AppContext._playbackService.GetCurrentSong() != song)
+            {
+                AppContext._playbackService.PlaySong(song); 
+                StartTimer(); // 没有对应地暂停 log_timer, 重新计时
                 TriggerShowPlayingBtn(true);
             }
             else if (AppContext._playbackService.IsPaused)

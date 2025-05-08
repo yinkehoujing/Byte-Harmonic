@@ -41,9 +41,9 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             uiLabel1.Location = new Point(20, 12);
             uiLabel1.Margin = new Padding(4, 0, 4, 0);
             uiLabel1.Name = "uiLabel1";
-            uiLabel1.Size = new Size(217, 31);
+            uiLabel1.Size = new Size(236, 31);
             uiLabel1.TabIndex = 1;
-            uiLabel1.Text = "歌曲名——歌手";
+            uiLabel1.Text = "长长歌曲名——长长歌手";
             // 
             // playButton
             // 
@@ -61,7 +61,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             playButton.TabStop = false;
             playButton.Text = null;
             playButton.ZoomScaleDisabled = true;
-            playButton.Click += favoriteButton_Click;
+            playButton.Click += playButton_Click;
             // 
             // SongItemControl
             // 
