@@ -37,12 +37,13 @@ namespace Byte_Harmonic.Forms
         public static event Action<bool> ShowPlayingBtn; // 更新 label2, 进度条
         public static event Action<float> VolumeChanged; // 0 - 1 之间
         public static event Action SonglistLoaded; // 更新 panel2
+        public static event Action<PlaybackMode> PlaybackModeChanged; // 更新 playbackMode 显示图标
+
 
 
         // 实际响应，修改 PlaybackService 对象
         public static event Action<double>? PlaybackSpeedChanged;
         public static event Action<List<Song>> PlaylistSetRequested; // 响应，设置初始的 Playlist
-        public static event Action<PlaybackMode>? PlaybackModeChanged;
 
         // 下载设置（下载路径和命名方式）
         public static string DownloadPath { get; private set; }
@@ -61,6 +62,15 @@ namespace Byte_Harmonic.Forms
             Console.WriteLine("TriggerPositionChanged");
             PositionChanged?.Invoke(ts);
         }
+
+        public static void TriggerPlaybackModeChanged(PlaybackMode playbackMode)
+        {
+            Console.WriteLine("TriggerPlaybackModeChanged");
+            PlaybackModeChanged?.Invoke(playbackMode);
+        }
+
+
+
 
         public static void TriggerVolumeChanged(float volumeValue)
         {
@@ -128,14 +138,8 @@ namespace Byte_Harmonic.Forms
             // 注册 PlaylistSetRequested 事件处理函数
             PlaylistSetRequested += OnPlaylistSetRequested;
 
-            PlaybackModeChanged += OnPlaybackModeChanged;
 
 
-        }
-
-        private static void OnPlaybackModeChanged(PlaybackMode mode)
-        {
-            _playbackService.SetPlaybackMode(mode);
         }
 
         // 事件处理函数
