@@ -257,7 +257,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
 
         private void refreshClick(object? sender, EventArgs e)
         {
-            MessageBox.Show("刷新歌单探索成功！");
+            new Byte_Harmonic.Forms.MainForms.MessageForm("刷新歌单探索成功！").ShowDialog();
             column1.Controls.Clear();
             column2.Controls.Clear();
 

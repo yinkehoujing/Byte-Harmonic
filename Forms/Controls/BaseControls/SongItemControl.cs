@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Drawing;
+using System.Resources;
 using System.Windows.Forms;
 using Byte_Harmonic.Forms.FormUtils;
+using Byte_Harmonic.Properties;
 using Byte_Harmonic.Utils;
 using Sunny.UI;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
@@ -14,8 +16,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
         public int songID;
         private string songName;
         private string artistName;
-
-
+        private ResourceManager resourceManager;
 
         public SongItemControl(Color color, int songID, string songName, string artistName)
         {
@@ -26,6 +27,34 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             this.color = color;
             InitializeUI();
             this.artistName = artistName;
+
+            AppContext.ShowPlayingBtn += OnShowPlayingBtn;
+        }
+
+        private void OnShowPlayingBtn(bool isPaused)
+        {
+
+            resourceManager = new ResourceManager("Byte_Harmonic.Properties.Resources", typeof(Resources).Assembly);//获取全局资源
+            if(AppContext._playbackService == null || AppContext._playbackService.GetCurrentSong().Id != songID)
+            {
+                // 暂停了显示下面图标
+                playButton.Image = ((Image)(resourceManager.GetObject("icons8-播放-96")));
+                playButton.ImageHover = ((Image)(resourceManager.GetObject("icons8-播放-96 (1)")));
+                return;
+            }
+
+            if (isPaused)
+            {
+                playButton.Image = ((Image)(resourceManager.GetObject("icons8-pause-96")));
+                playButton.ImageHover = ((Image)(resourceManager.GetObject("icons8-pause-96 (1)")));
+            }
+            else
+            {
+                // 暂停了显示下面图标
+                playButton.Image = ((Image)(resourceManager.GetObject("icons8-播放-96")));
+                playButton.ImageHover = ((Image)(resourceManager.GetObject("icons8-播放-96 (1)")));
+
+            }
         }
 
         private void InitializeUI()
