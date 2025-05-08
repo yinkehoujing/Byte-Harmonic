@@ -20,77 +20,80 @@ namespace Byte_Harmonic.Forms
 
         private void InitializeComponent()
         {
-            this.lblTitle = new Sunny.UI.UILabel();
-            this.txtName = new Sunny.UI.UITextBox();
-            this.btnConfirm = new Sunny.UI.UIButton();
-            this.lblError = new Sunny.UI.UILabel();
-            this.SuspendLayout();
+            lblTitle = new UILabel();
+            txtName = new UITextBox();
+            btnConfirm = new UIButton();
+            lblError = new UILabel();
+            SuspendLayout();
             // 
             // lblTitle
             // 
-            this.lblTitle.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.lblTitle.Location = new System.Drawing.Point(20, 20);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(100, 23);
-            this.lblTitle.Style = Sunny.UI.UIStyle.Blue;
-            this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "名称：";
+            lblTitle.Font = new Font("微软雅黑", 12F);
+            lblTitle.ForeColor = Color.FromArgb(48, 48, 48);
+            lblTitle.Location = new Point(33, 61);
+            lblTitle.Name = "lblTitle";
+            lblTitle.Size = new Size(100, 23);
+            lblTitle.Style = UIStyle.Custom;
+            lblTitle.TabIndex = 0;
+            lblTitle.Text = "名称：";
             // 
             // txtName
             // 
-            this.txtName.ButtonSymbolOffset = new System.Drawing.Point(0, 0);
-            this.txtName.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtName.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.txtName.Location = new System.Drawing.Point(90, 17);
-            this.txtName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtName.Maximum = 2147483647D;
-            this.txtName.Minimum = -2147483648D;
-            this.txtName.MinimumSize = new System.Drawing.Size(1, 1);
-            this.txtName.Name = "txtName";
-            this.txtName.ShowText = false;
-            this.txtName.Size = new System.Drawing.Size(200, 29);
-            this.txtName.Style = Sunny.UI.UIStyle.Blue;
-            this.txtName.TabIndex = 1;
+            txtName.ButtonSymbolOffset = new Point(0, 0);
+            txtName.Cursor = Cursors.IBeam;
+            txtName.Font = new Font("微软雅黑", 12F);
+            txtName.Location = new Point(103, 61);
+            txtName.Margin = new Padding(4, 5, 4, 5);
+            txtName.MinimumSize = new Size(1, 1);
+            txtName.Name = "txtName";
+            txtName.Padding = new Padding(5);
+            txtName.ShowText = false;
+            txtName.Size = new Size(200, 29);
+            txtName.Style = UIStyle.Custom;
+            txtName.TabIndex = 1;
+            txtName.TextAlignment = ContentAlignment.MiddleLeft;
+            txtName.Watermark = "";
             // 
             // btnConfirm
             // 
-            this.btnConfirm.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnConfirm.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.btnConfirm.Location = new System.Drawing.Point(215, 70);
-            this.btnConfirm.MinimumSize = new System.Drawing.Size(1, 1);
-            this.btnConfirm.Name = "btnConfirm";
-            this.btnConfirm.Size = new System.Drawing.Size(100, 35);
-            this.btnConfirm.TabIndex = 2;
-            this.btnConfirm.Text = "确认";
-            this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
+            btnConfirm.Cursor = Cursors.Hand;
+            btnConfirm.Font = new Font("微软雅黑", 12F);
+            btnConfirm.Location = new Point(115, 157);
+            btnConfirm.MinimumSize = new Size(1, 1);
+            btnConfirm.Name = "btnConfirm";
+            btnConfirm.Size = new Size(100, 35);
+            btnConfirm.TabIndex = 2;
+            btnConfirm.Text = "确认";
+            btnConfirm.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnConfirm.Click += btnConfirm_Click;
             // 
             // lblError
             // 
-            this.lblError.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.lblError.ForeColor = System.Drawing.Color.Red;
-            this.lblError.Location = new System.Drawing.Point(20, 50);
-            this.lblError.Name = "lblError";
-            this.lblError.Size = new System.Drawing.Size(270, 23);
-            this.lblError.Style = Sunny.UI.UIStyle.Blue;
-            this.lblError.TabIndex = 3;
-            this.lblError.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblError.Visible = false;
+            lblError.Font = new Font("微软雅黑", 10F);
+            lblError.ForeColor = Color.FromArgb(48, 48, 48);
+            lblError.Location = new Point(33, 113);
+            lblError.Name = "lblError";
+            lblError.Size = new Size(270, 23);
+            lblError.Style = UIStyle.Custom;
+            lblError.TabIndex = 3;
+            lblError.TextAlign = ContentAlignment.MiddleLeft;
+            lblError.Visible = false;
             // 
             // CreateSongListForm
             // 
-            this.AcceptButton = this.btnConfirm;
-            this.ClientSize = new System.Drawing.Size(340, 120);
-            this.Controls.Add(this.lblError);
-            this.Controls.Add(this.btnConfirm);
-            this.Controls.Add(this.txtName);
-            this.Controls.Add(this.lblTitle);
-            this.MaximizeBox = false;
-            this.MinimizeBox = true;
-            this.Name = "CreateSongListForm";
-            this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "新建歌单";
-            this.ResumeLayout(false);
+            AcceptButton = btnConfirm;
+            ClientSize = new Size(340, 224);
+            Controls.Add(lblError);
+            Controls.Add(btnConfirm);
+            Controls.Add(txtName);
+            Controls.Add(lblTitle);
+            MaximizeBox = false;
+            Name = "CreateSongListForm";
+            ShowInTaskbar = false;
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "新建歌单";
+            ZoomScaleRect = new Rectangle(15, 15, 340, 120);
+            ResumeLayout(false);
         }
 
         #endregion

@@ -17,6 +17,10 @@ namespace Byte_Harmonic.Forms.MainForms
         private Color color;//背景色
         public int listID;//歌单的ID
         private string listName;//歌单名
+        public bool Selected//被选
+        {
+            get => uiCheckBox.Checked;
+        }
         public LibraryItem(Color color, int listID, string listName)
         {
             InitializeComponent();
@@ -33,7 +37,7 @@ namespace Byte_Harmonic.Forms.MainForms
             Byte_Harmonic.Forms.MainForms.AddSongToListForm addForm = this.FindForm() as AddSongToListForm;
             if (addForm != null)
             {
-                addForm.changeToSongView(listID);
+                addForm.changeToSongView(listID, listName);
             }
         }
     }
