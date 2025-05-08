@@ -35,6 +35,9 @@ VALUES ('古风系列', 'admin');
 INSERT INTO Playlists (Name, Owner)
 VALUES ('本周最热', 'admin');
 
+INSERT INTO Playlists (Name, Owner)
+VALUES ('欧美金曲', 'admin');
+
 
 INSERT INTO SonglistSongs (SonglistId, SongId)
 VALUES
