@@ -3,6 +3,10 @@ using Sunny.UI;
 using System;
 using System.IO;
 using System.Windows.Forms;
+using Byte_Harmonic.Forms;    // 使用 AppContext
+
+
+//备注：执行“下载”逻辑时，统一从 AppContext.DownloadPath 和 AppContext.NamingStyle 中读取
 
 namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
 {
@@ -17,22 +21,25 @@ namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
             InitializeSettings();
         }
 
+        //初始化窗体
         private void InitializeSettings()
         {
-            // 从单例里读取
-            txtDownloadPath.Text = _configManager.DownloadPath;
-            radioFileNameOnly.Checked = _configManager.NamingStyle == 0;
-            radioSongArtist.Checked = _configManager.NamingStyle == 1;
-            radioArtistSong.Checked = _configManager.NamingStyle == 2;
+            // 根据 AppContext 中的全局设置来初始化控件
+            txtDownloadPath.Text = AppContext.DownloadPath;
+            radioFileNameOnly.Checked = AppContext.NamingStyle == 0;
+            radioSongArtist.Checked = AppContext.NamingStyle == 1;
+            radioArtistSong.Checked = AppContext.NamingStyle == 2;
         }
 
+        //选择下载路径
         private void btnBrowse_Click(object sender, EventArgs e)
         {
-            using var folderDialog = new FolderBrowserDialog();
-            if (folderDialog.ShowDialog() == DialogResult.OK)
-                txtDownloadPath.Text = folderDialog.SelectedPath;
+            using var dlg = new FolderBrowserDialog();
+            if (dlg.ShowDialog() == DialogResult.OK)
+                txtDownloadPath.Text = dlg.SelectedPath;
         }
 
+        //保存下载设置
         private void btnSave_Click(object sender, EventArgs e)
         {
             try
@@ -40,19 +47,22 @@ namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
                 if (!Directory.Exists(txtDownloadPath.Text))
                     throw new ArgumentException("路径不存在，请选择有效目录");
 
-                // 保存到单例中
+                // 写入 ConfigManager，并持久化
                 _configManager.DownloadPath = txtDownloadPath.Text;
                 _configManager.NamingStyle = radioFileNameOnly.Checked ? 0
                                             : radioSongArtist.Checked ? 1
                                             : 2;
                 _configManager.Save();
 
-                // 如果这个 UserControl 托管在一个对话框里，就关闭它
-                var parentForm = this.FindForm();
-                if (parentForm != null)
+                // 通知 AppContext 刷新全局设置
+                AppContext.LoadSettings();
+
+                // 关闭对话框宿主
+                var f = FindForm();
+                if (f != null)
                 {
-                    parentForm.DialogResult = DialogResult.OK;
-                    parentForm.Close();
+                    f.DialogResult = DialogResult.OK;
+                    f.Close();
                 }
             }
             catch (Exception ex)
