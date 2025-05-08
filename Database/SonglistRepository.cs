@@ -292,7 +292,7 @@ namespace Byte_Harmonic.Database
             const string baseSql = @"SELECT 
                   Id,
                   Name,
-                  Owner,
+                  Owner
                   FROM Playlists
                   WHERE Owner = @currentAccount   
                      OR Owner = 'Admin'"; // 返回当前用户和Admin的歌单
@@ -343,7 +343,7 @@ namespace Byte_Harmonic.Database
             const string baseSql = @"SELECT 
                 Id,
                 Name,
-                Owner,
+                Owner
                 FROM Playlists
                 WHERE Name = @name 
                   AND (Owner = @currentAccount OR Owner = 'Admin')
