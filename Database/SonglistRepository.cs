@@ -292,8 +292,7 @@ namespace Byte_Harmonic.Database
             const string baseSql = @"SELECT 
                           Id,
                           Name,
-                          Owner,
-                          IsPublic
+                          Owner
                           FROM Playlists";
 
             var playlists = (await conn.QueryAsync<Songlist>(baseSql)).ToList();
@@ -336,21 +335,34 @@ namespace Byte_Harmonic.Database
         public async Task<Songlist> GetSonglistByNameAndOwner(string name, string ownerAccount)
         {
             using var conn = new MySqlConnection(_connectionString);
-            await conn.OpenAsync();
+            conn.Open();
 
-            const string sql = @"
-                SELECT * 
-                FROM Playlists 
-                WHERE Name = @Name
-                AND Owner = @Owner;
-            ";
+            // 步骤1：获取歌单基本信息
+            const string baseSql = @"SELECT 
+            Id,
+            Name,
+            Owner
+            FROM Playlists
+            WHERE Name = @name AND Owner = @ownerAccount";
 
-            var songlist = await conn.QuerySingleOrDefaultAsync<Songlist>(sql, new { Name = name, Owner = ownerAccount });
+            var songlist = conn.QueryFirstOrDefault<Songlist>(baseSql, new
+            {
+                name,
+                ownerAccount
+            });
 
-            return songlist; // 如果找不到匹配项，返回 null
+            if (songlist == null) return null;
 
+            // 步骤2：获取关联的歌曲列表
+            const string songsSql = @"SELECT s.* 
+            FROM Songs s
+            JOIN SonglistSongs ss ON s.Id = ss.SongId
+            WHERE ss.SonglistId = @songlistId";
+
+            songlist.Songs = conn.Query<Song>(songsSql, new { songlistId = songlist.Id }).ToList();
+
+            return songlist;
         }
-
         #endregion
     }
 }

@@ -97,6 +97,7 @@ namespace Byte_Harmonic.Forms
             panel2.Controls.Clear();    // 清空之前的页面
             page.Dock = DockStyle.Fill;        // 填满容器
             panel2.Controls.Add(page);   // 添加新页面
+            Console.WriteLine("load a page");
         }
         private void OnShowPlayingBtn(bool isPaused)
         {

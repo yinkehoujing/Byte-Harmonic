@@ -62,7 +62,7 @@ VALUES
 
 INSERT INTO SonglistSongs (SonglistId, SongId)
 VALUES
-(4, 1),  
-(4, 8),  
-(4, 9);  
+(5, 1),  
+(5, 8),  
+(5, 9);  
 
