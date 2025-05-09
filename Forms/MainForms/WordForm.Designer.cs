@@ -172,14 +172,13 @@ namespace Byte_Harmonic.Forms
             // 
             // lyricsLabel
             // 
-            lyricsLabel.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            lyricsLabel.Font = new Font("华文中宋", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 134);
             lyricsLabel.ForeColor = Color.FromArgb(48, 48, 48);
             lyricsLabel.Location = new Point(72, 46);
             lyricsLabel.Margin = new Padding(2, 0, 2, 0);
             lyricsLabel.Name = "lyricsLabel";
-            lyricsLabel.Size = new Size(276, 25);
+            lyricsLabel.Size = new Size(604, 25);
             lyricsLabel.TabIndex = 27;
-            lyricsLabel.Text = "歌词";
             // 
             // WordForm
             // 

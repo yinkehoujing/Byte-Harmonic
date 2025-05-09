@@ -53,7 +53,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             BulkOperateButton.FillColor2 = Color.Transparent;
             BulkOperateButton.FillHoverColor = Color.Silver;
             BulkOperateButton.FillPressColor = Color.FromArgb(166, 215, 231);
-            BulkOperateButton.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            BulkOperateButton.Font = new Font("黑体", 12F);
             BulkOperateButton.ForeColor = Color.Black;
             BulkOperateButton.Location = new Point(719, 13);
             BulkOperateButton.MinimumSize = new Size(1, 1);
@@ -175,7 +175,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             SelectAllButton.FillColor2 = Color.Transparent;
             SelectAllButton.FillHoverColor = Color.Silver;
             SelectAllButton.FillPressColor = Color.FromArgb(166, 215, 231);
-            SelectAllButton.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            SelectAllButton.Font = new Font("黑体", 12F);
             SelectAllButton.ForeColor = Color.Black;
             SelectAllButton.Location = new Point(560, 53);
             SelectAllButton.MinimumSize = new Size(1, 1);
