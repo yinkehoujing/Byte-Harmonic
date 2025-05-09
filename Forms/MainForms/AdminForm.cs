@@ -27,7 +27,7 @@ namespace Byte_Harmonic.Forms
 
             // 组装服务
             var userService = new UserService(userRepo);
-            _songService = new SonglistService(songRepo, userService);
+            _songService = AppContext.songlistService;
 
             //把“浏览”“新建”“列表操作”等事件都挂上去
             btnSelectMp3.Click += btnSelectMp3_Click;
