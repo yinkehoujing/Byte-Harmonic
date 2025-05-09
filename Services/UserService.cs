@@ -112,8 +112,6 @@ namespace Byte_Harmonic.Services
         /// </summary>
         public async Task ChangePassword(string currentPassword, string newPassword)
         {
-            if (_currentUser == null)
-                throw new InvalidOperationException("当前未登录");
 
             if (string.IsNullOrWhiteSpace(newPassword) || newPassword.Length < 8)
                 throw new ArgumentException("新密码长度至少8位");
