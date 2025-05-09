@@ -118,7 +118,9 @@ namespace Byte_Harmonic.Forms.MainForms
                 {
                     // 调用注册方法
                     await _userService.Register(usernameBox.Text.Trim(), passwordBox.Text.Trim());
+                    AppContext.currentUser = _userService.GetCurrentUser();
                     uiLabel3.Text = "注册成功";
+                    new MainForm().Show();
                 }
                 catch (Exception ex)
                 {

@@ -8,6 +8,7 @@ using Byte_Harmonic.Services;
 using Byte_Harmonic.Models;
 //using Byte_Harmonic.Repositories;
 using Byte_Harmonic.Database;
+using System.Text.RegularExpressions;
 
 namespace Byte_Harmonic.Forms
 {
@@ -46,19 +47,29 @@ namespace Byte_Harmonic.Forms
         // 新建歌曲按钮点击事件
         private async void btnCreate_Click(object sender, EventArgs e)
         {
-            var newSong = new Song
-            {
-                Title = txtTitle.Text.Trim(),
-                Artist = txtArtist.Text.Trim(),
-                MusicFilePath = txtMp3Path.Text,
-                LrcFilePath = txtLrcPath.Text,
-                Downloaded = true,
-                Tags = new List<string>(txtTags.Text.Split(','))
-            };
-
+           
             try
             {
-                
+
+                if (!IsValidMp3Path(txtMp3Path.Text))
+                {
+                    throw new Exception("请提供正确的 MP3 文件路径!");
+                }
+                if (!IsValidLrcPath(txtLrcPath.Text))
+                {
+                    throw new Exception("请提供正确的 LRC 文件路径!");
+                }
+
+                var newSong = new Song
+                {
+                    Title = txtTitle.Text.Trim(),
+                    Artist = txtArtist.Text.Trim(),
+                    MusicFilePath = txtMp3Path.Text,
+                    LrcFilePath = txtLrcPath.Text,
+                    Downloaded = true,
+                    Tags = new List<string>(txtTags.Text.Split(','))
+                };
+
                 await _songService.ImportSongsAsync(newSong);
                 UIMessageBox.Show("歌曲添加成功！");
                 InitSongList(); // 刷新列表
@@ -90,6 +101,18 @@ namespace Byte_Harmonic.Forms
             };
             if (dialog.ShowDialog() == DialogResult.OK)
                 txtLrcPath.Text = dialog.FileName;
+        }
+
+        private bool IsValidMp3Path(string path)
+        {
+            var pattern = @"^[a-zA-Z]:\\(?:[^\\/:*?""<>|\r\n]+\\)*[^\\/:*?""<>|\r\n]+\.mp3$";
+            return Regex.IsMatch(path, pattern, RegexOptions.IgnoreCase);
+        }
+
+        private bool IsValidLrcPath(string path)
+        {
+            var pattern = @"^[a-zA-Z]:\\(?:[^\\/:*?""<>|\r\n]+\\)*[^\\/:*?""<>|\r\n]+\.lrc$";
+            return Regex.IsMatch(path, pattern, RegexOptions.IgnoreCase);
         }
 
         // 歌曲列表操作

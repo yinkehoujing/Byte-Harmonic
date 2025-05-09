@@ -4,6 +4,7 @@ using System.Text;
 using Byte_Harmonic.Models;
 using Byte_Harmonic.Database;
 using Byte_Harmonic.Utils;
+using System.Text.RegularExpressions;
 
 
 namespace Byte_Harmonic.Services
@@ -67,14 +68,14 @@ namespace Byte_Harmonic.Services
         {
             if (string.IsNullOrWhiteSpace(account))
                 throw new ArgumentException("账号不能为空");
-            if (string.IsNullOrWhiteSpace(password) || password.Length < 8)
-                throw new ArgumentException("密码长度至少8位");
+            if (string.IsNullOrWhiteSpace(password))
+                throw new ArgumentException("密码不能为空");
+            var passwordPattern = @"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$";
+            if (!Regex.IsMatch(password, passwordPattern))
+                throw new ArgumentException("密码至少8位且包含字母和数字");
 
             if (await _userRepository.GetUserByAccountAsync(account) != null)
                 throw new InvalidOperationException("账号已存在");
-
-           /* if (isAdmin && !IsAdmin)
-                throw new UnauthorizedAccessException("仅管理员可以注册管理员账号");*/
 
             var user = new User
             {
@@ -84,9 +85,12 @@ namespace Byte_Harmonic.Services
                 IsAdmin = isAdmin
             };
 
+
             var success = await _userRepository.AddUserAsync(user);
             if (!success)
                 throw new Exception("注册失败，请稍后重试");
+
+            _currentUser = user;
         }
 
         /// <summary>
