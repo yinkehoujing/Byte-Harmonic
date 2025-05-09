@@ -74,11 +74,10 @@
             // 
             // uiImageButton2
             // 
-            uiImageButton2.Anchor = AnchorStyles.None;
             uiImageButton2.BackColor = Color.Transparent;
             uiImageButton2.Cursor = Cursors.Hand;
             uiImageButton2.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiImageButton2.Image = Properties.Resources.icons8_less_than_100;
+            uiImageButton2.Image = (Image)resources.GetObject("uiImageButton2.Image");
             uiImageButton2.ImageHover = (Image)resources.GetObject("uiImageButton2.ImageHover");
             uiImageButton2.Location = new Point(12, 42);
             uiImageButton2.Name = "uiImageButton2";

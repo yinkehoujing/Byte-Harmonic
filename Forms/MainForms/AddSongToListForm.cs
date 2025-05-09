@@ -2,6 +2,7 @@
 using Byte_Harmonic.Forms.FormUtils;
 using Byte_Harmonic.Models;
 using Byte_Harmonic.Services;
+using Org.BouncyCastle.Utilities;
 
 namespace Byte_Harmonic.Forms.MainForms
 {
@@ -63,8 +64,19 @@ namespace Byte_Harmonic.Forms.MainForms
 
         public void changeToSongView(int listID, string listName)//变为歌单内部页
         {
-            //TODO:获取歌单内的所有歌
-            List<Song> songs = new List<Song> { };
+            //获取歌单内的所有歌
+            List<Song> songs;
+
+            try
+            {
+                songs = songlistService.GetSongsInSonglist(songlistService.GetSonglistById(listID));
+
+            }
+            catch(Exception ex)
+            {
+                new Byte_Harmonic.Forms.MainForms.MessageForm("获取歌单中歌曲失败").ShowDialog();
+                return;
+            }
 
             uiImageButton2.Visible = true;
             label1.Visible = true;
@@ -76,19 +88,26 @@ namespace Byte_Harmonic.Forms.MainForms
             bool isWhite = false; // 初始颜色标记
             Color[] colors = { Color.White, Color.FromArgb(240, 240, 240) }; // 黑白交替色
 
-            foreach (Song song in songs)
+            try
             {
-                // 创建SongItem（交替颜色）
-                SongItem item = new SongItem(
-                    color: colors[isWhite ? 0 : 1],
-                    songID: song.Id,
-                    songName: song.Title + " —— " + song.Artist
-                );
-                item.Width = 484;
-                // 添加到FlowLayoutPanel
-                flowLayoutPanel.Controls.Add(item);
-                item.BringToFront();
-                isWhite = !isWhite; // 切换颜色标记
+                foreach (Song song in songs)
+                {
+                    // 创建SongItem（交替颜色）
+                    SongItem item = new SongItem(
+                        color: colors[isWhite ? 0 : 1],
+                        songID: song.Id,
+                        songName: song.Title + " —— " + song.Artist
+                    );
+                    item.Width = 484;
+                    // 添加到FlowLayoutPanel
+                    flowLayoutPanel.Controls.Add(item);
+                    item.BringToFront();
+                    isWhite = !isWhite; // 切换颜色标记
+                }
+            }
+            catch(Exception ex)
+            {
+                new Byte_Harmonic.Forms.MainForms.MessageForm(ex.Message).ShowDialog();
             }
         }
 
@@ -102,7 +121,6 @@ namespace Byte_Harmonic.Forms.MainForms
 
         private void addButton_Click(object sender, EventArgs e)
         {
-            bool addSuccess=true;//成功添加
             
             foreach (LibraryItem item in flowLayoutPanel.Controls)
             {
@@ -116,21 +134,32 @@ namespace Byte_Harmonic.Forms.MainForms
                     catch(Exception ex)
                     {
                         new Byte_Harmonic.Forms.MainForms.MessageForm(ex.Message).ShowDialog();
-                        addSuccess = false;
+                        return;
                     }
                 }
             }
 
-            if(addSuccess)
+
+            new Byte_Harmonic.Forms.MainForms.MessageForm("添加成功").ShowDialog();
+
+            try
             {
-                new Byte_Harmonic.Forms.MainForms.MessageForm("添加成功").ShowDialog();
+                AppContext.TriggerReloadSideSonglist();
+                //TODO:同步更新页面歌单
+
                 Byte_Harmonic.Forms.MainForms.AddSongToListForm addform = this.FindForm() as AddSongToListForm;
                 if (addform != null)
                 {
                     addform.Close();
                 }
             }
+            catch (Exception ex)
+            {
+                new Byte_Harmonic.Forms.MainForms.MessageForm(ex.Message).ShowDialog();
+                return;
+            }
         }
+
 
         private void CreateListButton_Click(object sender, EventArgs e)
         {
