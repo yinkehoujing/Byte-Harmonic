@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Sunny.UI;
+using Byte_Harmonic.Models;
 
 namespace Byte_Harmonic.Forms.Controls.BaseControls
 {
@@ -35,7 +36,19 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
 
         private void bHButton2_Click (object sender, EventArgs e)
         {
-            new Byte_Harmonic.Forms.MainForms.AddSongToListForm(AppContext._playbackService.GetCurrentSong().Id).ShowDialog();
+            try
+            {
+                Song song = AppContext._playbackService.GetCurrentSong();
+                if (song == null)
+                    throw new Exception("当前没有歌曲");
+
+                new Byte_Harmonic.Forms.MainForms.AddSongToListForm(song).ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                new Byte_Harmonic.Forms.MainForms.MessageForm(ex.Message).ShowDialog();
+            }
+            
         }
     }
 }

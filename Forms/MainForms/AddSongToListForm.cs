@@ -1,17 +1,18 @@
 ﻿using Byte_Harmonic.Forms.Controls.BaseControls;
 using Byte_Harmonic.Forms.FormUtils;
 using Byte_Harmonic.Models;
+using Byte_Harmonic.Services;
 
 namespace Byte_Harmonic.Forms.MainForms
 {
     public partial class AddSongToListForm : Form
     {
-        private int songID;
+        private Song song;
         private readonly MouseMove _mouseHandler;//用于鼠标控制窗口
         private readonly FormStyle _styleHandler;//用于更改窗口样式
         private int cornerRadius = 18;//通用设置圆角
-
-        public AddSongToListForm(int _songID)
+        private SonglistService songlistService;
+        public AddSongToListForm(Song _song)
         {
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);//双缓冲减少闪烁
             InitializeComponent();
@@ -19,9 +20,13 @@ namespace Byte_Harmonic.Forms.MainForms
             _mouseHandler = new MouseMove(this);
             _styleHandler = new FormStyle(this);
 
+            songlistService = AppContext.songlistService;
+
             uiImageButton2.Visible = false;
             label1.Visible = false;
-            songID = _songID;
+            flowLayoutPanel.Visible = true;
+            flowLayoutSongsPanel.Visible = false;
+            song = _song;
             this.Load += AddSongToListForm_Load;
         }
 
@@ -38,7 +43,7 @@ namespace Byte_Harmonic.Forms.MainForms
             Color[] colors = { Color.White, Color.FromArgb(240, 240, 240) }; // 黑白交替色
 
             //TODO:调用后端函数获取所有歌单
-            List<Songlist> songlists = new List<Songlist> { };
+            List<Songlist> songlists = songlistService.GetCurrentUserSonglists();
 
             foreach (Songlist list in songlists)
             {
@@ -97,20 +102,32 @@ namespace Byte_Harmonic.Forms.MainForms
 
         private void addButton_Click(object sender, EventArgs e)
         {
+            bool addSuccess=true;//成功添加
+            
             foreach (LibraryItem item in flowLayoutPanel.Controls)
             {
                 if (item.Selected)
                 {
-                    //TODO:调用后端函数加入歌单中
-
+                    try
+                    {
+                        songlistService.AddSongToSonglist(song, songlistService.GetSonglistById(item.listID));
+                    }
+                    catch(Exception ex)
+                    {
+                        new Byte_Harmonic.Forms.MainForms.MessageForm(ex.Message).ShowDialog();
+                        addSuccess = false;
+                    }
                 }
             }
 
-            new Byte_Harmonic.Forms.MainForms.MessageForm("添加成功").ShowDialog();
-            Byte_Harmonic.Forms.MainForms.AddSongToListForm addform = this.FindForm() as AddSongToListForm;
-            if (addform != null)
+            if(addSuccess)
             {
-                addform.Close();
+                new Byte_Harmonic.Forms.MainForms.MessageForm("添加成功").ShowDialog();
+                Byte_Harmonic.Forms.MainForms.AddSongToListForm addform = this.FindForm() as AddSongToListForm;
+                if (addform != null)
+                {
+                    addform.Close();
+                }
             }
         }
 

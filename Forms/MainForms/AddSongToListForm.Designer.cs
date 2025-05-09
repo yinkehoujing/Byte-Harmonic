@@ -94,7 +94,7 @@
             // 
             flowLayoutPanel.Location = new Point(12, 82);
             flowLayoutPanel.Name = "flowLayoutPanel";
-            flowLayoutPanel.Size = new Size(494, 296);
+            flowLayoutPanel.Size = new Size(494, 251);
             flowLayoutPanel.TabIndex = 10;
             // 
             // addButton
@@ -105,7 +105,7 @@
             addButton.FillHoverColor = Color.Silver;
             addButton.FillPressColor = Color.FromArgb(166, 215, 231);
             addButton.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            addButton.Location = new Point(214, 384);
+            addButton.Location = new Point(215, 356);
             addButton.MinimumSize = new Size(1, 1);
             addButton.Name = "addButton";
             addButton.Radius = 10;
@@ -121,7 +121,7 @@
             // 
             flowLayoutSongsPanel.Location = new Point(12, 82);
             flowLayoutSongsPanel.Name = "flowLayoutSongsPanel";
-            flowLayoutSongsPanel.Size = new Size(494, 296);
+            flowLayoutSongsPanel.Size = new Size(494, 251);
             flowLayoutSongsPanel.TabIndex = 12;
             // 
             // uiImageButton3
