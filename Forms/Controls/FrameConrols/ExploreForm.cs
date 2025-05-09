@@ -862,43 +862,12 @@ namespace Byte_Harmonic.Forms
                 UIMessageBox.Show($"搜索出错: {ex.Message}", "错误", UIStyle.Custom);
             }
             /*// 处理搜索逻辑
-            UIMessageBox.Show($"执行搜索: {searchText}", "搜索", UIStyle.Custom);
-
-            // 这里可以添加搜索历史记录
-            // AddToSearchHistory(searchText);*/
+            UIMessageBox.Show($"执行搜索: {searchText}", "搜索", UIStyle.Custom);*/
         }
 
         private async Task<List<string>> GetSearchSuggestions(string input)
         {
-            /*  // 模拟后端获取建议项
-              var allItems = new List<string>
-          {
-              "周杰伦 七里香",
-              "周杰伦 晴天",
-              "周杰伦 夜曲",
-              "周杰伦 七里香",
-              "周杰伦 晴天",
-              "周杰伦 夜曲",
-              "林俊杰 江南",
-              "林俊杰 修炼爱情",
-              "林俊杰 她说",
-              "五月天 倔强",
-              "五月天 突然好想你",
-              "五月天 温柔",
-              "陈奕迅 十年",
-              "陈奕迅 浮夸",
-              "陈奕迅 富士山下",
-              "邓紫棋 光年之外",
-              "邓紫棋 泡沫",
-              "邓紫棋 喜欢你",
-              "薛之谦 演员",
-              "薛之谦 丑八怪",
-              "薛之谦 认真的雪",
-              "张惠妹 听海",
-              "张惠妹 记得"
-          };
-
-              return allItems.FindAll(x => x.Contains(input));*/
+            
             try
             {
                 if (string.IsNullOrWhiteSpace(input))

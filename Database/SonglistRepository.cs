@@ -158,6 +158,17 @@ namespace Byte_Harmonic.Database
             return Convert.ToInt32(insertCmd.ExecuteScalar());
         }
 
+        //根据歌曲获取标签
+        public List<int> GetTagsBySongId(int songId)
+        {
+            using var conn = new MySqlConnection(_connectionString);
+            conn.Open();
+
+            const string sql = @"SELECT TagId FROM SongTags WHERE SongId = @songId";
+            var tags = conn.Query<int>(sql, new { songId }).ToList();
+            return tags;
+        }
+
         //往歌曲添加标签
         public void AssignTagToSong(int songId, int tagId)
         {
