@@ -220,11 +220,12 @@ namespace Byte_Harmonic.Forms
             {
                 uiLabel3.Text = $"{currentSong.Title}——{currentSong.Artist}";
                 UpdateTrackBarMaximum(); // 播放下一首后更新 UI
+
             });
         }
 
 
-        
+
 
         private void OnPlaybackPaused(bool isPaused)
         {
@@ -469,6 +470,10 @@ namespace Byte_Harmonic.Forms
             }
         }
 
+        private void uiImageButton8_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
 }
