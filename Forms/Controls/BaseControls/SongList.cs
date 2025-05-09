@@ -13,6 +13,7 @@ using Byte_Harmonic.Forms.MainForms;
 using Byte_Harmonic.Services;
 using Byte_Harmonic.Utils;
 using Org.BouncyCastle.Utilities;
+using System.Text.RegularExpressions;
 
 namespace Byte_Harmonic.Forms.Controls.BaseControls
 {
@@ -144,6 +145,15 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
                     try
                     {
                         var song = songService.GetSongById(item.songID);
+                        bool IsValidMp3Path(string path)
+                        {
+                            var pattern = @"^[a-zA-Z]:\\(?:[^\\/:*?""<>|\r\n]+\\)*[^\\/:*?""<>|\r\n]+\.mp3$";
+                            return Regex.IsMatch(path, pattern, RegexOptions.IgnoreCase);
+                        }
+                        if (!IsValidMp3Path(song.MusicFilePath))
+                        {
+                            song.MusicFilePath = FileHelper.GetAssetPath(song.MusicFilePath);
+                        }
                         if (!File.Exists(song.MusicFilePath)) continue;
 
                         var fileName = Byte_Harmonic.Utils.FileHelper.GenerateFileName(song, config.NamingStyle);
