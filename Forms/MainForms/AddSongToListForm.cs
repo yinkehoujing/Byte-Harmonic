@@ -113,7 +113,7 @@ namespace Byte_Harmonic.Forms.MainForms
             }
         }
 
-        private void BulkOperateButton_Click(object sender, EventArgs e)
+        private void CreateListButton_Click(object sender, EventArgs e)
         {
             new Byte_Harmonic.Forms.CreateSongListForm().ShowDialog();
             LoadLists();

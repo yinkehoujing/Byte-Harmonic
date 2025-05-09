@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddSongToListForm));
-            BulkOperateButton = new Sunny.UI.UIButton();
+            CreatListButton = new Sunny.UI.UIButton();
             label1 = new Label();
             uiImageButton2 = new Sunny.UI.UIImageButton();
             flowLayoutPanel = new FlowLayoutPanel();
@@ -42,25 +42,25 @@
             ((System.ComponentModel.ISupportInitialize)uiImageButton1).BeginInit();
             SuspendLayout();
             // 
-            // BulkOperateButton
+            // CreatListButton
             // 
-            BulkOperateButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            BulkOperateButton.FillColor = Color.FromArgb(163, 199, 224);
-            BulkOperateButton.FillColor2 = Color.Transparent;
-            BulkOperateButton.FillHoverColor = Color.Silver;
-            BulkOperateButton.FillPressColor = Color.FromArgb(166, 215, 231);
-            BulkOperateButton.Font = new Font("黑体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            BulkOperateButton.Location = new Point(419, 41);
-            BulkOperateButton.MinimumSize = new Size(1, 1);
-            BulkOperateButton.Name = "BulkOperateButton";
-            BulkOperateButton.Radius = 10;
-            BulkOperateButton.RectColor = Color.FromArgb(163, 199, 224);
-            BulkOperateButton.RectHoverColor = Color.Transparent;
-            BulkOperateButton.Size = new Size(87, 25);
-            BulkOperateButton.TabIndex = 2;
-            BulkOperateButton.Text = "新建歌单";
-            BulkOperateButton.TipsFont = new Font("黑体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            BulkOperateButton.Click += BulkOperateButton_Click;
+            CreatListButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            CreatListButton.FillColor = Color.FromArgb(163, 199, 224);
+            CreatListButton.FillColor2 = Color.Transparent;
+            CreatListButton.FillHoverColor = Color.Silver;
+            CreatListButton.FillPressColor = Color.FromArgb(166, 215, 231);
+            CreatListButton.Font = new Font("黑体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            CreatListButton.Location = new Point(419, 41);
+            CreatListButton.MinimumSize = new Size(1, 1);
+            CreatListButton.Name = "CreatListButton";
+            CreatListButton.Radius = 10;
+            CreatListButton.RectColor = Color.FromArgb(163, 199, 224);
+            CreatListButton.RectHoverColor = Color.Transparent;
+            CreatListButton.Size = new Size(87, 25);
+            CreatListButton.TabIndex = 2;
+            CreatListButton.Text = "新建歌单";
+            CreatListButton.TipsFont = new Font("黑体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            CreatListButton.Click += CreateListButton_Click;
             // 
             // label1
             // 
@@ -171,7 +171,7 @@
             Controls.Add(flowLayoutPanel);
             Controls.Add(uiImageButton2);
             Controls.Add(label1);
-            Controls.Add(BulkOperateButton);
+            Controls.Add(CreatListButton);
             ForeColor = SystemColors.ControlText;
             FormBorderStyle = FormBorderStyle.None;
             Name = "AddSongToListForm";
@@ -186,7 +186,7 @@
 
         #endregion
 
-        private Sunny.UI.UIButton BulkOperateButton;
+        private Sunny.UI.UIButton CreatListButton;
         private Label label1;
         private Sunny.UI.UIImageButton uiImageButton2;
         private FlowLayoutPanel flowLayoutPanel;
