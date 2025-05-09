@@ -144,11 +144,6 @@ namespace Byte_Harmonic.Forms.MainForms
 
             try
             {
-                AppContext.TriggerReloadSideSonglist();
-                //TODO:同步更新页面歌单
-
-                AppContext.TriggerReloadSideSonglist();
-
                 Byte_Harmonic.Forms.MainForms.AddSongToListForm addform = this.FindForm() as AddSongToListForm;
                 if (addform != null)
                 {
