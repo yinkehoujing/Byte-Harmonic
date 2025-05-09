@@ -19,14 +19,19 @@ namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
             uiCheckBox6.Tag = "摇滚";
 
             songs = _songs;
+            
             var checkBoxes = checkPanel.Controls
                      .OfType<Sunny.UI.UICheckBox>()
                      .ToList();
 
             checkBoxes.ForEach(cb => cb.CheckedChanged += CheckBox_CheckedChanged);
-            
+            foreach (var song in songs)
+            {
+                Console.WriteLine($"ID: {song.Id}, Title: {song.Title}, Artist: {song.Artist}" +
+                    $", Duration: {song.Duration} seconds,成功传入");
+            }
 
-            //songlist.LoadSongs(songs);
+            songlist.LoadSongs(songs);
             this.Controls.Add(songlist);
         }
 
@@ -39,7 +44,6 @@ namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
             }
             //TODO:更改使用新的后端函数
             songs = await AppContext.searchService.SearchSongsByTagsAsync(tags);
-
             songlist.LoadSongs(songs);
         }
     }
