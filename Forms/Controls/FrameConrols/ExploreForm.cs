@@ -947,7 +947,7 @@ namespace Byte_Harmonic.Forms
         {
             LoadPage(page: new UserForm());
         }
-
+        
         private void uiImageButton8_Click(object sender, EventArgs e)
         {
             if (AppContext._playbackService.GetCurrentSong() == null)

@@ -13,6 +13,7 @@ using Byte_Harmonic.Forms.MainForms;
 using Byte_Harmonic.Services;
 using Byte_Harmonic.Utils;
 using Org.BouncyCastle.Utilities;
+using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace Byte_Harmonic.Forms.Controls.BaseControls
 {
@@ -164,7 +165,24 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
 
         private void AddAllButton_Click(object sender, EventArgs e)
         {
-            //TODO:显示添加到的窗口
+            List<Song> songs=new List<Song> { };
+            foreach (SongItem item in flowLayoutPanel.Controls)
+            {
+                if (item.Selected)
+                {
+                    try
+                    {
+                        var song = AppContext.songlistService.GetSongById(item.songID);
+                        songs.Add(song);
+                    }
+                    catch(Exception ex)
+                    {
+                        new MainForms.MessageForm(ex.Message).ShowDialog();
+                    }
+                }
+            }
+            //显示添加到的窗口
+            new MainForms.AddSongToListForm(songs).ShowDialog();
         }
 
         private void DeleteAllButton_Click(object sender, EventArgs e)

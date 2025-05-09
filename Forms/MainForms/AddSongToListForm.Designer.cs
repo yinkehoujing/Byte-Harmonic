@@ -114,7 +114,6 @@
             addButton.TabIndex = 11;
             addButton.Text = "确认";
             addButton.TipsFont = new Font("黑体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            addButton.Click += addButton_Click;
             // 
             // flowLayoutSongsPanel
             // 
