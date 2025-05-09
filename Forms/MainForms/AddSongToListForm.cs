@@ -25,6 +25,7 @@ namespace Byte_Harmonic.Forms.MainForms
 
             song = _song;
             this.Load += AddSongToListForm_Load;
+            addButton.Click += oneSongAdd;
         }
 
         //
@@ -41,6 +42,7 @@ namespace Byte_Harmonic.Forms.MainForms
 
             songs = _songs;
             this.Load += AddSongToListForm_Load;
+            addButton.Click += songsAdd;
         }
 
         private void Init()
@@ -141,7 +143,7 @@ namespace Byte_Harmonic.Forms.MainForms
             flowLayoutSongsPanel.Visible = false;
         }
 
-        private void addButton_Click(object sender, EventArgs e)
+        private void oneSongAdd(object sender, EventArgs e)
         {
             
             foreach (LibraryItem item in flowLayoutPanel.Controls)
@@ -161,7 +163,6 @@ namespace Byte_Harmonic.Forms.MainForms
                 }
             }
 
-
             new Byte_Harmonic.Forms.MainForms.MessageForm("添加成功").ShowDialog();
 
             try
@@ -179,6 +180,44 @@ namespace Byte_Harmonic.Forms.MainForms
             }
         }
 
+        private void songsAdd(object sender, EventArgs e)
+        {
+            foreach(Song oneSong in songs)
+            {
+                foreach (LibraryItem item in flowLayoutPanel.Controls)
+                {
+                    if (item.Selected)
+                    {
+                        try
+                        {
+                            songlistService.AddSongToSonglist(oneSong, songlistService.GetSonglistById(item.listID));
+                            AppContext.TriggerSonglistDetailUpdated(songlistService.GetSonglistById(item.listID).Name);
+                        }
+                        catch (Exception ex)
+                        {
+                            new Byte_Harmonic.Forms.MainForms.MessageForm(ex.Message).ShowDialog();
+                            return;
+                        }
+                    }
+                }
+            }
+
+            new Byte_Harmonic.Forms.MainForms.MessageForm("添加成功").ShowDialog();
+
+            try
+            {
+                Byte_Harmonic.Forms.MainForms.AddSongToListForm addform = this.FindForm() as AddSongToListForm;
+                if (addform != null)
+                {
+                    addform.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                new Byte_Harmonic.Forms.MainForms.MessageForm(ex.Message).ShowDialog();
+                return;
+            }
+        }
 
         private void CreateListButton_Click(object sender, EventArgs e)
         {
