@@ -75,8 +75,8 @@ namespace Byte_Harmonic.Forms.MainForms
                 // 创建Item（交替颜色）
                 LibraryItem item = new LibraryItem(
                     color: colors[isWhite ? 0 : 1],
-                    listID: list.Id,
-                    listName: list.Name
+                    _ID: list.Id,
+                    _Name: list.Name
                 );
 
                 // 添加到FlowLayoutPanel
@@ -90,6 +90,7 @@ namespace Byte_Harmonic.Forms.MainForms
         {
             //获取歌单内的所有歌
             List<Song> songs;
+            flowLayoutSongsPanel.Controls.Clear();
 
             try
             {
@@ -117,14 +118,14 @@ namespace Byte_Harmonic.Forms.MainForms
                 foreach (Song song in songs)
                 {
                     // 创建SongItem（交替颜色）
-                    SongItem item = new SongItem(
+                    LibraryItem item = new LibraryItem(
                         color: colors[isWhite ? 0 : 1],
-                        songID: song.Id,
-                        songName: song.Title + " —— " + song.Artist
+                        _ID: song.Id,
+                        _Name: song.Title + " —— " + song.Artist
                     );
-                    item.Width = 484;
-                    // 添加到FlowLayoutPanel
-                    flowLayoutPanel.Controls.Add(item);
+                    item.ChangetoSongStyle();//更换为展示歌曲样式
+                    // 添加到flowLayoutSongsPanel
+                    flowLayoutSongsPanel.Controls.Add(item);
                     item.BringToFront();
                     isWhite = !isWhite; // 切换颜色标记
                 }
@@ -152,8 +153,8 @@ namespace Byte_Harmonic.Forms.MainForms
                 {
                     try
                     {
-                        songlistService.AddSongToSonglist(song, songlistService.GetSonglistById(item.listID));
-                        AppContext.TriggerSonglistDetailUpdated(songlistService.GetSonglistById(item.listID).Name);
+                        songlistService.AddSongToSonglist(song, songlistService.GetSonglistById(item.ID));
+                        AppContext.TriggerSonglistDetailUpdated(songlistService.GetSonglistById(item.ID).Name);
                     }
                     catch(Exception ex)
                     {
@@ -190,8 +191,8 @@ namespace Byte_Harmonic.Forms.MainForms
                     {
                         try
                         {
-                            songlistService.AddSongToSonglist(oneSong, songlistService.GetSonglistById(item.listID));
-                            AppContext.TriggerSonglistDetailUpdated(songlistService.GetSonglistById(item.listID).Name);
+                            songlistService.AddSongToSonglist(oneSong, songlistService.GetSonglistById(item.ID));
+                            AppContext.TriggerSonglistDetailUpdated(songlistService.GetSonglistById(item.ID).Name);
                         }
                         catch (Exception ex)
                         {

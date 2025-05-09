@@ -50,7 +50,7 @@
             CreatListButton.FillHoverColor = Color.Silver;
             CreatListButton.FillPressColor = Color.FromArgb(166, 215, 231);
             CreatListButton.Font = new Font("黑体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            CreatListButton.Location = new Point(419, 41);
+            CreatListButton.Location = new Point(411, 41);
             CreatListButton.MinimumSize = new Size(1, 1);
             CreatListButton.Name = "CreatListButton";
             CreatListButton.Radius = 10;
@@ -65,21 +65,22 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("黑体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            label1.Font = new Font("黑体", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 134);
             label1.Location = new Point(51, 46);
             label1.Name = "label1";
-            label1.Size = new Size(167, 16);
+            label1.Size = new Size(209, 19);
             label1.TabIndex = 3;
             label1.Text = "歌单名，初始时不可见";
             // 
             // uiImageButton2
             // 
+            uiImageButton2.Anchor = AnchorStyles.None;
             uiImageButton2.BackColor = Color.Transparent;
             uiImageButton2.Cursor = Cursors.Hand;
             uiImageButton2.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiImageButton2.Image = (Image)resources.GetObject("uiImageButton2.Image");
             uiImageButton2.ImageHover = (Image)resources.GetObject("uiImageButton2.ImageHover");
-            uiImageButton2.Location = new Point(12, 42);
+            uiImageButton2.Location = new Point(21, 52);
             uiImageButton2.Name = "uiImageButton2";
             uiImageButton2.Size = new Size(24, 24);
             uiImageButton2.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -117,6 +118,7 @@
             // 
             // flowLayoutSongsPanel
             // 
+            flowLayoutSongsPanel.AutoScroll = true;
             flowLayoutSongsPanel.Location = new Point(12, 82);
             flowLayoutSongsPanel.Name = "flowLayoutSongsPanel";
             flowLayoutSongsPanel.Size = new Size(494, 251);
@@ -130,7 +132,7 @@
             uiImageButton3.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiImageButton3.Image = (Image)resources.GetObject("uiImageButton3.Image");
             uiImageButton3.ImageHover = (Image)resources.GetObject("uiImageButton3.ImageHover");
-            uiImageButton3.Location = new Point(435, 7);
+            uiImageButton3.Location = new Point(427, 11);
             uiImageButton3.Name = "uiImageButton3";
             uiImageButton3.Size = new Size(24, 24);
             uiImageButton3.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -148,7 +150,7 @@
             uiImageButton1.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiImageButton1.Image = (Image)resources.GetObject("uiImageButton1.Image");
             uiImageButton1.ImageHover = (Image)resources.GetObject("uiImageButton1.ImageHover");
-            uiImageButton1.Location = new Point(482, 7);
+            uiImageButton1.Location = new Point(474, 11);
             uiImageButton1.Name = "uiImageButton1";
             uiImageButton1.Size = new Size(24, 24);
             uiImageButton1.SizeMode = PictureBoxSizeMode.StretchImage;

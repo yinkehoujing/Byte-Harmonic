@@ -43,7 +43,7 @@
             viewButton.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             viewButton.Image = (Image)resources.GetObject("viewButton.Image");
             viewButton.ImageHover = (Image)resources.GetObject("viewButton.ImageHover");
-            viewButton.Location = new Point(440, 10);
+            viewButton.Location = new Point(426, 10);
             viewButton.Name = "viewButton";
             viewButton.Size = new Size(24, 24);
             viewButton.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -56,11 +56,11 @@
             // uiLabel1
             // 
             uiLabel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
-            uiLabel1.Font = new Font("黑体", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiLabel1.Font = new Font("黑体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiLabel1.ForeColor = Color.FromArgb(48, 48, 48);
             uiLabel1.Location = new Point(45, 13);
             uiLabel1.Name = "uiLabel1";
-            uiLabel1.Size = new Size(389, 19);
+            uiLabel1.Size = new Size(374, 19);
             uiLabel1.TabIndex = 11;
             // 
             // uiCheckBox
@@ -82,7 +82,7 @@
             Controls.Add(uiLabel1);
             Controls.Add(viewButton);
             Name = "LibraryItem";
-            Size = new Size(484, 45);
+            Size = new Size(470, 45);
             ((System.ComponentModel.ISupportInitialize)viewButton).EndInit();
             ResumeLayout(false);
         }
