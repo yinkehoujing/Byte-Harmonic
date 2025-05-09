@@ -775,14 +775,15 @@ namespace Byte_Harmonic.Forms
             flowLayoutPanel1.Controls.Clear();
             //调用后端获取歌单
             var songlists = AppContext.songlistRepository.GetUserOwnPlaylists(AppContext.currentUser.Account);
+
+            int num = 1;
             foreach (var item in songlists)
             {
                 // 创建控件
                 var item_name = item.Name;
-                Random random = new Random();
-                int randomNumber = random.Next(1, 11);
-                string num = randomNumber.ToString();
-                Control control = new BHButton("1 (" + num + ")", "1 (" + num + ")", item_name);
+                num %= 13;
+                num++;
+                Control control = new BHButton("2 (" + num + ")", "2 (" + num + ")", item_name);
                 control.Click += (s, e) =>
                 {
                     AppContext.currentViewingSonglist = item;
