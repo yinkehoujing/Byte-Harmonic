@@ -1,6 +1,7 @@
 ﻿using Byte_Harmonic.Forms.Controls.BaseControls;
 using Byte_Harmonic.Models;
 using Org.BouncyCastle.Utilities;
+using TagLib.Matroska;
 
 namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
 {
@@ -8,6 +9,7 @@ namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
     {
         private SongList songlist;
         private List<Song> songs;
+        private List<Song> tempsongs;
         public SearchResult(List<Song> _songs)
         {
             InitializeComponent();
@@ -25,11 +27,7 @@ namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
                      .ToList();
 
             checkBoxes.ForEach(cb => cb.CheckedChanged += CheckBox_CheckedChanged);
-            foreach (var song in songs)
-            {
-                Console.WriteLine($"ID: {song.Id}, Title: {song.Title}, Artist: {song.Artist}" +
-                    $", Duration: {song.Duration} seconds,成功传入");
-            }
+           
 
             songlist = new SongList();
             songlist.LoadSongs(songs);
@@ -41,11 +39,26 @@ namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
             List<string> tags = new List<string> { };
             foreach (Sunny.UI.UICheckBox item in checkPanel.Controls)
             {
-                tags.Add(item.Tag.ToString());
+                if(item.Checked==true)
+                {
+                    tags.Add(item.Tag.ToString());
+                }
+                
             }
             //TODO:更改使用新的后端函数
-            songs = await AppContext.searchService.SearchSongsByTagsAsync(tags);
-            songlist.LoadSongs(songs);
+            
+            tempsongs = await AppContext.searchService.SearchSongsByTagsAsync(songs,tags);
+            foreach (var tagID in tags)
+            {
+                Console.WriteLine($"{tagID}");
+            }
+            foreach (var song in songs)
+            {
+                Console.WriteLine($"ID: {song.Id}, Title: {song.Title}, Artist: {song.Artist}, Duration: {song.Duration} seconds");
+            }
+            songlist.LoadSongs(tempsongs);
+            this.Controls.Add(songlist);
+
         }
     }
 }
