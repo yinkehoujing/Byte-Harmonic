@@ -29,7 +29,6 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             bHButton2.Location = new Point(0, 51);
             this.Controls.Add(bHButton1);
             this.Controls.Add(bHButton2);
-            this.BorderStyle = BorderStyle.FixedSingle;
         }
     }
 }

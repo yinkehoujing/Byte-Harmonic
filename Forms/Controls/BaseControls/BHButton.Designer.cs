@@ -40,7 +40,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             uiButton1.FillColor = Color.FromArgb(250, 250, 250);
             uiButton1.FillHoverColor = Color.FromArgb(238, 238, 238);
             uiButton1.FillPressColor = Color.FromArgb(238, 238, 238);
-            uiButton1.Font = new Font("黑体", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiButton1.Font = new Font("黑体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiButton1.ForeColor = Color.Black;
             uiButton1.ForeHoverColor = Color.Black;
             uiButton1.ForePressColor = Color.Black;
@@ -54,7 +54,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             uiButton1.RectSides = ToolStripStatusLabelBorderSides.None;
             uiButton1.Size = new Size(170, 51);
             uiButton1.TabIndex = 0;
-            uiButton1.Text = "     text";
+            uiButton1.Text = "       text";
             uiButton1.TextAlign = ContentAlignment.MiddleLeft;
             uiButton1.TipsFont = new Font("黑体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiButton1.MouseEnter += BHButton_Enter;
