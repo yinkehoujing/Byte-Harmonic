@@ -22,6 +22,7 @@ namespace Byte_Harmonic.Forms.MainForms
             uiImageButton2.Visible = false;
             label1.Visible = false;
             songID = _songID;
+            this.Load += AddSongToListForm_Load;
         }
 
         private void AddSongToListForm_Load(object sender, EventArgs e)
@@ -55,7 +56,7 @@ namespace Byte_Harmonic.Forms.MainForms
             }
         }
 
-        public void changeToSongView(int listID,string listName)//变为歌单内部页
+        public void changeToSongView(int listID, string listName)//变为歌单内部页
         {
             //TODO:获取歌单内的所有歌
             List<Song> songs = new List<Song> { };
@@ -117,6 +118,16 @@ namespace Byte_Harmonic.Forms.MainForms
         {
             new Byte_Harmonic.Forms.CreateSongListForm().ShowDialog();
             LoadLists();
+        }
+
+        private void uiImageButton1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void uiImageButton3_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
         }
     }
 }

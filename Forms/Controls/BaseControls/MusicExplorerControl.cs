@@ -168,7 +168,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             card4.PlaylistClicked += LoadSonglistDetails;
             card5.PlaylistClicked += LoadSonglistDetails;
             card6.PlaylistClicked += LoadSonglistDetails;
-
+            
 
 
             if (playlistPanel != null)

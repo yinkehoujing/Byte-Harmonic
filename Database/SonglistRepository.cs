@@ -343,7 +343,7 @@ namespace Byte_Harmonic.Database
             WHERE Name = @Name;
         ";
 
-            using (var conn = new SqlConnection(_connectionString))
+            using (var conn = new MySqlConnection(_connectionString))
             {
                 conn.Open();
                 // ExecuteScalar 返回第一行第一列的值；>0 则表示存在

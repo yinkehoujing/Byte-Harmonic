@@ -39,7 +39,11 @@ namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
             List<string> tags = new List<string> { };
             foreach (Sunny.UI.UICheckBox item in checkPanel.Controls)
             {
-                tags.Add(item.Tag.ToString());
+                if(item.Checked==true)
+                {
+                    tags.Add(item.Tag.ToString());
+                }
+                
             }
             //TODO:更改使用新的后端函数
             

@@ -140,6 +140,7 @@
             uiImageButton3.TabStop = false;
             uiImageButton3.Text = null;
             uiImageButton3.ZoomScaleDisabled = true;
+            uiImageButton3.Click += uiImageButton3_Click;
             // 
             // uiImageButton1
             // 
@@ -157,6 +158,7 @@
             uiImageButton1.TabStop = false;
             uiImageButton1.Text = null;
             uiImageButton1.ZoomScaleDisabled = true;
+            uiImageButton1.Click += uiImageButton1_Click;
             // 
             // AddSongToListForm
             // 

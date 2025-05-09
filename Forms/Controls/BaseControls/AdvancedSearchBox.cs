@@ -286,6 +286,7 @@ using System.Drawing;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Byte_Harmonic.Forms;
 
 public class UIDropDownPanel : UIPanel
 {
@@ -711,17 +712,19 @@ public class AdvancedSearchBox : UITextBox
         }
     }
 
-    private void ShowDropDown()
+    public void ShowDropDown()
     {
         if (!_dropDownPanel.Visible)
         {
             _dropDownPanel.Show(this, new Point(0, this.Height));
         }
+        Byte_Harmonic.Forms.AppContext.TriggerSearchBoxChange();
     }
 
-    private void HideDropDown()
+    public void HideDropDown()
     {
         _dropDownPanel.Hide();
+        Byte_Harmonic.Forms.AppContext.TriggerSearchBoxChange();
     }
 }
 

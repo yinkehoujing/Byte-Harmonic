@@ -40,7 +40,7 @@ namespace Byte_Harmonic.Forms
         public static event Action SonglistLoaded; // 更新 panel2
         public static event Action<PlaybackMode> PlaybackModeChanged; // 更新 playbackMode 显示图标
         public static event Action ReloadSideSonglist;
-
+        public static event Action ChangeSearchBox;// 更新搜索框是否显示与旁边按钮
 
 
         // 实际响应，修改 PlaybackService 对象
@@ -78,8 +78,10 @@ namespace Byte_Harmonic.Forms
             PlaybackModeChanged?.Invoke(playbackMode);
         }
 
-
-
+        public static void TriggerSearchBoxChange()
+        {
+            ChangeSearchBox?.Invoke();
+        }
 
         public static void TriggerVolumeChanged(float volumeValue)
         {
