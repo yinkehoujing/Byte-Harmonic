@@ -17,13 +17,15 @@ using System.Resources;
 using Sunny.UI;
 using Byte_Harmonic.Forms.Controls.BaseControls;
 using Byte_Harmonic.Forms.FormUtils;
+using Byte_Harmonic.Services;
 
 namespace Byte_Harmonic.Forms
 {
     public partial class MusicForm : UserControl
     {
         private Form secondForm;
-
+        private StarControl starControl;
+        private FavoritesService _favoritesService;
         public MusicForm()
         {
             InitializeComponent();
@@ -38,6 +40,16 @@ namespace Byte_Harmonic.Forms
             AppContext.PlaybackModeChanged += OnPlaybackModeChanged;
 
             var song = AppContext._playbackService.GetCurrentSong();
+
+            //初始化收藏service                                                                                                    //初始化
+            _favoritesService = new FavoritesService(AppContext.userRepository);
+            //
+            starControl = new StarControl(uiImageButton8);
+            bool isFavorite = _favoritesService.IsSongFavorite(AppContext.currentUser.Account, song.Id);
+            starControl.InitStarButton(isFavorite);//初始化收藏按钮 //TODO传入是否被收藏
+            uiImageButton8.Click += starControl.StarButtonClick;
+
+
             // 恢复之前的界面
             if (song != null)
             {
@@ -472,7 +484,24 @@ namespace Byte_Harmonic.Forms
 
         private void uiImageButton8_Click(object sender, EventArgs e)
         {
-
+            if (AppContext._playbackService.GetCurrentSong() == null)
+            {
+                new MainForms.MessageForm("请先播放歌曲后再收藏!").ShowDialog();
+                return;
+            }
+            if (_favoritesService.IsSongFavorite(AppContext.currentUser.Account, AppContext._playbackService.GetCurrentSong().Id) == true)
+            {
+                _favoritesService.RemoveFavoriteSongAsync(AppContext.currentUser.Account, AppContext._playbackService.GetCurrentSong().Id);
+                // bool isFavorite = _favoritesService.IsSongFavorite(AppContext.currentUser.Account, AppContext._playbackService.GetCurrentSong().Id);
+                starControl.InitStarButton(false);
+            }
+            else
+            {
+                int temp = AppContext._playbackService.GetCurrentSong().Id;
+                _favoritesService.AddFavoriteSongsAsync(AppContext.currentUser.Account, new[] { temp });
+                bool isFavorite = _favoritesService.IsSongFavorite(AppContext.currentUser.Account, AppContext._playbackService.GetCurrentSong().Id);
+                starControl.InitStarButton(true);
+            }
         }
     }
 
