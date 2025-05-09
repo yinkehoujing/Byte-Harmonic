@@ -136,7 +136,7 @@ namespace Byte_Harmonic.Forms
         private void LoadSonglistToPanel()
         {
             Console.WriteLine("load a new panel");
-            LoadPage(page: new SongsList());
+            LoadPage(page: new SongsList(AppContext.currentViewingSonglist.Name));
         }
         public void LoadPage(UserControl page)
         {
