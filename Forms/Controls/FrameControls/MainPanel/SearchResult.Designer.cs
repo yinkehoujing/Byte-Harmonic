@@ -41,11 +41,11 @@
             // 
             // uiLabel5
             // 
-            uiLabel5.Font = new Font("黑体", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            uiLabel5.Font = new Font("黑体", 18F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiLabel5.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel5.Location = new Point(20, 14);
+            uiLabel5.Location = new Point(26, 9);
             uiLabel5.Name = "uiLabel5";
-            uiLabel5.Size = new Size(102, 23);
+            uiLabel5.Size = new Size(128, 23);
             uiLabel5.TabIndex = 33;
             uiLabel5.Text = "搜索结果";
             // 

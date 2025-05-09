@@ -24,7 +24,6 @@ namespace Byte_Harmonic.Forms.MainForms
         private void InitializeComponentStyle()
         {
             StyleCustomMode = true;
-            Style = UIStyle.Blue;
             txtOldPassword.PasswordChar = '*';
             txtNewPassword.PasswordChar = '*';
             txtConfirm.PasswordChar = '*';

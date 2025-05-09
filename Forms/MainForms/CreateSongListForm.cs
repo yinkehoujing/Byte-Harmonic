@@ -25,8 +25,6 @@ namespace Byte_Harmonic.Forms
 
             // SunnyUI样式配置
             StyleCustomMode = true;
-            Style = UIStyle.Blue;
-            btnConfirm.Style = UIStyle.Blue;
         }
 
 
