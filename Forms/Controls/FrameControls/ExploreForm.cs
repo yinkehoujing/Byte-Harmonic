@@ -1006,5 +1006,11 @@ namespace Byte_Harmonic.Forms
         {
             LoadPage(new Forms.Controls.FrameControls.MainPanel.PlayList());
         }
+
+        private void uiImageButton18_Click(object sender, EventArgs e)
+        {
+            
+            new Byte_Harmonic.Forms.CreateSongListForm().ShowDialog();
+        }
     }
 }

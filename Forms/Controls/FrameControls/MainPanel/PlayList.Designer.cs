@@ -33,21 +33,23 @@
             // 
             // uiLabel1
             // 
-            uiLabel1.Font = new Font("黑体", 15.75F);
+            uiLabel1.Font = new Font("黑体", 18F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiLabel1.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel1.Location = new Point(17, 15);
+            uiLabel1.Location = new Point(26, 9);
+            uiLabel1.Margin = new Padding(2, 0, 2, 0);
             uiLabel1.Name = "uiLabel1";
-            uiLabel1.Size = new Size(131, 27);
+            uiLabel1.Size = new Size(117, 23);
             uiLabel1.TabIndex = 0;
             uiLabel1.Text = "播放队列";
             // 
             // PlayList
             // 
-            AutoScaleDimensions = new SizeF(9F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(uiLabel1);
+            Margin = new Padding(2, 3, 2, 3);
             Name = "PlayList";
-            Size = new Size(1059, 602);
+            Size = new Size(824, 512);
             ResumeLayout(false);
         }
 
