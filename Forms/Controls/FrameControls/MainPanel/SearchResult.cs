@@ -31,6 +31,7 @@ namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
                     $", Duration: {song.Duration} seconds,成功传入");
             }
 
+            songlist = new SongList();
             songlist.LoadSongs(songs);
             this.Controls.Add(songlist);
         }

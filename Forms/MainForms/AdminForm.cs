@@ -58,6 +58,7 @@ namespace Byte_Harmonic.Forms
 
             try
             {
+                
                 await _songService.ImportSongsAsync(newSong);
                 UIMessageBox.Show("歌曲添加成功！");
                 InitSongList(); // 刷新列表
