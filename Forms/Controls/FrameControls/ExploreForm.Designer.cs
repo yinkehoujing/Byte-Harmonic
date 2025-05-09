@@ -109,7 +109,7 @@ namespace Byte_Harmonic.Forms
             Back.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             Back.Image = Properties.Resources.icons8_slide_up_52__3_;
             Back.ImageHover = Properties.Resources.icons8_slide_up_52__2_;
-            Back.Location = new Point(25, 656);
+            Back.Location = new Point(21, 656);
             Back.Margin = new Padding(2, 3, 2, 3);
             Back.Name = "Back";
             Back.Size = new Size(33, 33);
