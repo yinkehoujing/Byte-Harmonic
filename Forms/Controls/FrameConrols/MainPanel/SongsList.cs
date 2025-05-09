@@ -88,15 +88,16 @@ namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
 
         private void uiImageButton1_Click(object sender, EventArgs e)
         {
-            // TODO : 歌单删除逻辑
-            Console.WriteLine("歌单删除成功");
-            new MainForms.MessageForm("删除歌单成功!").ShowDialog();
-
+            // 歌单删除逻辑
+            
             AppContext.songlistRepository.DeleteSonglist(AppContext.currentViewingSonglist.Id, AppContext.currentUser.Account);
 
             AppContext.currentViewingSonglist = null;
 
             SongListDeleted?.Invoke(this, EventArgs.Empty);
+
+            Console.WriteLine("歌单删除成功");
+            new MainForms.MessageForm("删除歌单成功!").ShowDialog();
 
             AppContext.TriggerReloadSideSonglist();
         }

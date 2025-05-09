@@ -33,7 +33,7 @@ namespace Byte_Harmonic.Forms.MainForms
 
         private void viewButton_Click(object sender, EventArgs e)
         {
-            //TODO:更改视图
+            //更改视图
             Byte_Harmonic.Forms.MainForms.AddSongToListForm addForm = this.FindForm() as AddSongToListForm;
             if (addForm != null)
             {

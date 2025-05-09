@@ -71,12 +71,12 @@ namespace Byte_Harmonic.Forms
                 };
 
                 await _songService.ImportSongsAsync(newSong);
-                UIMessageBox.Show("歌曲添加成功！");
+                new Byte_Harmonic.Forms.MainForms.MessageForm("歌曲添加成功！").ShowDialog();
                 InitSongList(); // 刷新列表
             }
             catch (Exception ex)
             {
-                UIMessageBox.ShowError($"添加失败：{ex.Message}");
+                new Byte_Harmonic.Forms.MainForms.MessageForm($"添加失败：{ex.Message}").ShowDialog();
             }
         }
 

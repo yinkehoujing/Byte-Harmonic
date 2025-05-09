@@ -53,7 +53,7 @@ namespace Byte_Harmonic.Forms.MainForms
 
                 // 更新密码
                 await _userService.ChangePassword(oldPwd, newPwd);
-                new MessageForm("密码修改成功").ShowDialog();
+                new MainForms.MessageForm("密码修改成功").ShowDialog();
                 DialogResult = DialogResult.OK;
                 Close();
             }
@@ -71,7 +71,7 @@ namespace Byte_Harmonic.Forms.MainForms
             }
             catch (Exception ex)
             {
-                UIMessageBox.ShowError($"密码修改失败：{ex.Message}");
+                new Byte_Harmonic.Forms.MainForms.MessageForm($"密码修改失败：{ex.Message}").ShowDialog();
             }
         }
 

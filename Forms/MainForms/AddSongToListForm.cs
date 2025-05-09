@@ -43,7 +43,7 @@ namespace Byte_Harmonic.Forms.MainForms
             bool isWhite = false; // 初始颜色标记
             Color[] colors = { Color.White, Color.FromArgb(240, 240, 240) }; // 黑白交替色
 
-            //TODO:调用后端函数获取所有歌单
+            //调用后端函数获取所有歌单
             List<Songlist> songlists = songlistService.GetCurrentUserSonglists();
 
             foreach (Songlist list in songlists)

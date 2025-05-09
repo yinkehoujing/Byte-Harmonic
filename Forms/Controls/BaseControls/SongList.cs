@@ -85,7 +85,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             var mode = AppContext._playbackService.GetPlaybackMode();
             int n = songs.Count;
             bool notChoosed = true;
-            //TODO:播放被选中的第一首歌，item.Selected表示被选中
+            //播放被选中的第一首歌，item.Selected表示被选中
             foreach (SongItem item in flowLayoutPanel.Controls)
             {
                 if (item.Selected)
@@ -113,10 +113,19 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             {
                 if (item.Selected)
                 {
-                    //TODO:后端：收藏
+                    //后端：收藏
                     int id = item.songID;
-                    _favoritesService.AddFavoriteSongAsync(AppContext.currentUser.Account, id);
-                    //TODO:收藏成功后弹窗
+
+                    try
+                    {
+                        _favoritesService.AddFavoriteSongAsync(AppContext.currentUser.Account, id);
+                    }
+                    catch (Exception ex)
+                    {
+                        new MainForms.MessageForm(ex.Message).ShowDialog();
+                    }
+                    //收藏成功后弹窗
+                    new MainForms.MessageForm("收藏成功").ShowDialog();
                 }
             }
         }
@@ -170,8 +179,17 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
                     
                 }
             }
-            //TODO:显示信息面：删除成功
-            this.LoadSongs(AppContext.currentViewingSonglist.Songs);//更新数据
+            //显示信息面：删除成功
+            new MainForms.MessageForm("删除成功").ShowDialog();
+            try
+            {
+                this.LoadSongs(AppContext.currentViewingSonglist.Songs);//更新数据
+            }
+            catch(Exception ex)
+            {
+                new MainForms.MessageForm(ex.Message).ShowDialog();
+            }
+            
         }
 
         private void BulkOperateButton_Click(object sender, EventArgs e)

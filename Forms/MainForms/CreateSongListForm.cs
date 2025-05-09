@@ -54,7 +54,7 @@ namespace Byte_Harmonic.Forms
             }
             catch (Exception ex)
             {
-                UIMessageBox.ShowError($"创建失败：{ex.Message}");
+                new Byte_Harmonic.Forms.MainForms.MessageForm($"创建失败：{ex.Message}").ShowDialog();
             }
         }
     }

@@ -39,7 +39,7 @@ namespace Byte_Harmonic.Forms
             var song = AppContext._playbackService.GetCurrentSong();
             starControl = new StarControl(uiImageButton8);
             bool isFavorite = _favoritesService.IsSongFavorite(AppContext.currentUser.Account, 1);
-            starControl.InitStarButton(isFavorite);//初始化收藏按钮 //TODO传入是否被收藏
+            starControl.InitStarButton(isFavorite);//初始化收藏按钮
             uiImageButton8.Click += starControl.StarButtonClick;
 
             LoadMusicExplorerControl(); // 装入初始探索页面
@@ -631,7 +631,6 @@ namespace Byte_Harmonic.Forms
             MenuButton2 = new BHButton("icons8-scroll-down-96", "icons8-scroll-down-96 (1)", "下载");
             MenuButton3 = new BHButton("icons8-list-96", "icons8-list-96 (1)", "播放队列");
 
-            //TODO
             MenuButton1.Click += MenuButton1_Click;
             MenuButton2.Click += MenuButton2_Click;
             MenuButton3.Click += MenuButton3_Click;
@@ -695,7 +694,7 @@ namespace Byte_Harmonic.Forms
             {
                 if (AppContext._playbackService.audioFileReader == null)
                 {
-                    new MessageForm("请先播放一首歌曲!").ShowDialog();
+                    new Byte_Harmonic.Forms.MainForms.MessageForm("请先播放一首歌曲!").ShowDialog(); 
                     return;
                 }
                 speedControl = new SpeedControl(uiImageButton17.Location, AppContext._playbackService.GetPlaybackSpeed());
@@ -834,7 +833,7 @@ namespace Byte_Harmonic.Forms
             {
                 if (string.IsNullOrWhiteSpace(searchText))
                 {
-                    UIMessageBox.Show("请输入搜索内容", "提示", UIStyle.Custom);
+                    new Byte_Harmonic.Forms.MainForms.MessageForm("请输入搜索内容").ShowDialog(); 
                     return;
                 }
 
@@ -853,7 +852,7 @@ namespace Byte_Harmonic.Forms
 
                 if (results == null || results.Count == 0)
                 {
-                    UIMessageBox.Show("未找到匹配的歌曲", "提示", UIStyle.Custom);
+                    new Byte_Harmonic.Forms.MainForms.MessageForm("未找到匹配的歌曲").ShowDialog();
                     return;
                 }
 
@@ -862,7 +861,7 @@ namespace Byte_Harmonic.Forms
             }
             catch (Exception ex)
             {
-                UIMessageBox.Show($"搜索出错: {ex.Message}", "错误", UIStyle.Custom);
+                new Byte_Harmonic.Forms.MainForms.MessageForm($"搜索出错: {ex.Message}").ShowDialog();
             }
             /*// 处理搜索逻辑
             UIMessageBox.Show($"执行搜索: {searchText}", "搜索", UIStyle.Custom);*/

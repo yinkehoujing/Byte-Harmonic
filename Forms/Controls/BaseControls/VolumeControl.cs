@@ -32,7 +32,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             Console.WriteLine("UiTrackBar1_ValueChanged to, then volume is changed ");
             if(AppContext._playbackService.audioFileReader == null)
             {
-                new MessageForm("请先播放一首歌曲再调整音量！").ShowDialog();
+                new MainForms.MessageForm("请先播放一首歌曲再调整音量！").ShowDialog();
                 return;
             }
             AppContext._playbackService.SetVolume((float)uiTrackBar1.Value / 100);

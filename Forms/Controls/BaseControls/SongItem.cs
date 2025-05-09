@@ -136,12 +136,11 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
                 // 更新下载状态
                 song.Downloaded = true;
                 //songService.UpdateSong(song);
-
-                new MessageForm("下载成功").ShowDialog();
+                new Byte_Harmonic.Forms.MainForms.MessageForm("下载成功").ShowDialog();
             }
             catch (Exception ex)
             {
-                UIMessageBox.ShowError($"下载失败：{ex.Message}");
+                new Byte_Harmonic.Forms.MainForms.MessageForm($"下载失败：{ex.Message}").ShowDialog();
             }
         }
 

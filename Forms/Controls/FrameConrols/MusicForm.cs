@@ -46,7 +46,7 @@ namespace Byte_Harmonic.Forms
             //
             starControl = new StarControl(uiImageButton8);
             bool isFavorite = _favoritesService.IsSongFavorite(AppContext.currentUser.Account, song.Id);
-            starControl.InitStarButton(isFavorite);//初始化收藏按钮 //TODO传入是否被收藏
+            starControl.InitStarButton(isFavorite);//初始化收藏按钮
             uiImageButton8.Click += starControl.StarButtonClick;
 
 
