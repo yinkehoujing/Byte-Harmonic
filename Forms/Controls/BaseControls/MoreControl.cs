@@ -36,19 +36,21 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
 
         private void bHButton2_Click (object sender, EventArgs e)
         {
+            Song song;
+
             try
             {
-                Song song = AppContext._playbackService.GetCurrentSong();
+                song = AppContext._playbackService.GetCurrentSong();
                 if (song == null)
-                    throw new Exception("当前没有歌曲");
-
-                new Byte_Harmonic.Forms.MainForms.AddSongToListForm(song).ShowDialog();
+                    throw new Exception("请先播放一首歌");
             }
             catch (Exception ex)
             {
                 new Byte_Harmonic.Forms.MainForms.MessageForm(ex.Message).ShowDialog();
+                return;
             }
-            
+
+            new Byte_Harmonic.Forms.MainForms.AddSongToListForm(song).ShowDialog();
         }
     }
 }
