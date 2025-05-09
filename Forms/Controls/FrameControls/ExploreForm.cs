@@ -767,16 +767,15 @@ namespace Byte_Harmonic.Forms
         private void InitializeSongsList()
         {
             //TODO:调用后端获取歌单
-            List<string> dataList;
-            dataList = ["1", "2", "3", "4", "5", "6", "7"];
-
-            foreach (string item in dataList)
+            var songlists = AppContext.songlistRepository.GetUserOwnPlaylists(AppContext.currentUser.Account);
+            foreach (var item in songlists)
             {
                 // 创建控件
+                var item_name = item.Name;
                 Random random = new Random();
                 int randomNumber = random.Next(1, 11);
                 string num = randomNumber.ToString();
-                Control control = new BHButton("1 (" + num + ")", "1 (" + num + ")", item);
+                Control control = new BHButton("1 (" + num + ")", "1 (" + num + ")", item_name);
                 control.Tag = item; // 将数据对象存储在Tag中
                 control.Width = 155;
                 // 添加到父容器
