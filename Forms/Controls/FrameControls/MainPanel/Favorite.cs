@@ -11,7 +11,7 @@ using Byte_Harmonic.Forms.Controls.BaseControls;
 
 namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
 {
-    public partial class Favorite: UserControl
+    public partial class Favorite : UserControl
     {
         private SongList songlist;
         public Favorite()
@@ -35,6 +35,11 @@ namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
 
             var songs = await AppContext.userRepository.GetFavoriteSongsAsync(AppContext.currentUser.Account);
             songlist.LoadSongs(songs);
+        }
+
+        private void Favorite_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

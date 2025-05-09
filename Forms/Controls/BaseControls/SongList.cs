@@ -12,6 +12,7 @@ using Sunny.UI;
 using Byte_Harmonic.Forms.MainForms;
 using Byte_Harmonic.Services;
 using Byte_Harmonic.Utils;
+using Org.BouncyCastle.Utilities;
 
 namespace Byte_Harmonic.Forms.Controls.BaseControls
 {
@@ -19,12 +20,14 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
     {
         private bool selectAll = false;
         private bool enableBulkOp = false;
+        private FavoritesService _favoritesService;
         public SongList()
         {
             InitializeComponent();
             this.Dock = DockStyle.Fill;
             this.Margin = new Padding(10);
             this.SizeChanged += Control_SizeChanged;
+            _favoritesService = new FavoritesService(AppContext.userRepository);
         }
 
 
@@ -105,11 +108,14 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
 
         private void StarAllButton_Click(object sender, EventArgs e)
         {
+
             foreach (SongItem item in flowLayoutPanel.Controls)
             {
                 if (item.Selected)
                 {
                     //TODO:后端：收藏
+                    int id = item.songID;
+                    _favoritesService.AddFavoriteSongAsync(AppContext.currentUser.Account, id);
                     //TODO:收藏成功后弹窗
                 }
             }
@@ -161,6 +167,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
                 {
                     //TODO:后端删除
                     int id = item.songID;
+                    
                 }
             }
             //TODO:显示信息面：删除成功

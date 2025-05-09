@@ -48,6 +48,7 @@
             Controls.Add(uiLabel1);
             Name = "Favorite";
             Size = new Size(1059, 602);
+            Load += Favorite_Load;
             ResumeLayout(false);
         }
 

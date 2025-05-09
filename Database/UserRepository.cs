@@ -176,7 +176,7 @@ namespace Byte_Harmonic.Database
             // 先检查是否已收藏
             if ( IsSongFavorite(username, songId))
             {
-                return false;
+                return true;
             }
 
             const string sql = "INSERT INTO Favorites (Username, SongId) VALUES (@Username, @SongId)";

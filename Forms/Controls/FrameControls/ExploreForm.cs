@@ -841,7 +841,10 @@ namespace Byte_Harmonic.Forms
 
                 // 执行搜索
                 var results = await _searchService.SearchSongs(searchText);
-
+               /* foreach (var song in results)
+                {
+                    Console.WriteLine($"ID: {song.Id}, Title: {song.Title}, Artist: {song.Artist}, Duration: {song.Duration} seconds");
+                }*/
                 // 关闭加载状态
                 //loading.Hide();
 
@@ -852,8 +855,7 @@ namespace Byte_Harmonic.Forms
                 }
 
                 // 创建并加载搜索结果页面
-                //var searchResultsPage = new SearchResultsControl(results);
-                // LoadPage(searchResultsPage);
+                LoadPage(new Forms.Controls.FrameControls.MainPanel.SearchResult(results));
             }
             catch (Exception ex)
             {
