@@ -19,6 +19,12 @@ INSERT INTO Users (Account, Username, Password, IsAdmin)
 VALUES 
 ('admin', '管理员', 'argon2id:4:4:65536:S3N1vILMxrTJYeKF17oXxQ==:xiLKTDg0oQ+fImOudiK9dXOAOX9dKA/T7KIsi6PVDa0=', 1);
 
+-- 插入初始用户
+-- 管理员密码为123456789
+INSERT INTO Users (Account, Username, Password, IsAdmin)
+VALUES 
+('user', '未命名', 'argon2id:4:4:65536:S3N1vILMxrTJYeKF17oXxQ==:xiLKTDg0oQ+fImOudiK9dXOAOX9dKA/T7KIsi6PVDa0=', 0);
+
 -- 插入歌单：流行精选
 INSERT INTO Playlists (Name, Owner)
 VALUES ('流行精选', 'admin');
@@ -37,6 +43,16 @@ VALUES ('本周最热', 'admin');
 
 INSERT INTO Playlists (Name, Owner)
 VALUES ('欧美金曲', 'admin');
+
+INSERT INTO Playlists (Name, Owner)
+VALUES ('自建歌单1', 'user');
+
+INSERT INTO Playlists (Name, Owner)
+VALUES ('自建歌单2', 'user');
+
+INSERT INTO Playlists (Name, Owner)
+VALUES ('自建歌单3', 'user');
+
 
 
 INSERT INTO SonglistSongs (SonglistId, SongId)
@@ -70,6 +86,28 @@ VALUES
 (5, 9);  
 
 -- 第 6 个歌单为空
+
+-- 用户歌单
+
+INSERT INTO SonglistSongs (SonglistId, SongId)
+VALUES
+(7, 1),  
+(7, 2),  
+(7, 3);  
+
+INSERT INTO SonglistSongs (SonglistId, SongId)
+VALUES
+(8, 4),  
+(8, 5),  
+(8, 6);  
+
+INSERT INTO SonglistSongs (SonglistId, SongId)
+VALUES
+(9, 1),  
+(9, 7),  
+(9, 8);  
+
+
 
 -- 插入一些标签
 
