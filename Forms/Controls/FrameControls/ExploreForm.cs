@@ -776,6 +776,11 @@ namespace Byte_Harmonic.Forms
                 int randomNumber = random.Next(1, 11);
                 string num = randomNumber.ToString();
                 Control control = new BHButton("1 (" + num + ")", "1 (" + num + ")", item_name);
+                control.Click += (s, e) =>
+                {
+                    AppContext.currentViewingSonglist = item;
+                    AppContext.TriggerSonglistLoaded();
+                }; 
                 control.Tag = item; // 将数据对象存储在Tag中
                 control.Width = 155;
                 // 添加到父容器
