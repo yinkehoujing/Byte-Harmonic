@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Byte_Harmonic.Forms.FormUtils;
+using Byte_Harmonic.Forms.MainForms;
 
 namespace Byte_Harmonic.Forms.Controls.BaseControls
 {
@@ -29,6 +30,11 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
         {
             // 向外触发 VolumeControl 的 VolumeChanged 事件更新 UI
             Console.WriteLine("UiTrackBar1_ValueChanged to, then volume is changed ");
+            if(AppContext._playbackService.audioFileReader == null)
+            {
+                new MessageForm("请先播放一首歌曲再调整音量！").ShowDialog();
+                return;
+            }
             AppContext._playbackService.SetVolume((float)uiTrackBar1.Value / 100);
         }
 

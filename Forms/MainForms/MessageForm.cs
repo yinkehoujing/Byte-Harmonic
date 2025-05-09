@@ -19,7 +19,6 @@ namespace Byte_Harmonic.Forms.MainForms
             lblMessage.Text = message;
             lblMessage.TextAlign = ContentAlignment.MiddleCenter;
             lblMessage.AutoSize = false;
-            lblMessage.Dock = DockStyle.Fill;
         }
 
         //点击确认

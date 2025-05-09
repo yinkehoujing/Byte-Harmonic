@@ -109,7 +109,7 @@ namespace Byte_Harmonic.Forms
             Back.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             Back.Image = Properties.Resources.icons8_slide_up_52__3_;
             Back.ImageHover = Properties.Resources.icons8_slide_up_52__2_;
-            Back.Location = new Point(25, 656);
+            Back.Location = new Point(21, 656);
             Back.Margin = new Padding(2, 3, 2, 3);
             Back.Name = "Back";
             Back.Size = new Size(33, 33);
@@ -505,7 +505,7 @@ namespace Byte_Harmonic.Forms
             // pictureBox3
             // 
             pictureBox3.Cursor = Cursors.Hand;
-            pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
+            pictureBox3.Image = Properties.Resources.icons8_headphones_100__1_;
             pictureBox3.Location = new Point(16, 29);
             pictureBox3.Name = "pictureBox3";
             pictureBox3.Size = new Size(44, 44);

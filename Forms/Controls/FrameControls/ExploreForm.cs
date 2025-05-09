@@ -348,7 +348,7 @@ namespace Byte_Harmonic.Forms
             {
                 // 切换到第二个窗体形态
                 //调整搜索框
-                searchBox.Location = new Point(173, 28);
+                searchBox.Location = new Point(399, 28);
 
                 // 调整pictureBox2
                 pictureBox2.Location = new Point(72, 9);
@@ -417,7 +417,7 @@ namespace Byte_Harmonic.Forms
             {
                 // 切换回第一个窗体形态
                 //调整搜索框
-                searchBox.Location = new Point(285, 28);
+                searchBox.Location = new Point(449, 28);
 
                 // 恢复pictureBox2
                 pictureBox2.Location = new Point(190, 10);
@@ -429,7 +429,7 @@ namespace Byte_Harmonic.Forms
 
                 //调整uiFlowLayoutPanel1
                 flowLayoutPanel1.SendToBack();
-                flowLayoutPanel1.Width = 170;
+                flowLayoutPanel1.Width = 179;
 
                 // 恢复pictureBox1
                 pictureBox1.Location = new Point(190, 593);
@@ -479,6 +479,7 @@ namespace Byte_Harmonic.Forms
                     uiImageButton15.TabStop = false;
                     uiImageButton15.Text = null;
                     uiImageButton15.ZoomScaleDisabled = true;
+                    uiImageButton15.Click += uiImageButton15_Click;
                     this.Controls.Add(uiImageButton15);
                 }
 
@@ -500,6 +501,7 @@ namespace Byte_Harmonic.Forms
                     uiImageButton16.TabStop = false;
                     uiImageButton16.Text = null;
                     uiImageButton16.ZoomScaleDisabled = true;
+                    uiImageButton16.Click += uiImageButton16_Click;
                     this.Controls.Add(uiImageButton16);
                 }
 
@@ -565,6 +567,11 @@ namespace Byte_Harmonic.Forms
 
         private void uiImageButton7_Click(object sender, EventArgs e)
         {
+            if (AppContext._playbackService.GetCurrentSong() == null)
+            {
+                new MainForms.MessageForm("请先播放一首歌曲!").ShowDialog();
+                return;
+            }
             AppContext._playbackService.PlayNext();
             var current = AppContext._playbackService.GetCurrentSong();
             if (current == null)
@@ -606,7 +613,7 @@ namespace Byte_Harmonic.Forms
             MenuButton3 = new BHButton("icons8-list-96", "icons8-list-96 (1)", "播放队列");
 
             //TODO
-            //MenuButton1.Click += MenuButton1_Click;
+            MenuButton1.Click += MenuButton1_Click;
             MenuButton2.Click += MenuButton2_Click;
             MenuButton3.Click += MenuButton3_Click;
 
@@ -618,6 +625,11 @@ namespace Byte_Harmonic.Forms
             this.Controls.Add(MenuButton2);
             this.Controls.Add(MenuButton3);
 
+        }
+
+        private void MenuButton1_Click(object? sender, EventArgs e)
+        {
+            LoadPage(new Favorite());
         }
 
         private void MenuButton2_Click(object? sender, EventArgs e)
@@ -662,6 +674,11 @@ namespace Byte_Harmonic.Forms
         {
             if (speedControl == null)
             {
+                if (AppContext._playbackService.audioFileReader == null)
+                {
+                    new MessageForm("请先播放一首歌曲!").ShowDialog();
+                    return;
+                }
                 speedControl = new SpeedControl(uiImageButton17.Location, AppContext._playbackService.GetPlaybackSpeed());
                 this.Controls.Add(speedControl);
                 speedControl.BringToFront();
@@ -770,7 +787,7 @@ namespace Byte_Harmonic.Forms
         private void InitializeSearchBox()
         {
             searchBox = new AdvancedSearchBox();
-            searchBox.Location = new Point(285, 29);
+            searchBox.Location = new Point(449, 29);
             searchBox.Width = 300;
             this.Controls.Add(searchBox);
             searchBox.BringToFront();
@@ -934,6 +951,11 @@ namespace Byte_Harmonic.Forms
 
         private void uiImageButton8_Click(object sender, EventArgs e)
         {
+            if (AppContext._playbackService.GetCurrentSong() == null)
+            {
+                new MainForms.MessageForm("请先播放歌曲后再收藏!").ShowDialog();
+                return;
+            }
             if (_favoritesService.IsSongFavorite(AppContext.currentUser.Account, AppContext._playbackService.GetCurrentSong().Id) == true)
             {
                 _favoritesService.RemoveFavoriteSongAsync(AppContext.currentUser.Account, AppContext._playbackService.GetCurrentSong().Id);
@@ -952,6 +974,11 @@ namespace Byte_Harmonic.Forms
         private void panel2_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void uiImageButton10_Click(object sender, EventArgs e)
+        {
+            LoadPage(new Forms.Controls.FrameControls.MainPanel.PlayList());
         }
     }
 }

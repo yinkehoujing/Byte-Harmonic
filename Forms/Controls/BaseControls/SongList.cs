@@ -26,6 +26,8 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             this.Margin = new Padding(10);
         }
 
+
+
         public void LoadSongs(List<Song> songs)
         {
             flowLayoutPanel.Controls.Clear(); // 清空现有项
@@ -74,14 +76,30 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
 
         private void PlayAllButton_Click(object sender, EventArgs e)
         {
+            //var songs = AppContext._playbackService.GetPlaylist().PlaySongs;
+            var songs = new List<Song>();
+            var mode = AppContext._playbackService.GetPlaybackMode();
+            int n = songs.Count;
+            bool notChoosed = true;
             //TODO:播放被选中的第一首歌，item.Selected表示被选中
             foreach (SongItem item in flowLayoutPanel.Controls)
             {
                 if (item.Selected)
                 {
-                    //TODO:后端：加入播放队列
+                    notChoosed = false;
+                    songs.Add(AppContext._songRepository.GetSongById(item.songID));
                 }
             }
+            if (notChoosed) return; // 不修改原来的播放队列
+            Console.WriteLine("得到新的播放队列!");
+            AppContext._playbackService.SetPlaylist(new Playlist(songs, mode));
+            AppContext.TogglePlayPause(); // 从新的位置开始播放
+            AppContext.TriggerupdateSongUI(songs[0]);
+            AppContext.TriggerShowPlayingBtn(true);
+            var lyricsLine = AppContext._playbackService.GetCurrentLyricsLine()?.Text ?? "[No Lyrics]";
+            var position = AppContext._playbackService.GetCurrentPosition();
+
+            AppContext.TriggerLyricsUpdated(lyricsLine, position);
         }
 
         private void StarAllButton_Click(object sender, EventArgs e)

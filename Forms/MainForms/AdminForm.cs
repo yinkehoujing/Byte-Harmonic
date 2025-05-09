@@ -33,7 +33,6 @@ namespace Byte_Harmonic.Forms
             btnSelectMp3.Click += btnSelectMp3_Click;
             btnSelectLrc.Click += btnSelectLrc_Click;
             btnCreate.Click += btnCreate_Click;
-            dgvSongs.CellContentClick += dgvSongs_CellContentClick;
 
             InitSongList();
         }
@@ -41,8 +40,7 @@ namespace Byte_Harmonic.Forms
         private async void InitSongList()
         {
             _currentSongs = await _songService.GetAllSongsAsync();
-            dgvSongs.DataSource = _currentSongs;
-            dgvSongs.Refresh();
+
         }
 
         // 新建歌曲按钮点击事件
@@ -96,25 +94,26 @@ namespace Byte_Harmonic.Forms
         // 歌曲列表操作
         private async void dgvSongs_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0) return;
+            //if (e.RowIndex < 0) return;
 
-            var song = _currentSongs[e.RowIndex];
-            if (dgvSongs.Columns[e.ColumnIndex].Name == "colDelete")
-            {
-                if (UIMessageBox.ShowAsk("确认删除该歌曲？"))
-                {
-                    await _songService.DeleteSongAsync(song.Id);
-                    InitSongList();
-                }
-            }
-            /*
-            else if (dgvSongs.Columns[e.ColumnIndex].Name == "colEdit")
-            {
-                using var editForm = new EditSongForm(song, _songService);
-                editForm.ShowDialog();
-                InitSongList();
-            }
-            */
+            //var song = _currentSongs[e.RowIndex];
+            //if (dgvSongs.Columns[e.ColumnIndex].Name == "colDelete")
+            //{
+            //    if (UIMessageBox.ShowAsk("确认删除该歌曲？"))
+            //    {
+            //        await _songService.DeleteSongAsync(song.Id);
+            //        InitSongList();
+            //    }
+            //}
+            ///*
+            //else if (dgvSongs.Columns[e.ColumnIndex].Name == "colEdit")
+            //{
+            //    using var editForm = new EditSongForm(song, _songService);
+            //    editForm.ShowDialog();
+            //    InitSongList();
+            //}
+            //*/
         }
+
     }
 }

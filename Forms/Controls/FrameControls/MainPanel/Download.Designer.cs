@@ -28,10 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            uiLabel1 = new Sunny.UI.UILabel();
+            SuspendLayout();
+            // 
+            // uiLabel1
+            // 
+            uiLabel1.Font = new Font("黑体", 15.75F);
+            uiLabel1.ForeColor = Color.FromArgb(48, 48, 48);
+            uiLabel1.Location = new Point(33, 21);
+            uiLabel1.Name = "uiLabel1";
+            uiLabel1.Size = new Size(131, 27);
+            uiLabel1.TabIndex = 0;
+            uiLabel1.Text = "下载";
+            // 
+            // Download
+            // 
+            AutoScaleDimensions = new SizeF(9F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(uiLabel1);
+            Name = "Download";
+            Size = new Size(1059, 602);
+            ResumeLayout(false);
         }
 
         #endregion
+
+        private Sunny.UI.UILabel uiLabel1;
     }
 }
