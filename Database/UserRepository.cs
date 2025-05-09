@@ -236,11 +236,7 @@ namespace Byte_Harmonic.Database
             return songs;
         }
 
-        //批量收藏
-        public async Task<bool> AddManyFavoriteSongsAsync(string username)
-        {
-
-        }
+        
 
         // 获取用户收藏歌曲的数量
         public async Task<int> GetFavoriteSongsCountAsync(string username)
