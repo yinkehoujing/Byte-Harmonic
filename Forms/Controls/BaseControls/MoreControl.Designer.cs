@@ -35,7 +35,7 @@
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             Name = "MoreControl";
-            Size = new Size(170, 102);
+            Size = new Size(141, 105);
             ResumeLayout(false);
         }
 
