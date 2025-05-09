@@ -165,3 +165,7 @@ INSERT INTO Favorites (Username, SongId) VALUES
 ('admin', 1),  -- 天外来物
 ('admin', 2);  -- 传奇（王菲）
 
+INSERT INTO Favorites (Username, SongId) VALUES
+('user', 1),  -- 天外来物
+('user', 2);  -- 传奇（王菲）
+
