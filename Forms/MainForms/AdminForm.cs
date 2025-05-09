@@ -40,7 +40,7 @@ namespace Byte_Harmonic.Forms
         private async void InitSongList()
         {
             _currentSongs = await _songService.GetAllSongsAsync();
-          
+
         }
 
         // 新建歌曲按钮点击事件
@@ -114,5 +114,6 @@ namespace Byte_Harmonic.Forms
             //}
             //*/
         }
+
     }
 }
