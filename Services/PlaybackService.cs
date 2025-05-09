@@ -7,6 +7,7 @@ using VarispeedDemo.SoundTouch;
 using NAudio.Wave.SampleProviders;
 using Byte_Harmonic.Database;
 using Byte_Harmonic.Forms;
+using Byte_Harmonic.Forms.MainForms;
 
 
 namespace Services
@@ -33,6 +34,8 @@ namespace Services
         public bool IsPaused => _isPaused;
 
         public PlaybackMode PlaybackMode => _playlist.PlaybackMode;
+
+        public AudioFileReader? audioFileReader => _audioReader;
 
         public PlaybackService()
         {
@@ -346,7 +349,7 @@ namespace Services
             }
             else
             {
-                throw new ArgumentNullException(nameof(_audioReader));
+              throw new ArgumentNullException(nameof(_audioReader));
             }
         }
 

@@ -563,6 +563,11 @@ namespace Byte_Harmonic.Forms
 
         private void uiImageButton7_Click(object sender, EventArgs e)
         {
+            if (AppContext._playbackService.GetCurrentSong() == null)
+            {
+                new MainForms.MessageForm("请先播放一首歌曲!").ShowDialog();
+                return;
+            }
             AppContext._playbackService.PlayNext();
             var current = AppContext._playbackService.GetCurrentSong();
             if (current == null)
@@ -660,6 +665,11 @@ namespace Byte_Harmonic.Forms
         {
             if (speedControl == null)
             {
+                if (AppContext._playbackService.audioFileReader == null)
+                {
+                    new MessageForm("请先播放一首歌曲!").ShowDialog();
+                    return;
+                }
                 speedControl = new SpeedControl(uiImageButton17.Location, AppContext._playbackService.GetPlaybackSpeed());
                 this.Controls.Add(speedControl);
                 speedControl.BringToFront();
@@ -932,6 +942,11 @@ namespace Byte_Harmonic.Forms
 
         private void uiImageButton8_Click(object sender, EventArgs e)
         {
+            if (AppContext._playbackService.GetCurrentSong() == null)
+            {
+                new MainForms.MessageForm("请先播放歌曲后再收藏!").ShowDialog();
+                return;
+            }
             if (_favoritesService.IsSongFavorite(AppContext.currentUser.Account, AppContext._playbackService.GetCurrentSong().Id) == true)
             {
                 _favoritesService.RemoveFavoriteSongAsync(AppContext.currentUser.Account, AppContext._playbackService.GetCurrentSong().Id);
@@ -950,6 +965,11 @@ namespace Byte_Harmonic.Forms
         private void panel2_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void uiImageButton10_Click(object sender, EventArgs e)
+        {
+            LoadPage(new SongsList());
         }
     }
 }
