@@ -14,6 +14,7 @@ namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
     public partial class SongsList : UserControl
     {
         private SongList songlist;
+        public event EventHandler SongListDeleted;
 
         public SongsList(string songlistName)
         {
@@ -58,6 +59,8 @@ namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
             // TODO : 歌单删除逻辑
             Console.WriteLine("歌单删除成功");
             new MainForms.MessageForm("删除歌单成功!").ShowDialog();
+
+            SongListDeleted?.Invoke(this, EventArgs.Empty);
         }
 
 
