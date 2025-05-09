@@ -969,7 +969,7 @@ namespace Byte_Harmonic.Forms
 
         private void uiImageButton10_Click(object sender, EventArgs e)
         {
-            LoadPage(new SongsList());
+            LoadPage(new Forms.Controls.FrameControls.MainPanel.PlayList());
         }
     }
 }
