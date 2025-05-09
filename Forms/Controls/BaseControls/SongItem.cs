@@ -14,6 +14,8 @@ using Byte_Harmonic.Models;
 using Byte_Harmonic.Services;
 using Byte_Harmonic.Utils;
 using System.Text.RegularExpressions;
+using Byte_Harmonic.Forms.Controls.FrameControls.MainPanel;
+using System.Collections;
 
 namespace Byte_Harmonic.Forms.Controls.BaseControls
 {
@@ -91,20 +93,63 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             //TODO：调用删除的后端程序
             try
             {
-                // 删除歌单的歌曲
-                if(AppContext.currentViewingSonglist != null)
+                var parent = this.Parent;
+                while (parent != null && !(parent is Download || parent is PlayList || parent is Favorite))
                 {
-                    AppContext.songlistService.RemoveSongFromSonglist(AppContext.songlistService.GetSongById(songID), AppContext.currentViewingSonglist);
-                    AppContext.TriggerSonglistDetailUpdated(AppContext.currentViewingSonglist.Name);
+                    parent = parent.Parent;
                 }
-            }
-            catch(Exception ex) 
-            {
-                new MessageForm(ex.Message).ShowDialog();
-            }
 
-            //TODO:前端更新
-        }
+                if (parent is Download)
+                {
+                    // 执行 Download 页面逻辑
+                    Console.WriteLine("下载页删除逻辑");
+                    AppContext._songRepository.CancelDownload(songID);
+                    AppContext.TriggerDownloadUpdated();
+                }
+                else if (parent is PlayList)
+                {
+                    List<Song> songs = new List<Song>();
+                    foreach(var song in AppContext._playbackService.GetPlaylist().PlaySongs)
+                    {
+                        if(song.Id != songID)
+                        {
+                            songs.Add(song);
+                        }
+                    }
+                    AppContext._playbackService.SetPlaylist(new Playlist(songs, AppContext._playbackService.GetPlaybackMode()));
+                    // 前端逻辑
+                    Console.WriteLine("必须在歌曲暂停时修改播放队列!");
+                    AppContext.TriggerPlaylistUpdated();
+
+                }
+                else if (parent is Favorite)
+                {
+                    Console.WriteLine("收藏页删除逻辑");
+                }
+                else
+                {
+                    Console.WriteLine("歌单的删除逻辑");
+                    try
+                    {
+
+                        if (AppContext.currentViewingSonglist != null)
+                        {
+                            AppContext.songlistService.RemoveSongFromSonglist(AppContext.songlistService.GetSongById(songID), AppContext.currentViewingSonglist);
+                            AppContext.TriggerSonglistDetailUpdated(AppContext.currentViewingSonglist.Name);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        new MessageForm(ex.Message).ShowDialog();
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+        } 
 
         private void addButton_Click(object sender, EventArgs e)
         {

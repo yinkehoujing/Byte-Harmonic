@@ -41,7 +41,11 @@ namespace Byte_Harmonic.Forms
         public static event Action<PlaybackMode> PlaybackModeChanged; // 更新 playbackMode 显示图标
         public static event Action ReloadSideSonglist;
         public static event Action ChangeSearchBox;// 更新搜索框是否显示与旁边按钮
-        public static event Func<string, Task> SonglistDetailUpdated;
+        public static event Func<string, Task> SonglistDetailUpdated; // 更新歌单页详情
+        public static event Action PlaylistUpdated;// 更新播放列表显示
+
+        public static event Action DownloadUpdated;// 更新下载列表显示
+
 
         // 实际响应，修改 PlaybackService 对象
         public static event Action<double>? PlaybackSpeedChanged;
@@ -77,6 +81,18 @@ namespace Byte_Harmonic.Forms
         {
             Console.WriteLine("TriggerPositionChanged");
             PositionChanged?.Invoke(ts);
+        }
+
+        public static void TriggerPlaylistUpdated()
+        {
+            Console.WriteLine("TriggerPlaylistUpdated");
+            PlaylistUpdated?.Invoke();
+        }
+
+        public static void TriggerDownloadUpdated()
+        {
+            Console.WriteLine("TriggerDownloadUpdated");
+            DownloadUpdated?.Invoke();
         }
 
         public static void TriggerReloadSideSonglist()
@@ -178,9 +194,11 @@ namespace Byte_Harmonic.Forms
         {
             TimerHelper.SetupTimer(ref _timer, 500, (s, e) =>
             {
+                // 刚好关中断时响应
                 if (AppContext._playbackService.GetCurrentSong() == null)
                 {
-                    throw new ArgumentNullException(nameof(AppContext._playbackService));
+                    Console.WriteLine("currentsong is null");
+                    //throw new ArgumentNullException(nameof(AppContext._playbackService));
                 }
                 var lyricsLine = AppContext._playbackService.GetCurrentLyricsLine()?.Text ?? "[No Lyrics]";
                 var position = AppContext._playbackService.GetCurrentPosition();

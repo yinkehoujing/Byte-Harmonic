@@ -20,11 +20,17 @@ namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
             {
                 Console.WriteLine($"{AppContext.currentViewingSonglist.Name} and has {AppContext.currentViewingSonglist.Songs.Count} songs");
             }
+            AppContext.PlaylistUpdated += AppContext_PlaylistUpdated;
             InitializeComponent();
             songlist = new SongList();
             var songs = AppContext._playbackService.GetPlaylist().PlaySongs;
             songlist.LoadSongs(songs);
             this.Controls.Add(songlist);
+        }
+
+        private void AppContext_PlaylistUpdated()
+        {
+            songlist.LoadSongs(AppContext._playbackService.GetPlaylist().PlaySongs);
         }
     }
 }

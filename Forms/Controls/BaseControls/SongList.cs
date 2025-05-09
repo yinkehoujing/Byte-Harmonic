@@ -15,6 +15,7 @@ using Byte_Harmonic.Utils;
 using Org.BouncyCastle.Utilities;
 using System.Text.RegularExpressions;
 using static Sunny.UI.SnowFlakeId;
+using Byte_Harmonic.Forms.Controls.FrameControls.MainPanel;
 
 namespace Byte_Harmonic.Forms.Controls.BaseControls
 {
@@ -197,29 +198,85 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
 
         private void DeleteAllButton_Click(object sender, EventArgs e)
         {
-           
+            var toRemoveFromDownload = new List<int>();
+            var toRemoveFromPlaylist = new List<int>();
+            var toRemoveFromSonglist = new List<int>();
+
+            bool isDownloadPage = false, isPlaylistPage = false, isFavoritePage = false, isSonglistPage = false;
+
+            var parent = this.Parent;
+            while (parent != null && !(parent is Download || parent is PlayList || parent is Favorite))
+            {
+                parent = parent.Parent;
+            }
+
+            if (parent is Download) isDownloadPage = true;
+            else if (parent is PlayList) isPlaylistPage = true;
+            else if (parent is Favorite) isFavoritePage = true;
+            else isSonglistPage = true;
+
             foreach (SongItem item in flowLayoutPanel.Controls)
             {
-                if (item.Selected)
-                {
-                    int songID = item.songID;
-                    try
-                    {
-                        // 删除歌单的歌曲
-                        if (AppContext.currentViewingSonglist != null)
-                        {
-                            AppContext.songlistService.RemoveSongFromSonglist(AppContext.songlistService.GetSongById(songID), AppContext.currentViewingSonglist);
-                            AppContext.TriggerSonglistDetailUpdated(AppContext.currentViewingSonglist.Name);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        new MessageForm(ex.Message).ShowDialog();
-                    }
+                if (!item.Selected) continue;
 
+                int songID = item.songID;
+
+                if (isDownloadPage)
+                {
+                    toRemoveFromDownload.Add(songID);
+                }
+                else if (isPlaylistPage)
+                {
+                    toRemoveFromPlaylist.Add(songID);
+                }
+                else if (isSonglistPage)
+                {
+                    toRemoveFromSonglist.Add(songID);
+                }
+                else if (isFavoritePage)
+                {
+                    // TODO: Add logic if needed
+                    Console.WriteLine("收藏页删除逻辑");
                 }
             }
-            //显示信息面：删除成功
+
+            try
+            {
+                if (isDownloadPage && toRemoveFromDownload.Count > 0)
+                {
+                    foreach (var id in toRemoveFromDownload)
+                    {
+                        AppContext._songRepository.CancelDownload(id);
+                    }
+                    AppContext.TriggerDownloadUpdated();
+                }
+
+                if (isPlaylistPage && toRemoveFromPlaylist.Count > 0)
+                {
+                    var newSongs = AppContext._playbackService.GetPlaylist().PlaySongs
+                        .Where(song => !toRemoveFromPlaylist.Contains(song.Id))
+                        .ToList();
+                    AppContext._playbackService.SetPlaylist(new Playlist(newSongs, AppContext._playbackService.GetPlaybackMode()));
+                    AppContext.TriggerPlaylistUpdated();
+                }
+
+                if (isSonglistPage && toRemoveFromSonglist.Count > 0 && AppContext.currentViewingSonglist != null)
+                {
+                    foreach (var id in toRemoveFromSonglist)
+                    {
+                        AppContext.songlistService.RemoveSongFromSonglist(
+                            AppContext.songlistService.GetSongById(id),
+                            AppContext.currentViewingSonglist
+                        );
+                    }
+                    AppContext.TriggerSonglistDetailUpdated(AppContext.currentViewingSonglist.Name);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("批量删除时出错：" + ex.Message);
+            }
+
             new MainForms.MessageForm("删除成功").ShowDialog();
         }
 
