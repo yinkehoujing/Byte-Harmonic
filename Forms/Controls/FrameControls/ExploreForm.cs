@@ -177,6 +177,8 @@ namespace Byte_Harmonic.Forms
                 uiLabel1.Text = ts.ToString(@"mm\:ss");
                 uiLabel2.Text = TimeSpan.Zero.ToString(@"mm\:ss"); // 输出：00:00
                 //HighlightCurrentLine(position); // 高亮当前行
+                bool isFavorite = _favoritesService.IsSongFavorite(AppContext.currentUser.Account, AppContext._playbackService.GetCurrentSong().Id);
+                starControl.InitStarButton(isFavorite);
             });
         }
 

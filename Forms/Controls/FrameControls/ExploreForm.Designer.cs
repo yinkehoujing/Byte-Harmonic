@@ -332,7 +332,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton10.TabStop = false;
             uiImageButton10.Text = null;
             uiImageButton10.ZoomScaleDisabled = true;
-            uiImageButton10.Click += uiImageButton10_Click;
+          //  uiImageButton10.Click += uiImageButton10_Click;
             // 
             // uiImageButton11
             // 
@@ -505,7 +505,7 @@ namespace Byte_Harmonic.Forms
             // pictureBox3
             // 
             pictureBox3.Cursor = Cursors.Hand;
-            pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
+            pictureBox3.Image = Properties.Resources.icons8_headphones_100__1_;
             pictureBox3.Location = new Point(16, 29);
             pictureBox3.Name = "pictureBox3";
             pictureBox3.Size = new Size(44, 44);

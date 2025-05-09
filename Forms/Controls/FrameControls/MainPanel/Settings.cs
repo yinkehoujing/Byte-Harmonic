@@ -45,29 +45,27 @@ namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
             try
             {
                 if (!Directory.Exists(txtDownloadPath.Text))
-                    throw new ArgumentException("路径不存在，请选择有效目录");
-
-                // 写入 ConfigManager，并持久化
-                _configManager.DownloadPath = txtDownloadPath.Text;
-                _configManager.NamingStyle = radioFileNameOnly.Checked ? 0
-                                            : radioSongArtist.Checked ? 1
-                                            : 2;
-                _configManager.Save();
-
-                // 通知 AppContext 刷新全局设置
-                AppContext.LoadSettings();
-
-                // 关闭对话框宿主
-                var f = FindForm();
-                if (f != null)
                 {
-                    f.DialogResult = DialogResult.OK;
-                    f.Close();
+                    new Byte_Harmonic.Forms.MainForms.MessageForm("路径不存在").ShowDialog();
+                }
+                else
+                {
+                    // 写入 ConfigManager，并持久化
+                    _configManager.DownloadPath = txtDownloadPath.Text;
+                    _configManager.NamingStyle = radioFileNameOnly.Checked ? 0
+                                                : radioSongArtist.Checked ? 1
+                                                : 2;
+                    _configManager.Save();
+
+                    // 通知 AppContext 刷新全局设置
+                    AppContext.LoadSettings();
+
+                    new Byte_Harmonic.Forms.MainForms.MessageForm("保存成功").ShowDialog();
                 }
             }
             catch (Exception ex)
             {
-                UIMessageBox.ShowError($"保存失败：{ex.Message}");
+                new Byte_Harmonic.Forms.MainForms.MessageForm("保存失败").ShowDialog();
             }
         }
 

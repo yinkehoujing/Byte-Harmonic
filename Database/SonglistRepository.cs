@@ -377,6 +377,66 @@ namespace Byte_Harmonic.Database
 
             return songlist;
         }
+
+        // 获取用户的所有歌单
+        public List<Songlist> GetUserOwnPlaylists(string account)
+        {
+            using var conn = new MySqlConnection(_connectionString);
+            conn.Open();
+
+            // 步骤1：获取歌单基础信息
+            const string baseSql = @"SELECT 
+            Id,
+            Name,
+            Owner,
+            FROM Playlists
+            WHERE Owner = @account
+              AND Owner != 'Admin'"; // 排除管理员创建的歌单
+
+            var playlists = conn.Query<Songlist>(baseSql, new { account }).ToList();
+
+            // 步骤2：为每个歌单填充歌曲列表
+            const string songsSql = @"SELECT s.* 
+            FROM Songs s
+            JOIN SonglistSongs ss ON s.Id = ss.SongId
+            WHERE ss.SonglistId = @songlistId";
+
+            foreach (var playlist in playlists)
+            {
+                playlist.Songs = conn.Query<Song>(songsSql, new { songlistId = playlist.Id }).ToList();
+            }
+
+            return playlists;
+        }
+
+        //根据ID获取对应的歌单对象
+        public Songlist GetSonglistById(int songlistId)
+        {
+            using var conn = new MySqlConnection(_connectionString);
+            conn.Open();
+
+            // 获取歌单基础信息
+            const string baseSql = @"SELECT 
+            Id,
+            Name,
+            Owner,
+            FROM Playlists
+            WHERE Id = @songlistId";
+
+            var songlist = conn.QueryFirstOrDefault<Songlist>(baseSql, new { songlistId });
+
+            if (songlist == null) return null;
+
+            // 获取关联歌曲
+            const string songsSql = @"SELECT s.* 
+            FROM Songs s
+            JOIN SonglistSongs ss ON s.Id = ss.SongId
+            WHERE ss.SonglistId = @songlistId";
+
+            songlist.Songs = conn.Query<Song>(songsSql, new { songlistId }).ToList();
+
+            return songlist;
+        }
         #endregion
     }
 }
