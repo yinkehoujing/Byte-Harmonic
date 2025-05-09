@@ -39,7 +39,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
                 Dock = DockStyle.Top
             };
 
-            string greeting = GetTimeBasedGreeting();
+            string greeting = GetTimeBasedGreeting() + ", " + AppContext.currentUser.Username;
 
             string GetTimeBasedGreeting()
             {
