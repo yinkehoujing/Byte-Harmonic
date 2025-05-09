@@ -41,7 +41,7 @@ namespace Byte_Harmonic.Forms
         public static event Action<PlaybackMode> PlaybackModeChanged; // 更新 playbackMode 显示图标
         public static event Action ReloadSideSonglist;
         public static event Action ChangeSearchBox;// 更新搜索框是否显示与旁边按钮
-
+        public static event Func<string, Task> SonglistDetailUpdated;
 
         // 实际响应，修改 PlaybackService 对象
         public static event Action<double>? PlaybackSpeedChanged;
@@ -57,6 +57,20 @@ namespace Byte_Harmonic.Forms
             var cfg = ConfigManager.Instance;
             DownloadPath = cfg.DownloadPath;
             NamingStyle = cfg.NamingStyle;
+        }
+
+        public static async Task TriggerSonglistDetailUpdated(string songlistName)
+        {
+            Console.WriteLine("TriggerSonglistDetailUpdated");
+
+            if (SonglistDetailUpdated != null)
+            {
+                var handlers = SonglistDetailUpdated.GetInvocationList();
+                foreach (Func<string, Task> handler in handlers)
+                {
+                    await handler.Invoke(songlistName);
+                }
+            }
         }
 
         public static void TriggerPositionChanged(TimeSpan ts)

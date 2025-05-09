@@ -15,6 +15,7 @@ namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
     {
         private SongList songlist;
         public event EventHandler SongListDeleted;
+        private string _songlistName;
 
         public SongsList(string songlistName)
         {
@@ -24,11 +25,35 @@ namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
             }
             InitializeComponent();
             InitUI(songlistName);
+            _songlistName = songlistName;
+
+            AppContext.SonglistDetailUpdated += LoadSongsFromSonglistAsync;
+
             songlist = new SongList();
-            var songs = AppContext.currentViewingSonglist.Songs;
-            songlist.LoadSongs(songs);
+            //var songs = AppContext.currentViewingSonglist.Songs;
+            // 直接从数据库查询对应名字的歌单，避免旧缓存
+            try
+            {
+                LoadSongsFromSonglistAsync(AppContext.currentViewingSonglist.Name);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"加载歌曲出错：{ex.Message}");
+            }
+            //while (songlist == null) ; // 防止未加载好
             this.Controls.Add(songlist);
         }
+
+        public async Task LoadSongsFromSonglistAsync(string songlistName)
+        {
+            if (songlistName != _songlistName) return; // 不是本歌单需要响应的
+            var songlistResult = await AppContext.songlistService.GetSonglistByName(songlistName);
+            if (songlistResult?.Songs != null)
+            {
+                songlist.LoadSongs(songlistResult.Songs);
+            }
+
+       }
 
         private void InitUI(string songlistName)
         {
@@ -41,7 +66,8 @@ namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
                 {
                     Console.WriteLine($"修改后内容: {uiTextBox1.Text}");
                     new MainForms.MessageForm("修改歌单名成功!").ShowDialog();
-                    // 修改歌单名
+                    _songlistName = uiTextBox1.Text;
+                    // TODO 修改歌单名
                     AppContext.songlistRepository.UpdateSonglistName(AppContext.currentViewingSonglist.Id, uiTextBox1.Text, AppContext.currentUser.Account);
                     AppContext.TriggerReloadSideSonglist();
 

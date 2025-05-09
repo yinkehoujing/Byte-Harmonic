@@ -94,14 +94,16 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
 
         private void addButton_Click(object sender, EventArgs e)
         {
+            //TODO:调用添加到页面
             try
             {
                 new AddSongToListForm(AppContext.songlistService.GetSongById(this.songID)).ShowDialog();
             }
             catch(Exception ex)
             {
-                new Byte_Harmonic.Forms.MainForms.MessageForm(ex.Message).ShowDialog();
+                new MessageForm(ex.Message).ShowDialog();
             }
+
         }
 
         //下载文件
