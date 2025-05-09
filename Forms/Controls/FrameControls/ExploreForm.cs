@@ -744,7 +744,7 @@ namespace Byte_Harmonic.Forms
         //
         //UI:更多
         //
-        private MoreControl moreControl = null;
+        public MoreControl moreControl = null;
         private void uiImageButton13_Click(object sender, EventArgs e)
         {
             if (moreControl == null)
@@ -752,6 +752,7 @@ namespace Byte_Harmonic.Forms
                 moreControl = new MoreControl(uiImageButton13.Location);
                 this.Controls.Add(moreControl);
                 moreControl.BringToFront();
+                moreControl.AttachDismissOnClickOutside(this);
             }
             else
             {
