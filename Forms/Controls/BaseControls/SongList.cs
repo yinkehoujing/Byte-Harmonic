@@ -24,6 +24,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             InitializeComponent();
             this.Dock = DockStyle.Fill;
             this.Margin = new Padding(10);
+            this.SizeChanged += Control_SizeChanged;
         }
 
 
@@ -208,5 +209,13 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
                 PlayAllButton.Enabled = false;
             }
         }
+
+        private void Control_SizeChanged(object sender, EventArgs e)
+        {
+            flowLayoutPanel.Location = new Point(
+                (this.Width - flowLayoutPanel.Width) / 2,
+                flowLayoutPanel.Location.Y);
+        }
     }
+
 }
