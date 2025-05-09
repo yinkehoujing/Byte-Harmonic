@@ -61,6 +61,7 @@ namespace Byte_Harmonic.Forms
             flowLayoutPanel1 = new FlowLayoutPanel();
             mySqlDataAdapter1 = new MySql.Data.MySqlClient.MySqlDataAdapter();
             pictureBox3 = new PictureBox();
+            closeSearchButton = new Sunny.UI.UIImageButton();
             ((System.ComponentModel.ISupportInitialize)uiImageButton1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)Back).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -81,6 +82,7 @@ namespace Byte_Harmonic.Forms
             ((System.ComponentModel.ISupportInitialize)uiImageButton17).BeginInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton18).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)closeSearchButton).BeginInit();
             SuspendLayout();
             // 
             // uiImageButton1
@@ -128,6 +130,7 @@ namespace Byte_Harmonic.Forms
             pictureBox2.Size = new Size(860, 580);
             pictureBox2.TabIndex = 4;
             pictureBox2.TabStop = false;
+            pictureBox2.Click += pictureBox2_Click;
             // 
             // uiImageButton3
             // 
@@ -164,7 +167,7 @@ namespace Byte_Harmonic.Forms
             panel2.Name = "panel2";
             panel2.Size = new Size(824, 512);
             panel2.TabIndex = 12;
-            panel2.Paint += panel2_Paint;
+            panel2.Click += Panel2_Click;
             // 
             // uiTrackBar1
             // 
@@ -180,7 +183,6 @@ namespace Byte_Harmonic.Forms
             uiTrackBar1.Size = new Size(334, 15);
             uiTrackBar1.TabIndex = 13;
             uiTrackBar1.Text = "uiTrackBar1";
-            uiTrackBar1.ValueChanged += uiTrackBar1_ValueChanged;
             // 
             // uiLabel1
             // 
@@ -514,10 +516,29 @@ namespace Byte_Harmonic.Forms
             pictureBox3.TabStop = false;
             pictureBox3.Click += pictureBox3_Click;
             // 
+            // closeSearchButton
+            // 
+            closeSearchButton.Anchor = AnchorStyles.None;
+            closeSearchButton.BackColor = Color.White;
+            closeSearchButton.Cursor = Cursors.Hand;
+            closeSearchButton.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            closeSearchButton.Image = Properties.Resources.icons8_less_than_100___副本;
+            closeSearchButton.ImageHover = Properties.Resources.icons8_less_than_100__1____副本;
+            closeSearchButton.Location = new Point(724, 31);
+            closeSearchButton.Name = "closeSearchButton";
+            closeSearchButton.Size = new Size(20, 20);
+            closeSearchButton.SizeMode = PictureBoxSizeMode.StretchImage;
+            closeSearchButton.TabIndex = 36;
+            closeSearchButton.TabStop = false;
+            closeSearchButton.Text = null;
+            closeSearchButton.ZoomScaleDisabled = true;
+            closeSearchButton.Click += closeSearchButton2_Click;
+            // 
             // ExploreForm
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.FromArgb(250, 250, 250);
+            Controls.Add(closeSearchButton);
             Controls.Add(pictureBox3);
             Controls.Add(flowLayoutPanel1);
             Controls.Add(uiLabel5);
@@ -569,8 +590,10 @@ namespace Byte_Harmonic.Forms
             ((System.ComponentModel.ISupportInitialize)uiImageButton17).EndInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton18).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)closeSearchButton).EndInit();
             ResumeLayout(false);
         }
+
 
         #endregion
 
@@ -603,5 +626,6 @@ namespace Byte_Harmonic.Forms
         private FlowLayoutPanel flowLayoutPanel1;
         private MySql.Data.MySqlClient.MySqlDataAdapter mySqlDataAdapter1;
         private PictureBox pictureBox3;
+        private Sunny.UI.UIImageButton closeSearchButton;
     }
 }

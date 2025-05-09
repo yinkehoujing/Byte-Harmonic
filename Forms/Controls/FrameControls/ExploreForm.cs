@@ -52,6 +52,7 @@ namespace Byte_Harmonic.Forms
             AppContext.ShowPlayingBtn += OnShowPlayingBtn;
             AppContext.SonglistLoaded += LoadSonglistToPanel;
             AppContext.ReloadSideSonglist += InitializeSongsList;
+            AppContext.ChangeSearchBox += OnChangeSearchBox;
             //初始化searchservice
             _searchService = new SearchService(AppContext.songlistRepository, AppContext.userRepository, AppContext.userService);
 
@@ -368,6 +369,9 @@ namespace Byte_Harmonic.Forms
                 //调整搜索框
                 searchBox.Location = new Point(399, 28);
 
+                //调整搜索旁按钮
+                closeSearchButton.Location = new Point(674, 31);
+
                 // 调整pictureBox2
                 pictureBox2.Location = new Point(72, 9);
                 pictureBox2.Size = new Size(978, 580);
@@ -436,6 +440,9 @@ namespace Byte_Harmonic.Forms
                 // 切换回第一个窗体形态
                 //调整搜索框
                 searchBox.Location = new Point(449, 28);
+
+                //调整搜索旁按钮
+                closeSearchButton.Location = new Point(724, 31);
 
                 // 恢复pictureBox2
                 pictureBox2.Location = new Point(190, 10);
@@ -529,18 +536,12 @@ namespace Byte_Harmonic.Forms
 
                 //调整歌单label
                 uiLabel5.Visible = true;
+
+                
             }
             isFirstForm = !isFirstForm; // 切换状态
 
         }
-
-        private void uiTrackBar1_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-
-
 
         // 事件定义, 通知 MusicForm 执行实际逻辑
         //public event Action<int>? PlaySongRequested;
@@ -823,6 +824,7 @@ namespace Byte_Harmonic.Forms
             searchBox.GetSuggestions += GetSearchSuggestions;
             searchBox.GetHistoryTags += GetSearchHistory;
             searchBox.HistoryChanged += ChangeHistory;
+            closeSearchButton.BringToFront();
         }
 
         private async void OnSearchTriggered(string searchText)
@@ -841,10 +843,10 @@ namespace Byte_Harmonic.Forms
 
                 // 执行搜索
                 var results = await _searchService.SearchSongs(searchText);
-               /* foreach (var song in results)
-                {
-                    Console.WriteLine($"ID: {song.Id}, Title: {song.Title}, Artist: {song.Artist}, Duration: {song.Duration} seconds");
-                }*/
+                /* foreach (var song in results)
+                 {
+                     Console.WriteLine($"ID: {song.Id}, Title: {song.Title}, Artist: {song.Artist}, Duration: {song.Duration} seconds");
+                 }*/
                 // 关闭加载状态
                 //loading.Hide();
 
@@ -999,11 +1001,6 @@ namespace Byte_Harmonic.Forms
             }
         }
 
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void uiImageButton10_Click(object sender, EventArgs e)
         {
             LoadPage(new Forms.Controls.FrameControls.MainPanel.PlayList());
@@ -1011,8 +1008,46 @@ namespace Byte_Harmonic.Forms
 
         private void uiImageButton18_Click(object sender, EventArgs e)
         {
-            
+
             new Byte_Harmonic.Forms.CreateSongListForm().ShowDialog();
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            searchBox.HideDropDown();
+        }
+
+        private void Panel2_Click(object sender, EventArgs e)
+        {
+            searchBox.HideDropDown();
+        }
+
+        private bool searchBoxIsHide = true;
+        private void closeSearchButton2_Click(object sender, EventArgs e)
+        {
+            if(searchBoxIsHide)
+            {
+                searchBox.ShowDropDown();
+            }
+            else
+            {
+                searchBox.HideDropDown();
+            }
+        }
+
+        private void OnChangeSearchBox()
+        {
+            searchBoxIsHide = !searchBoxIsHide;
+            if (searchBoxIsHide)
+            {
+                closeSearchButton.Image= ((Image)(resourceManager.GetObject("icons8-less-than-100 - 副本")));
+                closeSearchButton.ImageHover = ((Image)(resourceManager.GetObject("icons8-less-than-100 (1) - 副本")));
+            }
+            else
+            {
+                closeSearchButton.Image = ((Image)(resourceManager.GetObject("icons8-less-than-100")));
+                closeSearchButton.ImageHover = ((Image)(resourceManager.GetObject("icons8-less-than-100 (1)")));
+            }
         }
     }
 }

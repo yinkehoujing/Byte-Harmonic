@@ -513,6 +513,16 @@ namespace Byte_Harmonic.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_less_than_100___副本 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-less-than-100 - 副本", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_less_than_100__1_ {
             get {
                 object obj = ResourceManager.GetObject("icons8-less-than-100 (1)", resourceCulture);
@@ -523,19 +533,9 @@ namespace Byte_Harmonic.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap icons8_less_than_96 {
+        internal static System.Drawing.Bitmap icons8_less_than_100__1____副本 {
             get {
-                object obj = ResourceManager.GetObject("icons8-less-than-96", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap icons8_less_than_96__1_ {
-            get {
-                object obj = ResourceManager.GetObject("icons8-less-than-96 (1)", resourceCulture);
+                object obj = ResourceManager.GetObject("icons8-less-than-100 (1) - 副本", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
