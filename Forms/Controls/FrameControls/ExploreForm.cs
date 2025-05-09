@@ -136,7 +136,9 @@ namespace Byte_Harmonic.Forms
         private void LoadSonglistToPanel()
         {
             Console.WriteLine("load a new panel");
-            LoadPage(page: new SongsList());
+            var songsListControl = new SongsList(AppContext.currentViewingSonglist.Name);
+            songsListControl.SongListDeleted += SongsListControl_SongListDeleted;
+            LoadPage(songsListControl);
         }
         public void LoadPage(UserControl page)
         {
@@ -177,6 +179,8 @@ namespace Byte_Harmonic.Forms
                 uiLabel1.Text = ts.ToString(@"mm\:ss");
                 uiLabel2.Text = TimeSpan.Zero.ToString(@"mm\:ss"); // 输出：00:00
                 //HighlightCurrentLine(position); // 高亮当前行
+                bool isFavorite = _favoritesService.IsSongFavorite(AppContext.currentUser.Account, AppContext._playbackService.GetCurrentSong().Id);
+                starControl.InitStarButton(isFavorite);
             });
         }
 
@@ -192,6 +196,20 @@ namespace Byte_Harmonic.Forms
             });
         }
 
+        private void SongsListControl_SongListDeleted(object sender, EventArgs e)
+        {
+
+            Console.WriteLine("SongsListControl_SongListDeleted");
+            // 移除当前的 SongsList 控件
+            if (sender is SongsList songsList)
+            {
+                panel2.Controls.Remove(songsList);
+                songsList.Dispose();
+            }
+
+            var explorerControl = new MusicExplorerControl(); 
+            panel2.Controls.Add(explorerControl);
+        }
         private void RunOnUiThread(Action action)
         {
             if (InvokeRequired)
