@@ -15,8 +15,8 @@ namespace Byte_Harmonic.Forms.MainForms
         public ChangePasswordForm()
         {
             InitializeComponent();
-            var userRepo = new UserRepository();
-            var userService = new UserService(userRepo);
+            var userRepo = AppContext.userRepository;
+            var userService = AppContext.userService;
             _userService = userService;
             InitializeComponentStyle();
         }
