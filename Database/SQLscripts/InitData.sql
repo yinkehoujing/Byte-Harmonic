@@ -122,3 +122,8 @@ INSERT INTO SongTags (SongId, TagId) VALUES
 -- 传奇（李健） 抒情
 INSERT INTO SongTags (SongId, TagId) VALUES (9, 2);
 
+-- 插入 Favorites（用户收藏歌曲）
+INSERT INTO Favorites (Username, SongId) VALUES
+('admin', 1),  -- 天外来物
+('admin', 2);  -- 传奇（王菲）
+
