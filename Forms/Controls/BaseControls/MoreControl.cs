@@ -29,6 +29,13 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             bHButton2.Location = new Point(0, 51);
             this.Controls.Add(bHButton1);
             this.Controls.Add(bHButton2);
+
+            bHButton2.Click += bHButton2_Click;
+        }
+
+        private void bHButton2_Click (object sender, EventArgs e)
+        {
+            new Byte_Harmonic.Forms.MainForms.AddSongToListForm(AppContext._playbackService.GetCurrentSong().Id).ShowDialog();
         }
     }
 }
