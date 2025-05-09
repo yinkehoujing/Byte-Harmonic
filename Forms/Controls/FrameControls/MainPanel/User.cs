@@ -29,7 +29,7 @@ namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
             txtUsername.Text = currentUser.Username;
 
             // 加载歌单
-            _songlists = await AppContext.songlistService.GetAllPlaylistsAsync();
+            _songlists = AppContext.songlistService.GetCurrentUserSonglists();
             flowLayoutPanel1.Controls.Clear();
             int num = 1;
             foreach (var songlist in _songlists)
