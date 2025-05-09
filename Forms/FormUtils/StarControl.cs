@@ -41,8 +41,8 @@ namespace Byte_Harmonic.Forms.FormUtils
         public void StarButtonClick(object sender, EventArgs e)
         {
             _isStared = !_isStared;
-            //TODO更改收藏状态
-            UpdateButtonImage();
+            
+            UpdateButtonImage();//更改显示收藏状态
         }
 
         // 私有方法：更新按钮图标

@@ -9,6 +9,7 @@ namespace Byte_Harmonic.Forms.MainForms
     public partial class AddSongToListForm : Form
     {
         private Song song;
+        private List<Song> songs;
         private readonly MouseMove _mouseHandler;//用于鼠标控制窗口
         private readonly FormStyle _styleHandler;//用于更改窗口样式
         private int cornerRadius = 18;//通用设置圆角
@@ -20,15 +21,36 @@ namespace Byte_Harmonic.Forms.MainForms
             this.StartPosition = FormStartPosition.CenterScreen;
             _mouseHandler = new MouseMove(this);
             _styleHandler = new FormStyle(this);
+            Init();
 
+            song = _song;
+            this.Load += AddSongToListForm_Load;
+        }
+
+        //
+        //批量处理情况
+        //
+        public AddSongToListForm(List<Song> _songs)
+        {
+            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);//双缓冲减少闪烁
+            InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterScreen;
+            _mouseHandler = new MouseMove(this);
+            _styleHandler = new FormStyle(this);
+            Init();
+
+            songs = _songs;
+            this.Load += AddSongToListForm_Load;
+        }
+
+        private void Init()
+        {
             songlistService = AppContext.songlistService;
 
             uiImageButton2.Visible = false;
             label1.Visible = false;
             flowLayoutPanel.Visible = true;
             flowLayoutSongsPanel.Visible = false;
-            song = _song;
-            this.Load += AddSongToListForm_Load;
         }
 
         private void AddSongToListForm_Load(object sender, EventArgs e)
