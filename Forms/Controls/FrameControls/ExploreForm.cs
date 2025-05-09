@@ -346,7 +346,7 @@ namespace Byte_Harmonic.Forms
             {
                 // 切换到第二个窗体形态
                 //调整搜索框
-                searchBox.Location = new Point(173, 28);
+                searchBox.Location = new Point(399, 28);
 
                 // 调整pictureBox2
                 pictureBox2.Location = new Point(72, 9);
@@ -415,7 +415,7 @@ namespace Byte_Harmonic.Forms
             {
                 // 切换回第一个窗体形态
                 //调整搜索框
-                searchBox.Location = new Point(285, 28);
+                searchBox.Location = new Point(449, 28);
 
                 // 恢复pictureBox2
                 pictureBox2.Location = new Point(190, 10);
@@ -427,7 +427,7 @@ namespace Byte_Harmonic.Forms
 
                 //调整uiFlowLayoutPanel1
                 flowLayoutPanel1.SendToBack();
-                flowLayoutPanel1.Width = 170;
+                flowLayoutPanel1.Width = 179;
 
                 // 恢复pictureBox1
                 pictureBox1.Location = new Point(190, 593);
@@ -477,6 +477,7 @@ namespace Byte_Harmonic.Forms
                     uiImageButton15.TabStop = false;
                     uiImageButton15.Text = null;
                     uiImageButton15.ZoomScaleDisabled = true;
+                    uiImageButton15.Click += uiImageButton15_Click;
                     this.Controls.Add(uiImageButton15);
                 }
 
@@ -498,6 +499,7 @@ namespace Byte_Harmonic.Forms
                     uiImageButton16.TabStop = false;
                     uiImageButton16.Text = null;
                     uiImageButton16.ZoomScaleDisabled = true;
+                    uiImageButton16.Click += uiImageButton16_Click;
                     this.Controls.Add(uiImageButton16);
                 }
 
@@ -778,7 +780,7 @@ namespace Byte_Harmonic.Forms
         private void InitializeSearchBox()
         {
             searchBox = new AdvancedSearchBox();
-            searchBox.Location = new Point(285, 29);
+            searchBox.Location = new Point(449, 29);
             searchBox.Width = 300;
             this.Controls.Add(searchBox);
             searchBox.BringToFront();
