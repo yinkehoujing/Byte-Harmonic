@@ -570,7 +570,7 @@ public class AdvancedSearchBox : UITextBox
         }
     }
 
-    /* private void UpdateSuggestionsUI(List<string> suggestions, List<string> historyTags)
+     /*private void UpdateSuggestionsUI(List<string> suggestions, List<string> historyTags)
      {
          bool hasSuggestions = suggestions.Count > 0;
          bool hasHistory = historyTags.Count > 0;

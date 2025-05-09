@@ -236,6 +236,12 @@ namespace Byte_Harmonic.Database
             return songs;
         }
 
+        //批量收藏
+        public async Task<bool> AddManyFavoriteSongsAsync(string username)
+        {
+
+        }
+
         // 获取用户收藏歌曲的数量
         public async Task<int> GetFavoriteSongsCountAsync(string username)
         {
@@ -249,36 +255,7 @@ namespace Byte_Harmonic.Database
             return Convert.ToInt32(await cmd.ExecuteScalarAsync());
         }
 
-        // 批量添加收藏歌曲
-        public async Task<bool> AddFavoriteSongsAsync(string username, IEnumerable<int> songIds)
-        {
-            using var connection = new MySqlConnection(_connectionString);
-            await connection.OpenAsync();
-            using var transaction = await connection.BeginTransactionAsync();
-
-            try
-            {
-                foreach (var songId in songIds)
-                {
-                    if (! IsSongFavorite(username, songId))
-                    {
-                        const string sql = "INSERT INTO Favorites (Username, SongId) VALUES (@Username, @SongId)";
-                        using var cmd = new MySqlCommand(sql, connection, transaction);
-                        cmd.Parameters.AddWithValue("@Username", username);
-                        cmd.Parameters.AddWithValue("@SongId", songId);
-                        await cmd.ExecuteNonQueryAsync();
-                    }
-                }
-
-                await transaction.CommitAsync();
-                return true;
-            }
-            catch
-            {
-                await transaction.RollbackAsync();
-                return false;
-            }
-        }
+        
 
         // 清空用户的所有收藏
         public async Task<bool> ClearAllFavoritesAsync(string username)
