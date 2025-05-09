@@ -221,8 +221,6 @@ namespace Byte_Harmonic.Forms
                 uiLabel3.Text = $"{currentSong.Title}——{currentSong.Artist}";
                 UpdateTrackBarMaximum(); // 播放下一首后更新 UI
 
-                bool isFavorite = _favoritesService.IsSongFavorite(AppContext.currentUser.Account, AppContext._playbackService.GetCurrentSong().Id);
-                starControl.InitStarButton(isFavorite);
             });
         }
 
