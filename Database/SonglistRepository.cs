@@ -388,10 +388,9 @@ namespace Byte_Harmonic.Database
             const string baseSql = @"SELECT 
             Id,
             Name,
-            Owner,
+            Owner
             FROM Playlists
-            WHERE Owner = @account
-              AND Owner != 'Admin'"; // 排除管理员创建的歌单
+            WHERE Owner = @account"; 
 
             var playlists = conn.Query<Songlist>(baseSql, new { account }).ToList();
 
@@ -437,6 +436,58 @@ namespace Byte_Harmonic.Database
 
             return songlist;
         }
+
+        // 修改歌单名
+        public bool UpdateSonglistName(int songlistId, string newName, string ownerAccount)
+        {
+            using var conn = new MySqlConnection(_connectionString);
+            const string sql = @"UPDATE Playlists 
+                           SET Name = @newName
+                           WHERE Id = @songlistId 
+                             AND Owner = @ownerAccount";
+
+            return conn.Execute(sql, new
+            {
+                newName,
+                songlistId,
+                ownerAccount
+            }) > 0;
+        }
+
+        // 删除歌单
+        public bool DeleteSonglist(int songlistId, string ownerAccount)
+        {
+            using var conn = new MySqlConnection(_connectionString);
+            conn.Open();
+
+            using var transaction = conn.BeginTransaction();
+            try
+            {
+                // 1. 删除关联歌曲记录
+                const string deleteSongsSql = @"DELETE FROM SonglistSongs 
+                                          WHERE SonglistId = @songlistId";
+                conn.Execute(deleteSongsSql, new { songlistId }, transaction);
+
+                // 2. 删除歌单本体
+                const string deleteSonglistSql = @"DELETE FROM Playlists 
+                                             WHERE Id = @songlistId 
+                                               AND Owner = @ownerAccount";
+                var affected = conn.Execute(deleteSonglistSql, new
+                {
+                    songlistId,
+                    ownerAccount
+                }, transaction);
+
+                transaction.Commit();
+                return affected > 0;
+            }
+            catch
+            {
+                transaction.Rollback();
+                throw;
+            }
+        }
+
         #endregion
     }
 }

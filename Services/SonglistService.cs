@@ -302,6 +302,37 @@ namespace Byte_Harmonic.Services
         {
             return _repository.GetSonglistById(songlistId);
         }
+
+        // 修改歌单名称
+        public bool UpdateSonglistName(int songlistId, string newName)
+        {
+            var currentUser = _userService.GetCurrentUser();
+            if (currentUser == null)
+                throw new UnauthorizedAccessException("用户未登录");
+
+            // 检查名称是否重复
+            if (_repository.CheckIfSonglistExists(newName))
+                throw new ArgumentException("歌单名称已存在");
+
+            return _repository.UpdateSonglistName(
+                songlistId,
+                newName,
+                currentUser.Account
+            );
+        }
+
+        // 删除歌单
+        public bool DeleteSonglist(int songlistId)
+        {
+            var currentUser = _userService.GetCurrentUser();
+            if (currentUser == null)
+                throw new UnauthorizedAccessException("用户未登录");
+
+            return _repository.DeleteSonglist(
+                songlistId,
+                currentUser.Account
+            );
+        }
         #endregion
     }
 }
