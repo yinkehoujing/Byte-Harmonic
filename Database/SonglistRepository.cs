@@ -390,8 +390,7 @@ namespace Byte_Harmonic.Database
             Name,
             Owner,
             FROM Playlists
-            WHERE Owner = @account
-              AND Owner != 'Admin'"; // 排除管理员创建的歌单
+            WHERE Owner = @account"; 
 
             var playlists = conn.Query<Songlist>(baseSql, new { account }).ToList();
 
