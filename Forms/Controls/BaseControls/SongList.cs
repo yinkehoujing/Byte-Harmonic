@@ -74,7 +74,8 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
 
         private void PlayAllButton_Click(object sender, EventArgs e)
         {
-            var songs = AppContext._playbackService.GetPlaylist().PlaySongs;
+            //var songs = AppContext._playbackService.GetPlaylist().PlaySongs;
+            var songs = new List<Song>();
             var mode = AppContext._playbackService.GetPlaybackMode();
             int n = songs.Count;
             bool notChoosed = true;
@@ -87,10 +88,16 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
                     songs.Add(AppContext._songRepository.GetSongById(item.songID));
                 }
             }
-            if (notChoosed) return;
+            if (notChoosed) return; // 不修改原来的播放队列
             Console.WriteLine("得到新的播放队列!");
             AppContext._playbackService.SetPlaylist(new Playlist(songs, mode));
-            AppContext._playbackService.PlayPlaylist(n + 1); // 从新的位置开始播放
+            AppContext.TogglePlayPause(); // 从新的位置开始播放
+            AppContext.TriggerupdateSongUI(songs[0]);
+            AppContext.TriggerShowPlayingBtn(true);
+            var lyricsLine = AppContext._playbackService.GetCurrentLyricsLine()?.Text ?? "[No Lyrics]";
+            var position = AppContext._playbackService.GetCurrentPosition();
+
+            AppContext.TriggerLyricsUpdated(lyricsLine, position);
         }
 
         private void StarAllButton_Click(object sender, EventArgs e)
