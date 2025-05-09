@@ -1,4 +1,5 @@
 ﻿using Byte_Harmonic.Forms.Controls.BaseControls;
+using Byte_Harmonic.Forms.FormUtils;
 using Byte_Harmonic.Models;
 
 namespace Byte_Harmonic.Forms.MainForms
@@ -6,9 +7,18 @@ namespace Byte_Harmonic.Forms.MainForms
     public partial class AddSongToListForm : Form
     {
         private int songID;
+        private readonly MouseMove _mouseHandler;//用于鼠标控制窗口
+        private readonly FormStyle _styleHandler;//用于更改窗口样式
+        private int cornerRadius = 18;//通用设置圆角
+
         public AddSongToListForm(int _songID)
         {
+            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);//双缓冲减少闪烁
             InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterScreen;
+            _mouseHandler = new MouseMove(this);
+            _styleHandler = new FormStyle(this);
+
             uiImageButton2.Visible = false;
             label1.Visible = false;
             songID = _songID;
