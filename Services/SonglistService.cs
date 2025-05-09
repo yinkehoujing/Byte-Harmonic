@@ -286,6 +286,22 @@ namespace Byte_Harmonic.Services
             // 传递当前用户账号给Repository
             return await _repository.GetSonglistByNameAndOwner(name, currentUser.Account);
         }
+
+        // 获取当前用户所有歌单
+        public List<Songlist> GetCurrentUserSonglists()
+        {
+            var currentUser = _userService.GetCurrentUser();
+            if (currentUser == null)
+                throw new UnauthorizedAccessException("用户未登录");
+
+            return _repository.GetUserOwnPlaylists(currentUser.Account);
+        }
+
+        // 根据歌单ID获取对应的歌单对象
+        public Songlist GetSonglistById(int songlistId)
+        {
+            return _repository.GetSonglistById(songlistId);
+        }
         #endregion
     }
 }
