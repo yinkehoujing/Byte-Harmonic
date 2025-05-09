@@ -15,6 +15,8 @@ using System.Windows.Forms;
 using Byte_Harmonic.Forms.Controls.BaseControls;
 using Byte_Harmonic.Forms.Controls.FrameControls;
 using Byte_Harmonic.Forms.Controls.FrameControls.MainPanel;
+using Org.BouncyCastle.Utilities.Collections;
+using static Sunny.UI.SnowFlakeId;
 
 namespace Byte_Harmonic.Forms
 {
@@ -22,6 +24,8 @@ namespace Byte_Harmonic.Forms
     {
         private ResourceManager resourceManager;
         private StarControl starControl;
+        private SearchService _searchService;
+        private FavoritesService _favoritesService;
         public ExploreForm()
         {
             InitializeComponent();
@@ -29,12 +33,16 @@ namespace Byte_Harmonic.Forms
             InitializeSongsList();//初始化侧边歌单
             InitializeSearchBox();//初始化搜索框
             resourceManager = new ResourceManager("Byte_Harmonic.Properties.Resources", typeof(Resources).Assembly);//获取全局资源
+            //初始化收藏service                                                                                                    //初始化
+            _favoritesService = new FavoritesService(AppContext.userRepository);
+            //初始化用户和歌曲
+            var song = AppContext._playbackService.GetCurrentSong();
             starControl = new StarControl(uiImageButton8);
-            starControl.InitStarButton(false);//初始化收藏按钮 //TODO传入是否被收藏
+            bool isFavorite = _favoritesService.IsSongFavorite(AppContext.currentUser.Account, 1);
+            starControl.InitStarButton(isFavorite);//初始化收藏按钮 //TODO传入是否被收藏
             uiImageButton8.Click += starControl.StarButtonClick;
 
             LoadMusicExplorerControl(); // 装入初始探索页面
-            //LoadPage(page: new SongsList());
             uiLabel3.EnableAutoScroll();//支持文字过长时滚动
             uiLabel4.EnableAutoScroll();
 
@@ -43,6 +51,10 @@ namespace Byte_Harmonic.Forms
             AppContext.updateSongUI += OnUpdateSongUI;
             AppContext.ShowPlayingBtn += OnShowPlayingBtn;
             AppContext.SonglistLoaded += LoadSonglistToPanel;
+            //初始化searchservice
+            _searchService = new SearchService(AppContext.songlistRepository, AppContext.userRepository, AppContext.userService);
+
+            AppContext.PlaybackModeChanged += OnPlaybackModeChanged;
             var songlist = AppContext._songRepository.GetAllSongs();
 
             if (songlist.Count <= 0)
@@ -50,7 +62,7 @@ namespace Byte_Harmonic.Forms
                 throw new ArgumentException("songlist 为空!!!");
             }
 
-            var song = AppContext._playbackService.GetCurrentSong();
+            ;
             if (song == null)
             {
                 AppContext.TriggerPlaylistSetRequested(songlist);
@@ -72,6 +84,7 @@ namespace Byte_Harmonic.Forms
                 AppContext.TriggerupdateSongUI(song);
                 AppContext.TriggerLyricsUpdated(text, position);
                 AppContext.TriggerShowPlayingBtn(!AppContext._playbackService.IsPaused);
+                AppContext.TriggerPlaybackModeChanged(AppContext._playbackService.PlaybackMode);
             }
 
 
@@ -87,6 +100,39 @@ namespace Byte_Harmonic.Forms
                 uiLabel2.Text = seekPosition.ToString(@"mm\:ss");
             };
         }
+
+        private void OnPlaybackModeChanged(PlaybackMode mode)
+        {
+            // 更新 uiImageButton9 的图标
+            /*
+                bHButton1 = new BHButton("icons8-定期约会-96", "icons8-定期约会-96 (1)", "顺序播放");
+                bHButton2 = new BHButton("icons8-定期约会-96 (2)", "icons8-定期约会-96 (3)", "单曲循环");
+                bHButton3 = new BHButton("icons8-repeat-96", "icons8-repeat-96 (1)", "列表循环");
+                bHButton4 = new BHButton("icons8-随机-96 (1)", "icons8-随机-96", "随机播放");
+            */
+            if (mode == PlaybackMode.Sequential)
+            {
+                uiImageButton9.Image = ((Image)(resourceManager.GetObject("icons8-定期约会-96")));
+                uiImageButton9.ImageHover = ((Image)(resourceManager.GetObject("icons8-定期约会-96 (1)")));
+            }
+            else if (mode == PlaybackMode.RepeatOne)
+            {
+                uiImageButton9.Image = ((Image)(resourceManager.GetObject("icons8-定期约会-96 (2)")));
+                uiImageButton9.ImageHover = ((Image)(resourceManager.GetObject("icons8-定期约会-96 (3)")));
+            }
+            else if (mode == PlaybackMode.Shuffle)
+            {
+                uiImageButton9.Image = ((Image)(resourceManager.GetObject("icons8-随机-96 (1)")));
+                uiImageButton9.ImageHover = ((Image)(resourceManager.GetObject("icons8-随机-96")));
+            }
+            else if (mode == PlaybackMode.ListLooping)
+            {
+                uiImageButton9.Image = ((Image)(resourceManager.GetObject("icons8-repeat-96")));
+                uiImageButton9.ImageHover = ((Image)(resourceManager.GetObject("icons8-repeat-96 (1)")));
+            }
+
+        }
+
         private void LoadSonglistToPanel()
         {
             Console.WriteLine("load a new panel");
@@ -158,7 +204,7 @@ namespace Byte_Harmonic.Forms
         private int cornerRadius = 18;//通用设置圆角
         private Form secondForm;//用于歌词页
 
-
+        #region 暂时封装
         private void MainForm_Load(object sender, EventArgs e)//窗口加载
         {
             _styleHandler.SetPictureBoxRoundCorners(pictureBox2, cornerRadius);//绘制圆角
@@ -300,7 +346,7 @@ namespace Byte_Harmonic.Forms
             {
                 // 切换到第二个窗体形态
                 //调整搜索框
-                searchBox.Location = new Point(173, 28);
+                searchBox.Location = new Point(399, 28);
 
                 // 调整pictureBox2
                 pictureBox2.Location = new Point(72, 9);
@@ -321,8 +367,6 @@ namespace Byte_Harmonic.Forms
                 // 调整按钮位置
                 uiImageButton1.Location = new Point(1005, 28);
                 uiImageButton3.Location = new Point(958, 28);
-                uiImageButton2.Location = new Point(97, 28);
-                uiImageButton4.Location = new Point(133, 28);
 
                 // 调整标签位置
                 uiLabel1.Location = new Point(800, 659);
@@ -371,7 +415,7 @@ namespace Byte_Harmonic.Forms
             {
                 // 切换回第一个窗体形态
                 //调整搜索框
-                searchBox.Location = new Point(285, 28);
+                searchBox.Location = new Point(449, 28);
 
                 // 恢复pictureBox2
                 pictureBox2.Location = new Point(190, 10);
@@ -383,7 +427,7 @@ namespace Byte_Harmonic.Forms
 
                 //调整uiFlowLayoutPanel1
                 flowLayoutPanel1.SendToBack();
-                flowLayoutPanel1.Width = 170;
+                flowLayoutPanel1.Width = 179;
 
                 // 恢复pictureBox1
                 pictureBox1.Location = new Point(190, 593);
@@ -392,8 +436,6 @@ namespace Byte_Harmonic.Forms
                 // 恢复按钮位置
                 uiImageButton1.Location = new Point(1003, 29);
                 uiImageButton3.Location = new Point(956, 29);
-                uiImageButton2.Location = new Point(209, 29);
-                uiImageButton4.Location = new Point(245, 29);
 
                 // 恢复标签位置
                 uiLabel1.Location = new Point(798, 660);
@@ -435,6 +477,7 @@ namespace Byte_Harmonic.Forms
                     uiImageButton15.TabStop = false;
                     uiImageButton15.Text = null;
                     uiImageButton15.ZoomScaleDisabled = true;
+                    uiImageButton15.Click += uiImageButton15_Click;
                     this.Controls.Add(uiImageButton15);
                 }
 
@@ -456,6 +499,7 @@ namespace Byte_Harmonic.Forms
                     uiImageButton16.TabStop = false;
                     uiImageButton16.Text = null;
                     uiImageButton16.ZoomScaleDisabled = true;
+                    uiImageButton16.Click += uiImageButton16_Click;
                     this.Controls.Add(uiImageButton16);
                 }
 
@@ -521,6 +565,11 @@ namespace Byte_Harmonic.Forms
 
         private void uiImageButton7_Click(object sender, EventArgs e)
         {
+            if (AppContext._playbackService.GetCurrentSong() == null)
+            {
+                new MainForms.MessageForm("请先播放一首歌曲!").ShowDialog();
+                return;
+            }
             AppContext._playbackService.PlayNext();
             var current = AppContext._playbackService.GetCurrentSong();
             if (current == null)
@@ -562,7 +611,7 @@ namespace Byte_Harmonic.Forms
             MenuButton3 = new BHButton("icons8-list-96", "icons8-list-96 (1)", "播放队列");
 
             //TODO
-            //MenuButton1.Click += MenuButton1_Click;
+            MenuButton1.Click += MenuButton1_Click;
             MenuButton2.Click += MenuButton2_Click;
             MenuButton3.Click += MenuButton3_Click;
 
@@ -574,6 +623,11 @@ namespace Byte_Harmonic.Forms
             this.Controls.Add(MenuButton2);
             this.Controls.Add(MenuButton3);
 
+        }
+
+        private void MenuButton1_Click(object? sender, EventArgs e)
+        {
+            LoadPage(new Favorite());
         }
 
         private void MenuButton2_Click(object? sender, EventArgs e)
@@ -618,6 +672,11 @@ namespace Byte_Harmonic.Forms
         {
             if (speedControl == null)
             {
+                if (AppContext._playbackService.audioFileReader == null)
+                {
+                    new MessageForm("请先播放一首歌曲!").ShowDialog();
+                    return;
+                }
                 speedControl = new SpeedControl(uiImageButton17.Location, AppContext._playbackService.GetPlaybackSpeed());
                 this.Controls.Add(speedControl);
                 speedControl.BringToFront();
@@ -642,6 +701,13 @@ namespace Byte_Harmonic.Forms
             if (playOrderControl == null)
             {
                 playOrderControl = new PlayOrderControl(uiImageButton9.Location);
+                playOrderControl.RequestClose += () =>
+                {
+                    Console.WriteLine("closed of playOrderControl ");
+                    this.Controls.Remove(playOrderControl);
+                    playOrderControl.Dispose();
+                    playOrderControl = null;
+                };
                 this.Controls.Add(playOrderControl);
                 playOrderControl.BringToFront();
             }
@@ -699,7 +765,7 @@ namespace Byte_Harmonic.Forms
                 flowLayoutPanel1.Controls.Add(control);
             }
         }
-
+        #endregion
         //
         // 装入 MusicExplorerControl
         //
@@ -719,7 +785,7 @@ namespace Byte_Harmonic.Forms
         private void InitializeSearchBox()
         {
             searchBox = new AdvancedSearchBox();
-            searchBox.Location = new Point(285, 29);
+            searchBox.Location = new Point(449, 29);
             searchBox.Width = 300;
             this.Controls.Add(searchBox);
             searchBox.BringToFront();
@@ -731,51 +797,101 @@ namespace Byte_Harmonic.Forms
             searchBox.HistoryChanged += ChangeHistory;
         }
 
-        private void OnSearchTriggered(string searchText)
+        private async void OnSearchTriggered(string searchText)
         {
-            // 处理搜索逻辑
+            try
+            {
+                if (string.IsNullOrWhiteSpace(searchText))
+                {
+                    UIMessageBox.Show("请输入搜索内容", "提示", UIStyle.Custom);
+                    return;
+                }
+
+                // 显示加载状态
+                //var loading = new UILoading(this);
+                // loading.Show();
+
+                // 执行搜索
+                var results = await _searchService.SearchSongs(searchText);
+
+                // 关闭加载状态
+                //loading.Hide();
+
+                if (results == null || results.Count == 0)
+                {
+                    UIMessageBox.Show("未找到匹配的歌曲", "提示", UIStyle.Custom);
+                    return;
+                }
+
+                // 创建并加载搜索结果页面
+                //var searchResultsPage = new SearchResultsControl(results);
+                // LoadPage(searchResultsPage);
+            }
+            catch (Exception ex)
+            {
+                UIMessageBox.Show($"搜索出错: {ex.Message}", "错误", UIStyle.Custom);
+            }
+            /*// 处理搜索逻辑
             UIMessageBox.Show($"执行搜索: {searchText}", "搜索", UIStyle.Custom);
 
             // 这里可以添加搜索历史记录
-            // AddToSearchHistory(searchText);
+            // AddToSearchHistory(searchText);*/
         }
 
-        private List<string> GetSearchSuggestions(string input)
+        private async Task<List<string>> GetSearchSuggestions(string input)
         {
-            // 模拟后端获取建议项
-            var allItems = new List<string>
-        {
-            "周杰伦 七里香",
-            "周杰伦 晴天",
-            "周杰伦 夜曲",
-            "周杰伦 七里香",
-            "周杰伦 晴天",
-            "周杰伦 夜曲",
-            "林俊杰 江南",
-            "林俊杰 修炼爱情",
-            "林俊杰 她说",
-            "五月天 倔强",
-            "五月天 突然好想你",
-            "五月天 温柔",
-            "陈奕迅 十年",
-            "陈奕迅 浮夸",
-            "陈奕迅 富士山下",
-            "邓紫棋 光年之外",
-            "邓紫棋 泡沫",
-            "邓紫棋 喜欢你",
-            "薛之谦 演员",
-            "薛之谦 丑八怪",
-            "薛之谦 认真的雪",
-            "张惠妹 听海",
-            "张惠妹 记得"
-        };
+            /*  // 模拟后端获取建议项
+              var allItems = new List<string>
+          {
+              "周杰伦 七里香",
+              "周杰伦 晴天",
+              "周杰伦 夜曲",
+              "周杰伦 七里香",
+              "周杰伦 晴天",
+              "周杰伦 夜曲",
+              "林俊杰 江南",
+              "林俊杰 修炼爱情",
+              "林俊杰 她说",
+              "五月天 倔强",
+              "五月天 突然好想你",
+              "五月天 温柔",
+              "陈奕迅 十年",
+              "陈奕迅 浮夸",
+              "陈奕迅 富士山下",
+              "邓紫棋 光年之外",
+              "邓紫棋 泡沫",
+              "邓紫棋 喜欢你",
+              "薛之谦 演员",
+              "薛之谦 丑八怪",
+              "薛之谦 认真的雪",
+              "张惠妹 听海",
+              "张惠妹 记得"
+          };
 
-            return allItems.FindAll(x => x.Contains(input));
+              return allItems.FindAll(x => x.Contains(input));*/
+            try
+            {
+                if (string.IsNullOrWhiteSpace(input))
+                {
+                    return new List<string>();
+                }
+
+                var songs = await _searchService.JustSearchSong(input);
+                return songs
+                    .Select(s => $"{s.Artist} - {s.Title}")
+                    .Distinct()
+                    .Take(10) // 限制建议数量
+                    .ToList();
+            }
+            catch
+            {
+                return new List<string>();
+            }
         }
 
-        private List<string> GetSearchHistory()
+        private async Task<List<string>> GetSearchHistory()
         {
-            // 模拟获取历史记录
+            /*// 模拟获取历史记录
             return new List<string>
         {
             "周杰伦",
@@ -785,12 +901,40 @@ namespace Byte_Harmonic.Forms
             "周杰伦 七里香",
             "周杰伦 晴天",
             "杰伦 夜曲",
-        };
+        };*/
+            try
+            {
+                if (AppContext.currentUser == null)
+                {
+                    return new List<string>();
+                }
+
+                return await AppContext.userRepository.GetSearchHistoryAsync(AppContext.currentUser.Account);
+            }
+
+            catch
+            {
+                return new List<string>();
+            }
+
         }
 
-        private void ChangeHistory(List<string> list)
+        private async void ChangeHistory(List<string> history)
         {
-
+            try
+            {
+                if (AppContext.currentUser != null)
+                {
+                    await _searchService.UpdateSearchHistory(
+                        AppContext.currentUser.Account,
+                        history
+                    );
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"更新搜索历史失败: {ex.Message}");
+            }
         }
 
         private void uiImageButton15_Click(object sender, EventArgs e)
@@ -801,6 +945,38 @@ namespace Byte_Harmonic.Forms
         private void uiImageButton16_Click(object sender, EventArgs e)
         {
             LoadPage(page: new UserForm());
+        }
+
+        private void uiImageButton8_Click(object sender, EventArgs e)
+        {
+            if (AppContext._playbackService.GetCurrentSong() == null)
+            {
+                new MainForms.MessageForm("请先播放歌曲后再收藏!").ShowDialog();
+                return;
+            }
+            if (_favoritesService.IsSongFavorite(AppContext.currentUser.Account, AppContext._playbackService.GetCurrentSong().Id) == true)
+            {
+                _favoritesService.RemoveFavoriteSongAsync(AppContext.currentUser.Account, AppContext._playbackService.GetCurrentSong().Id);
+                // bool isFavorite = _favoritesService.IsSongFavorite(AppContext.currentUser.Account, AppContext._playbackService.GetCurrentSong().Id);
+                starControl.InitStarButton(false);
+            }
+            else
+            {
+                int temp = AppContext._playbackService.GetCurrentSong().Id;
+                _favoritesService.AddFavoriteSongsAsync(AppContext.currentUser.Account, new[] { temp });
+                bool isFavorite = _favoritesService.IsSongFavorite(AppContext.currentUser.Account, AppContext._playbackService.GetCurrentSong().Id);
+                starControl.InitStarButton(true);
+            }
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void uiImageButton10_Click(object sender, EventArgs e)
+        {
+            LoadPage(new Forms.Controls.FrameControls.MainPanel.PlayList());
         }
     }
 }

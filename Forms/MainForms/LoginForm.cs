@@ -1,6 +1,7 @@
 ﻿using Byte_Harmonic.Database;
 using Byte_Harmonic.Forms.FormUtils;
 using Byte_Harmonic.Forms.MainForms;
+using Byte_Harmonic.Properties;
 using Byte_Harmonic.Services;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -36,7 +38,7 @@ namespace Byte_Harmonic.Forms.MainForms
             _styleHandler = new FormStyle(this);
             _userRepo = new UserRepository();
             _userService = new UserService(_userRepo);
-           
+            loadingBox.Visible = false;
         }
 
         private void uiButton1_Click(object sender, EventArgs e)
@@ -63,7 +65,7 @@ namespace Byte_Harmonic.Forms.MainForms
             {
                 uiLabel3.Text = "请确认同意服务协议";
             }
-            if (loginButton1.Text == "登录")
+            else if (loginButton1.Text == "登录")
             {
                 try
                 {
@@ -72,8 +74,17 @@ namespace Byte_Harmonic.Forms.MainForms
                     if (user != null)
                     {
                         uiLabel3.Text = "登录成功";
+                        loginButton1.Text = "";
+                        loadingBox.Visible = true;
+
+                        AppContext.userService = _userService;
+                        AppContext.songlistService = new SonglistService(AppContext.songlistRepository, AppContext.userService);
+
+
+                        AppContext.currentUser = _userService.GetCurrentUser();
                         await Task.Delay(1000); // 延迟1000毫秒（1秒）
                         MainForm mainForm = new MainForm();
+
                         mainForm.Show();
                         //隐藏当前界面；
                         this.Hide();
@@ -87,10 +98,7 @@ namespace Byte_Harmonic.Forms.MainForms
                 {
                     uiLabel3.Text = "登录失败了: " + ex.Message;
                 }
-                AppContext.userService = _userService;
-                AppContext.songlistService = new SonglistService(AppContext.songlistRepository, AppContext.userService);
-
-                AppContext.currentUser = _userService.GetCurrentUser();
+                
 
                 if(AppContext.currentUser != null)
                 {

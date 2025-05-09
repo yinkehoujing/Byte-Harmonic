@@ -35,8 +35,8 @@ namespace Byte_Harmonic.Forms
         {
            // await TestEmptyKeywordSearch();
            // await TestWhitespaceKeywordSearch();
-            await TestLoggedInUserSearch();
-            //await DisplaySampleResults();
+           // await TestLoggedInUserSearch();
+            await DisplaySampleResults();
         }
 
         // 测试1: 空关键字搜索
@@ -79,7 +79,7 @@ namespace Byte_Harmonic.Forms
 
                  await _userService.Login("admin", "123456789");
                 var user = _userService.GetCurrentUser();
-                var result = await _searchService.SearchSongs("传奇");
+                var result = await _searchService.SearchSongs("天外来物");
                 listBoxResults.Items.Add($"LoginAsync: 通过 (用户: {user.Username})");
 
 
@@ -108,14 +108,14 @@ namespace Byte_Harmonic.Forms
         {
             try
             {
-                var result = await _searchService.SearchSongs("凤凰");
-
+                //var result = await _searchService.GetSearchSuggestions("Be");
+                var result = await _searchService.JustSearchSong("Be");
                 if (result.Count > 0)
                 {
                     listBoxResults.Items.Add("4. 搜索结果示例:");
                     foreach (var song in result.Take(3))
                     {
-                        listBoxResults.Items.Add($"   - {song.Title} - {song.Artist}");
+                        listBoxResults.Items.Add($"    {song}");
                     }
                 }
                 else

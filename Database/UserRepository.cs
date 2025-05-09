@@ -153,17 +153,17 @@ namespace Byte_Harmonic.Database
         #region 收藏歌曲功能
 
         // 检查歌曲是否已被收藏
-        public async Task<bool> IsSongFavoriteAsync(string username, int songId)
+        public bool IsSongFavorite(string username, int songId)
         {
             using var connection = new MySqlConnection(_connectionString);
-            await connection.OpenAsync();
+            connection.Open();  // 同步打开连接
 
             const string sql = "SELECT COUNT(*) FROM Favorites WHERE Username = @Username AND SongId = @SongId";
             using var cmd = new MySqlCommand(sql, connection);
             cmd.Parameters.AddWithValue("@Username", username);
             cmd.Parameters.AddWithValue("@SongId", songId);
 
-            var count = (long)await cmd.ExecuteScalarAsync();
+            var count = (long)cmd.ExecuteScalar();  // 同步执行查询
             return count > 0;
         }
 
@@ -174,7 +174,7 @@ namespace Byte_Harmonic.Database
             await connection.OpenAsync();
 
             // 先检查是否已收藏
-            if (await IsSongFavoriteAsync(username, songId))
+            if ( IsSongFavorite(username, songId))
             {
                 return false;
             }
@@ -260,7 +260,7 @@ namespace Byte_Harmonic.Database
             {
                 foreach (var songId in songIds)
                 {
-                    if (!await IsSongFavoriteAsync(username, songId))
+                    if (! IsSongFavorite(username, songId))
                     {
                         const string sql = "INSERT INTO Favorites (Username, SongId) VALUES (@Username, @SongId)";
                         using var cmd = new MySqlCommand(sql, connection, transaction);
@@ -384,6 +384,49 @@ namespace Byte_Harmonic.Database
             cmd.Parameters.AddWithValue("@Username", username);
 
             return await cmd.ExecuteNonQueryAsync() > 0;
+        }
+        //更新搜索记录
+        public async Task<bool> UpdateSearchHistoryAsync(string username, List<string> history)
+        {
+            if (string.IsNullOrWhiteSpace(username) || history == null || history.Count == 0)
+            {
+                throw new ArgumentException("用户名或历史记录无效");
+            }
+
+            using var connection = new MySqlConnection(_connectionString);
+            await connection.OpenAsync();
+            using var transaction = await connection.BeginTransactionAsync();
+
+            try
+            {
+                // 清空当前用户的搜索历史记录
+                const string clearSql = "DELETE FROM SearchHistory WHERE Username = @Username";
+                using var clearCmd = new MySqlCommand(clearSql, connection, transaction);
+                clearCmd.Parameters.AddWithValue("@Username", username);
+                await clearCmd.ExecuteNonQueryAsync();
+
+                // 插入新的搜索历史记录
+                const string insertSql = "INSERT INTO SearchHistory (Username, Keyword, Time) VALUES (@Username, @Keyword, UTC_TIMESTAMP())";
+                using var insertCmd = new MySqlCommand(insertSql, connection, transaction);
+                insertCmd.Parameters.AddWithValue("@Username", username);
+
+                foreach (var keyword in history)
+                {
+                    insertCmd.Parameters.Clear();
+                    insertCmd.Parameters.AddWithValue("@Username", username);
+                    insertCmd.Parameters.AddWithValue("@Keyword", keyword.Trim());
+                    await insertCmd.ExecuteNonQueryAsync();
+                }
+
+                await transaction.CommitAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                await transaction.RollbackAsync();
+                Console.WriteLine($"更新搜索历史失败: {ex.Message}");
+                return false;
+            }
         }
         #endregion
 

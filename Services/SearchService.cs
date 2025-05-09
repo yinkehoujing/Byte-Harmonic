@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Byte_Harmonic.Database;
 using Byte_Harmonic.Models;
 using Byte_Harmonic.Services;
+using AppContext = Byte_Harmonic.Forms.AppContext;
 
 namespace Byte_Harmonic.Services
 {
@@ -28,7 +29,7 @@ namespace Byte_Harmonic.Services
                 return new List<Song>();
 
             // 记录搜索历史
-            var currentUser = _userService.GetCurrentUser();
+            var currentUser = AppContext.currentUser;
             if (currentUser != null)
             {
                 await _userRepo.AddSearchHistoryAsync(currentUser.Account, keyword);
@@ -41,26 +42,48 @@ namespace Byte_Harmonic.Services
                 (!string.IsNullOrEmpty(s.Artist) && s.Artist.ToLower().Contains(keyword))
             ).ToList();
         }
-
-        // 按关键字搜索歌单（歌单名）
-       /* public async Task<List<Songlist>> SearchSonglistsAsync(string keyword)
+        //只是用于推荐
+        public async Task<List<Song>> JustSearchSong(string keyword)
         {
             if (string.IsNullOrWhiteSpace(keyword))
-                return new List<Songlist>();
+                return new List<Song>();
+            var allSongs = await _repository.GetAllSongsAsync();
+            keyword = keyword.ToLower();
+            return allSongs.Where(s =>
+                (!string.IsNullOrEmpty(s.Title) && s.Title.ToLower().Contains(keyword)) ||
+                (!string.IsNullOrEmpty(s.Artist) && s.Artist.ToLower().Contains(keyword))
+            ).ToList();
+        }
 
-            // 记录搜索历史
-            var currentUser = _userService.GetCurrentUser();
-            if (currentUser != null)
+        //更新搜索记录
+        public async Task<bool> UpdateSearchHistory(string username, List<string> history)
+        {
+            if (string.IsNullOrWhiteSpace(username) || history == null || history.Count == 0)
             {
-                await _userRepo.AddSearchHistoryAsync(currentUser.Account, keyword);
+                throw new ArgumentException("用户名或历史记录无效");
             }
 
-            var allSonglists = await _repository.GetAllPlaylistsAsync();
-            keyword = keyword.ToLower();
-            return allSonglists.Where(sl =>
-                !string.IsNullOrEmpty(sl.Name) && sl.Name.ToLower().Contains(keyword)
-            ).ToList();
-        }*/
+            return await _userRepo.UpdateSearchHistoryAsync(username, history);
+        }
+        // 按关键字搜索歌单（歌单名）
+        /* public async Task<List<Songlist>> SearchSonglistsAsync(string keyword)
+         {
+             if (string.IsNullOrWhiteSpace(keyword))
+                 return new List<Songlist>();
+
+             // 记录搜索历史
+             var currentUser = _userService.GetCurrentUser();
+             if (currentUser != null)
+             {
+                 await _userRepo.AddSearchHistoryAsync(currentUser.Account, keyword);
+             }
+
+             var allSonglists = await _repository.GetAllPlaylistsAsync();
+             keyword = keyword.ToLower();
+             return allSonglists.Where(sl =>
+                 !string.IsNullOrEmpty(sl.Name) && sl.Name.ToLower().Contains(keyword)
+             ).ToList();
+         }*/
 
         // 按单个标签筛选歌曲
         public async Task<List<Song>> SearchSongsByTagAsync(string tag)
@@ -69,14 +92,14 @@ namespace Byte_Harmonic.Services
                 return new List<Song>();
 
             // 记录搜索历史
-            var currentUser = _userService.GetCurrentUser();
+            var currentUser = AppContext.currentUser;
             if (currentUser != null)
             {
                 await _userRepo.AddSearchHistoryAsync(currentUser.Account, tag);
             }
 
             int tagId = _repository.EnsureTagExists(tag);
-            return  _repository.GetSongsByTag(tagId);
+            return _repository.GetSongsByTag(tagId);
         }
 
         // 按多个标签（交集）筛选歌曲
@@ -93,7 +116,7 @@ namespace Byte_Harmonic.Services
             }
 
             var tagIds = tags.Select(t => _repository.EnsureTagExists(t)).ToList();
-            return  _repository.GetSongsByTags(tagIds);
+            return _repository.GetSongsByTags(tagIds);
         }
 
         // 获取某歌单中的歌曲
@@ -128,5 +151,7 @@ namespace Byte_Harmonic.Services
             var result = allSongs.Where(s => tagFilteredSongs.Any(ts => ts.Id == s.Id)).ToList();
             return result;
         }
+
+        
     }
 }

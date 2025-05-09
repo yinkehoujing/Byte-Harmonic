@@ -1,4 +1,5 @@
-﻿using Sunny.UI;
+﻿using Byte_Harmonic.Forms.FormUtils;
+using Sunny.UI;
 
 namespace Byte_Harmonic.Forms.MainForms
 {
@@ -18,47 +19,60 @@ namespace Byte_Harmonic.Forms.MainForms
 
         private void InitializeComponent()
         {
-            this.lblMessage = new Sunny.UI.UILabel();
-            this.btnConfirm = new Sunny.UI.UIButton();
-            this.SuspendLayout();
-
+            lblMessage = new UILabel();
+            btnConfirm = new UIButton();
+            SuspendLayout();
+            // 
             // lblMessage
-            this.lblMessage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblMessage.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.lblMessage.Location = new System.Drawing.Point(10, 10);
-            this.lblMessage.Name = "lblMessage";
-            this.lblMessage.Padding = new System.Windows.Forms.Padding(10);
-            this.lblMessage.Size = new System.Drawing.Size(280, 100);
-
-            // 正确设置文本对齐和换行
-            this.lblMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter; // 对齐方式
-            this.lblMessage.AutoSize = false;        // 禁用自动尺寸
-            //this.lblMessage.WordWrap = true;         // 启用自动换行（SunnyUI特有属性）
-
+            // 
+            lblMessage.BackColor = Color.White;
+            lblMessage.Font = new Font("黑体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            lblMessage.ForeColor = Color.FromArgb(48, 48, 48);
+            lblMessage.Location = new Point(0, 35);
+            lblMessage.Name = "lblMessage";
+            lblMessage.Padding = new Padding(10);
+            lblMessage.Size = new Size(300, 112);
+            lblMessage.TabIndex = 1;
+            lblMessage.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // btnConfirm
-            this.btnConfirm.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnConfirm.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnConfirm.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.btnConfirm.Location = new System.Drawing.Point(105, 150);
-            this.btnConfirm.MinimumSize = new System.Drawing.Size(1, 1);
-            this.btnConfirm.Name = "btnConfirm";
-            this.btnConfirm.Size = new System.Drawing.Size(90, 35);
-            this.btnConfirm.Text = "确认";
-            this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
-
+            // 
+            btnConfirm.Anchor = AnchorStyles.Bottom;
+            btnConfirm.Cursor = Cursors.Hand;
+            btnConfirm.FillColor = Color.FromArgb(163, 199, 224);
+            btnConfirm.FillHoverColor = MPColor.Blue3;
+            btnConfirm.FillPressColor = MPColor.Blue3;
+            btnConfirm.RectHoverColor= MPColor.Blue3;
+            btnConfirm.Font = new Font("黑体", 12F);
+            btnConfirm.Location = new Point(105, 150);
+            btnConfirm.MinimumSize = new Size(1, 1);
+            btnConfirm.Name = "btnConfirm";
+            btnConfirm.RectColor = Color.FromArgb(163, 199, 224);
+            btnConfirm.Size = new Size(90, 35);
+            btnConfirm.TabIndex = 0;
+            btnConfirm.Text = "确认";
+            btnConfirm.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            btnConfirm.Click += btnConfirm_Click;
+            // 
             // MessageForm
-            this.ClientSize = new System.Drawing.Size(300, 200);
-            this.Controls.Add(this.btnConfirm);
-            this.Controls.Add(this.lblMessage);
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "MessageForm";
-            this.Padding = new System.Windows.Forms.Padding(10);
-            this.ShowIcon = false;
-            this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "提示";
-            this.ResumeLayout(false);
+            // 
+            BackColor = Color.White;
+            ClientSize = new Size(300, 200);
+            ControlBoxFillHoverColor = Color.White;
+            Controls.Add(btnConfirm);
+            Controls.Add(lblMessage);
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "MessageForm";
+            Padding = new Padding(10);
+            RectColor = Color.Black;
+            ShowIcon = false;
+            ShowInTaskbar = false;
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "提示";
+            TitleColor = Color.FromArgb(163, 199, 224);
+            ZoomScaleRect = new Rectangle(15, 15, 300, 200);
+            ResumeLayout(false);
         }
 
         #endregion

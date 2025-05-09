@@ -36,8 +36,6 @@ namespace Byte_Harmonic.Forms
             Back = new Sunny.UI.UIImageButton();
             pictureBox2 = new PictureBox();
             uiImageButton3 = new Sunny.UI.UIImageButton();
-            uiImageButton2 = new Sunny.UI.UIImageButton();
-            uiImageButton4 = new Sunny.UI.UIImageButton();
             pictureBox1 = new PictureBox();
             panel2 = new Panel();
             uiTrackBar1 = new Sunny.UI.UITrackBar();
@@ -67,8 +65,6 @@ namespace Byte_Harmonic.Forms
             ((System.ComponentModel.ISupportInitialize)Back).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton3).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)uiImageButton2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)uiImageButton4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton5).BeginInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton6).BeginInit();
@@ -113,7 +109,7 @@ namespace Byte_Harmonic.Forms
             Back.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             Back.Image = Properties.Resources.icons8_slide_up_52__3_;
             Back.ImageHover = Properties.Resources.icons8_slide_up_52__2_;
-            Back.Location = new Point(25, 656);
+            Back.Location = new Point(21, 656);
             Back.Margin = new Padding(2, 3, 2, 3);
             Back.Name = "Back";
             Back.Size = new Size(33, 33);
@@ -151,41 +147,6 @@ namespace Byte_Harmonic.Forms
             uiImageButton3.ZoomScaleDisabled = true;
             uiImageButton3.Click += uiImageButton3_Click;
             // 
-            // uiImageButton2
-            // 
-            uiImageButton2.Anchor = AnchorStyles.None;
-            uiImageButton2.BackColor = Color.White;
-            uiImageButton2.Cursor = Cursors.Hand;
-            uiImageButton2.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiImageButton2.Image = Properties.Resources.icons8_less_than_100;
-            uiImageButton2.ImageHover = (Image)resources.GetObject("uiImageButton2.ImageHover");
-            uiImageButton2.Location = new Point(209, 29);
-            uiImageButton2.Name = "uiImageButton2";
-            uiImageButton2.Size = new Size(30, 30);
-            uiImageButton2.SizeMode = PictureBoxSizeMode.StretchImage;
-            uiImageButton2.TabIndex = 8;
-            uiImageButton2.TabStop = false;
-            uiImageButton2.Text = null;
-            uiImageButton2.ZoomScaleDisabled = true;
-            // 
-            // uiImageButton4
-            // 
-            uiImageButton4.Anchor = AnchorStyles.None;
-            uiImageButton4.BackColor = Color.White;
-            uiImageButton4.Cursor = Cursors.Hand;
-            uiImageButton4.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiImageButton4.Image = (Image)resources.GetObject("uiImageButton4.Image");
-            uiImageButton4.ImageHover = (Image)resources.GetObject("uiImageButton4.ImageHover");
-            uiImageButton4.Location = new Point(245, 29);
-            uiImageButton4.Name = "uiImageButton4";
-            uiImageButton4.Size = new Size(30, 30);
-            uiImageButton4.SizeMode = PictureBoxSizeMode.StretchImage;
-            uiImageButton4.TabIndex = 9;
-            uiImageButton4.TabStop = false;
-            uiImageButton4.Text = null;
-            uiImageButton4.ZoomScaleDisabled = true;
-            uiImageButton4.Click += uiImageButton4_Click;
-            // 
             // pictureBox1
             // 
             pictureBox1.BackColor = Color.White;
@@ -203,6 +164,7 @@ namespace Byte_Harmonic.Forms
             panel2.Name = "panel2";
             panel2.Size = new Size(824, 512);
             panel2.TabIndex = 12;
+            panel2.Paint += panel2_Paint;
             // 
             // uiTrackBar1
             // 
@@ -334,6 +296,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton8.TabStop = false;
             uiImageButton8.Text = null;
             uiImageButton8.ZoomScaleDisabled = true;
+            uiImageButton8.Click += uiImageButton8_Click;
             // 
             // uiImageButton9
             // 
@@ -369,6 +332,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton10.TabStop = false;
             uiImageButton10.Text = null;
             uiImageButton10.ZoomScaleDisabled = true;
+            uiImageButton10.Click += uiImageButton10_Click;
             // 
             // uiImageButton11
             // 
@@ -541,7 +505,7 @@ namespace Byte_Harmonic.Forms
             // pictureBox3
             // 
             pictureBox3.Cursor = Cursors.Hand;
-            pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
+            pictureBox3.Image = Properties.Resources.icons8_headphones_100__1_;
             pictureBox3.Location = new Point(16, 29);
             pictureBox3.Name = "pictureBox3";
             pictureBox3.Size = new Size(44, 44);
@@ -577,8 +541,6 @@ namespace Byte_Harmonic.Forms
             Controls.Add(uiLabel1);
             Controls.Add(uiTrackBar1);
             Controls.Add(panel2);
-            Controls.Add(uiImageButton4);
-            Controls.Add(uiImageButton2);
             Controls.Add(uiImageButton3);
             Controls.Add(uiImageButton1);
             Controls.Add(Back);
@@ -591,8 +553,6 @@ namespace Byte_Harmonic.Forms
             ((System.ComponentModel.ISupportInitialize)Back).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton3).EndInit();
-            ((System.ComponentModel.ISupportInitialize)uiImageButton2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)uiImageButton4).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton5).EndInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton6).EndInit();
@@ -618,8 +578,6 @@ namespace Byte_Harmonic.Forms
         private Sunny.UI.UIImageButton Back;
         private PictureBox pictureBox2;
         private Sunny.UI.UIImageButton uiImageButton3;
-        private Sunny.UI.UIImageButton uiImageButton2;
-        private Sunny.UI.UIImageButton uiImageButton4;
         private PictureBox pictureBox1;
         private Panel panel2;
         private Sunny.UI.UITrackBar uiTrackBar1;

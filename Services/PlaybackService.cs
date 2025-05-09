@@ -7,6 +7,7 @@ using VarispeedDemo.SoundTouch;
 using NAudio.Wave.SampleProviders;
 using Byte_Harmonic.Database;
 using Byte_Harmonic.Forms;
+using Byte_Harmonic.Forms.MainForms;
 
 
 namespace Services
@@ -31,6 +32,10 @@ namespace Services
 
 
         public bool IsPaused => _isPaused;
+
+        public PlaybackMode PlaybackMode => _playlist.PlaybackMode;
+
+        public AudioFileReader? audioFileReader => _audioReader;
 
         public PlaybackService()
         {
@@ -261,6 +266,7 @@ namespace Services
             {
                 // 不变
             } 
+            // 列表循环 和 顺序播放
             else
             {
                 _currentIndex = (_currentIndex + 1) % _playlist.PlaySongs.Count;
@@ -343,7 +349,7 @@ namespace Services
             }
             else
             {
-                throw new ArgumentNullException(nameof(_audioReader));
+              throw new ArgumentNullException(nameof(_audioReader));
             }
         }
 

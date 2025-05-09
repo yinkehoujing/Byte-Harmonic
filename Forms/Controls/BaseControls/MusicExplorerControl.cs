@@ -39,15 +39,48 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
                 Dock = DockStyle.Top
             };
 
+            string greeting = GetTimeBasedGreeting();
+
+            string GetTimeBasedGreeting()
+            {
+                var hour = DateTime.Now.Hour;
+                if (hour < 6) return "深夜好";
+                else if (hour < 9) return "早安";
+                else if (hour < 12) return "上午好";
+                else if (hour < 14) return "午安";
+                else if (hour < 18) return "下午好";
+                else if (hour < 21) return "傍晚好";
+                else return "晚安";
+            }
+
             var label = new Label
             {
-                Text = "清晨好",
+                Text = greeting,
                 Dock = DockStyle.Left,
                 Font = new System.Drawing.Font("Microsoft YaHei", 18F),
                 AutoSize = true,
                 Padding = new Padding(10, 10, 0, 0)
             };
             greetingPanel.Controls.Add(label);
+
+            string[] quotes = {
+                "音乐是灵魂的解药。",
+                "让旋律治愈你的一天。",
+                "今日份的耳朵享受～",
+                "没有音乐，生活将是一个错误。",
+                "放轻松，听点不一样的。"
+            };
+
+            var quoteLabel = new Label
+            {
+                Text = quotes[new Random().Next(quotes.Length)],
+                Font = new Font("Microsoft YaHei", 12F, FontStyle.Italic),
+                AutoSize = true,
+                ForeColor = MPColor.Grey4,
+                Dock = DockStyle.Right,
+            };
+
+            greetingPanel.Controls.Add(quoteLabel);
 
 
             var panel1 = new Panel
@@ -121,12 +154,12 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
                 Margin = new Padding(0)
             };
 
-            var card1 = new PlaylistCardControl { PlaylistName = "流行精选" , CoverImageText = "1 (1)" };
-            var card2 = new PlaylistCardControl { PlaylistName = "华语金曲", CoverImageText = "1 (1)" };
-            var card3 = new PlaylistCardControl { PlaylistName = "摇滚年代" , CoverImageText = "1 (1)" };
-            var card4 = new PlaylistCardControl { PlaylistName = "古风系列" , CoverImageText = "1 (1)" };
-            var card5 = new PlaylistCardControl { PlaylistName = "本周最热" , CoverImageText = "1 (1)" };
-            var card6 = new PlaylistCardControl { PlaylistName = "欧美金曲", CoverImageText = "1 (1)" };
+            var card1 = new PlaylistCardControl("流行精选", "1 (2)");
+            var card2 = new PlaylistCardControl("华语金曲", "1 (9)");
+            var card3 = new PlaylistCardControl("摇滚年代", "1 (4)");
+            var card4 = new PlaylistCardControl("古风系列", "1 (5)");
+            var card5 = new PlaylistCardControl("本周最热", "1 (3)");
+            var card6 = new PlaylistCardControl("欧美金曲", "1 (1)");
 
 
             card1.PlaylistClicked += LoadSonglistDetails;
@@ -224,7 +257,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
 
         private void refreshClick(object? sender, EventArgs e)
         {
-            MessageBox.Show("刷新歌单探索成功！");
+            new Byte_Harmonic.Forms.MainForms.MessageForm("刷新歌单探索成功！").ShowDialog();
             column1.Controls.Clear();
             column2.Controls.Clear();
 

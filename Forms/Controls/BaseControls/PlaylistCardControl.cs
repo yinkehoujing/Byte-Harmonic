@@ -28,15 +28,14 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             set => titleLabel.Text = value;
         }
 
-        public PlaylistCardControl()
+        public PlaylistCardControl(string titleText, string imageText)
         {
             InitializeComponent();
-            SetupLayout();
+            SetupLayout(titleText, imageText);
         }
 
-        private void SetupLayout()
+        private void SetupLayout(string titleText, string imageText)
         {
-            imageText = "1 (10)"; // default image seed
             this.Width = 100;
             this.Height = 130;
             this.Margin = new Padding(10);
@@ -49,20 +48,21 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
                 Size = new Size(100, 100),
                 Dock = DockStyle.Top,
                 Image = img,
-                ZoomScaleRect = new Rectangle(0, 0, 100, 100),
+                SizeMode = PictureBoxSizeMode.StretchImage,
+                //ZoomScaleRect = new Rectangle(0, 0, 100, 100),
                 Cursor = Cursors.Hand
             };
 
             imageButton.Click += async (s, e) =>
             {
-               PlaylistClicked?.Invoke(PlaylistName);
+               PlaylistClicked?.Invoke(titleText);
             };
 
             titleLabel = new Label
             {
                 Dock = DockStyle.Bottom,
                 Height = 30,
-                Text = "歌单",
+                Text = titleText,
                 Font = new Font("Microsoft YaHei", 10F),
                 TextAlign = ContentAlignment.MiddleCenter
             };
