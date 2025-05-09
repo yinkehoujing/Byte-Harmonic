@@ -45,8 +45,6 @@ namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
                 }
                 
             }
-            //TODO:更改使用新的后端函数
-            
             tempsongs = await AppContext.searchService.SearchSongsByTagsAsync(songs,tags);
             foreach (var tagID in tags)
             {

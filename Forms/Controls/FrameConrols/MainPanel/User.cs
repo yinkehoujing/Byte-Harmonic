@@ -51,7 +51,7 @@ namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
                 try
                 {
                     AppContext.userService.UpdateUsername(txtUsername.Text.Trim());
-                    new MessageForm("已修改用户名").ShowDialog();
+                    new Byte_Harmonic.Forms.MainForms.MessageForm("已修改用户名").ShowDialog();
                 }
                 catch (Exception ex)
                 {

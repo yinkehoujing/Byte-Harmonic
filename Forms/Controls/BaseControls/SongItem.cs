@@ -94,7 +94,14 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
 
         private void addButton_Click(object sender, EventArgs e)
         {
-            //TODO:调用添加到页面
+            try
+            {
+                new AddSongToListForm(AppContext.songlistService.GetSongById(this.songID)).ShowDialog();
+            }
+            catch(Exception ex)
+            {
+                new Byte_Harmonic.Forms.MainForms.MessageForm(ex.Message).ShowDialog();
+            }
         }
 
         //下载文件
@@ -127,12 +134,11 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
                 // 更新下载状态
                 song.Downloaded = true;
                 //songService.UpdateSong(song);
-
-                new MessageForm("下载成功").ShowDialog();
+                new Byte_Harmonic.Forms.MainForms.MessageForm("下载成功").ShowDialog();
             }
             catch (Exception ex)
             {
-                UIMessageBox.ShowError($"下载失败：{ex.Message}");
+                new Byte_Harmonic.Forms.MainForms.MessageForm($"下载失败：{ex.Message}").ShowDialog();
             }
         }
 
