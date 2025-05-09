@@ -51,6 +51,7 @@ namespace Byte_Harmonic.Forms
             AppContext.updateSongUI += OnUpdateSongUI;
             AppContext.ShowPlayingBtn += OnShowPlayingBtn;
             AppContext.SonglistLoaded += LoadSonglistToPanel;
+            AppContext.ReloadSideSonglist += InitializeSongsList;
             //初始化searchservice
             _searchService = new SearchService(AppContext.songlistRepository, AppContext.userRepository, AppContext.userService);
 
@@ -100,6 +101,7 @@ namespace Byte_Harmonic.Forms
                 uiLabel2.Text = seekPosition.ToString(@"mm\:ss");
             };
         }
+
 
         private void OnPlaybackModeChanged(PlaybackMode mode)
         {
@@ -762,11 +764,14 @@ namespace Byte_Harmonic.Forms
         }
 
         //
-        //初始化侧边歌单
+        //初始化侧边歌单 或 重新加载
         //
         private void InitializeSongsList()
         {
-            //TODO:调用后端获取歌单
+            Console.WriteLine("InitializeSongsList");
+            // 清空之前的控件
+            flowLayoutPanel1.Controls.Clear();
+            //调用后端获取歌单
             var songlists = AppContext.songlistRepository.GetUserOwnPlaylists(AppContext.currentUser.Account);
             foreach (var item in songlists)
             {

@@ -42,6 +42,9 @@ namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
                     Console.WriteLine($"修改后内容: {uiTextBox1.Text}");
                     new MainForms.MessageForm("修改歌单名成功!").ShowDialog();
                     // TODO 修改歌单名
+                    AppContext.songlistRepository.UpdateSonglistName(AppContext.currentViewingSonglist.Id, uiTextBox1.Text, AppContext.currentUser.Account);
+                    AppContext.TriggerReloadSideSonglist();
+
                 }
             };
 
@@ -51,6 +54,9 @@ namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
                 Console.WriteLine($"修改后内容: {uiTextBox1.Text}");
                 new MainForms.MessageForm("修改歌单名成功!").ShowDialog();
                 // TODO 修改歌单名
+                AppContext.songlistRepository.UpdateSonglistName(AppContext.currentViewingSonglist.Id, uiTextBox1.Text, AppContext.currentUser.Account);
+                AppContext.TriggerReloadSideSonglist();
+
             };
         }
 
@@ -60,7 +66,13 @@ namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
             Console.WriteLine("歌单删除成功");
             new MainForms.MessageForm("删除歌单成功!").ShowDialog();
 
+            AppContext.songlistRepository.DeleteSonglist(AppContext.currentViewingSonglist.Id, AppContext.currentUser.Account);
+
+            AppContext.currentViewingSonglist = null;
+
             SongListDeleted?.Invoke(this, EventArgs.Empty);
+
+            AppContext.TriggerReloadSideSonglist();
         }
 
 

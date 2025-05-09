@@ -39,6 +39,7 @@ namespace Byte_Harmonic.Forms
         public static event Action<float> VolumeChanged; // 0 - 1 之间
         public static event Action SonglistLoaded; // 更新 panel2
         public static event Action<PlaybackMode> PlaybackModeChanged; // 更新 playbackMode 显示图标
+        public static event Action ReloadSideSonglist;
 
 
 
@@ -63,6 +64,13 @@ namespace Byte_Harmonic.Forms
             Console.WriteLine("TriggerPositionChanged");
             PositionChanged?.Invoke(ts);
         }
+
+        public static void TriggerReloadSideSonglist()
+        {
+            Console.WriteLine("TriggerReloadSideSonglist");
+            ReloadSideSonglist?.Invoke();
+        }
+
 
         public static void TriggerPlaybackModeChanged(PlaybackMode playbackMode)
         {
