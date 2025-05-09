@@ -129,6 +129,7 @@ namespace Byte_Harmonic.Forms.MainForms
                     try
                     {
                         songlistService.AddSongToSonglist(song, songlistService.GetSonglistById(item.listID));
+                        AppContext.TriggerReloadSideSonglist();
                     }
                     catch(Exception ex)
                     {
