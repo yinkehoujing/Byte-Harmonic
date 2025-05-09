@@ -14,6 +14,7 @@ using Byte_Harmonic.Services;
 using Byte_Harmonic.Utils;
 using Org.BouncyCastle.Utilities;
 using System.Text.RegularExpressions;
+using static Sunny.UI.SnowFlakeId;
 
 namespace Byte_Harmonic.Forms.Controls.BaseControls
 {
@@ -201,22 +202,25 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             {
                 if (item.Selected)
                 {
-                    //TODO:后端删除
-                    int id = item.songID;
-                    
+                    int songID = item.songID;
+                    try
+                    {
+                        // 删除歌单的歌曲
+                        if (AppContext.currentViewingSonglist != null)
+                        {
+                            AppContext.songlistService.RemoveSongFromSonglist(AppContext.songlistService.GetSongById(songID), AppContext.currentViewingSonglist);
+                            AppContext.TriggerSonglistDetailUpdated(AppContext.currentViewingSonglist.Name);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        new MessageForm(ex.Message).ShowDialog();
+                    }
+
                 }
             }
             //显示信息面：删除成功
             new MainForms.MessageForm("删除成功").ShowDialog();
-            try
-            {
-                this.LoadSongs(AppContext.currentViewingSonglist.Songs);//更新数据
-            }
-            catch(Exception ex)
-            {
-                new MainForms.MessageForm(ex.Message).ShowDialog();
-            }
-            
         }
 
         private void BulkOperateButton_Click(object sender, EventArgs e)

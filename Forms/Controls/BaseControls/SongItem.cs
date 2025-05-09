@@ -91,7 +91,12 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             //TODO：调用删除的后端程序
             try
             {
-                  AppContext.songlistService.DeleteSongAsync(songID);
+                // 删除歌单的歌曲
+                if(AppContext.currentViewingSonglist != null)
+                {
+                    AppContext.songlistService.RemoveSongFromSonglist(AppContext.songlistService.GetSongById(songID), AppContext.currentViewingSonglist);
+                    AppContext.TriggerSonglistDetailUpdated(AppContext.currentViewingSonglist.Name);
+                }
             }
             catch(Exception ex) 
             {
