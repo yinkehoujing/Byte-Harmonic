@@ -1,6 +1,6 @@
 ﻿namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
 {
-    partial class PlayList
+    partial class Favorite
     {
         /// <summary> 
         /// 必需的设计器变量。
@@ -35,18 +35,18 @@
             // 
             uiLabel1.Font = new Font("黑体", 15.75F);
             uiLabel1.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel1.Location = new Point(17, 15);
+            uiLabel1.Location = new Point(26, 20);
             uiLabel1.Name = "uiLabel1";
-            uiLabel1.Size = new Size(131, 27);
+            uiLabel1.Size = new Size(125, 29);
             uiLabel1.TabIndex = 0;
-            uiLabel1.Text = "播放队列";
+            uiLabel1.Text = "收藏";
             // 
-            // PlayList
+            // Favorite
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(uiLabel1);
-            Name = "PlayList";
+            Name = "Favorite";
             Size = new Size(1059, 602);
             ResumeLayout(false);
         }

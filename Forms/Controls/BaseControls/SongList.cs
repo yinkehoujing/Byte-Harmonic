@@ -26,6 +26,8 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             this.Margin = new Padding(10);
         }
 
+
+
         public void LoadSongs(List<Song> songs)
         {
             flowLayoutPanel.Controls.Clear(); // 清空现有项
