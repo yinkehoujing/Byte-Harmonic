@@ -42,7 +42,20 @@ namespace Byte_Harmonic.Services
         {
             return await _userRepository.GetFavoriteSongsCountAsync(username);
         }
-        
+        //批量收藏
+        public async Task<bool> AddFavoriteSongsAsync(string username, IEnumerable<int> SongIds)
+        {
+            foreach (var songId in SongIds)
+            {
+                if (!await AddFavoriteSongAsync(username, songId))
+                {
+                    // 如果添加失败，返回 false
+                    return false;
+                }
+            }
+            return true;
+        }
+
 
         // 清空用户的所有收藏
         public async Task<bool> ClearAllFavoritesAsync(string username)

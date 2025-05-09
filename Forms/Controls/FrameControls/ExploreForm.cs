@@ -991,7 +991,7 @@ namespace Byte_Harmonic.Forms
             else
             {
                 int temp = AppContext._playbackService.GetCurrentSong().Id;
-                _favoritesService.AddFavoriteSongsAsync(AppContext.currentUser.Account, new[] { temp });
+                _favoritesService.AddFavoriteSongAsync(AppContext.currentUser.Account,  temp );
                 bool isFavorite = _favoritesService.IsSongFavorite(AppContext.currentUser.Account, AppContext._playbackService.GetCurrentSong().Id);
                 starControl.InitStarButton(true);
             }
