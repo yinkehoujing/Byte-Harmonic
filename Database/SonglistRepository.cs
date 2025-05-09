@@ -429,7 +429,7 @@ namespace Byte_Harmonic.Database
             const string baseSql = @"SELECT 
             Id,
             Name,
-            Owner,
+            Owner
             FROM Playlists
             WHERE Id = @songlistId";
 

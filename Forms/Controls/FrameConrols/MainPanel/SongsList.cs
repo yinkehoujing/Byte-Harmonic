@@ -48,16 +48,16 @@ namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
                 }
             };
 
-            // 失去焦点也退出编辑
-            uiTextBox1.Leave += (s, e) =>
-            {
-                Console.WriteLine($"修改后内容: {uiTextBox1.Text}");
-                new MainForms.MessageForm("修改歌单名成功!").ShowDialog();
-                // TODO 修改歌单名
-                AppContext.songlistRepository.UpdateSonglistName(AppContext.currentViewingSonglist.Id, uiTextBox1.Text, AppContext.currentUser.Account);
-                AppContext.TriggerReloadSideSonglist();
+            //// 失去焦点也退出编辑
+            //uiTextBox1.Leave += (s, e) =>
+            //{
+            //    Console.WriteLine($"修改后内容: {uiTextBox1.Text}");
+            //    new MainForms.MessageForm("修改歌单名成功!").ShowDialog();
+            //    // TODO 修改歌单名
+            //    AppContext.songlistRepository.UpdateSonglistName(AppContext.currentViewingSonglist.Id, uiTextBox1.Text, AppContext.currentUser.Account);
+            //    AppContext.TriggerReloadSideSonglist();
 
-            };
+            //};
         }
 
         private void uiImageButton1_Click(object sender, EventArgs e)
