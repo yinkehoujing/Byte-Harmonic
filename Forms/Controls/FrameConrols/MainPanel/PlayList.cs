@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Byte_Harmonic.Forms.Controls.BaseControls;
+using Byte_Harmonic.Models;
 
 namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
 {
@@ -31,6 +32,7 @@ namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
         private void AppContext_PlaylistUpdated()
         {
             songlist.LoadSongs(AppContext._playbackService.GetPlaylist().PlaySongs);
+            songlist.BulkOperateChange();
         }
     }
 }

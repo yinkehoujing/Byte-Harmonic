@@ -335,6 +335,26 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             }
         }
 
+        public void BulkOperateChange()
+        {
+            foreach (SongItem item in flowLayoutPanel.Controls)
+            {
+                item.CancelBulkActions();
+            }
+            SelectAllButton.Visible = false;
+            SelectAllButton.Enabled = false;
+            DeleteAllButton.Visible = false;
+            DeleteAllButton.Enabled = false;
+            AddAllButton.Visible = false;
+            AddAllButton.Enabled = false;
+            DownloadAllButton.Visible = false;
+            DownloadAllButton.Enabled = false;
+            StarAllButton.Visible = false;
+            StarAllButton.Enabled = false;
+            PlayAllButton.Visible = false;
+            PlayAllButton.Enabled = false;
+        }
+
         private void Control_SizeChanged(object sender, EventArgs e)
         {
             flowLayoutPanel.Location = new Point(
