@@ -50,7 +50,14 @@ namespace Byte_Harmonic.Forms
            
             try
             {
-
+                if (string.IsNullOrWhiteSpace(txtTitle.Text))
+                {
+                    throw new Exception("歌曲名不能为空！");
+                }
+                if(string.IsNullOrWhiteSpace(txtArtist.Text))
+                {
+                    throw new Exception("歌手名不能为空！");
+                }
                 if (!IsValidMp3Path(txtMp3Path.Text))
                 {
                     throw new Exception("请提供正确的 MP3 文件路径!");
@@ -58,6 +65,10 @@ namespace Byte_Harmonic.Forms
                 if (!IsValidLrcPath(txtLrcPath.Text))
                 {
                     throw new Exception("请提供正确的 LRC 文件路径!");
+                }
+                if (!isValidSeconds(uiTextBox1.Text.Trim()))
+                {
+                    throw new Exception("请提供合法的歌曲播放时长!");
                 }
 
                 var newSong = new Song
@@ -67,7 +78,8 @@ namespace Byte_Harmonic.Forms
                     MusicFilePath = txtMp3Path.Text,
                     LrcFilePath = txtLrcPath.Text,
                     Downloaded = true,
-                    Tags = new List<string>(txtTags.Text.Split(','))
+                    Tags = new List<string>(txtTags.Text.Split(',')),
+                    Duration = int.Parse(uiTextBox1.Text.Trim()),
                 };
 
                 await _songService.ImportSongsAsync(newSong);
@@ -107,6 +119,13 @@ namespace Byte_Harmonic.Forms
         {
             var pattern = @"^[a-zA-Z]:\\(?:[^\\/:*?""<>|\r\n]+\\)*[^\\/:*?""<>|\r\n]+\.mp3$";
             return Regex.IsMatch(path, pattern, RegexOptions.IgnoreCase);
+        }
+
+        private bool isValidSeconds(string str)
+        {
+
+            var pattern = @"^\d+$";
+            return Regex.IsMatch(str, pattern, RegexOptions.IgnoreCase);
         }
 
         private bool IsValidLrcPath(string path)
