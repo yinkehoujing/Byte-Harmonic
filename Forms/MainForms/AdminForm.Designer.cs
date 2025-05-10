@@ -56,6 +56,8 @@ namespace Byte_Harmonic.Forms
             lblTags = new UILabel();
             txtTags = new UITextBox();
             btnCreate = new UIButton();
+            uiLabel1 = new UILabel();
+            uiTextBox1 = new UITextBox();
             tabControl.SuspendLayout();
             tabPage1.SuspendLayout();
             SuspendLayout();
@@ -86,6 +88,8 @@ namespace Byte_Harmonic.Forms
             // tabPage1
             // 
             tabPage1.BackColor = Color.White;
+            tabPage1.Controls.Add(uiLabel1);
+            tabPage1.Controls.Add(uiTextBox1);
             tabPage1.Controls.Add(lblTitle);
             tabPage1.Controls.Add(txtTitle);
             tabPage1.Controls.Add(lblArtist);
@@ -109,7 +113,7 @@ namespace Byte_Harmonic.Forms
             // 
             lblTitle.Font = new Font("黑体", 14.25F);
             lblTitle.ForeColor = Color.FromArgb(48, 48, 48);
-            lblTitle.Location = new Point(82, 81);
+            lblTitle.Location = new Point(76, 34);
             lblTitle.Name = "lblTitle";
             lblTitle.Size = new Size(92, 25);
             lblTitle.TabIndex = 0;
@@ -118,7 +122,7 @@ namespace Byte_Harmonic.Forms
             // txtTitle
             // 
             txtTitle.Font = new Font("黑体", 12F);
-            txtTitle.Location = new Point(269, 71);
+            txtTitle.Location = new Point(263, 24);
             txtTitle.Margin = new Padding(4, 5, 4, 5);
             txtTitle.MinimumSize = new Size(1, 16);
             txtTitle.Name = "txtTitle";
@@ -134,7 +138,7 @@ namespace Byte_Harmonic.Forms
             // 
             lblArtist.Font = new Font("黑体", 14.25F);
             lblArtist.ForeColor = Color.FromArgb(48, 48, 48);
-            lblArtist.Location = new Point(82, 151);
+            lblArtist.Location = new Point(76, 104);
             lblArtist.Name = "lblArtist";
             lblArtist.Size = new Size(92, 25);
             lblArtist.TabIndex = 2;
@@ -143,7 +147,7 @@ namespace Byte_Harmonic.Forms
             // txtArtist
             // 
             txtArtist.Font = new Font("黑体", 12F);
-            txtArtist.Location = new Point(269, 141);
+            txtArtist.Location = new Point(263, 94);
             txtArtist.Margin = new Padding(4, 5, 4, 5);
             txtArtist.MinimumSize = new Size(1, 16);
             txtArtist.Name = "txtArtist";
@@ -159,7 +163,7 @@ namespace Byte_Harmonic.Forms
             // 
             lblMp3.Font = new Font("黑体", 14.25F);
             lblMp3.ForeColor = Color.FromArgb(48, 48, 48);
-            lblMp3.Location = new Point(82, 221);
+            lblMp3.Location = new Point(76, 174);
             lblMp3.Name = "lblMp3";
             lblMp3.Size = new Size(92, 25);
             lblMp3.TabIndex = 4;
@@ -168,7 +172,7 @@ namespace Byte_Harmonic.Forms
             // txtMp3Path
             // 
             txtMp3Path.Font = new Font("黑体", 12F);
-            txtMp3Path.Location = new Point(269, 211);
+            txtMp3Path.Location = new Point(263, 164);
             txtMp3Path.Margin = new Padding(4, 5, 4, 5);
             txtMp3Path.MinimumSize = new Size(1, 16);
             txtMp3Path.Name = "txtMp3Path";
@@ -186,7 +190,7 @@ namespace Byte_Harmonic.Forms
             btnSelectMp3.FillHoverColor = Color.FromArgb(166, 215, 231);
             btnSelectMp3.FillPressColor = Color.FromArgb(166, 215, 231);
             btnSelectMp3.Font = new Font("黑体", 12F);
-            btnSelectMp3.Location = new Point(589, 211);
+            btnSelectMp3.Location = new Point(583, 164);
             btnSelectMp3.MinimumSize = new Size(1, 1);
             btnSelectMp3.Name = "btnSelectMp3";
             btnSelectMp3.RectColor = Color.FromArgb(163, 199, 224);
@@ -202,7 +206,7 @@ namespace Byte_Harmonic.Forms
             // 
             lblLrc.Font = new Font("黑体", 14.25F);
             lblLrc.ForeColor = Color.FromArgb(48, 48, 48);
-            lblLrc.Location = new Point(82, 296);
+            lblLrc.Location = new Point(76, 249);
             lblLrc.Name = "lblLrc";
             lblLrc.Size = new Size(92, 25);
             lblLrc.TabIndex = 7;
@@ -211,7 +215,7 @@ namespace Byte_Harmonic.Forms
             // txtLrcPath
             // 
             txtLrcPath.Font = new Font("黑体", 12F);
-            txtLrcPath.Location = new Point(269, 286);
+            txtLrcPath.Location = new Point(263, 239);
             txtLrcPath.Margin = new Padding(4, 5, 4, 5);
             txtLrcPath.MinimumSize = new Size(1, 16);
             txtLrcPath.Name = "txtLrcPath";
@@ -229,7 +233,7 @@ namespace Byte_Harmonic.Forms
             btnSelectLrc.FillHoverColor = Color.FromArgb(166, 215, 231);
             btnSelectLrc.FillPressColor = Color.FromArgb(166, 215, 231);
             btnSelectLrc.Font = new Font("黑体", 12F);
-            btnSelectLrc.Location = new Point(589, 286);
+            btnSelectLrc.Location = new Point(583, 239);
             btnSelectLrc.MinimumSize = new Size(1, 1);
             btnSelectLrc.Name = "btnSelectLrc";
             btnSelectLrc.RectColor = Color.FromArgb(163, 199, 224);
@@ -245,7 +249,7 @@ namespace Byte_Harmonic.Forms
             // 
             lblTags.Font = new Font("黑体", 14.25F);
             lblTags.ForeColor = Color.FromArgb(48, 48, 48);
-            lblTags.Location = new Point(82, 371);
+            lblTags.Location = new Point(76, 324);
             lblTags.Name = "lblTags";
             lblTags.Size = new Size(180, 25);
             lblTags.TabIndex = 10;
@@ -254,7 +258,7 @@ namespace Byte_Harmonic.Forms
             // txtTags
             // 
             txtTags.Font = new Font("黑体", 12F);
-            txtTags.Location = new Point(269, 361);
+            txtTags.Location = new Point(263, 314);
             txtTags.Margin = new Padding(4, 5, 4, 5);
             txtTags.MinimumSize = new Size(1, 16);
             txtTags.Name = "txtTags";
@@ -286,6 +290,31 @@ namespace Byte_Harmonic.Forms
             btnCreate.Text = "新建";
             btnCreate.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
             // 
+            // uiLabel1
+            // 
+            uiLabel1.Font = new Font("黑体", 14.25F);
+            uiLabel1.ForeColor = Color.FromArgb(48, 48, 48);
+            uiLabel1.Location = new Point(76, 390);
+            uiLabel1.Name = "uiLabel1";
+            uiLabel1.Size = new Size(92, 25);
+            uiLabel1.TabIndex = 13;
+            uiLabel1.Text = "播放秒数";
+            // 
+            // uiTextBox1
+            // 
+            uiTextBox1.Font = new Font("黑体", 12F);
+            uiTextBox1.Location = new Point(263, 380);
+            uiTextBox1.Margin = new Padding(4, 5, 4, 5);
+            uiTextBox1.MinimumSize = new Size(1, 16);
+            uiTextBox1.Name = "uiTextBox1";
+            uiTextBox1.Padding = new Padding(5);
+            uiTextBox1.RectColor = Color.FromArgb(163, 199, 224);
+            uiTextBox1.ShowText = false;
+            uiTextBox1.Size = new Size(400, 35);
+            uiTextBox1.TabIndex = 14;
+            uiTextBox1.TextAlignment = ContentAlignment.MiddleLeft;
+            uiTextBox1.Watermark = "";
+            // 
             // AdminForm
             // 
             ClientSize = new Size(800, 600);
@@ -304,5 +333,8 @@ namespace Byte_Harmonic.Forms
             ResumeLayout(false);
         }
         #endregion
+
+        private UILabel uiLabel1;
+        private UITextBox uiTextBox1;
     }
 }
