@@ -188,12 +188,12 @@ namespace Services
             return _currentSong;
         }
 
-        public void SetPlaylist(Playlist playlist)
+        public void SetPlaylist(Playlist playlist, int index = -1)
         {
             Console.WriteLine("reached SetPlaylist....");
             Console.WriteLine($"{playlist.PlaybackMode}");
             _playlist = playlist;
-            _currentIndex = -1;
+            _currentIndex = index;
             _currentSong = null;
         }
 

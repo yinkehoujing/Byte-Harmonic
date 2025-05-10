@@ -590,6 +590,11 @@ namespace Byte_Harmonic.Forms
                 current = AppContext._playbackService.GetPlaylist().PlaySongs[0];
             }
             AppContext.TriggerupdateSongUI(current);
+            AppContext.TriggerShowPlayingBtn(true);
+            AppContext.StartTimer();
+            var text = AppContext._playbackService.GetCurrentLyricsLine()?.Text ?? "（无歌词）";
+            var position = AppContext._playbackService.GetCurrentPosition();
+            AppContext.TriggerLyricsUpdated(text, position);
         }
 
         private void uiImageButton7_Click(object sender, EventArgs e)
@@ -607,6 +612,12 @@ namespace Byte_Harmonic.Forms
                 current = AppContext._playbackService.GetPlaylist().PlaySongs[0];
             }
             AppContext.TriggerupdateSongUI(current);
+            AppContext.TriggerShowPlayingBtn(true);
+            AppContext.StartTimer();
+
+            var text = AppContext._playbackService.GetCurrentLyricsLine()?.Text ?? "（无歌词）";
+            var position = AppContext._playbackService.GetCurrentPosition();
+            AppContext.TriggerLyricsUpdated(text, position);
 
         }
 
