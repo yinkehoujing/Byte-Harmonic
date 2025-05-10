@@ -968,6 +968,8 @@ namespace Byte_Harmonic.Forms
                 _favoritesService.RemoveFavoriteSongAsync(AppContext.currentUser.Account, AppContext._playbackService.GetCurrentSong().Id);
                 // bool isFavorite = _favoritesService.IsSongFavorite(AppContext.currentUser.Account, AppContext._playbackService.GetCurrentSong().Id);
                 starControl.InitStarButton(false);
+                new MessageForm("取消收藏成功!").ShowDialog();
+                AppContext.TriggerFavoriteUpdated();
             }
             else
             {
@@ -975,6 +977,8 @@ namespace Byte_Harmonic.Forms
                 _favoritesService.AddFavoriteSongAsync(AppContext.currentUser.Account, temp);
                 bool isFavorite = _favoritesService.IsSongFavorite(AppContext.currentUser.Account, AppContext._playbackService.GetCurrentSong().Id);
                 starControl.InitStarButton(true);
+                new MessageForm("收藏成功!").ShowDialog();
+                AppContext.TriggerFavoriteUpdated();
             }
         }
 
