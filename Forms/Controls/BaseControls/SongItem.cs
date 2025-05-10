@@ -90,7 +90,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
 
         private void deleteButton1_Click(object sender, EventArgs e)
         {
-            //TODO：调用删除的后端程序
+            //调用删除的后端程序
             try
             {
                 var parent = this.Parent;
