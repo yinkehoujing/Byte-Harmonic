@@ -58,7 +58,7 @@ namespace Byte_Harmonic.Forms
             _searchService = new SearchService(AppContext.songlistRepository, AppContext.userRepository, AppContext.userService);
 
             AppContext.PlaybackModeChanged += OnPlaybackModeChanged;
-            var songlist = AppContext._songRepository.GetAllSongs();
+            var songlist = AppContext._songRepository.GetAllSongs(6); // 只准备 6 首歌在播放队列
 
             if (songlist.Count <= 0)
             {

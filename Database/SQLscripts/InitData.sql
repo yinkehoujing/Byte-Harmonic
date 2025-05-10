@@ -3,15 +3,21 @@ SET NAMES utf8mb4;
 -- 插入歌曲
 INSERT INTO Songs (Title, Artist, MusicFilePath, LrcFilePath, Downloaded, Duration)
 VALUES 
-('天外来物', '薛之谦','Musics/tianwailaiwu.mp3','Lyrics/tianwailaiwu.lrc',1, 240+17),
+('天外来物', '薛之谦','Musics/tianwailaiwu.mp3','Lyrics/tianwailaiwu.lrc',1, 240+17), 
 ('传奇', '王菲','Musics/chuanqi_wangfei.mp3','Lyrics/chuanqi_wangfei.lrc',1, 240+56),
 ('海阔天空', 'Beyond','Musics/haikuotiankong.mp3','Lyrics/haikuotiankong.lrc',1, 300+7),
 ('最炫民族风', '凤凰传奇','Musics/zuixuanminzufeng.mp3','Lyrics/zuixuanminzufeng.lrc',1, 240+44),
-('公子向北走', '花僮', 'Musics/example.mp3', 'Lyrics/example.lrc', 1, 244),
-('一笑江湖', '闻人听书', 'Musics/example2.mp3', 'Lyrics/example2.lrc', 1, 120+46),
-('探故知', '浅影阿', 'Musics/example3.mp3', 'Lyrics/example3.lrc', 1, 180+4),
+('霜雪千年', '双笙', 'Musics/shuangxueqiannian.mp3', 'Lyrics/shuangxueqiannian.lrc', 1, 246),
+('美人画卷', '闻人听书', 'Musics/meirenhuajuan.mp3', 'Lyrics/meirenhuajuan.lrc', 1, 180+28),
+('探故知', '浅影阿', 'Musics/example3.mp3', 'Lyrics/example3.lrc', 1, 180+21),
 ('如愿', '王菲','Musics/ruyuan_wangfei.mp3','Lyrics/ruyuan_wangfei.lrc',1, 240+25),
-('传奇', '李健','Musics/chuanqi_lijian.mp3','Lyrics/chuanqi_lijian.lrc',1, 240+54);
+('传奇', '李健','Musics/chuanqi_lijian.mp3','Lyrics/chuanqi_lijian.lrc',1, 240+54),
+('国王与乞丐', '华晨宇','Musics/guowangyuqigai.mp3','Lyrics/guowangyuqigai.lrc',1, 120+58),
+('素颜', '许嵩','Musics/suyan.mp3','Lyrics/suyan.lrc',1, 180+57),
+('唯一', '邓紫棋','Musics/weiyi_dengziqi.mp3','Lyrics/weiyi_dengziqi.lrc',1, 240+12),
+('意外', '薛之谦','Musics/yiwai_xuezhiqian.mp3','Lyrics/yiwai_xuezhiqian.lrc',1, 240+51),
+('Faded', 'Alan Walker','Musics/Faded.mp3','Lyrics/Faded.lrc',1, 180+31),
+('Just Like This', 'Deepmaniak','Musics/justlikethis.mp3','Lyrics/justlikethis.lrc',1, 240+50);
 
 -- 插入初始管理员
 -- 管理员密码为123456789
@@ -85,7 +91,10 @@ VALUES
 (5, 8),  
 (5, 9);  
 
--- 第 6 个歌单为空
+INSERT INTO SonglistSongs (SonglistId, SongId)
+VALUES
+(6, 14),  
+(6, 15);
 
 -- 用户歌单
 
@@ -167,5 +176,34 @@ INSERT INTO Favorites (Username, SongId) VALUES
 
 INSERT INTO Favorites (Username, SongId) VALUES
 ('user', 1),  -- 天外来物
-('user', 2);  -- 传奇（王菲）
+('user', 2),  -- 传奇（王菲）
+('user', 12),  
+('user', 13); 
 
+-- 国王与乞丐（抒情、浪漫）
+INSERT INTO SongTags (SongId, TagId) VALUES 
+(10, 2),  -- 抒情
+(10, 3);  -- 浪漫
+
+-- 素颜（抒情）
+INSERT INTO SongTags (SongId, TagId) VALUES 
+(11, 2);  -- 抒情
+
+-- 唯一（抒情、浪漫）
+INSERT INTO SongTags (SongId, TagId) VALUES 
+(12, 2),  -- 抒情
+(12, 3);  -- 浪漫
+
+-- 意外（抒情）
+INSERT INTO SongTags (SongId, TagId) VALUES 
+(13, 2);  -- 抒情
+
+-- Faded（电子、动感）
+INSERT INTO SongTags (SongId, TagId) VALUES 
+(14, 4),  -- 电子
+(14, 1);  -- 动感
+
+-- Just Like This（电子、动感）
+INSERT INTO SongTags (SongId, TagId) VALUES 
+(15, 4),  -- 电子
+(15, 1);  -- 动感
