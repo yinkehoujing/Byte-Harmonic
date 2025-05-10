@@ -64,6 +64,7 @@ namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
         // 退出登录
         private void btnLogout_Click(object sender, EventArgs e)
         {
+            AppContext._playbackService.Stop();
             AppContext.userService.Logout();
             var loginForm = new LoginForm();
             this.Hide();
