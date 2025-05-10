@@ -23,6 +23,26 @@ namespace Byte_Harmonic.Services
         }
 
         // 按关键字搜索歌曲（标题、歌手）
+        //public async Task<List<Song>> SearchSongs(string keyword)
+        //{
+        //    if (string.IsNullOrWhiteSpace(keyword))
+        //        return new List<Song>();
+
+        //    // 记录搜索历史
+        //    var currentUser = AppContext.currentUser;
+        //    if (currentUser != null)
+        //    {
+        //        await _userRepo.AddSearchHistoryAsync(currentUser.Account, keyword);
+        //    }
+
+        //    var allSongs = await _repository.GetAllSongsAsync();
+        //    keyword = keyword.ToLower();
+        //    return allSongs.Where(s =>
+        //        (!string.IsNullOrEmpty(s.Title) && s.Title.ToLower().Contains(keyword)) ||
+        //        (!string.IsNullOrEmpty(s.Artist) && s.Artist.ToLower().Contains(keyword))
+        //    ).ToList();
+        //}
+
         public async Task<List<Song>> SearchSongs(string keyword)
         {
             if (string.IsNullOrWhiteSpace(keyword))
@@ -36,12 +56,22 @@ namespace Byte_Harmonic.Services
             }
 
             var allSongs = await _repository.GetAllSongsAsync();
-            keyword = keyword.ToLower();
+            keyword = keyword.ToLower().Trim();
+
             return allSongs.Where(s =>
-                (!string.IsNullOrEmpty(s.Title) && s.Title.ToLower().Contains(keyword)) ||
-                (!string.IsNullOrEmpty(s.Artist) && s.Artist.ToLower().Contains(keyword))
-            ).ToList();
+            {
+                var title = s.Title?.ToLower() ?? "";
+                var artist = s.Artist?.ToLower() ?? "";
+                var combined = $"{artist} - {title}".Trim();
+
+                return title.Contains(keyword)             // 匹配标题
+                    || artist.Contains(keyword)            // 匹配歌手
+                    || combined.Contains(keyword)          // 模糊匹配组合
+                    || combined.Equals(keyword);           // 完整匹配原始 "Artist - Title"
+            }).ToList();
         }
+
+
         //只是用于推荐
         public async Task<List<Song>> JustSearchSong(string keyword)
         {
