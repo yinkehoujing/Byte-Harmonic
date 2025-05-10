@@ -38,6 +38,22 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
         public void LoadSongs(List<Song> songs)
         {
             Console.WriteLine("Load Songs");
+
+            //更新批量处理按钮
+            SelectAllButton.Visible = false;
+            SelectAllButton.Enabled = false;
+            DeleteAllButton.Visible = false;
+            DeleteAllButton.Enabled = false;
+            AddAllButton.Visible = false;
+            AddAllButton.Enabled = false;
+            DownloadAllButton.Visible = false;
+            DownloadAllButton.Enabled = false;
+            StarAllButton.Visible = false;
+            StarAllButton.Enabled = false;
+            PlayAllButton.Visible = false;
+            PlayAllButton.Enabled = false;
+            enableBulkOp = false;
+
             flowLayoutPanel.Controls.Clear(); // 清空现有项
 
             bool isWhite = false; // 初始颜色标记
@@ -333,26 +349,6 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
                 PlayAllButton.Visible = false;
                 PlayAllButton.Enabled = false;
             }
-        }
-
-        public void BulkOperateChange()
-        {
-            foreach (SongItem item in flowLayoutPanel.Controls)
-            {
-                item.CancelBulkActions();
-            }
-            SelectAllButton.Visible = false;
-            SelectAllButton.Enabled = false;
-            DeleteAllButton.Visible = false;
-            DeleteAllButton.Enabled = false;
-            AddAllButton.Visible = false;
-            AddAllButton.Enabled = false;
-            DownloadAllButton.Visible = false;
-            DownloadAllButton.Enabled = false;
-            StarAllButton.Visible = false;
-            StarAllButton.Enabled = false;
-            PlayAllButton.Visible = false;
-            PlayAllButton.Enabled = false;
         }
 
         private void Control_SizeChanged(object sender, EventArgs e)

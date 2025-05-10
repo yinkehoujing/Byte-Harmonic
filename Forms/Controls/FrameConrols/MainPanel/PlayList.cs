@@ -32,7 +32,6 @@ namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
         private void AppContext_PlaylistUpdated()
         {
             songlist.LoadSongs(AppContext._playbackService.GetPlaylist().PlaySongs);
-            songlist.BulkOperateChange();
         }
     }
 }
