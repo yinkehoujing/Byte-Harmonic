@@ -31,6 +31,11 @@ namespace Byte_Harmonic.Services
             return await _userRepository.RemoveFavoriteSongAsync(username, songId);
         }
 
+        public bool RemoveFavoriteSong(string username, int songId)
+        {
+            return _userRepository.RemoveFavoriteSong(username, songId);
+        }
+
         // 获取用户收藏的所有歌曲
         public async Task<List<Song>> GetFavoriteSongsAsync(string username)
         {

@@ -61,6 +61,8 @@ namespace Byte_Harmonic.Forms
                 AppContext.TriggerLyricsUpdated(text, position);
                 AppContext.TriggerShowPlayingBtn(!AppContext._playbackService.IsPaused);
                 AppContext.TriggerPlaybackModeChanged(AppContext._playbackService.PlaybackMode);
+                bool isFavorite2 = _favoritesService.IsSongFavorite(AppContext.currentUser.Account, song.Id);
+                starControl.InitStarButton(isFavorite2);//初始化收藏按钮
             }
 
             uiTrackBar1.MouseDown += (s, e2) => { _isDragging = true; };
@@ -232,6 +234,8 @@ namespace Byte_Harmonic.Forms
             {
                 uiLabel3.Text = $"{currentSong.Title}——{currentSong.Artist}";
                 UpdateTrackBarMaximum(); // 播放下一首后更新 UI
+                bool isFavorite = _favoritesService.IsSongFavorite(AppContext.currentUser.Account, currentSong.Id);
+                starControl.InitStarButton(isFavorite);//初始化收藏按钮
 
             });
         }

@@ -201,6 +201,19 @@ namespace Byte_Harmonic.Database
             return await cmd.ExecuteNonQueryAsync() > 0;
         }
 
+        public bool RemoveFavoriteSong(string username, int songId)
+        {
+            using var connection = new MySqlConnection(_connectionString);
+            connection.Open();
+
+            const string sql = "DELETE FROM Favorites WHERE Username = @Username AND SongId = @SongId";
+            using var cmd = new MySqlCommand(sql, connection);
+            cmd.Parameters.AddWithValue("@Username", username);
+            cmd.Parameters.AddWithValue("@SongId", songId);
+
+            return cmd.ExecuteNonQuery() > 0;
+        }
+
         // 获取用户收藏的所有歌曲
         public async Task<List<Song>> GetFavoriteSongsAsync(string username)
         {
@@ -236,7 +249,42 @@ namespace Byte_Harmonic.Database
             return songs;
         }
 
-        
+        public List<Song> GetFavoriteSongs(string username)
+        {
+            var songs = new List<Song>();
+            using var connection = new MySqlConnection(_connectionString);
+            connection.Open();
+
+            const string sql = @"
+    SELECT s.Id, s.Title, s.Artist, s.MusicFilePath, s.LrcFilePath, s.Downloaded, s.Duration
+    FROM Favorites f
+    JOIN Songs s ON f.SongId = s.Id
+    WHERE f.Username = @Username
+    ORDER BY s.Title";
+
+            using var cmd = new MySqlCommand(sql, connection);
+            cmd.Parameters.AddWithValue("@Username", username);
+
+            using var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                songs.Add(new Song
+                {
+                    Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                    Title = reader.GetString(reader.GetOrdinal("Title")),
+                    Artist = reader.GetString(reader.GetOrdinal("Artist")),
+                    MusicFilePath = reader.GetString(reader.GetOrdinal("MusicFilePath")),
+                    LrcFilePath = reader.IsDBNull(reader.GetOrdinal("LrcFilePath")) ? null : reader.GetString(reader.GetOrdinal("LrcFilePath")),
+                    Downloaded = reader.GetBoolean(reader.GetOrdinal("Downloaded")),
+                    Duration = reader.GetInt32(reader.GetOrdinal("Duration"))
+                });
+            }
+
+            return songs;
+        }
+
+
+
 
         // 获取用户收藏歌曲的数量
         public async Task<int> GetFavoriteSongsCountAsync(string username)
