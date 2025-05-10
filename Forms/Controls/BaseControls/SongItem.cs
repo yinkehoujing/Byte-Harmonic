@@ -125,6 +125,13 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
                 else if (parent is Favorite)
                 {
                     Console.WriteLine("收藏页删除逻辑");
+                    var favoriteService = new FavoritesService(AppContext.userRepository);
+                    favoriteService.RemoveFavoriteSong(AppContext.currentUser.Account, songID);
+
+                    // 更新 UI
+                    AppContext.TriggerStarUpdated();
+                    AppContext.TriggerFavoriteUpdated();
+                    //AppContext.TriggerupdateSongUI(AppContext._playbackService.GetCurrentSong());
                 }
                 else
                 {

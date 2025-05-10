@@ -37,6 +37,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
 
         public void LoadSongs(List<Song> songs)
         {
+            Console.WriteLine("Load Songs");
             flowLayoutPanel.Controls.Clear(); // 清空现有项
 
             bool isWhite = false; // 初始颜色标记
@@ -201,6 +202,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             var toRemoveFromDownload = new List<int>();
             var toRemoveFromPlaylist = new List<int>();
             var toRemoveFromSonglist = new List<int>();
+            var toRemoveFromFavorites = new List<int>();
 
             bool isDownloadPage = false, isPlaylistPage = false, isFavoritePage = false, isSonglistPage = false;
 
@@ -235,8 +237,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
                 }
                 else if (isFavoritePage)
                 {
-                    // TODO: Add logic if needed
-                    Console.WriteLine("收藏页删除逻辑");
+                    toRemoveFromFavorites.Add(songID);
                 }
             }
 
@@ -270,6 +271,17 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
                         );
                     }
                     AppContext.TriggerSonglistDetailUpdated(AppContext.currentViewingSonglist.Name);
+                }
+
+                if (isFavoritePage && toRemoveFromFavorites.Count > 0)
+                {
+                    var favoriteService = new FavoritesService(AppContext.userRepository);
+                    foreach (var id in toRemoveFromFavorites)
+                    {
+                        favoriteService.RemoveFavoriteSong(AppContext.currentUser.Account, id);
+                    }
+                    AppContext.TriggerStarUpdated();
+                    AppContext.TriggerFavoriteUpdated();
                 }
             }
             catch (Exception ex)

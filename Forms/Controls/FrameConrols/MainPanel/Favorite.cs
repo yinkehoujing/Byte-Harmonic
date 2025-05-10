@@ -21,20 +21,26 @@ namespace Byte_Harmonic.Forms.Controls.FrameControls.MainPanel
                 Console.WriteLine($"{AppContext.currentViewingSonglist.Name} and has {AppContext.currentViewingSonglist.Songs.Count} songs");
             }
             InitializeComponent();
+            AppContext.FavoriteUpdated += AppContext_FavoriteUpdated;
             songlist = new SongList();
-            _ = InitializeAsync();
+            AppContext_FavoriteUpdated();
             this.Controls.Add(songlist);
         }
 
-        private async Task InitializeAsync()
+        private void AppContext_FavoriteUpdated()
         {
             if (AppContext.currentViewingSonglist != null)
             {
                 Console.WriteLine($"{AppContext.currentViewingSonglist.Name} and has {AppContext.currentViewingSonglist.Songs.Count} songs");
             }
 
-            var songs = await AppContext.userRepository.GetFavoriteSongsAsync(AppContext.currentUser.Account);
+            var songs = AppContext.userRepository.GetFavoriteSongs(AppContext.currentUser.Account);
             songlist.LoadSongs(songs);
+        }
+
+        private async Task InitializeAsync()
+        {
+          
         }
 
         private void Favorite_Load(object sender, EventArgs e)

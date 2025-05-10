@@ -45,6 +45,8 @@ namespace Byte_Harmonic.Forms
         public static event Action PlaylistUpdated;// 更新播放列表显示
 
         public static event Action DownloadUpdated;// 更新下载列表显示
+        public static event Action StarUpdated; // 其它页面更新图标，探索页面更新图标
+        public static event Action FavoriteUpdated; // 更新播放页显示
 
 
         // 实际响应，修改 PlaybackService 对象
@@ -93,6 +95,12 @@ namespace Byte_Harmonic.Forms
         {
             Console.WriteLine("TriggerDownloadUpdated");
             DownloadUpdated?.Invoke();
+        }
+
+        public static void TriggerFavoriteUpdated()
+        {
+            Console.WriteLine("TriggerFavoriteUpdated");
+            FavoriteUpdated?.Invoke();
         }
 
         public static void TriggerReloadSideSonglist()
@@ -287,9 +295,10 @@ namespace Byte_Harmonic.Forms
             }
         }
 
-        internal static void TriggerVolumeChanged(object getVolume)
+
+        public static void TriggerStarUpdated()
         {
-            throw new NotImplementedException();
+            StarUpdated?.Invoke();
         }
     }
 }

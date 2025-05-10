@@ -43,6 +43,8 @@ namespace Byte_Harmonic.Forms.FormUtils
             _isStared = !_isStared;
             
             UpdateButtonImage();//更改显示收藏状态
+
+            AppContext.TriggerFavoriteUpdated();
         }
 
         // 私有方法：更新按钮图标

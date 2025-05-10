@@ -52,6 +52,7 @@ namespace Byte_Harmonic.Forms
             AppContext.ShowPlayingBtn += OnShowPlayingBtn;
             AppContext.SonglistLoaded += LoadSonglistToPanel;
             AppContext.ReloadSideSonglist += InitializeSongsList;
+            AppContext.StarUpdated += OnStarUpdated;
             AppContext.ChangeSearchBox += OnChangeSearchBox;
             //初始化searchservice
             _searchService = new SearchService(AppContext.songlistRepository, AppContext.userRepository, AppContext.userService);
@@ -103,6 +104,13 @@ namespace Byte_Harmonic.Forms
             };
         }
 
+        private void OnStarUpdated()
+        {
+            //HighlightCurrentLine(position); // 高亮当前行
+            Console.WriteLine("触发 OnStarUpdated 事件");
+            bool isFavorite = _favoritesService.IsSongFavorite(AppContext.currentUser.Account, AppContext._playbackService.GetCurrentSong().Id);
+            starControl.InitStarButton(isFavorite);
+        }
 
         private void OnPlaybackModeChanged(PlaybackMode mode)
         {
