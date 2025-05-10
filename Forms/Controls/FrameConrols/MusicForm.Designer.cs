@@ -38,7 +38,6 @@ namespace Byte_Harmonic.Forms
             uiImageButton14 = new Sunny.UI.UIImageButton();
             uiImageButton13 = new Sunny.UI.UIImageButton();
             uiImageButton11 = new Sunny.UI.UIImageButton();
-            uiImageButton10 = new Sunny.UI.UIImageButton();
             uiImageButton9 = new Sunny.UI.UIImageButton();
             uiImageButton8 = new Sunny.UI.UIImageButton();
             uiImageButton7 = new Sunny.UI.UIImageButton();
@@ -61,7 +60,6 @@ namespace Byte_Harmonic.Forms
             ((System.ComponentModel.ISupportInitialize)uiImageButton14).BeginInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton13).BeginInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton11).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)uiImageButton10).BeginInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton9).BeginInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton8).BeginInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton7).BeginInit();
@@ -127,23 +125,6 @@ namespace Byte_Harmonic.Forms
             uiImageButton11.Text = null;
             uiImageButton11.ZoomScaleDisabled = true;
             uiImageButton11.Click += uiImageButton11_Click;
-            // 
-            // uiImageButton10
-            // 
-            uiImageButton10.Anchor = AnchorStyles.None;
-            uiImageButton10.BackColor = Color.White;
-            uiImageButton10.Cursor = Cursors.Hand;
-            uiImageButton10.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiImageButton10.Image = (Image)resources.GetObject("uiImageButton10.Image");
-            uiImageButton10.ImageHover = (Image)resources.GetObject("uiImageButton10.ImageHover");
-            uiImageButton10.Location = new Point(775, 612);
-            uiImageButton10.Name = "uiImageButton10";
-            uiImageButton10.Size = new Size(30, 30);
-            uiImageButton10.SizeMode = PictureBoxSizeMode.StretchImage;
-            uiImageButton10.TabIndex = 37;
-            uiImageButton10.TabStop = false;
-            uiImageButton10.Text = null;
-            uiImageButton10.ZoomScaleDisabled = true;
             // 
             // uiImageButton9
             // 
@@ -386,7 +367,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton17.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiImageButton17.Image = (Image)resources.GetObject("uiImageButton17.Image");
             uiImageButton17.ImageHover = (Image)resources.GetObject("uiImageButton17.ImageHover");
-            uiImageButton17.Location = new Point(36, 634);
+            uiImageButton17.Location = new Point(772, 612);
             uiImageButton17.Name = "uiImageButton17";
             uiImageButton17.Size = new Size(30, 30);
             uiImageButton17.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -404,7 +385,7 @@ namespace Byte_Harmonic.Forms
             uiImageButton2.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiImageButton2.Image = (Image)resources.GetObject("uiImageButton2.Image");
             uiImageButton2.ImageHover = (Image)resources.GetObject("uiImageButton2.ImageHover");
-            uiImageButton2.Location = new Point(91, 634);
+            uiImageButton2.Location = new Point(882, 634);
             uiImageButton2.Name = "uiImageButton2";
             uiImageButton2.Size = new Size(30, 30);
             uiImageButton2.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -431,7 +412,6 @@ namespace Byte_Harmonic.Forms
             Controls.Add(uiImageButton14);
             Controls.Add(uiImageButton13);
             Controls.Add(uiImageButton11);
-            Controls.Add(uiImageButton10);
             Controls.Add(uiImageButton9);
             Controls.Add(uiImageButton8);
             Controls.Add(uiImageButton7);
@@ -447,7 +427,6 @@ namespace Byte_Harmonic.Forms
             ((System.ComponentModel.ISupportInitialize)uiImageButton14).EndInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton13).EndInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton11).EndInit();
-            ((System.ComponentModel.ISupportInitialize)uiImageButton10).EndInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton9).EndInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton8).EndInit();
             ((System.ComponentModel.ISupportInitialize)uiImageButton7).EndInit();
@@ -466,7 +445,6 @@ namespace Byte_Harmonic.Forms
         private Sunny.UI.UIImageButton uiImageButton14;
         private Sunny.UI.UIImageButton uiImageButton13;
         private Sunny.UI.UIImageButton uiImageButton11;
-        private Sunny.UI.UIImageButton uiImageButton10;
         private Sunny.UI.UIImageButton uiImageButton9;
         private Sunny.UI.UIImageButton uiImageButton8;
         private Sunny.UI.UIImageButton uiImageButton7;
