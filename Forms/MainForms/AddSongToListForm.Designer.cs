@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddSongToListForm));
-            BulkOperateButton = new Sunny.UI.UIButton();
+            CreatListButton = new Sunny.UI.UIButton();
             label1 = new Label();
             uiImageButton2 = new Sunny.UI.UIImageButton();
             flowLayoutPanel = new FlowLayoutPanel();
@@ -42,33 +42,33 @@
             ((System.ComponentModel.ISupportInitialize)uiImageButton1).BeginInit();
             SuspendLayout();
             // 
-            // BulkOperateButton
+            // CreatListButton
             // 
-            BulkOperateButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            BulkOperateButton.FillColor = Color.FromArgb(163, 199, 224);
-            BulkOperateButton.FillColor2 = Color.Transparent;
-            BulkOperateButton.FillHoverColor = Color.Silver;
-            BulkOperateButton.FillPressColor = Color.FromArgb(166, 215, 231);
-            BulkOperateButton.Font = new Font("黑体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            BulkOperateButton.Location = new Point(419, 41);
-            BulkOperateButton.MinimumSize = new Size(1, 1);
-            BulkOperateButton.Name = "BulkOperateButton";
-            BulkOperateButton.Radius = 10;
-            BulkOperateButton.RectColor = Color.FromArgb(163, 199, 224);
-            BulkOperateButton.RectHoverColor = Color.Transparent;
-            BulkOperateButton.Size = new Size(87, 25);
-            BulkOperateButton.TabIndex = 2;
-            BulkOperateButton.Text = "新建歌单";
-            BulkOperateButton.TipsFont = new Font("黑体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            BulkOperateButton.Click += BulkOperateButton_Click;
+            CreatListButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            CreatListButton.FillColor = Color.FromArgb(163, 199, 224);
+            CreatListButton.FillColor2 = Color.Transparent;
+            CreatListButton.FillHoverColor = Color.Silver;
+            CreatListButton.FillPressColor = Color.FromArgb(166, 215, 231);
+            CreatListButton.Font = new Font("黑体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            CreatListButton.Location = new Point(411, 41);
+            CreatListButton.MinimumSize = new Size(1, 1);
+            CreatListButton.Name = "CreatListButton";
+            CreatListButton.Radius = 10;
+            CreatListButton.RectColor = Color.FromArgb(163, 199, 224);
+            CreatListButton.RectHoverColor = Color.Transparent;
+            CreatListButton.Size = new Size(87, 25);
+            CreatListButton.TabIndex = 2;
+            CreatListButton.Text = "新建歌单";
+            CreatListButton.TipsFont = new Font("黑体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            CreatListButton.Click += CreateListButton_Click;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("黑体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
+            label1.Font = new Font("黑体", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 134);
             label1.Location = new Point(51, 46);
             label1.Name = "label1";
-            label1.Size = new Size(167, 16);
+            label1.Size = new Size(209, 19);
             label1.TabIndex = 3;
             label1.Text = "歌单名，初始时不可见";
             // 
@@ -78,9 +78,9 @@
             uiImageButton2.BackColor = Color.Transparent;
             uiImageButton2.Cursor = Cursors.Hand;
             uiImageButton2.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiImageButton2.Image = Properties.Resources.icons8_less_than_100;
+            uiImageButton2.Image = (Image)resources.GetObject("uiImageButton2.Image");
             uiImageButton2.ImageHover = (Image)resources.GetObject("uiImageButton2.ImageHover");
-            uiImageButton2.Location = new Point(12, 42);
+            uiImageButton2.Location = new Point(21, 52);
             uiImageButton2.Name = "uiImageButton2";
             uiImageButton2.Size = new Size(24, 24);
             uiImageButton2.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -94,7 +94,7 @@
             // 
             flowLayoutPanel.Location = new Point(12, 82);
             flowLayoutPanel.Name = "flowLayoutPanel";
-            flowLayoutPanel.Size = new Size(494, 296);
+            flowLayoutPanel.Size = new Size(494, 251);
             flowLayoutPanel.TabIndex = 10;
             // 
             // addButton
@@ -105,7 +105,7 @@
             addButton.FillHoverColor = Color.Silver;
             addButton.FillPressColor = Color.FromArgb(166, 215, 231);
             addButton.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            addButton.Location = new Point(214, 384);
+            addButton.Location = new Point(215, 356);
             addButton.MinimumSize = new Size(1, 1);
             addButton.Name = "addButton";
             addButton.Radius = 10;
@@ -115,13 +115,13 @@
             addButton.TabIndex = 11;
             addButton.Text = "确认";
             addButton.TipsFont = new Font("黑体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            addButton.Click += addButton_Click;
             // 
             // flowLayoutSongsPanel
             // 
+            flowLayoutSongsPanel.AutoScroll = true;
             flowLayoutSongsPanel.Location = new Point(12, 82);
             flowLayoutSongsPanel.Name = "flowLayoutSongsPanel";
-            flowLayoutSongsPanel.Size = new Size(494, 296);
+            flowLayoutSongsPanel.Size = new Size(494, 251);
             flowLayoutSongsPanel.TabIndex = 12;
             // 
             // uiImageButton3
@@ -132,7 +132,7 @@
             uiImageButton3.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiImageButton3.Image = (Image)resources.GetObject("uiImageButton3.Image");
             uiImageButton3.ImageHover = (Image)resources.GetObject("uiImageButton3.ImageHover");
-            uiImageButton3.Location = new Point(435, 7);
+            uiImageButton3.Location = new Point(427, 11);
             uiImageButton3.Name = "uiImageButton3";
             uiImageButton3.Size = new Size(24, 24);
             uiImageButton3.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -140,6 +140,7 @@
             uiImageButton3.TabStop = false;
             uiImageButton3.Text = null;
             uiImageButton3.ZoomScaleDisabled = true;
+            uiImageButton3.Click += uiImageButton3_Click;
             // 
             // uiImageButton1
             // 
@@ -149,7 +150,7 @@
             uiImageButton1.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
             uiImageButton1.Image = (Image)resources.GetObject("uiImageButton1.Image");
             uiImageButton1.ImageHover = (Image)resources.GetObject("uiImageButton1.ImageHover");
-            uiImageButton1.Location = new Point(482, 7);
+            uiImageButton1.Location = new Point(474, 11);
             uiImageButton1.Name = "uiImageButton1";
             uiImageButton1.Size = new Size(24, 24);
             uiImageButton1.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -157,6 +158,7 @@
             uiImageButton1.TabStop = false;
             uiImageButton1.Text = null;
             uiImageButton1.ZoomScaleDisabled = true;
+            uiImageButton1.Click += uiImageButton1_Click;
             // 
             // AddSongToListForm
             // 
@@ -171,7 +173,7 @@
             Controls.Add(flowLayoutPanel);
             Controls.Add(uiImageButton2);
             Controls.Add(label1);
-            Controls.Add(BulkOperateButton);
+            Controls.Add(CreatListButton);
             ForeColor = SystemColors.ControlText;
             FormBorderStyle = FormBorderStyle.None;
             Name = "AddSongToListForm";
@@ -186,7 +188,7 @@
 
         #endregion
 
-        private Sunny.UI.UIButton BulkOperateButton;
+        private Sunny.UI.UIButton CreatListButton;
         private Label label1;
         private Sunny.UI.UIImageButton uiImageButton2;
         private FlowLayoutPanel flowLayoutPanel;

@@ -86,8 +86,17 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
         {
             // TODO: 播放逻辑
             Console.WriteLine("playButton clicked!!");
-            AppContext.TogglePlayPauseSong(AppContext._songRepository.GetSongById(songID));
-            AppContext.TriggerupdateSongUI(AppContext._playbackService.GetCurrentSong());
+            //AppContext.TogglePlayPauseSong(AppContext._songRepository.GetSongById(songID));
+            var songlists = AppContext._playbackService.GetPlaylist().PlaySongs;
+            int n = songlists.Count;
+            // 添加到播放队列
+            songlists.Add(AppContext._songRepository.GetSongById(songID));
+            AppContext._playbackService.SetPlaylist(new Models.Playlist(songlists, AppContext._playbackService.GetPlaybackMode()), n);
+            AppContext._playbackService.PlayPlaylist(n);
+
+            AppContext.TriggerupdateSongUI(AppContext._songRepository.GetSongById(songID));
+            AppContext.StartTimer();
+            AppContext.TriggerShowPlayingBtn(true);
             var lyricsLine = AppContext._playbackService.GetCurrentLyricsLine()?.Text ?? "[No Lyrics]";
             var position = AppContext._playbackService.GetCurrentPosition();
 

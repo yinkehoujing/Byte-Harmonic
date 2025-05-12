@@ -23,6 +23,26 @@ namespace Byte_Harmonic.Services
         }
 
         // 按关键字搜索歌曲（标题、歌手）
+        //public async Task<List<Song>> SearchSongs(string keyword)
+        //{
+        //    if (string.IsNullOrWhiteSpace(keyword))
+        //        return new List<Song>();
+
+        //    // 记录搜索历史
+        //    var currentUser = AppContext.currentUser;
+        //    if (currentUser != null)
+        //    {
+        //        await _userRepo.AddSearchHistoryAsync(currentUser.Account, keyword);
+        //    }
+
+        //    var allSongs = await _repository.GetAllSongsAsync();
+        //    keyword = keyword.ToLower();
+        //    return allSongs.Where(s =>
+        //        (!string.IsNullOrEmpty(s.Title) && s.Title.ToLower().Contains(keyword)) ||
+        //        (!string.IsNullOrEmpty(s.Artist) && s.Artist.ToLower().Contains(keyword))
+        //    ).ToList();
+        //}
+
         public async Task<List<Song>> SearchSongs(string keyword)
         {
             if (string.IsNullOrWhiteSpace(keyword))
@@ -36,12 +56,22 @@ namespace Byte_Harmonic.Services
             }
 
             var allSongs = await _repository.GetAllSongsAsync();
-            keyword = keyword.ToLower();
+            keyword = keyword.ToLower().Trim();
+
             return allSongs.Where(s =>
-                (!string.IsNullOrEmpty(s.Title) && s.Title.ToLower().Contains(keyword)) ||
-                (!string.IsNullOrEmpty(s.Artist) && s.Artist.ToLower().Contains(keyword))
-            ).ToList();
+            {
+                var title = s.Title?.ToLower() ?? "";
+                var artist = s.Artist?.ToLower() ?? "";
+                var combined = $"{artist} - {title}".Trim();
+
+                return title.Contains(keyword)             // 匹配标题
+                    || artist.Contains(keyword)            // 匹配歌手
+                    || combined.Contains(keyword)          // 模糊匹配组合
+                    || combined.Equals(keyword);           // 完整匹配原始 "Artist - Title"
+            }).ToList();
         }
+
+
         //只是用于推荐
         public async Task<List<Song>> JustSearchSong(string keyword)
         {
@@ -118,6 +148,38 @@ namespace Byte_Harmonic.Services
             var tagIds = tags.Select(t => _repository.EnsureTagExists(t)).ToList();
             return _repository.GetSongsByTags(tagIds);
         }
+        //在指定歌曲中按标签刷选歌曲
+        public async Task<List<Song>> SearchSongsByTagsAsync(List<Song> songs, List<string> tags)
+        {
+            if (songs == null || !songs.Any())
+            {
+                throw new ArgumentException("歌曲列表不能为空", nameof(songs));
+            }
+
+            // 获取所有标签的ID
+            var tagIds = new List<int>();
+            foreach (var tag in tags)
+            {
+                var tagId = _repository.EnsureTagExists(tag);
+                if (tagId == 0)
+                {
+                    throw new ArgumentException($"标签 '{tag}' 不存在", nameof(tags));
+                }
+                tagIds.Add(tagId);
+            }
+            /*foreach (var tagID in tagIds)
+            {
+                Console.WriteLine($"{tagID}");
+            }*/
+            // 筛选出包含所有指定标签的歌曲
+            var result = songs.Where(song =>
+            {
+                var songTags = _repository.GetTagsBySongId(song.Id);
+                return tagIds.All(tagId => songTags.Contains(tagId));
+            }).ToList();
+
+            return result;
+        }
 
         // 获取某歌单中的歌曲
         public List<Song> GetSongsInSonglist(int songlistId)
@@ -140,18 +202,18 @@ namespace Byte_Harmonic.Services
         }
 
         // 在歌单中按多标签筛歌（交集）
-        public List<Song> SearchSongsInSonglistByTags(int songlistId, List<string> tags)
-        {
-            if (tags == null || !tags.Any())
-                return new List<Song>();
+        /* public List<Song> SearchSongsInSonglistByTags(int songlistId, List<string> tags)
+         {
+             if (tags == null || !tags.Any())
+                 return new List<Song>();
 
-            var allSongs = _repository.GetSongsInPlaylist(songlistId);
-            var tagFilteredSongs = _repository.GetSongsByTags(tags.Select(t => _repository.EnsureTagExists(t)).ToList());
+             var allSongs = _repository.GetSongsInPlaylist(songlistId);
+             var tagFilteredSongs = _repository.GetSongsByTags(tags.Select(t => _repository.EnsureTagExists(t)).ToList());
 
-            var result = allSongs.Where(s => tagFilteredSongs.Any(ts => ts.Id == s.Id)).ToList();
-            return result;
-        }
-
+             var result = allSongs.Where(s => tagFilteredSongs.Any(ts => ts.Id == s.Id)).ToList();
+             return result;
+         }*/
         
+
     }
 }

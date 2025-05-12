@@ -81,6 +81,7 @@ namespace Byte_Harmonic.Forms.MainForms
             txtNewPassword.TabIndex = 4;
             txtNewPassword.TextAlignment = ContentAlignment.MiddleLeft;
             txtNewPassword.Watermark = "";
+            txtNewPassword.TextChanged += txtNewPassword_TextChanged;
             // 
             // lblConfirm
             // 

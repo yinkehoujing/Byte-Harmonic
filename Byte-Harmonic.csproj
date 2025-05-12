@@ -46,7 +46,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Assets\Lyrics\" />
       <Folder Include="Assets\Musics\" />
       <Folder Include="Database\SQLscripts\" />
     </ItemGroup>

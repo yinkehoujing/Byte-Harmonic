@@ -83,9 +83,15 @@ namespace Byte_Harmonic.Forms.MainForms
 
                         AppContext.currentUser = _userService.GetCurrentUser();
                         await Task.Delay(1000); // 延迟1000毫秒（1秒）
-                        MainForm mainForm = new MainForm();
-
-                        mainForm.Show();
+                        if (AppContext.currentUser.IsAdmin)
+                        {
+                            new AdminForm().Show();
+                        }
+                        else
+                        {
+                            MainForm mainForm = new MainForm();
+                            mainForm.Show();
+                        }
                         //隐藏当前界面；
                         this.Hide();
                     }
@@ -112,7 +118,9 @@ namespace Byte_Harmonic.Forms.MainForms
                 {
                     // 调用注册方法
                     await _userService.Register(usernameBox.Text.Trim(), passwordBox.Text.Trim());
+                    AppContext.currentUser = _userService.GetCurrentUser();
                     uiLabel3.Text = "注册成功";
+                    new MainForm().Show();
                 }
                 catch (Exception ex)
                 {

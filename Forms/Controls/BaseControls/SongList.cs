@@ -12,6 +12,10 @@ using Sunny.UI;
 using Byte_Harmonic.Forms.MainForms;
 using Byte_Harmonic.Services;
 using Byte_Harmonic.Utils;
+using Org.BouncyCastle.Utilities;
+using System.Text.RegularExpressions;
+using static Sunny.UI.SnowFlakeId;
+using Byte_Harmonic.Forms.Controls.FrameControls.MainPanel;
 
 namespace Byte_Harmonic.Forms.Controls.BaseControls
 {
@@ -19,17 +23,37 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
     {
         private bool selectAll = false;
         private bool enableBulkOp = false;
+        private FavoritesService _favoritesService;
         public SongList()
         {
             InitializeComponent();
             this.Dock = DockStyle.Fill;
             this.Margin = new Padding(10);
+            this.SizeChanged += Control_SizeChanged;
+            _favoritesService = new FavoritesService(AppContext.userRepository);
         }
 
 
 
         public void LoadSongs(List<Song> songs)
         {
+            Console.WriteLine("Load Songs");
+
+            //更新批量处理按钮
+            SelectAllButton.Visible = false;
+            SelectAllButton.Enabled = false;
+            DeleteAllButton.Visible = false;
+            DeleteAllButton.Enabled = false;
+            AddAllButton.Visible = false;
+            AddAllButton.Enabled = false;
+            DownloadAllButton.Visible = false;
+            DownloadAllButton.Enabled = false;
+            StarAllButton.Visible = false;
+            StarAllButton.Enabled = false;
+            PlayAllButton.Visible = false;
+            PlayAllButton.Enabled = false;
+            enableBulkOp = false;
+
             flowLayoutPanel.Controls.Clear(); // 清空现有项
 
             bool isWhite = false; // 初始颜色标记
@@ -81,7 +105,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             var mode = AppContext._playbackService.GetPlaybackMode();
             int n = songs.Count;
             bool notChoosed = true;
-            //TODO:播放被选中的第一首歌，item.Selected表示被选中
+            //播放被选中的第一首歌，item.Selected表示被选中
             foreach (SongItem item in flowLayoutPanel.Controls)
             {
                 if (item.Selected)
@@ -104,12 +128,24 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
 
         private void StarAllButton_Click(object sender, EventArgs e)
         {
+
             foreach (SongItem item in flowLayoutPanel.Controls)
             {
                 if (item.Selected)
                 {
-                    //TODO:后端：收藏
-                    //TODO:收藏成功后弹窗
+                    //后端：收藏
+                    int id = item.songID;
+
+                    try
+                    {
+                        _favoritesService.AddFavoriteSongAsync(AppContext.currentUser.Account, id);
+                    }
+                    catch (Exception ex)
+                    {
+                        new MainForms.MessageForm(ex.Message).ShowDialog();
+                    }
+                    //收藏成功后弹窗
+                    new MainForms.MessageForm("收藏成功").ShowDialog();
                 }
             }
         }
@@ -128,6 +164,15 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
                     try
                     {
                         var song = songService.GetSongById(item.songID);
+                        bool IsValidMp3Path(string path)
+                        {
+                            var pattern = @"^[a-zA-Z]:\\(?:[^\\/:*?""<>|\r\n]+\\)*[^\\/:*?""<>|\r\n]+\.mp3$";
+                            return Regex.IsMatch(path, pattern, RegexOptions.IgnoreCase);
+                        }
+                        if (!IsValidMp3Path(song.MusicFilePath))
+                        {
+                            song.MusicFilePath = FileHelper.GetAssetPath(song.MusicFilePath);
+                        }
                         if (!File.Exists(song.MusicFilePath)) continue;
 
                         var fileName = Byte_Harmonic.Utils.FileHelper.GenerateFileName(song, config.NamingStyle);
@@ -148,22 +193,119 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
 
         private void AddAllButton_Click(object sender, EventArgs e)
         {
-            //TODO:显示添加到的窗口
-        }
-
-        private void DeleteAllButton_Click(object sender, EventArgs e)
-        {
-           
+            List<Song> songs=new List<Song> { };
             foreach (SongItem item in flowLayoutPanel.Controls)
             {
                 if (item.Selected)
                 {
-                    //TODO:后端删除
-                    int id = item.songID;
+                    try
+                    {
+                        var song = AppContext.songlistService.GetSongById(item.songID);
+                        songs.Add(song);
+                    }
+                    catch(Exception ex)
+                    {
+                        new MainForms.MessageForm(ex.Message).ShowDialog();
+                    }
                 }
             }
-            //TODO:显示信息面：删除成功
-            this.LoadSongs(AppContext.currentViewingSonglist.Songs);//更新数据
+            //显示添加到的窗口
+            new MainForms.AddSongToListForm(songs).ShowDialog();
+        }
+
+        private void DeleteAllButton_Click(object sender, EventArgs e)
+        {
+            var toRemoveFromDownload = new List<int>();
+            var toRemoveFromPlaylist = new List<int>();
+            var toRemoveFromSonglist = new List<int>();
+            var toRemoveFromFavorites = new List<int>();
+
+            bool isDownloadPage = false, isPlaylistPage = false, isFavoritePage = false, isSonglistPage = false;
+
+            var parent = this.Parent;
+            while (parent != null && !(parent is Download || parent is PlayList || parent is Favorite))
+            {
+                parent = parent.Parent;
+            }
+
+            if (parent is Download) isDownloadPage = true;
+            else if (parent is PlayList) isPlaylistPage = true;
+            else if (parent is Favorite) isFavoritePage = true;
+            else isSonglistPage = true;
+
+            foreach (SongItem item in flowLayoutPanel.Controls)
+            {
+                if (!item.Selected) continue;
+
+                int songID = item.songID;
+
+                if (isDownloadPage)
+                {
+                    toRemoveFromDownload.Add(songID);
+                }
+                else if (isPlaylistPage)
+                {
+                    toRemoveFromPlaylist.Add(songID);
+                }
+                else if (isSonglistPage)
+                {
+                    toRemoveFromSonglist.Add(songID);
+                }
+                else if (isFavoritePage)
+                {
+                    toRemoveFromFavorites.Add(songID);
+                }
+            }
+
+            try
+            {
+                if (isDownloadPage && toRemoveFromDownload.Count > 0)
+                {
+                    foreach (var id in toRemoveFromDownload)
+                    {
+                        AppContext._songRepository.CancelDownload(id);
+                    }
+                    AppContext.TriggerDownloadUpdated();
+                }
+
+                if (isPlaylistPage && toRemoveFromPlaylist.Count > 0)
+                {
+                    var newSongs = AppContext._playbackService.GetPlaylist().PlaySongs
+                        .Where(song => !toRemoveFromPlaylist.Contains(song.Id))
+                        .ToList();
+                    AppContext._playbackService.SetPlaylist(new Playlist(newSongs, AppContext._playbackService.GetPlaybackMode()));
+                    AppContext.TriggerPlaylistUpdated();
+                }
+
+                if (isSonglistPage && toRemoveFromSonglist.Count > 0 && AppContext.currentViewingSonglist != null)
+                {
+                    foreach (var id in toRemoveFromSonglist)
+                    {
+                        AppContext.songlistService.RemoveSongFromSonglist(
+                            AppContext.songlistService.GetSongById(id),
+                            AppContext.currentViewingSonglist
+                        );
+                    }
+                    AppContext.TriggerSonglistDetailUpdated(AppContext.currentViewingSonglist.Name);
+                }
+
+                if (isFavoritePage && toRemoveFromFavorites.Count > 0)
+                {
+                    var favoriteService = new FavoritesService(AppContext.userRepository);
+                    foreach (var id in toRemoveFromFavorites)
+                    {
+                        favoriteService.RemoveFavoriteSong(AppContext.currentUser.Account, id);
+                    }
+                    AppContext.TriggerStarUpdated();
+                    AppContext.TriggerFavoriteUpdated();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("批量删除时出错：" + ex.Message);
+            }
+
+            new MainForms.MessageForm("删除成功").ShowDialog();
         }
 
         private void BulkOperateButton_Click(object sender, EventArgs e)
@@ -208,5 +350,13 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
                 PlayAllButton.Enabled = false;
             }
         }
+
+        private void Control_SizeChanged(object sender, EventArgs e)
+        {
+            flowLayoutPanel.Location = new Point(
+                (this.Width - flowLayoutPanel.Width) / 2,
+                flowLayoutPanel.Location.Y);
+        }
     }
+
 }

@@ -286,6 +286,7 @@ using System.Drawing;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Byte_Harmonic.Forms;
 
 public class UIDropDownPanel : UIPanel
 {
@@ -392,16 +393,16 @@ public class AdvancedSearchBox : UITextBox
         _historyPanel.WrapContents = true;
         _historyPanel.BackColor = MPColor.Grey1;
 
+        // 添加底部填充面板确保布局正确
+        Panel fillPanel = new Panel();
+        fillPanel.Dock = DockStyle.Fill;
+        _dropDownPanel.Controls.Add(fillPanel);
+
         // 组装下拉面板
         _dropDownPanel.Controls.Add(_historyPanel);
         _dropDownPanel.Controls.Add(_historyLabel);
         _dropDownPanel.Controls.Add(_separator);
         _dropDownPanel.Controls.Add(suggestionPanel);
-
-        // 添加底部填充面板确保布局正确
-        Panel fillPanel = new Panel();
-        fillPanel.Dock = DockStyle.Fill;
-        _dropDownPanel.Controls.Add(fillPanel);
     }
 
     private void SetupEvents()
@@ -570,7 +571,7 @@ public class AdvancedSearchBox : UITextBox
         }
     }
 
-    /* private void UpdateSuggestionsUI(List<string> suggestions, List<string> historyTags)
+     /*private void UpdateSuggestionsUI(List<string> suggestions, List<string> historyTags)
      {
          bool hasSuggestions = suggestions.Count > 0;
          bool hasHistory = historyTags.Count > 0;
@@ -711,17 +712,19 @@ public class AdvancedSearchBox : UITextBox
         }
     }
 
-    private void ShowDropDown()
+    public void ShowDropDown()
     {
         if (!_dropDownPanel.Visible)
         {
             _dropDownPanel.Show(this, new Point(0, this.Height));
         }
+        Byte_Harmonic.Forms.AppContext.TriggerSearchBoxChange();
     }
 
-    private void HideDropDown()
+    public void HideDropDown()
     {
         _dropDownPanel.Hide();
+        Byte_Harmonic.Forms.AppContext.TriggerSearchBoxChange();
     }
 }
 

@@ -1,148 +1,71 @@
-# Playback UI Design（旧版本）
+## 文档说明：`AppContext` 类
 
-最新版本的 UI Design 是所有界面共享上下文资源 `AssetsContext` 类。
-实现了界面之间的解耦合，所有界面的加载只需要获取一份 `AssetsContext` 的副本即可恢复到与实际播放同步的状态。
-所有事件也都写入这个静态类里面，提供事件的 `invoke` 接口。
+### 所在模块
 
-以下内容尚未更新。
+命名空间：`Byte_Harmonic.Forms`
+功能范围：贯穿整个音乐播放器的核心运行状态与事件处理。
 
-## MainForm
+---
 
-- `MainForm` 自动载入 `ExploreForm`。
-- `LoadPage` 会清空之前的页面
-- `MainForm` 是一个空框架, 通过 `LoadPage` 来切换显示
-- 有一个全局
+## 核心职责
 
-## ExploreForm
+### 1. **服务和资源的初始化与持有**
 
-- 注入 **单例** 的 `MusicForm` 对象 `_musicForm`, 确保只有一个页面能直接获取歌曲的播放资源，其它页面（比如 `ExploreForm`） 只能通过 **委托** 和 **事件** 与 **播放资源** 来交互
+`AppContext` 实例化并持有了应用程序的多个关键服务与仓储，包括：
 
-- 下面函数均是 `ExploreForm` 去 `invoke`, 而 `MusicForm` 去执行对应的委托，完成 **歌曲播放** 的 **代理**
+* `PlaybackService`: 播放控制服务，负责播放、暂停、跳转等行为。
+* `SongRepository`, `UserRepository`: 歌曲与用户的数据仓库。
+* `UserService`, `SonglistService`, `SearchService`: 处理业务逻辑的服务。
+* `SonglistRepository`: 管理歌单数据。
 
- ```csharp
-  public event Action<List<Song>>? PlaylistSet;
- 
-  public event Action<double>? PlaybackSpeedChanged;
-  public event Action PlayNextRequested;
-  public event Action PlayPreviousRequested;
-  public event Action PlayPauseRequested;
-  public event Action<TimeSpan> SeekRequested; // 以上用于 MusicForm交互
- ```
+这些对象在用户登录后被统一管理，供全局使用。
 
-- 下面函数是 `ExploreForm` 的响应事件，主要是 `MusicForm` 通知去更新 UI 显示
+---
 
-```csharp
-// 注册事件函数
-_musicForm.LyricsUpdated += OnLyricsUpdated; // 更新进度条
-_musicForm.updateSongUI += OnUpdateSongUI; // 更新歌手、曲名、歌曲时长
-```
+### 2. **应用状态维护**
 
-- 通过下面函数来唤起 **纯净模式** 的歌词视图。注意到 `WordForm` 也会通知 `ExploreForm` 去更新 UI;
+AppContext 维护了当前的应用状态，例如：
 
-```csharp
-if (secondForm != null && !secondForm.IsDisposed)
-{
-    secondForm.Close();
-    secondForm = null;
-}
-else
-{
-   // 获取最新（配套）的 music 句柄，这样UI操作的按钮才会正确响应
-    secondForm = new WordForm(MusicForm.Instance(this));
+* `currentUser`: 当前登录用户
+* `currentViewingSonglist`: 当前查看的歌单
+* 下载设置（路径和命名方式）
 
-    // 订阅操作请求事件
-    var wordForm = (WordForm)secondForm;
+---
 
-    // 也通知 ExploreForm 的 UI
-    wordForm.PlayNextRequested += () =>
-    {
-        PlayPreviousRequested?.Invoke();
+### 3. **UI 更新事件发布中心**
 
-    };
+`AppContext` 使用大量的 `static event` 定义 UI 更新的广播机制，例如：
 
-    wordForm.PlayPreviousRequested += () =>
-    {
-        PlayPreviousRequested?.Invoke();
-    };
+| 事件名称                  | 描述              |
+| --------------------- | --------------- |
+| `updateSongUI`        | 更新当前播放歌曲的基本信息显示 |
+| `LyricsUpdated`       | 歌词内容与当前播放时间     |
+| `PositionChanged`     | 进度条位置更新         |
+| `VolumeChanged`       | 音量变化            |
+| `SonglistLoaded`      | 播放列表加载完成        |
+| `PlaybackModeChanged` | 播放模式图标更新        |
+| `ReloadSideSonglist`  | 重新加载侧边栏歌单列表     |
 
-    wordForm.PlayPauseRequested += () => PlayPauseRequested?.Invoke(); // 先假设总是从队首开始播放;
+这些事件以 **发布-订阅模式** 连接 UI 层和逻辑层，避免强耦合。
 
-    secondForm.Show();
-}
-```
+---
 
-## MusicForm
+### 4. **播放控制逻辑封装**
 
-- 如果对应的 `ExploreForm` 没有析构掉，就使用原来的 `MusicForm` 句柄
+`AppContext` 提供了如下播放控制的封装方法：
 
-```csharp
-public static MusicForm Instance(ExploreForm exploreForm)
-{
-    if (_instance == null || _instance.IsDisposed)
-        _instance = new MusicForm(exploreForm);
-    return _instance;
-}
-```
+* `TogglePlayPause()`：播放 / 暂停切换（自动管理 Timer）
+* `TogglePlayPauseSong(Song)`：指定歌曲的播放 / 暂停
+* `TriggerPlaybackSpeedChanged(double)`：响应播放速度变化
 
-- 通过注入 `ExploreForm` 对象，来响应对应发起的事件。
+---
 
-```csharp
-// 响应歌曲资源的变化，调整对应的显示UI
+### 5. **定时器管理**
 
- _playbackService.CurrentSongChanged += OnCurrentSongChanged;
- _playbackService.PlaybackPaused += OnPlaybackPaused;
- _playbackService.PositionChanged += UpdatePositionUI;
+内置两个定时器：
 
-// 响应 ExploreForm 对象的 设置播放队列请求
- _exploreForm.PlaylistSet += OnPlaylistSet;
+* `_timer`: 每 500ms 更新歌词信息
+* `_log_timer`: 每秒打印播放状态日志（调试用）
 
-// 响应 ExploreForm 对象的 播放控制请求
- _exploreForm.PlayNextRequested += () =>
- {
-     _playbackService.PlayNext();
-     var current = _playbackService.GetCurrentSong();
-     if(current == null)
-     {
-         Console.WriteLine("current song is null!");
-         current = _playbackService.GetPlaylist().PlaySongs[0];
-     }
-     updateSongUI?.Invoke(current); // 反过来通知所有需要更新 SongUI 的对象
- };
-
- _exploreForm.PlayPreviousRequested += () =>
- {
-     _playbackService.PlayPrevious();
-     var current = _playbackService.GetCurrentSong();
-     updateSongUI?.Invoke(current); // 反过来通知所有需要更新 SongUI 的对象
- };
- _exploreForm.PlayPauseRequested += TogglePlayPause;
- _exploreForm.SeekRequested += pos => _playbackService.SeekTo(pos);
-
- _exploreForm.LoadInitialSongs(); // invoke 之前注册的 PlaylistSet 事件(相当于等待注册，再 invoke)
-```
-
-
-
-## WordForm
-
-- 总是和 最新（配套）的 `_musicForm` 句柄同步（即对应同一个 `ExploreForm`），保证发起事件的 `ExploreForm` 是 `WordForm` 注册的那个 `_exploreForm`
-- `MusicForm` 去执行对应的委托
-
-```csharp
-public event Action PlayNextRequested;
-public event Action PlayPreviousRequested;
-public event Action PlayPauseRequested;
-public event Action<TimeSpan> SeekRequested; // 以上用于 MusicForm 和 Service 交互
-```
-
-- 只需要响应 **歌词更新** 的事件
-
-```csharp
-// 订阅歌词更新事件
-musicForm.LyricsUpdated += OnLyricsUpdated;
-
-// 窗体关闭时取消订阅
-this.FormClosed += (s, e) =>
-musicForm.LyricsUpdated -= OnLyricsUpdated;
-```
+通过 `StartTimer()`、`StopTimer()`、`RestartTimer()` 控制启动与关闭。
 

@@ -127,12 +127,6 @@
   <data name="icons8-pause-961" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\images\icon\icons8-pause-96.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="1 (5)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\images\album\1 (5).jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icons8-headphones-100 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\images\logo\icons8-headphones-100 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="icons8-minus-96 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\images\icon\icons8-minus-96 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -157,11 +151,11 @@
   <data name="icons8-定期约会-96 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\images\icon\icons8-定期约会-96 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8-slide-up-52 (2)1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\images\icon\icons8-slide-up-52 (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="2 (8)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\images\album\2 (8).jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8-less-than-96" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\images\icon\icons8-less-than-96.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icons8-view-more-96 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\images\icon\icons8-view-more-96 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8-delete-24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\images\icon\icons8-delete-24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -178,17 +172,14 @@
   <data name="icons8-音乐时间-96" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\images\icon\icons8-音乐时间-96.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="2 (10)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\images\album\2 (10).jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="icons8-scroll-down-961" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\images\icon\icons8-scroll-down-96.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8-数据库-96 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\images\icon\icons8-数据库-96 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icons8-less-than-100 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\images\icon\icons8-less-than-100 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="1 (3)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\images\album\1 (3).jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="1 (3)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\images\album\1 (3).jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -205,8 +196,14 @@
   <data name="icons8-slide-up-52 (2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\images\icon\icons8-slide-up-52 (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8-slide-up-52 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\images\icon\icons8-slide-up-52 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="2 (3)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\images\album\2 (3).jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="2 (11)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\images\album\2 (11).jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons8-定期约会-96 (3)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\images\icon\icons8-定期约会-96 (3).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8-slide-up-521" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\images\icon\icons8-slide-up-52.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -217,11 +214,14 @@
   <data name="icons8-中等音量-96" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\images\icon\icons8-中等音量-96.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8-圆-96 (2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\images\icon\icons8-圆-96 (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icons8-less-than-96 (2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\images\icon\icons8-less-than-96 (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8-播放-96 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\images\icon\icons8-播放-96 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="2 (6)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\images\album\2 (6).jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8-slide-up-52 (1)1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\images\icon\icons8-slide-up-52 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -235,11 +235,8 @@
   <data name="icons8-缩小-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\images\icon\icons8-缩小-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8-view-more-96 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\images\icon\icons8-view-more-96 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icons8-可见-96" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\images\icon\icons8-可见-96.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="2 (4)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\images\album\2 (4).jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8-多于-100 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\images\icon\icons8-多于-100 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -250,14 +247,11 @@
   <data name="icons8-缩小-48 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\images\icon\icons8-缩小-48 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8-less-than-96 (2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\images\icon\icons8-less-than-96 (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="1 (5)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\images\album\1 (5).jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="diskpng" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\images\album\diskpng.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icons8-less-than-100" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\images\icon\icons8-less-than-100.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icons8-slide-up-52 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\images\icon\icons8-slide-up-52 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8-倒带-96 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\images\icon\icons8-倒带-96 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -271,8 +265,8 @@
   <data name="icons8-暂停-96 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\images\icon\icons8-暂停-96 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8-less-than-96 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\images\icon\icons8-less-than-96 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="2 (9)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\images\album\2 (9).jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8-settings-48 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\images\icon\icons8-settings-48 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -310,14 +304,17 @@
   <data name="icons8-go-back-96" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\images\icon\icons8-go-back-96.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8-minus-96" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\images\icon\icons8-minus-96.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="2 (12)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\images\album\2 (12).jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8-go-back-96 (2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\images\icon\icons8-go-back-96 (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icons8-播放-961" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\images\icon\icons8-播放-96.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8-minus-96" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\images\icon\icons8-minus-96.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="2 (7)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\images\album\2 (7).jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="2 (13)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\images\album\2 (13).jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8-快进-96 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\images\icon\icons8-快进-96 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -331,6 +328,9 @@
   <data name="1 (8)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\images\album\1 (8).jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="icons8-星-100" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\images\icon\icons8-星-100.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="icons8-close-384" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\images\icon\icons8-close-384.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -339,6 +339,9 @@
   </data>
   <data name="icons8-minus-96" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\images\icon\icons8-minus-96.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons8-圆-96 (2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\images\icon\icons8-圆-96 (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8-静音-96 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\images\icon\icons8-静音-96 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -349,11 +352,17 @@
   <data name="icons8-随机-96" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\images\icon\icons8-随机-96.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8-定期约会-96 (3)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\images\icon\icons8-定期约会-96 (3).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icons8-play-96 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\images\icon\icons8-play-96 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons8-可见-96" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\images\icon\icons8-可见-96.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8-定期约会-96" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\images\icon\icons8-定期约会-96.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="2 (5)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\images\album\2 (5).jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8-暂停-96" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\images\icon\icons8-暂停-96.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -376,14 +385,8 @@
   <data name="icons8-pin-96" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\images\icon\icons8-pin-96.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8-delete-241" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\images\icon\icons8-delete-24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="icons8-list-96 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\images\icon\icons8-list-96 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icons8-圆-96 (2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\images\icon\icons8-圆-96 (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8-scroll-down-96 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\images\icon\icons8-scroll-down-96 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -412,32 +415,32 @@
   <data name="icons8-go-back-96 (2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\images\icon\icons8-go-back-96 (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8-go-back-96 (2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\images\icon\icons8-go-back-96 (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="icons8-加载圆1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\images\icon\icons8-加载圆.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8-扩大-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\images\icon\icons8-扩大-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="1 (3)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\images\album\1 (3).jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="diskpng" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\images\album\diskpng.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8-play-96" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\images\icon\icons8-play-96.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8-圆-96 (2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\images\icon\icons8-圆-96 (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icons8-slide-up-52 (2)1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\images\icon\icons8-slide-up-52 (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="2 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\images\album\2 (1).jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8-go-back-96 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\images\icon\icons8-go-back-96 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8-播放-961" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\images\icon\icons8-播放-96.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="2 (2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\images\album\2 (2).jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8-play-96 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\images\icon\icons8-play-96 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icons8-delete-241" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\images\icon\icons8-delete-24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8-male-user-96" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\images\icon\icons8-male-user-96.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -457,46 +460,22 @@
   <data name="icons8-less-than-96 (3)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\images\icon\icons8-less-than-96 (3).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="2 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\images\album\2 (1).jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icons8-list-96" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\images\icon\icons8-list-96.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="2 (2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\images\album\2 (2).jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icons8-headphones-100 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\images\logo\icons8-headphones-100 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="2 (3)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\images\album\2 (3).jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icons8-less-than-100 - 副本" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\images\icon\icons8-less-than-100 - 副本.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="2 (4)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\images\album\2 (4).jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icons8-less-than-100 (1) - 副本" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\images\icon\icons8-less-than-100 (1) - 副本.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="2 (5)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\images\album\2 (5).jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icons8-less-than-100 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\images\icon\icons8-less-than-100 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="2 (6)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\images\album\2 (6).jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="2 (7)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\images\album\2 (7).jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="2 (8)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\images\album\2 (8).jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="2 (9)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\images\album\2 (9).jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="2 (10)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\images\album\2 (10).jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="2 (11)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\images\album\2 (11).jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="2 (12)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\images\album\2 (12).jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="2 (13)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\images\album\2 (13).jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icons8-播放-96 (1)1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\images\icon\icons8-播放-96 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icons8-less-than-100" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\images\icon\icons8-less-than-100.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

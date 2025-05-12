@@ -39,7 +39,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
                 Dock = DockStyle.Top
             };
 
-            string greeting = GetTimeBasedGreeting();
+            string greeting = GetTimeBasedGreeting() + ", " + AppContext.currentUser.Username;
 
             string GetTimeBasedGreeting()
             {
@@ -168,7 +168,7 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
             card4.PlaylistClicked += LoadSonglistDetails;
             card5.PlaylistClicked += LoadSonglistDetails;
             card6.PlaylistClicked += LoadSonglistDetails;
-
+            
 
 
             if (playlistPanel != null)
@@ -348,13 +348,13 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
         private void TopRefresh_Click(object sender, EventArgs e)
         {
             // TODO: 重新加载歌单
-            MessageBox.Show("刷新歌单探索");
+            new Byte_Harmonic.Forms.MainForms.MessageForm("刷新歌单探索").ShowDialog(); 
         }
 
         private void BottomRefresh_Click(object sender, EventArgs e)
         {
             // TODO: 重新加载歌曲
-            MessageBox.Show("刷新歌曲探索");
+            new Byte_Harmonic.Forms.MainForms.MessageForm("刷新歌曲探索").ShowDialog();
         }
     }
 }

@@ -13,6 +13,9 @@ using Byte_Harmonic.Forms.MainForms;
 using Byte_Harmonic.Models;
 using Byte_Harmonic.Services;
 using Byte_Harmonic.Utils;
+using System.Text.RegularExpressions;
+using Byte_Harmonic.Forms.Controls.FrameControls.MainPanel;
+using System.Collections;
 
 namespace Byte_Harmonic.Forms.Controls.BaseControls
 {
@@ -87,14 +90,86 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
 
         private void deleteButton1_Click(object sender, EventArgs e)
         {
-            //TODO：调用删除的后端程序
+            //调用删除的后端程序
+            try
+            {
+                var parent = this.Parent;
+                while (parent != null && !(parent is Download || parent is PlayList || parent is Favorite))
+                {
+                    parent = parent.Parent;
+                }
 
-            //TODO:前端更新
-        }
+                if (parent is Download)
+                {
+                    // 执行 Download 页面逻辑
+                    Console.WriteLine("下载页删除逻辑");
+                    AppContext._songRepository.CancelDownload(songID);
+                    AppContext.TriggerDownloadUpdated();
+                }
+                else if (parent is PlayList)
+                {
+                    List<Song> songs = new List<Song>();
+                    foreach(var song in AppContext._playbackService.GetPlaylist().PlaySongs)
+                    {
+                        if(song.Id != songID)
+                        {
+                            songs.Add(song);
+                        }
+                    }
+                    AppContext._playbackService.SetPlaylist(new Playlist(songs, AppContext._playbackService.GetPlaybackMode()));
+                    // 前端逻辑
+                    Console.WriteLine("必须在歌曲暂停时修改播放队列!");
+                    AppContext.TriggerPlaylistUpdated();
+
+                }
+                else if (parent is Favorite)
+                {
+                    Console.WriteLine("收藏页删除逻辑");
+                    var favoriteService = new FavoritesService(AppContext.userRepository);
+                    favoriteService.RemoveFavoriteSong(AppContext.currentUser.Account, songID);
+
+                    // 更新 UI
+                    AppContext.TriggerStarUpdated();
+                    AppContext.TriggerFavoriteUpdated();
+                    //AppContext.TriggerupdateSongUI(AppContext._playbackService.GetCurrentSong());
+                }
+                else
+                {
+                    Console.WriteLine("歌单的删除逻辑");
+                    try
+                    {
+
+                        if (AppContext.currentViewingSonglist != null)
+                        {
+                            AppContext.songlistService.RemoveSongFromSonglist(AppContext.songlistService.GetSongById(songID), AppContext.currentViewingSonglist);
+                            AppContext.TriggerSonglistDetailUpdated(AppContext.currentViewingSonglist.Name);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        new MessageForm(ex.Message).ShowDialog();
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+        } 
 
         private void addButton_Click(object sender, EventArgs e)
         {
             //TODO:调用添加到页面
+            try
+            {
+                new AddSongToListForm(AppContext.songlistService.GetSongById(this.songID)).ShowDialog();
+            }
+            catch(Exception ex)
+            {
+                new MessageForm(ex.Message).ShowDialog();
+            }
+
         }
 
         //下载文件
@@ -109,6 +184,20 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
                 // 获取歌曲详细信息
                 var song = songService.GetSongById(this.songID);
                 if (song == null) throw new Exception("歌曲不存在");
+
+                Console.WriteLine($"song 的 MusicFilePath is {song.MusicFilePath}");
+
+                bool IsValidMp3Path(string path)
+                {
+                    var pattern = @"^[a-zA-Z]:\\(?:[^\\/:*?""<>|\r\n]+\\)*[^\\/:*?""<>|\r\n]+\.mp3$";
+                    return Regex.IsMatch(path, pattern, RegexOptions.IgnoreCase);
+                }
+
+                if (!IsValidMp3Path(song.MusicFilePath))
+                {
+                    song.MusicFilePath = FileHelper.GetAssetPath(song.MusicFilePath);
+
+                }
 
                 // 验证本地文件
                 if (!File.Exists(song.MusicFilePath))
@@ -127,12 +216,11 @@ namespace Byte_Harmonic.Forms.Controls.BaseControls
                 // 更新下载状态
                 song.Downloaded = true;
                 //songService.UpdateSong(song);
-
-                new MessageForm("下载成功").ShowDialog();
+                new Byte_Harmonic.Forms.MainForms.MessageForm("下载成功").ShowDialog();
             }
             catch (Exception ex)
             {
-                UIMessageBox.ShowError($"下载失败：{ex.Message}");
+                new Byte_Harmonic.Forms.MainForms.MessageForm($"下载失败：{ex.Message}").ShowDialog();
             }
         }
 

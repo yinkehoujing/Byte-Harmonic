@@ -158,6 +158,17 @@ namespace Byte_Harmonic.Database
             return Convert.ToInt32(insertCmd.ExecuteScalar());
         }
 
+        //根据歌曲获取标签
+        public List<int> GetTagsBySongId(int songId)
+        {
+            using var conn = new MySqlConnection(_connectionString);
+            conn.Open();
+
+            const string sql = @"SELECT TagId FROM SongTags WHERE SongId = @songId";
+            var tags = conn.Query<int>(sql, new { songId }).ToList();
+            return tags;
+        }
+
         //往歌曲添加标签
         public void AssignTagToSong(int songId, int tagId)
         {
@@ -332,7 +343,7 @@ namespace Byte_Harmonic.Database
             WHERE Name = @Name;
         ";
 
-            using (var conn = new SqlConnection(_connectionString))
+            using (var conn = new MySqlConnection(_connectionString))
             {
                 conn.Open();
                 // ExecuteScalar 返回第一行第一列的值；>0 则表示存在
@@ -388,7 +399,7 @@ namespace Byte_Harmonic.Database
             const string baseSql = @"SELECT 
             Id,
             Name,
-            Owner,
+            Owner
             FROM Playlists
             WHERE Owner = @account"; 
 
@@ -418,7 +429,7 @@ namespace Byte_Harmonic.Database
             const string baseSql = @"SELECT 
             Id,
             Name,
-            Owner,
+            Owner
             FROM Playlists
             WHERE Id = @songlistId";
 

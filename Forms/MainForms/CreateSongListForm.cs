@@ -21,12 +21,10 @@ namespace Byte_Harmonic.Forms
             var songRepo = new SonglistRepository();
             var userRepo = new UserRepository();
             var userService = new UserService(userRepo);
-            _songlistService = new SonglistService(songRepo, userService);
+            _songlistService =AppContext.songlistService;
 
             // SunnyUI样式配置
             StyleCustomMode = true;
-            Style = UIStyle.Blue;
-            btnConfirm.Style = UIStyle.Blue;
         }
 
 
@@ -40,11 +38,12 @@ namespace Byte_Harmonic.Forms
                 if (string.IsNullOrEmpty(songlistName))
                     throw new ArgumentException("请输入歌单名");
 
-                //if (_songlistService.CheckIfSonglistExists(songlistName))
-                //    throw new ArgumentException("歌单名已存在");
+                if (_songlistService.CheckIfSonglistExists(songlistName))
+                    throw new ArgumentException("歌单名已存在");
 
                 _songlistService.CreateSonglist(songlistName);
                 DialogResult = DialogResult.OK;
+                AppContext.TriggerReloadSideSonglist();
                 Close();
             }
             catch (ArgumentException ex)
@@ -55,7 +54,7 @@ namespace Byte_Harmonic.Forms
             }
             catch (Exception ex)
             {
-                UIMessageBox.ShowError($"创建失败：{ex.Message}");
+                new Byte_Harmonic.Forms.MainForms.MessageForm($"创建失败：{ex.Message}").ShowDialog();
             }
         }
     }

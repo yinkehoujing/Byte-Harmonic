@@ -175,6 +175,20 @@ namespace Byte_Harmonic.Database
             return songs;
         }
 
+        public bool CancelDownload(int songId)
+        {
+            using var connection = new MySqlConnection(connectionString);
+            connection.Open();
+
+            string sql = "UPDATE Songs SET Downloaded = FALSE WHERE Id = @Id";
+            using var cmd = new MySqlCommand(sql, connection);
+            cmd.Parameters.AddWithValue("@Id", songId);
+
+            int affectedRows = cmd.ExecuteNonQuery();
+            return affectedRows > 0;
+        }
+
+
 
 
         public bool UpdateSong(Song song)

@@ -27,7 +27,7 @@ namespace Byte_Harmonic.Forms.FormUtils
             _isStared = initialStaredState;
             if (_isStared)
             {
-                _button.Image = (Image)_resourceManager.GetObject("icons8-christmas-star-100 (2)");
+                _button.Image = (Image)_resourceManager.GetObject("icons8-星-100");
                 _button.ImageHover = (Image)_resourceManager.GetObject("icons8-christmas-star-100 (3)");
             }
             else
@@ -41,8 +41,10 @@ namespace Byte_Harmonic.Forms.FormUtils
         public void StarButtonClick(object sender, EventArgs e)
         {
             _isStared = !_isStared;
-            //TODO更改收藏状态
-            UpdateButtonImage();
+            
+            UpdateButtonImage();//更改显示收藏状态
+
+
         }
 
         // 私有方法：更新按钮图标
@@ -55,7 +57,7 @@ namespace Byte_Harmonic.Forms.FormUtils
             }
             else
             {
-                _button.Image = (Image)_resourceManager.GetObject("icons8-christmas-star-100 (2)");
+                _button.Image = (Image)_resourceManager.GetObject("icons8-星-100");
                 _button.ImageHover = (Image)_resourceManager.GetObject("icons8-christmas-star-100 (3)");
             }
         }

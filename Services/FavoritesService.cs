@@ -31,6 +31,11 @@ namespace Byte_Harmonic.Services
             return await _userRepository.RemoveFavoriteSongAsync(username, songId);
         }
 
+        public bool RemoveFavoriteSong(string username, int songId)
+        {
+            return _userRepository.RemoveFavoriteSong(username, songId);
+        }
+
         // 获取用户收藏的所有歌曲
         public async Task<List<Song>> GetFavoriteSongsAsync(string username)
         {
@@ -42,12 +47,20 @@ namespace Byte_Harmonic.Services
         {
             return await _userRepository.GetFavoriteSongsCountAsync(username);
         }
-
-        // 批量添加收藏歌曲
-        public async Task<bool> AddFavoriteSongsAsync(string username, IEnumerable<int> songIds)
+        //批量收藏
+        public async Task<bool> AddFavoriteSongsAsync(string username, IEnumerable<int> SongIds)
         {
-            return await _userRepository.AddFavoriteSongsAsync(username, songIds);
+            foreach (var songId in SongIds)
+            {
+                if (!await AddFavoriteSongAsync(username, songId))
+                {
+                    // 如果添加失败，返回 false
+                    return false;
+                }
+            }
+            return true;
         }
+
 
         // 清空用户的所有收藏
         public async Task<bool> ClearAllFavoritesAsync(string username)
