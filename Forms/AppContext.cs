@@ -39,7 +39,14 @@ namespace Byte_Harmonic.Forms
         public static event Action<float> VolumeChanged; // 0 - 1 之间
         public static event Action SonglistLoaded; // 更新 panel2
         public static event Action<PlaybackMode> PlaybackModeChanged; // 更新 playbackMode 显示图标
+        public static event Action ReloadSideSonglist;
+        public static event Action ChangeSearchBox;// 更新搜索框是否显示与旁边按钮
+        public static event Func<string, Task> SonglistDetailUpdated; // 更新歌单页详情
+        public static event Action PlaylistUpdated;// 更新播放列表显示
 
+        public static event Action DownloadUpdated;// 更新下载列表显示
+        public static event Action StarUpdated; // 其它页面更新图标，探索页面更新图标
+        public static event Action FavoriteUpdated; // 更新播放页显示
 
 
         // 实际响应，修改 PlaybackService 对象
@@ -58,11 +65,50 @@ namespace Byte_Harmonic.Forms
             NamingStyle = cfg.NamingStyle;
         }
 
+        public static async Task TriggerSonglistDetailUpdated(string songlistName)
+        {
+            Console.WriteLine("TriggerSonglistDetailUpdated");
+
+            if (SonglistDetailUpdated != null)
+            {
+                var handlers = SonglistDetailUpdated.GetInvocationList();
+                foreach (Func<string, Task> handler in handlers)
+                {
+                    await handler.Invoke(songlistName);
+                }
+            }
+        }
+
         public static void TriggerPositionChanged(TimeSpan ts)
         {
             Console.WriteLine("TriggerPositionChanged");
             PositionChanged?.Invoke(ts);
         }
+
+        public static void TriggerPlaylistUpdated()
+        {
+            Console.WriteLine("TriggerPlaylistUpdated");
+            PlaylistUpdated?.Invoke();
+        }
+
+        public static void TriggerDownloadUpdated()
+        {
+            Console.WriteLine("TriggerDownloadUpdated");
+            DownloadUpdated?.Invoke();
+        }
+
+        public static void TriggerFavoriteUpdated()
+        {
+            Console.WriteLine("TriggerFavoriteUpdated");
+            FavoriteUpdated?.Invoke();
+        }
+
+        public static void TriggerReloadSideSonglist()
+        {
+            Console.WriteLine("TriggerReloadSideSonglist");
+            ReloadSideSonglist?.Invoke();
+        }
+
 
         public static void TriggerPlaybackModeChanged(PlaybackMode playbackMode)
         {
@@ -70,8 +116,10 @@ namespace Byte_Harmonic.Forms
             PlaybackModeChanged?.Invoke(playbackMode);
         }
 
-
-
+        public static void TriggerSearchBoxChange()
+        {
+            ChangeSearchBox?.Invoke();
+        }
 
         public static void TriggerVolumeChanged(float volumeValue)
         {
@@ -154,9 +202,11 @@ namespace Byte_Harmonic.Forms
         {
             TimerHelper.SetupTimer(ref _timer, 500, (s, e) =>
             {
+                // 刚好关中断时响应
                 if (AppContext._playbackService.GetCurrentSong() == null)
                 {
-                    throw new ArgumentNullException(nameof(AppContext._playbackService));
+                    Console.WriteLine("currentsong is null");
+                    //throw new ArgumentNullException(nameof(AppContext._playbackService));
                 }
                 var lyricsLine = AppContext._playbackService.GetCurrentLyricsLine()?.Text ?? "[No Lyrics]";
                 var position = AppContext._playbackService.GetCurrentPosition();
@@ -223,7 +273,7 @@ namespace Byte_Harmonic.Forms
             Console.WriteLine("begin to Toggle PlayPause");
             if (AppContext._playbackService.GetCurrentSong() == null || AppContext._playbackService.GetCurrentSong().Id != song.Id)
             {
-                AppContext._playbackService.PlaySong(song); 
+                AppContext._playbackService.PlaySong(song);
                 StartTimer(); // 没有对应地暂停 log_timer, 重新计时
                 TriggerShowPlayingBtn(true);
             }
@@ -245,14 +295,10 @@ namespace Byte_Harmonic.Forms
             }
         }
 
-        internal static void TriggerVolumeChanged(object getVolume)
-        {
-            throw new NotImplementedException();
-        }
 
-        internal static void TriggerReloadSideSonglist()
+        public static void TriggerStarUpdated()
         {
-            throw new NotImplementedException();
+            StarUpdated?.Invoke();
         }
     }
 }
